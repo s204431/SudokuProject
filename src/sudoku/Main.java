@@ -1,6 +1,6 @@
 package sudoku;
 
-public class Main { //Magnus
+public class Main {
 	public static void main(String[] args) {
 		Model model = new Model(3);
 		View view = new View(model);
@@ -12,4 +12,3 @@ public class Main { //Magnus
 		model.setField(3, 8, new Field(3, true));
 	}
 }
-//test 2
