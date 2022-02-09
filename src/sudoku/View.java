@@ -40,12 +40,13 @@ public class View extends JScrollPane implements MouseListener {
         Color white = Color.WHITE;
         Color lightGray = Color.LIGHT_GRAY;
         Color gray = Color.GRAY;
+        int iss = model.innerSquareSize;
         for (int i = 0; i < model.getBoardSize(); i++) {
             for (int j = 0; j < model.getBoardSize(); j++) {
                 Field field = model.board[i][j];
                 if (clicked[0] == i && clicked[1] == j) {
                     g2.setColor(gray);
-                } else if (clicked[0] == i || clicked[1] == j || (clicked[0]/3 == i/3 && clicked[1]/3 == j/3)) {
+                } else if (clicked[0] == i || clicked[1] == j || (clicked[0]/iss == i/iss && clicked[1]/iss == j/iss)) {
                     g2.setColor(lightGray);
                 } else {
                     g2.setColor(white);
@@ -54,13 +55,13 @@ public class View extends JScrollPane implements MouseListener {
                 g2.setColor(black);
                 g2.drawRect(model.boardY + j * Field.WIDTH, model.boardX + i * Field.HEIGHT, Field.WIDTH, Field.HEIGHT);
                 g2.setFont(new Font("TimesRoman", Font.BOLD, 30));
-                g2.drawString("9", model.boardY + j * Field.WIDTH + Field.WIDTH/2, model.boardX + i * Field.HEIGHT + Field.HEIGHT/2);
+                int value = model.board[i][j].value;
+                g2.drawString(value > 0 && value < model.getBoardSize() ? ""+value : "", model.boardY + j * Field.WIDTH + Field.WIDTH/2, model.boardX + i * Field.HEIGHT + Field.HEIGHT/2);
             }
         }
 
         // Draw thick lines
         Stroke oldStroke = g2.getStroke();
-        int iss = model.innerSquareSize;
         for (int i = 0; i < iss; i++) {
             for (int j = 0; j < iss; j++) {
                 g2.setColor(black);
@@ -75,8 +76,6 @@ public class View extends JScrollPane implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         clicked = new int[]{e.getY()/Field.HEIGHT, e.getX()/Field.WIDTH};
         repaint();
-
-        System.out.println(e.getY()/Field.HEIGHT + " " + e.getX()/Field.WIDTH);
     }
 
     @Override
