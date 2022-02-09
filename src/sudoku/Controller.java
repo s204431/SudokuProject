@@ -7,4 +7,7 @@ public class Controller {
 		this.model = model;
 	}
 
+	public void mouseClicked(int x, int y) {
+
+	}
 }
