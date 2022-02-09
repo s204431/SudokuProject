@@ -10,7 +10,7 @@ public class View extends JScrollPane implements MouseListener {
 	private Model model;
 	private Controller controller;
 
-    private Field fieldClicked;
+    private int[] clicked = new int[]{0,0};
 	
     public View(Model model) {
     	this.model = model;
@@ -37,17 +37,24 @@ public class View extends JScrollPane implements MouseListener {
 
         // Draw fields and numbers
         Color black = Color.BLACK;
+        Color white = Color.WHITE;
         Color lightGray = Color.LIGHT_GRAY;
         Color gray = Color.GRAY;
         for (int i = 0; i < model.getBoardSize(); i++) {
             for (int j = 0; j < model.getBoardSize(); j++) {
                 Field field = model.board[i][j];
-                g2.setColor(lightGray);
-                g2.fillRect(model.boardX + i * Field.HEIGHT, model.boardY + j * Field.WIDTH, Field.WIDTH, Field.HEIGHT);
+                if (clicked[0] == i && clicked[1] == j) {
+                    g2.setColor(gray);
+                } else if (clicked[0] == i || clicked[1] == j || (clicked[0]/3 == i/3 && clicked[1]/3 == j/3)) {
+                    g2.setColor(lightGray);
+                } else {
+                    g2.setColor(white);
+                }
+                g2.fillRect(model.boardY + j * Field.WIDTH, model.boardX + i * Field.HEIGHT, Field.WIDTH, Field.HEIGHT);
                 g2.setColor(black);
-                g2.drawRect(model.boardX + i * Field.HEIGHT, model.boardY + j * Field.WIDTH, Field.WIDTH, Field.HEIGHT);
+                g2.drawRect(model.boardY + j * Field.WIDTH, model.boardX + i * Field.HEIGHT, Field.WIDTH, Field.HEIGHT);
                 g2.setFont(new Font("TimesRoman", Font.BOLD, 30));
-                g2.drawString("9", model.boardX + i * Field.HEIGHT + Field.HEIGHT/2, model.boardY + j * Field.WIDTH + Field.WIDTH/2);
+                g2.drawString("9", model.boardY + j * Field.WIDTH + Field.WIDTH/2, model.boardX + i * Field.HEIGHT + Field.HEIGHT/2);
             }
         }
 
@@ -66,9 +73,8 @@ public class View extends JScrollPane implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        //fieldClicked.setClicked(false);
-        //fieldClicked = model.board[e.getY()/Field.HEIGHT][e.getX()/Field.WIDTH];
-        //fieldClicked.setClicked(true);
+        clicked = new int[]{e.getY()/Field.HEIGHT, e.getX()/Field.WIDTH};
+        repaint();
 
         System.out.println(e.getY()/Field.HEIGHT + " " + e.getX()/Field.WIDTH);
     }
