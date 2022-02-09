@@ -4,8 +4,8 @@ public class Model {
 	private View view;
 	public Field[][] board;
 	public int innerSquareSize; //Width/height an inner square.
-	public int boardX; //x coordinate for top left corner.
-	public int boardY; //y coordinate for top left corner.
+	public int boardX = 0; //x coordinate for top left corner.
+	public int boardY = 0; //y coordinate for top left corner.
 	
 	public Model(int innerSquareSize) {
 		this.innerSquareSize = innerSquareSize;

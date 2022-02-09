@@ -10,7 +10,7 @@ public class View extends JPanel {
 	
     public View(Model model) {
     	this.model = model;
-        setPreferredSize(new Dimension(Field.HEIGHT * 9, Field.WIDTH * 9));
+        setPreferredSize(new Dimension(630, 630));
 
         // Create frame
         JFrame frame = new JFrame("Sudoku");
@@ -37,9 +37,9 @@ public class View extends JPanel {
             for (int j = 0; j < model.getBoardSize(); j++) {
                 Field field = model.board[i][j];
                 g2.setColor(lightGray);
-                g2.fillRect(i * Field.HEIGHT, j * Field.WIDTH, Field.WIDTH, Field.HEIGHT);
+                g2.fillRect(model.boardX + i * Field.HEIGHT, model.boardY + j * Field.WIDTH, Field.WIDTH, Field.HEIGHT);
                 g2.setColor(black);
-                g2.drawRect(i * Field.HEIGHT, j * Field.WIDTH, Field.WIDTH, Field.HEIGHT);
+                g2.drawRect(model.boardX + i * Field.HEIGHT, model.boardY + j * Field.WIDTH, Field.WIDTH, Field.HEIGHT);
             }
         }
 
@@ -50,7 +50,7 @@ public class View extends JPanel {
             for (int j = 0; j < iss; j++) {
                 g.setColor(black);
                 g2.setStroke(new BasicStroke(5));
-                g.drawRect(i * Field.HEIGHT * iss, j * Field.WIDTH * iss, Field.WIDTH*iss, Field.HEIGHT*iss);
+                g.drawRect(model.boardX + i * Field.HEIGHT * iss, model.boardY + j * Field.WIDTH * iss, Field.WIDTH*iss, Field.HEIGHT*iss);
             }
         }
         g2.setStroke(oldStroke);
