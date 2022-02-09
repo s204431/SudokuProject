@@ -1,6 +1,6 @@
 package sudoku;
 
-public class Main {
+public class Main { //Magnus
 	public static void main(String[] args) {
 		Model model = new Model(3);
 		View view = new View(model);
