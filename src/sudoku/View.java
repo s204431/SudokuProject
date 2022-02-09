@@ -56,7 +56,9 @@ public class View extends JScrollPane implements MouseListener {
                 g2.drawRect(model.boardY + j * Field.WIDTH, model.boardX + i * Field.HEIGHT, Field.WIDTH, Field.HEIGHT);
                 g2.setFont(new Font("TimesRoman", Font.BOLD, 30));
                 int value = model.board[i][j].value;
-                g2.drawString(value > 0 && value < model.getBoardSize() ? ""+value : "", model.boardY + j * Field.WIDTH + Field.WIDTH/2, model.boardX + i * Field.HEIGHT + Field.HEIGHT/2);
+                if (value > 0 && value < model.getBoardSize()) {
+                	g2.drawString(""+value, model.boardY + j * Field.WIDTH + Field.WIDTH/2, model.boardX + i * Field.HEIGHT + Field.HEIGHT/2);	
+                }
             }
         }
 
