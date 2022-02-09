@@ -1,8 +1,8 @@
 package sudoku;
 
 public class Field {
-	public static final int WIDTH = 100;
-	public static final int HEIGHT = 100;
+	public static final int WIDTH = 70;
+	public static final int HEIGHT = 70;
 	public int value = -1;
 	public boolean interactable = true;
 	
