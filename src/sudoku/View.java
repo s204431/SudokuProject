@@ -1,7 +1,6 @@
 package sudoku;
 
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 public class View extends JPanel {
@@ -21,7 +20,7 @@ public class View extends JPanel {
     public void paint(Graphics g) {
         super.paint(g);
 
-        Graphics2D g2;
+        Graphics2D g2 = (Graphics2D) g;
 
         //draw fields
         Color black = Color.BLACK;
@@ -35,6 +34,16 @@ public class View extends JPanel {
                 g.drawRect(i * Field.HEIGHT, j * Field.WIDTH, Field.WIDTH, Field.HEIGHT);
             }
         }
-        
+
+        // draw thick lines
+        Stroke oldStroke = g2.getStroke();
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                g.setColor(black);
+                g2.setStroke(new BasicStroke(5));
+                g.drawRect(i * Field.HEIGHT * 3, j * Field.WIDTH * 3, Field.WIDTH*3, Field.HEIGHT*3);
+            }
+        }
+        g2.setStroke(oldStroke);
     }
 }
