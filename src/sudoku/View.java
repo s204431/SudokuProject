@@ -11,6 +11,8 @@ public class View extends JPanel implements MouseListener, KeyListener {
 
 	private Model model;
 	private Controller controller;
+	public int boardX = 0; //x coordinate for top left corner.
+	public int boardY = 0; //y coordinate for top left corner.
 
     private int[] clickedPosition = new int[]{0,0};
 	
@@ -55,13 +57,13 @@ public class View extends JPanel implements MouseListener, KeyListener {
                 } else {
                     g2.setColor(white);
                 }
-                g2.fillRect(model.boardY + j * Field.WIDTH, model.boardX + i * Field.HEIGHT, Field.WIDTH, Field.HEIGHT);
+                g2.fillRect(boardY + j * Field.WIDTH, boardX + i * Field.HEIGHT, Field.WIDTH, Field.HEIGHT);
                 g2.setColor(black);
-                g2.drawRect(model.boardY + j * Field.WIDTH, model.boardX + i * Field.HEIGHT, Field.WIDTH, Field.HEIGHT);
+                g2.drawRect(boardY + j * Field.WIDTH, boardX + i * Field.HEIGHT, Field.WIDTH, Field.HEIGHT);
                 g2.setFont(new Font("TimesRoman", Font.BOLD, 30));
                 int value = model.board[i][j].value;
                 if (value > 0 && value <= model.getBoardSize()) {
-                	g2.drawString(""+value, model.boardY + j * Field.WIDTH + Field.WIDTH/2, model.boardX + i * Field.HEIGHT + Field.HEIGHT/2);	
+                	g2.drawString(""+value, boardY + j * Field.WIDTH + Field.WIDTH/2, boardX + i * Field.HEIGHT + Field.HEIGHT/2);	
                 }
             }
         }
@@ -72,7 +74,7 @@ public class View extends JPanel implements MouseListener, KeyListener {
             for (int j = 0; j < iss; j++) {
                 g2.setColor(black);
                 g2.setStroke(new BasicStroke(3));
-                g2.drawRect(model.boardX + i * Field.HEIGHT * iss, model.boardY + j * Field.WIDTH * iss, Field.WIDTH*iss, Field.HEIGHT*iss);
+                g2.drawRect(boardX + i * Field.HEIGHT * iss, boardY + j * Field.WIDTH * iss, Field.WIDTH*iss, Field.HEIGHT*iss);
             }
         }
         g2.setStroke(oldStroke);
