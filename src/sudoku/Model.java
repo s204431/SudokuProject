@@ -27,6 +27,12 @@ public class Model {
 	
 	public void setField(int x, int y, Field field) {
 		board[x][y] = field;
+		view.repaint();
+	}
+	
+	public void setField(int x, int y, int value) {
+		board[x][y].value = value;
+		view.repaint();
 	}
 	
 	public boolean sudokuSolved() {

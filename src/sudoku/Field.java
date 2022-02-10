@@ -3,7 +3,7 @@ package sudoku;
 public class Field {
 	public static final int WIDTH = 70;
 	public static final int HEIGHT = 70;
-	public int value = -1;
+	public int value = 0;
 	public boolean interactable = true;
 	public boolean clicked;
 	public boolean highlighted;

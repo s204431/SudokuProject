@@ -2,15 +2,17 @@ package sudoku;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class View extends JScrollPane implements MouseListener {
+public class View extends JPanel implements MouseListener, KeyListener {
 
 	private Model model;
 	private Controller controller;
 
-    private int[] clicked = new int[]{0,0};
+    private int[] clickedPosition = new int[]{0,0};
 	
     public View(Model model) {
     	this.model = model;
@@ -22,8 +24,10 @@ public class View extends JScrollPane implements MouseListener {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-
+        
+        setFocusable(true);
         addMouseListener(this);
+        addKeyListener(this);
     }
     
     public void setController(Controller controller) {
@@ -44,9 +48,9 @@ public class View extends JScrollPane implements MouseListener {
         for (int i = 0; i < model.getBoardSize(); i++) {
             for (int j = 0; j < model.getBoardSize(); j++) {
                 Field field = model.board[i][j];
-                if (clicked[0] == i && clicked[1] == j) {
+                if (clickedPosition[0] == i && clickedPosition[1] == j) {
                     g2.setColor(gray);
-                } else if (clicked[0] == i || clicked[1] == j || (clicked[0]/iss == i/iss && clicked[1]/iss == j/iss)) {
+                } else if (clickedPosition[0] == i || clickedPosition[1] == j || (clickedPosition[0]/iss == i/iss && clickedPosition[1]/iss == j/iss)) {
                     g2.setColor(lightGray);
                 } else {
                     g2.setColor(white);
@@ -56,7 +60,7 @@ public class View extends JScrollPane implements MouseListener {
                 g2.drawRect(model.boardY + j * Field.WIDTH, model.boardX + i * Field.HEIGHT, Field.WIDTH, Field.HEIGHT);
                 g2.setFont(new Font("TimesRoman", Font.BOLD, 30));
                 int value = model.board[i][j].value;
-                if (value > 0 && value < model.getBoardSize()) {
+                if (value > 0 && value <= model.getBoardSize()) {
                 	g2.drawString(""+value, model.boardY + j * Field.WIDTH + Field.WIDTH/2, model.boardX + i * Field.HEIGHT + Field.HEIGHT/2);	
                 }
             }
@@ -76,7 +80,7 @@ public class View extends JScrollPane implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        clicked = new int[]{e.getY()/Field.HEIGHT, e.getX()/Field.WIDTH};
+        clickedPosition = new int[]{e.getY()/Field.HEIGHT, e.getX()/Field.WIDTH};
         repaint();
     }
 
@@ -99,4 +103,17 @@ public class View extends JScrollPane implements MouseListener {
     public void mouseExited(MouseEvent e) {
 
     }
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		controller.keyTyped(e, clickedPosition);
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+	}
 }
