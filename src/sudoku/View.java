@@ -113,9 +113,11 @@ public class View extends JPanel implements MouseListener, KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+		
 	}
 }
