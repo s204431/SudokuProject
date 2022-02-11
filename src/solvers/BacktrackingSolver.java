@@ -15,9 +15,12 @@ public class BacktrackingSolver extends SudokuSolver {
 	}
 
 	public List<int[][]> solve(int maxSolutions) {
-		solutionsFound = 0;
 		System.out.println("Solving");
-		solveRecursive(0, 0, maxSolutions);
+		solutionsFound = 0;
+		solutions = new ArrayList<>();
+		if (isValidSudoku()) {
+			solveRecursive(0, 0, maxSolutions);
+		}
 		System.out.println("Done");
 		return solutions;
 	}

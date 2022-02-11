@@ -41,7 +41,7 @@ public abstract class SudokuSolver {
 	
 	protected boolean canBePlaced(int x, int y, int value) {
 		for (int i = 0; i < board.length; i++) {
-			if (board[x][i] == value || board[i][y] == value) {
+			if ((i != y && board[x][i] == value) || (i != x && board[i][y] == value)) {
 				return false;
 			}
 		}
@@ -49,6 +49,17 @@ public abstract class SudokuSolver {
 		for (int i = x/innerSquareSize*innerSquareSize; i < x/innerSquareSize*innerSquareSize+innerSquareSize; i++) {
 			for (int j = y/innerSquareSize*innerSquareSize; j < y/innerSquareSize*innerSquareSize+innerSquareSize; j++) {
 				if ((i != x || j != y) && board[i][j] == value) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	
+	protected boolean isValidSudoku() {
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board.length; j++) {
+				if (board[i][j] != 0 && !canBePlaced(i, j, board[i][j])) {
 					return false;
 				}
 			}
