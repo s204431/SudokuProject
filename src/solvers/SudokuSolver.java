@@ -1,15 +1,15 @@
 package solvers;
 
-import java.util.Arrays;
 import java.util.List;
 
 import sudoku.Field;
 import sudoku.Model;
 
-public class SudokuSolver {
+public abstract class SudokuSolver {
 	
 	protected int[][] board;
 	protected Model model;
+	protected int solutionsFound;
 	
 	public SudokuSolver(Field[][] board, Model model) {
 		this.board = new int[board.length][board[0].length];
@@ -21,11 +21,25 @@ public class SudokuSolver {
 		}
 	}
 	
+	//Finds all solutions.
 	public List<int[][]> solve() {
+		return solve(Integer.MAX_VALUE);
+	}
+	
+	//Finds at most maxSolutions different solutions.
+	public List<int[][]> solve(int maxSolutions) {
 		return null;
 	}
 	
-	public boolean canBePlaced(int x, int y, int value) {
+	public boolean isSolvable() {
+		return solve(1).size() > 0;
+	}
+	
+	public boolean hasUniqueSolution() {
+		return solve(2).size() == 1;
+	}
+	
+	protected boolean canBePlaced(int x, int y, int value) {
 		for (int i = 0; i < board.length; i++) {
 			if (board[x][i] == value || board[i][y] == value) {
 				return false;

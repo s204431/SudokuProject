@@ -87,7 +87,11 @@ public class Model {
 	}
 	
 	public void solve() {
-		List<int[][]> results = new BacktrackingSolver(board, this).solve();
+		solve(Integer.MAX_VALUE);
+	}
+	
+	public void solve(int maxSolutions) {
+		List<int[][]> results = new BacktrackingSolver(board, this).solve(maxSolutions);
 		System.out.println("Found "+results.size()+" solutions.");
 		if (results.size() > 0) {
 			for (int i = 0; i < board.length; i++) {
