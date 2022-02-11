@@ -2,6 +2,8 @@ package sudoku;
 
 import java.awt.event.KeyEvent;
 
+import solvers.BacktrackingSolver;
+
 public class Controller {
 	private Model model;
 	
@@ -10,6 +12,9 @@ public class Controller {
 	}
 	
 	public void keyTyped(KeyEvent e, int[] selectedFieldPosition) {
+		if (e.getKeyChar() == 's') {
+			model.solve();
+		}
 		if (!model.board[selectedFieldPosition[0]][selectedFieldPosition[1]].interactable) {
 			return;
 		}
