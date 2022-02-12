@@ -49,7 +49,7 @@ public class Model {
 		view.repaint();
 	}
 	
-	//Checks if the current sudoku is solved.
+	//Checks if the current sudoku is solved. Takes a 2D integer array.
 	public boolean sudokuSolved(int[][] board) {
 		Field[][] toBeSolved = new Field[board.length][board[0].length];
 		for (int i = 0; i < board.length; i++) {
