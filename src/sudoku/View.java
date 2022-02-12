@@ -6,8 +6,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 
-public class View extends JPanel implements MouseListener, KeyListener {
+public class View extends JPanel implements MouseListener, KeyListener, MouseWheelListener {
 
 	private Model model;
 	private Controller controller;
@@ -33,6 +35,7 @@ public class View extends JPanel implements MouseListener, KeyListener {
         requestFocus();
         addMouseListener(this);
         addKeyListener(this);
+        addMouseWheelListener(this);
         (new Thread(new BoardDragger())).start();
     }
     
@@ -61,13 +64,13 @@ public class View extends JPanel implements MouseListener, KeyListener {
                 } else {
                     g2.setColor(white);
                 }
-                g2.fillRect(boardX + i * Field.HEIGHT, boardY + j * Field.WIDTH, Field.WIDTH, Field.HEIGHT);
+                g2.fillRect(boardX + i * Field.height, boardY + j * Field.width, Field.width, Field.height);
                 g2.setColor(black);
-                g2.drawRect(boardX + i * Field.HEIGHT, boardY + j * Field.WIDTH, Field.WIDTH, Field.HEIGHT);
-                g2.setFont(new Font("TimesRoman", Font.BOLD, 30));
+                g2.drawRect(boardX + i * Field.height, boardY + j * Field.width, Field.width, Field.height);
+                g2.setFont(new Font("TimesRoman", Font.BOLD, 30*Field.width/Field.DEFAULT_WIDTH));
                 int value = model.board[i][j].value;
                 if (value > 0 && value <= model.getBoardSize()) {
-                	g2.drawString(""+value, boardX + i * Field.HEIGHT + Field.HEIGHT/2, boardY + j * Field.WIDTH + Field.WIDTH/2);
+                	g2.drawString(""+value, boardX + i * Field.height + Field.height/2, boardY + j * Field.width + Field.width/2);
                 }
             }
         }
@@ -78,7 +81,7 @@ public class View extends JPanel implements MouseListener, KeyListener {
             for (int j = 0; j < iss; j++) {
                 g2.setColor(black);
                 g2.setStroke(new BasicStroke(3));
-                g2.drawRect(boardX + i * Field.HEIGHT * iss, boardY + j * Field.WIDTH * iss, Field.WIDTH*iss, Field.HEIGHT*iss);
+                g2.drawRect(boardX + i * Field.height * iss, boardY + j * Field.width * iss, Field.width*iss, Field.height*iss);
             }
         }
         g2.setStroke(oldStroke);
@@ -86,9 +89,10 @@ public class View extends JPanel implements MouseListener, KeyListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-    	if (e.getX() >= boardX && e.getY() >= boardY && e.getX() <= boardX+model.getBoardSize()*Field.WIDTH && e.getY() <= boardY+model.getBoardSize()*Field.HEIGHT)
-        clickedPosition = new int[]{(e.getX()-boardX)/Field.WIDTH, (e.getY()-boardY)/Field.HEIGHT};
-        repaint();
+    	if (e.getButton() == MouseEvent.BUTTON1 && e.getX() >= boardX && e.getY() >= boardY && e.getX() <= boardX+model.getBoardSize()*Field.width && e.getY() <= boardY+model.getBoardSize()*Field.height) {
+            clickedPosition = new int[]{(e.getX()-boardX)/Field.width, (e.getY()-boardY)/Field.height};
+            repaint();	
+    	}
     }
 
     @Override
@@ -115,7 +119,16 @@ public class View extends JPanel implements MouseListener, KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		controller.keyTyped(e, clickedPosition);
+		if (e.getKeyChar() == KeyEvent.VK_SPACE) {
+			boardX = 0;
+			boardY = 0;
+			Field.width = Field.DEFAULT_WIDTH;
+			Field.height = Field.DEFAULT_HEIGHT;
+			repaint();
+		}
+		else {
+			controller.keyTyped(e, clickedPosition);	
+		}
 	}
 
 	@Override
@@ -126,6 +139,17 @@ public class View extends JPanel implements MouseListener, KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		
+	}
+
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		if (e.getWheelRotation() < 0 || (Field.width > 20 && Field.height > 20)) {
+			int w = e.getWheelRotation()*Field.width/20;
+			int h = e.getWheelRotation()*Field.height/20;
+			Field.width -= w == 0 ? e.getWheelRotation() : w;
+			Field.height -= h == 0 ? e.getWheelRotation() : h;
+			repaint();	
+		}
 	}
 	
 	private class BoardDragger implements Runnable {
