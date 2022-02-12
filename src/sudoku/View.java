@@ -13,8 +13,10 @@ public class View extends JPanel implements MouseListener, KeyListener {
 	private Controller controller;
 	public int boardX = 0; //x coordinate for top left corner.
 	public int boardY = 0; //y coordinate for top left corner.
+	private boolean dragging = false;
+	private int[] mouseBoardVector = new int[] {0, 0};
 
-    private int[] clickedPosition = new int[]{0,0};
+    private int[] clickedPosition = new int[] {0, 0};
 	
     public View(Model model) {
     	this.model = model;
@@ -28,8 +30,10 @@ public class View extends JPanel implements MouseListener, KeyListener {
         frame.setVisible(true);
         
         setFocusable(true);
+        requestFocus();
         addMouseListener(this);
         addKeyListener(this);
+        (new Thread(new BoardDragger())).start();
     }
     
     public void setController(Controller controller) {
@@ -57,13 +61,13 @@ public class View extends JPanel implements MouseListener, KeyListener {
                 } else {
                     g2.setColor(white);
                 }
-                g2.fillRect(boardY + j * Field.WIDTH, boardX + i * Field.HEIGHT, Field.WIDTH, Field.HEIGHT);
+                g2.fillRect(boardX + i * Field.HEIGHT, boardY + j * Field.WIDTH, Field.WIDTH, Field.HEIGHT);
                 g2.setColor(black);
-                g2.drawRect(boardY + j * Field.WIDTH, boardX + i * Field.HEIGHT, Field.WIDTH, Field.HEIGHT);
+                g2.drawRect(boardX + i * Field.HEIGHT, boardY + j * Field.WIDTH, Field.WIDTH, Field.HEIGHT);
                 g2.setFont(new Font("TimesRoman", Font.BOLD, 30));
                 int value = model.board[i][j].value;
                 if (value > 0 && value <= model.getBoardSize()) {
-                	g2.drawString(""+value, boardY + j * Field.WIDTH + Field.WIDTH/2, boardX + i * Field.HEIGHT + Field.HEIGHT/2);	
+                	g2.drawString(""+value, boardX + i * Field.HEIGHT + Field.HEIGHT/2, boardY + j * Field.WIDTH + Field.WIDTH/2);
                 }
             }
         }
@@ -82,18 +86,21 @@ public class View extends JPanel implements MouseListener, KeyListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        clickedPosition = new int[]{e.getY()/Field.HEIGHT, e.getX()/Field.WIDTH};
+    	if (e.getX() >= boardX && e.getY() >= boardY && e.getX() <= boardX+model.getBoardSize()*Field.WIDTH && e.getY() <= boardY+model.getBoardSize()*Field.HEIGHT)
+        clickedPosition = new int[]{(e.getX()-boardX)/Field.WIDTH, (e.getY()-boardY)/Field.HEIGHT};
         repaint();
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+    	Point mousePos = getMousePosition();
+    	mouseBoardVector = new int[] {boardX-mousePos.x, boardY-mousePos.y};
+    	dragging = true;
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+    	dragging = false;
     }
 
     @Override
@@ -103,7 +110,7 @@ public class View extends JPanel implements MouseListener, KeyListener {
 
     @Override
     public void mouseExited(MouseEvent e) {
-
+    	dragging = false;
     }
 
 	@Override
@@ -120,4 +127,25 @@ public class View extends JPanel implements MouseListener, KeyListener {
 	public void keyReleased(KeyEvent e) {
 		
 	}
+	
+	private class BoardDragger implements Runnable {
+		@Override
+		public void run() {
+			while (true) {
+				if (dragging) {
+					Point mousePos = getMousePosition();
+					boardX = mousePos.x+mouseBoardVector[0];
+					boardY = mousePos.y+mouseBoardVector[1];
+					repaint();
+				}
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+	}
+	
 }
