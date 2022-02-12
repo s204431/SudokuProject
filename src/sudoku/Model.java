@@ -60,6 +60,7 @@ public class Model {
 		return sudokuSolved(toBeSolved);
 	}
 	
+	//Checks if the current sudoku is solved. Takes a 2D field array.
 	public boolean sudokuSolved(Field[][] board) {
 		int boardSize = getBoardSize();
 		boolean[][] foundColumn = new boolean[boardSize][boardSize];
