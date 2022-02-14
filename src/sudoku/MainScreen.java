@@ -1,14 +1,11 @@
 package sudoku;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.util.Scanner;
 
 
-public class MainScreen extends JScrollPane implements MouseListener{
+public class MainScreen extends JPanel implements MouseListener{
     private Font titleFont = new Font(Font.SERIF, Font.PLAIN,100);
     private String title = "Sudoku";
     private int btnSize = 100;
@@ -18,23 +15,44 @@ public class MainScreen extends JScrollPane implements MouseListener{
     public MainScreen () {
 
         JFrame frame = new JFrame(title);
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(this);
 
-        frame.setLocationRelativeTo(null);
-        JPanel btnCenter = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JButton playBtn = new JButton("Play");
+        //frame.setLocationRelativeTo(null);
 
+
+        JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+        JLabel titleString = new JLabel("Main menu");
+        titleString.setSize(700,700);
+        //titleString.setSize(new Dimension(500,500));
+        centerPanel.add(titleString);
+
+
+        JButton playBtn = new JButton("Play");
         playBtn.setSize(new Dimension(500,500));
-        playBtn.setAlignmentX(100);
-        playBtn.setAlignmentY(100);
-        btnCenter.add(playBtn);
+        centerPanel.add(playBtn);
+
+        frame.add(centerPanel);
+        frame.setPreferredSize(new Dimension(1600,800));
+
+        frame.pack();
+
+
+
+
+
+
+
 
         setUpMenuBar(frame);
 
-        frame.add(btnCenter);
-        frame.pack();
-        frame.setSize(1900,900);
+        //frame.pack();
+
+        //frame.pack();
+        //frame.setSize(1600,800);
         frame.setVisible(true);
 
 
@@ -92,8 +110,6 @@ public class MainScreen extends JScrollPane implements MouseListener{
 
 
     }
-
-
 
     static class exitAction implements ActionListener {
         public void actionPerformed (ActionEvent e){

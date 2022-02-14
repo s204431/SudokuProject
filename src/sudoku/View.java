@@ -17,7 +17,6 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 	public int boardY = 0; //y coordinate for top left corner.
 	private boolean dragging = false;
 	private int[] mouseBoardVector = new int[] {0, 0};
-
     private int[] clickedPosition = new int[] {0, 0};
 	
     public View(Model model) {
