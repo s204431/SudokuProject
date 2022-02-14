@@ -9,16 +9,18 @@ public class MainScreen extends JPanel implements MouseListener{
     private Font titleFont = new Font(Font.SERIF, Font.PLAIN,100);
     private String title = "Sudoku";
     private int btnSize = 100;
+    private int textSize = 200;
     private int spacing = 50;
-    protected JTextField kText;
-    protected JTextField nText;
+    private JTextField kText;
+    private JTextField nText;
     private int k;
     private int n;
     JFrame frame;
+    private boolean isInMainScreen;
 
 
     public MainScreen () {
-
+        isInMainScreen = true;
         frame = new JFrame(title);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,17 +44,17 @@ public class MainScreen extends JPanel implements MouseListener{
         playBtn.addActionListener(new playAction());
         leftBoxPanel.add(playBtn);
 
-
-
         frame.setPreferredSize(new Dimension(1600,800));
 
         kText = new JTextField("Enter k here: ");
-        kText.setPreferredSize(new Dimension(btnSize,btnSize));
+        kText.setPreferredSize(new Dimension(textSize,textSize));
+        kText.setMaximumSize(new Dimension(textSize,textSize));
         frame.add(kText);
         leftBoxPanel.add(kText);
 
         nText = new JTextField("Enter n here: ");
-        nText.setPreferredSize(new Dimension(btnSize,btnSize));
+        nText.setPreferredSize(new Dimension(textSize,textSize));
+        nText.setMaximumSize(new Dimension(textSize,textSize));
 
         frame.add(nText);
         leftBoxPanel.add(nText);
@@ -119,6 +121,7 @@ public class MainScreen extends JPanel implements MouseListener{
             n = Integer.parseInt(nText.getText());
             k = Integer.parseInt(kText.getText());
             frame.setVisible(false);
+            isInMainScreen = false;
         }
     }
 
