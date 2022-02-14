@@ -94,13 +94,16 @@ public class Model {
 	
 	public void solve(int maxSolutions) {
 		List<int[][]> results = new BacktrackingSolver(board, this).solve(maxSolutions);
-		System.out.println("Found "+results.size()+" solutions.");
+		System.out.println("Found " + results.size() + " solutions.");
 		if (results.size() > 0) {
 			for (int i = 0; i < board.length; i++) {
 				for (int j = 0; j < board[0].length; j++) {
 					setField(i, j, results.get(0)[i][j]);
 				}
-			}	
+			}
 		}
+	}
+	public int getInnerSquareSize(){
+		return innerSquareSize;
 	}
 }
