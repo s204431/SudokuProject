@@ -10,57 +10,61 @@ public class MainScreen extends JPanel implements MouseListener{
     private String title = "Sudoku";
     private int btnSize = 100;
     private int spacing = 50;
+    protected JTextField kText;
+    protected JTextField nText;
+    private int k;
+    private int n;
+    JFrame frame;
 
 
     public MainScreen () {
 
-        JFrame frame = new JFrame(title);
+        frame = new JFrame(title);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(this);
 
         //frame.setLocationRelativeTo(null);
+        JPanel leftBoxPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
+        leftBoxPanel.setLayout(new BoxLayout(leftBoxPanel, BoxLayout.Y_AXIS));
 
-        JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-
-        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
         JLabel titleString = new JLabel("Main menu");
-        titleString.setSize(700,700);
+        titleString.setFont(new Font("Serif", Font.BOLD,40));
+        titleString.setPreferredSize(new Dimension(300,200));
+        titleString.setMinimumSize(new Dimension(300,200));
         //titleString.setSize(new Dimension(500,500));
-        centerPanel.add(titleString);
+        leftBoxPanel.add(titleString);
 
 
         JButton playBtn = new JButton("Play");
-        playBtn.setSize(new Dimension(500,500));
-        centerPanel.add(playBtn);
+        playBtn.setPreferredSize(new Dimension(btnSize,btnSize));
+        playBtn.addActionListener(new playAction());
+        leftBoxPanel.add(playBtn);
 
-        frame.add(centerPanel);
+
+
         frame.setPreferredSize(new Dimension(1600,800));
+
+        kText = new JTextField("Enter k here: ");
+        kText.setPreferredSize(new Dimension(btnSize,btnSize));
+        frame.add(kText);
+        leftBoxPanel.add(kText);
+
+        nText = new JTextField("Enter n here: ");
+        nText.setPreferredSize(new Dimension(btnSize,btnSize));
+
+        frame.add(nText);
+        leftBoxPanel.add(nText);
+
+        frame.add(leftBoxPanel);
 
         frame.pack();
 
-
-
-
-
-
-
-
         setUpMenuBar(frame);
 
-        //frame.pack();
-
-        //frame.pack();
-        //frame.setSize(1600,800);
         frame.setVisible(true);
 
-
-
-
-        System.out.println("enter k: ");
-        Scanner s = new Scanner(System.in);
-        int k = s.nextInt();
     }
 
     @Override
@@ -110,10 +114,21 @@ public class MainScreen extends JPanel implements MouseListener{
 
 
     }
+    class playAction implements ActionListener {
+        public void actionPerformed (ActionEvent e){
+            n = Integer.parseInt(nText.getText());
+            k = Integer.parseInt(kText.getText());
+            frame.setVisible(false);
+        }
+    }
 
     static class exitAction implements ActionListener {
         public void actionPerformed (ActionEvent e){
             System.exit(0);
         }
+    }
+
+    public int getN() {
+        return n;
     }
 }
