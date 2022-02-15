@@ -19,10 +19,10 @@ public class Controller {
 		else if (e.getKeyChar() == 'l') {
 			model.load("test");
 		}
-		if (!model.board[selectedFieldPosition[0]][selectedFieldPosition[1]].interactable) {
+		else if (!model.board[selectedFieldPosition[0]][selectedFieldPosition[1]].interactable) {
 			return;
 		}
-		if (e.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
+		else if (e.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
 			int value = model.board[selectedFieldPosition[0]][selectedFieldPosition[1]].value;
 			if (value > 0) {
 				model.setField(selectedFieldPosition[0], selectedFieldPosition[1], value/10);

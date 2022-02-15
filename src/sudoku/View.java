@@ -21,7 +21,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 	private int fieldWidth = Field.DEFAULT_WIDTH;
 	private int fieldHeight = Field.DEFAULT_HEIGHT;
 
-    private int[] clickedPosition = new int[] {0, 0};
+    public int[] clickedPosition = new int[] {0, 0};
 	
     public View(Model model) {
     	this.model = model;
