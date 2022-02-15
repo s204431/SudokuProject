@@ -151,6 +151,7 @@ public class Model {
 				}
 			}
 			scanner.close();
+			view.repaint();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
