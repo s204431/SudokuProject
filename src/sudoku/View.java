@@ -94,7 +94,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     public void mouseClicked(MouseEvent e) {
     	if (e.getButton() == MouseEvent.BUTTON1 && e.getX() >= boardX && e.getY() >= boardY && e.getX() <= boardX+model.getBoardSize()*fieldWidth && e.getY() <= boardY+model.getBoardSize()*fieldHeight) {
             clickedPosition = new int[]{(e.getY()-boardY)/fieldHeight, (e.getX()-boardX)/fieldWidth};
-            repaint();	
+            repaint();
     	}
     }
 
