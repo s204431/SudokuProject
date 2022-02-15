@@ -67,13 +67,13 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                 } else {
                     g2.setColor(white);
                 }
-                g2.fillRect(boardX + i * fieldHeight, boardY + j * fieldWidth, fieldWidth, fieldHeight);
+                g2.fillRect(boardX + j * fieldWidth, boardY + i * fieldHeight, fieldWidth, fieldHeight);
                 g2.setColor(black);
-                g2.drawRect(boardX + i * fieldHeight, boardY + j * fieldWidth, fieldWidth, fieldHeight);
+                g2.drawRect(boardX + j * fieldWidth, boardY + i * fieldHeight, fieldWidth, fieldHeight);
                 g2.setFont(new Font("TimesRoman", Font.BOLD, 30*fieldWidth/Field.DEFAULT_WIDTH));
                 int value = model.board[i][j].value;
                 if (value > 0 && value <= model.getBoardSize()) {
-                	g2.drawString(""+value, boardX + i * fieldHeight + fieldHeight/2, boardY + j * fieldWidth + fieldWidth/2);
+                	g2.drawString(""+value, boardX + j * fieldWidth + fieldWidth/2, boardY + i * fieldHeight + fieldHeight/2);
                 }
             }
         }
@@ -84,7 +84,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             for (int j = 0; j < iss; j++) {
                 g2.setColor(black);
                 g2.setStroke(new BasicStroke(3));
-                g2.drawRect(boardX + i * fieldHeight * iss, boardY + j * fieldWidth * iss, fieldWidth*iss, fieldHeight*iss);
+                g2.drawRect(boardX + j * fieldWidth * iss, boardY + i * fieldHeight * iss, fieldWidth*iss, fieldHeight*iss);
             }
         }
         g2.setStroke(oldStroke);
@@ -93,7 +93,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     @Override
     public void mouseClicked(MouseEvent e) {
     	if (e.getButton() == MouseEvent.BUTTON1 && e.getX() >= boardX && e.getY() >= boardY && e.getX() <= boardX+model.getBoardSize()*fieldWidth && e.getY() <= boardY+model.getBoardSize()*fieldHeight) {
-            clickedPosition = new int[]{(e.getX()-boardX)/fieldWidth, (e.getY()-boardY)/fieldHeight};
+            clickedPosition = new int[]{(e.getY()-boardY)/fieldHeight, (e.getX()-boardX)/fieldWidth};
             repaint();	
     	}
     }
@@ -147,11 +147,15 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		if (e.getWheelRotation() < 0 || (fieldWidth > 20 && fieldHeight > 20)) {
+			double fieldWidthDist = (e.getX()-boardX)/(double)fieldWidth;
+			double fieldHeightDist = (e.getY()-boardY)/(double)fieldHeight;
 			int w = e.getWheelRotation()*fieldWidth/20;
 			int h = e.getWheelRotation()*fieldHeight/20;
 			fieldWidth -= w == 0 ? e.getWheelRotation() : w;
 			fieldHeight -= h == 0 ? e.getWheelRotation() : h;
-			repaint();	
+			boardX -= (fieldWidthDist-(e.getX()-boardX)/(double)fieldWidth)*fieldWidth;
+			boardY -= (fieldHeightDist-(e.getY()-boardY)/(double)fieldHeight)*fieldHeight;
+			repaint();
 		}
 	}
 	
