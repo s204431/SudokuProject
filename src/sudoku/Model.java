@@ -1,6 +1,12 @@
 package sudoku;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
+import java.util.Scanner;
 
 import solvers.*;
 
@@ -17,12 +23,6 @@ public class Model {
 				board[i][j] = new Field();
 			}
 		}
-		//board[5][6].value = 2;
-		//board[3][8].value = 3;
-		//board[5][6].interactable = false;
-		//System.out.println(new BacktrackingSolver(board).canBePlaced(4, 6, 3));
-		//System.out.println(board[3][8].value);
-		//System.out.println(new BacktrackingSolver(board).solve());
 	}
 	
 	public void setView(View view) {
@@ -103,4 +103,57 @@ public class Model {
 			}	
 		}
 	}
+	
+	public void save(String fileName) {
+		File file = new File(fileName+".su");
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+			writer.write(innerSquareSize+";"+innerSquareSize+"\n");
+			for (int i = 0; i < getBoardSize(); i++) {
+				for (int j = 0; j < getBoardSize(); j++) {
+					if (board[i][j].value <= 0) {
+						writer.write(".");
+					}
+					else {
+						writer.write(""+board[i][j].value);
+					}
+					if (j < getBoardSize()-1) {
+						writer.write(";");
+					}
+				}
+				if (i < getBoardSize()-1) {
+					writer.write("\n");
+				}
+			}
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void load(String fileName) {
+		File file = new File(fileName+".su");
+		try {
+			Scanner scanner = new Scanner(file);
+			scanner.useDelimiter(";|\\n");
+			innerSquareSize = scanner.nextInt();
+			board = new Field[getBoardSize()][getBoardSize()];
+			scanner.nextInt();
+			for (int i = 0; i < getBoardSize(); i++) {
+				for (int j = 0; j < getBoardSize(); j++) {
+					String next = scanner.next();
+					if (next.equals(".")) {
+						board[i][j] = new Field(0, true);
+					}
+					else {
+						board[i][j] = new Field(Integer.parseInt(next), true);
+					}
+				}
+			}
+			scanner.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
 }

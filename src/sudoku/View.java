@@ -10,13 +10,16 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
 public class View extends JPanel implements MouseListener, KeyListener, MouseWheelListener {
-
+	
+	private static final long serialVersionUID = 1L;
 	private Model model;
 	private Controller controller;
 	public int boardX = 0; //x coordinate for top left corner.
 	public int boardY = 0; //y coordinate for top left corner.
 	private boolean dragging = false;
 	private int[] mouseBoardVector = new int[] {0, 0};
+	private int fieldWidth = Field.DEFAULT_WIDTH;
+	private int fieldHeight = Field.DEFAULT_HEIGHT;
 
     private int[] clickedPosition = new int[] {0, 0};
 	
@@ -43,6 +46,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     	this.controller = controller;
     }
 
+    //Draws everything on screen.
     public void paint(Graphics g) {
         super.paint(g);
 
@@ -56,7 +60,6 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         int iss = model.innerSquareSize;
         for (int i = 0; i < model.getBoardSize(); i++) {
             for (int j = 0; j < model.getBoardSize(); j++) {
-                Field field = model.board[i][j];
                 if (clickedPosition[0] == i && clickedPosition[1] == j) {
                     g2.setColor(gray);
                 } else if (clickedPosition[0] == i || clickedPosition[1] == j || (clickedPosition[0]/iss == i/iss && clickedPosition[1]/iss == j/iss)) {
@@ -64,13 +67,13 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                 } else {
                     g2.setColor(white);
                 }
-                g2.fillRect(boardX + i * Field.height, boardY + j * Field.width, Field.width, Field.height);
+                g2.fillRect(boardX + i * fieldHeight, boardY + j * fieldWidth, fieldWidth, fieldHeight);
                 g2.setColor(black);
-                g2.drawRect(boardX + i * Field.height, boardY + j * Field.width, Field.width, Field.height);
-                g2.setFont(new Font("TimesRoman", Font.BOLD, 30*Field.width/Field.DEFAULT_WIDTH));
+                g2.drawRect(boardX + i * fieldHeight, boardY + j * fieldWidth, fieldWidth, fieldHeight);
+                g2.setFont(new Font("TimesRoman", Font.BOLD, 30*fieldWidth/Field.DEFAULT_WIDTH));
                 int value = model.board[i][j].value;
                 if (value > 0 && value <= model.getBoardSize()) {
-                	g2.drawString(""+value, boardX + i * Field.height + Field.height/2, boardY + j * Field.width + Field.width/2);
+                	g2.drawString(""+value, boardX + i * fieldHeight + fieldHeight/2, boardY + j * fieldWidth + fieldWidth/2);
                 }
             }
         }
@@ -81,7 +84,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             for (int j = 0; j < iss; j++) {
                 g2.setColor(black);
                 g2.setStroke(new BasicStroke(3));
-                g2.drawRect(boardX + i * Field.height * iss, boardY + j * Field.width * iss, Field.width*iss, Field.height*iss);
+                g2.drawRect(boardX + i * fieldHeight * iss, boardY + j * fieldWidth * iss, fieldWidth*iss, fieldHeight*iss);
             }
         }
         g2.setStroke(oldStroke);
@@ -89,8 +92,8 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 
     @Override
     public void mouseClicked(MouseEvent e) {
-    	if (e.getButton() == MouseEvent.BUTTON1 && e.getX() >= boardX && e.getY() >= boardY && e.getX() <= boardX+model.getBoardSize()*Field.width && e.getY() <= boardY+model.getBoardSize()*Field.height) {
-            clickedPosition = new int[]{(e.getX()-boardX)/Field.width, (e.getY()-boardY)/Field.height};
+    	if (e.getButton() == MouseEvent.BUTTON1 && e.getX() >= boardX && e.getY() >= boardY && e.getX() <= boardX+model.getBoardSize()*fieldWidth && e.getY() <= boardY+model.getBoardSize()*fieldHeight) {
+            clickedPosition = new int[]{(e.getX()-boardX)/fieldWidth, (e.getY()-boardY)/fieldHeight};
             repaint();	
     	}
     }
@@ -122,8 +125,8 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 		if (e.getKeyChar() == KeyEvent.VK_SPACE) {
 			boardX = 0;
 			boardY = 0;
-			Field.width = Field.DEFAULT_WIDTH;
-			Field.height = Field.DEFAULT_HEIGHT;
+			fieldWidth = Field.DEFAULT_WIDTH;
+			fieldHeight = Field.DEFAULT_HEIGHT;
 			repaint();
 		}
 		else {
@@ -143,15 +146,16 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		if (e.getWheelRotation() < 0 || (Field.width > 20 && Field.height > 20)) {
-			int w = e.getWheelRotation()*Field.width/20;
-			int h = e.getWheelRotation()*Field.height/20;
-			Field.width -= w == 0 ? e.getWheelRotation() : w;
-			Field.height -= h == 0 ? e.getWheelRotation() : h;
+		if (e.getWheelRotation() < 0 || (fieldWidth > 20 && fieldHeight > 20)) {
+			int w = e.getWheelRotation()*fieldWidth/20;
+			int h = e.getWheelRotation()*fieldHeight/20;
+			fieldWidth -= w == 0 ? e.getWheelRotation() : w;
+			fieldHeight -= h == 0 ? e.getWheelRotation() : h;
 			repaint();	
 		}
 	}
 	
+	//Concurrent thread that moves the board when dragging.
 	private class BoardDragger implements Runnable {
 		@Override
 		public void run() {
