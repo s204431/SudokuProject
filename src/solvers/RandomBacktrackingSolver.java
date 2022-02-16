@@ -2,18 +2,19 @@ package solvers;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import sudoku.Field;
-import MVC.Model;
+import sudoku.Model;
 
-public class BacktrackingSolver extends SudokuSolver {
+public class RandomBacktrackingSolver extends SudokuSolver {
 	List<int[][]> solutions = new ArrayList<>();
 	
-	public BacktrackingSolver(Field[][] board) {
+	public RandomBacktrackingSolver(Field[][] board) {
 		super(board);
 	}
 	
-	public BacktrackingSolver(int[][] board) {
+	public RandomBacktrackingSolver(int[][] board) {
 		super(board);
 	}
 
@@ -48,12 +49,17 @@ public class BacktrackingSolver extends SudokuSolver {
 			}
 			return;
 		}
-		for (int v = 1; v <= board.length; v++) {
+		List<Integer> randomOrder = new ArrayList<>();
+		for (int i = 1; i <= board.length; i++) {
+			randomOrder.add(i);
+		}
+		Collections.shuffle(randomOrder);
+		for (int i = 0; i < randomOrder.size(); i++) {
 			if (solutionsFound >= maxSolutions) {
 				return;
 			}
-			if (canBePlaced(x, y, v)) {
-				board[x][y] = v;
+			if (canBePlaced(x, y, randomOrder.get(i))) {
+				board[x][y] = randomOrder.get(i);
 				if (x == board.length-1 && y == board.length-1) {
 					if (Model.sudokuSolved(board)) {
 						solutions.add(copyOf(board));

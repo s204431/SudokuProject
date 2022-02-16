@@ -91,6 +91,7 @@ public class MainScreen extends JPanel{
 		Controller controller = new Controller();
 		model.setView(view);
 		controller.setModel(model);
+		controller.setView(view);
 		view.setController(controller);
     }
 

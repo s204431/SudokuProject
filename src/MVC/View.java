@@ -25,6 +25,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 	private int fieldHeight = Field.DEFAULT_HEIGHT;
 	private boolean close = false;
 	private JFrame frame;
+	public JTextField textField;
 
     public int[] clickedPosition = new int[] {0, 0};
 	
@@ -35,15 +36,19 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         frame = new JFrame("Sudoku");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setPreferredSize(getPreferredSize());
+        frame.setLayout(new FlowLayout());
+        textField = new JTextField();
+        textField.setPreferredSize(new Dimension(100, 25));
+        frame.add(textField);
         frame.add(this);
         
         frame.pack();
+        setFocusable(true);
+        requestFocus();
         frame.setLocationByPlatform(true);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         
-        setFocusable(true);
-        requestFocus();
         addMouseListener(this);
         addKeyListener(this);
         addMouseWheelListener(this);
@@ -128,6 +133,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 
     @Override
     public void mouseClicked(MouseEvent e) {
+    	requestFocus();
     	if (e.getButton() == MouseEvent.BUTTON1 && e.getX() >= boardX && e.getY() >= boardY && e.getX() <= boardX+model.getBoardSize()*fieldWidth && e.getY() <= boardY+model.getBoardSize()*fieldHeight) {
             clickedPosition = new int[]{(e.getY()-boardY)/fieldHeight, (e.getX()-boardX)/fieldWidth};
             repaint();

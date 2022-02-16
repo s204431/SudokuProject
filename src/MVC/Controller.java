@@ -4,9 +4,14 @@ import java.awt.event.KeyEvent;
 
 public class Controller {
 	private Model model;
+	private View view;
 	
 	public void setModel(Model model) {
 		this.model = model;
+	}
+	
+	public void setView(View view) {
+		this.view = view;
 	}
 	
 	public void keyTyped(KeyEvent e, int[] selectedFieldPosition) {
@@ -14,10 +19,10 @@ public class Controller {
 			model.solve(5);
 		}
 		else if (e.getKeyChar() == KeyEvent.VK_ENTER) {
-			model.save("test");
+			model.save(view.textField.getText());
 		}
 		else if (e.getKeyChar() == 'l') {
-			model.load("test");
+			model.load(view.textField.getText());
 		}
 		else if (!model.board[selectedFieldPosition[0]][selectedFieldPosition[1]].interactable) {
 			return;

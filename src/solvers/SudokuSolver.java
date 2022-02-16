@@ -8,17 +8,19 @@ import MVC.Model;
 public abstract class SudokuSolver {
 	
 	protected int[][] board;
-	protected Model model;
 	protected int solutionsFound;
 	
-	public SudokuSolver(Field[][] board, Model model) {
+	public SudokuSolver(Field[][] board) {
 		this.board = new int[board.length][board[0].length];
-		this.model = model;
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
 				this.board[i][j] = board[i][j].value;
 			}
 		}
+	}
+	
+	public SudokuSolver(int[][] board) {
+		this.board = new int[board.length][board[0].length];
 	}
 	
 	//Finds all solutions.
