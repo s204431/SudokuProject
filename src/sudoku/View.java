@@ -58,12 +58,12 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         Graphics2D g2 = (Graphics2D) g;
 
         // Draw fields and numbers
-
+        Color red = new Color(175, 4, 4);
         Color black = Color.BLACK;
         Color white = Color.WHITE;
-        Color lightGray = new Color(190, 190, 190);
-        Color gray = new Color(152, 152, 152);
-        Color darkGray = new Color(100, 100, 100);
+        Color lightGray = new Color(200, 200, 200);
+        Color gray = new Color(130, 130, 130);
+        Color darkGray = new Color(85, 85, 85);
         int iss = model.innerSquareSize;
         for (int i = 0; i < model.getBoardSize(); i++) {
             for (int j = 0; j < model.getBoardSize(); j++) {
@@ -72,12 +72,13 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                 } else if (clickedPosition[0] == i || clickedPosition[1] == j ||
                         (clickedPosition[0]/iss == i/iss && clickedPosition[1]/iss == j/iss)) {
                     g2.setColor(lightGray);
-                } else if (model.getBoard()[i][j].getValue() ==                                 //marks other fields
-                        model.getBoard()[clickedPosition[0]][clickedPosition[1]].getValue()     //with same value
-                        && model.getBoard()[i][j].getValue() != 0) {                            //as gray color
-                    g2.setColor(gray);
-                } else {
+                }  else {
                     g2.setColor(white);
+                }  if (model.board[i][j].value ==                                               //marks other fields
+                        model.getBoard()[clickedPosition[0]][clickedPosition[1]].getValue()     //with same value
+                        && model.getBoard()[i][j].getValue() != 0                               //as gray color
+                        && !(clickedPosition[0] == i && clickedPosition[1] == j)) {
+                    g2.setColor(gray);
                 }
                 g2.fillRect(boardX + j * fieldWidth, boardY + i * fieldHeight, fieldWidth, fieldHeight);
                 g2.setColor(black);
@@ -85,7 +86,17 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                 g2.setFont(new Font("TimesRoman", Font.BOLD, 30*fieldWidth/Field.DEFAULT_WIDTH));
                 int value = model.board[i][j].value;
                 if (value > 0 && value <= model.getBoardSize()) {
-                	g2.drawString(""+value, boardX + j * fieldWidth + fieldWidth/2, boardY + i * fieldHeight + fieldHeight/2);
+                    for (int k = 0; k < model.getBoardSize(); k++) {
+                        if (model.board[clickedPosition[0]][k].value == value
+                        || model.board[k][clickedPosition[1]].value == value) {
+                            System.out.println(model.board[clickedPosition[0]][k].value + " " + value);
+                            System.out.println(model.board[k][clickedPosition[1]].value + " " + value);
+                            g2.setColor(red);
+                            g2.drawString("" + value, boardX + j * fieldWidth + fieldWidth/2, boardY + i * fieldHeight + fieldHeight/2);
+                        }
+                    }
+                	g2.drawString("" + value, boardX + j * fieldWidth + fieldWidth/2, boardY + i * fieldHeight + fieldHeight/2);
+
                 }
             }
         }
