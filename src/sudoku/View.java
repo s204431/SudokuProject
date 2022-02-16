@@ -53,15 +53,17 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         Graphics2D g2 = (Graphics2D) g;
 
         // Draw fields and numbers
+
         Color black = Color.BLACK;
         Color white = Color.WHITE;
         Color lightGray = Color.LIGHT_GRAY;
         Color gray = Color.GRAY;
+        Color darkGray = Color.DARK_GRAY;
         int iss = model.innerSquareSize;
         for (int i = 0; i < model.getBoardSize(); i++) {
             for (int j = 0; j < model.getBoardSize(); j++) {
                 if (clickedPosition[0] == i && clickedPosition[1] == j) {
-                    g2.setColor(gray);
+                    g2.setColor(darkGray);
                 } else if (clickedPosition[0] == i || clickedPosition[1] == j ||
                         (clickedPosition[0]/iss == i/iss && clickedPosition[1]/iss == j/iss)) {
                     g2.setColor(lightGray);
