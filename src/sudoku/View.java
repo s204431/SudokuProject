@@ -20,6 +20,8 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 	private int[] mouseBoardVector = new int[] {0, 0};
 	private int fieldWidth = Field.DEFAULT_WIDTH;
 	private int fieldHeight = Field.DEFAULT_HEIGHT;
+	private boolean close = false;
+	private JFrame frame;
 
     public int[] clickedPosition = new int[] {0, 0};
 	
@@ -27,10 +29,13 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     	this.model = model;
         setPreferredSize(new Dimension(630, 630));
         // Create frame
-        JFrame frame = new JFrame("Sudoku");
+        frame = new JFrame("Sudoku");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setPreferredSize(getPreferredSize());
         frame.add(this);
+        
         frame.pack();
+        frame.setLocationByPlatform(true);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         
@@ -96,6 +101,11 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         }
         g2.setStroke(oldStroke);
     }
+    
+    public void quitToMenu() {
+    	new MainScreen();
+    	frame.dispose();
+    }
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -129,6 +139,9 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 
 	@Override
 	public void keyTyped(KeyEvent e) {
+		if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
+			quitToMenu();
+		}
 		if (e.getKeyChar() == KeyEvent.VK_SPACE) {
 			boardX = 0;
 			boardY = 0;
@@ -170,7 +183,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 	private class BoardDragger implements Runnable {
 		@Override
 		public void run() {
-			while (true) {
+			while (!close) {
 				if (dragging) {
 					Point mousePos = getMousePosition();
 					boardX = mousePos.x+mouseBoardVector[0];

@@ -40,13 +40,13 @@ public class MainScreen extends JPanel{
         playBtn.addActionListener(new playAction());
         leftBoxPanel.add(playBtn);
         //k and n text fields
-        kText = new JTextField("Enter k here: ");
-        kText.setPreferredSize(new Dimension(textSize,textSize));
-        kText.setMaximumSize(new Dimension(textSize,textSize));
-        frame.add(kText);
-        leftBoxPanel.add(kText);
+        //kText = new JTextField("Enter k here: ");
+        //kText.setPreferredSize(new Dimension(textSize,textSize));
+        //kText.setMaximumSize(new Dimension(textSize,textSize));
+        //frame.add(kText);
+        //leftBoxPanel.add(kText);
 
-        nText = new JTextField("Enter n here: ");
+        nText = new JTextField();
         nText.setPreferredSize(new Dimension(textSize,textSize));
         nText.setMaximumSize(new Dimension(textSize,textSize));
         frame.add(nText);
@@ -81,12 +81,26 @@ public class MainScreen extends JPanel{
         restart.add(new JMenuItem("Same Sudoku"));
         restart.add(new JMenuItem("New Sudoku"));
     }
+    
+    private void startGame() {
+		Model model = new Model(n);
+		View view = new View(model);
+		Controller controller = new Controller();
+		model.setView(view);
+		controller.setModel(model);
+		view.setController(controller);
+    }
 
     class playAction implements ActionListener {
         public void actionPerformed (ActionEvent e){
-            n = Integer.parseInt(nText.getText());
-            k = Integer.parseInt(kText.getText());
-            frame.setVisible(false);
+        	try {
+                n = Integer.parseInt(nText.getText());
+                //k = Integer.parseInt(kText.getText());
+                startGame();
+                frame.dispose();
+        	} catch (NumberFormatException e2) {
+        		
+        	}
         }
     }
 
