@@ -8,7 +8,6 @@ import sudoku.Field;
 import MVC.Model;
 
 public class RandomBacktrackingSolver extends SudokuSolver {
-	List<int[][]> solutions = new ArrayList<>();
 	
 	public RandomBacktrackingSolver(Field[][] board) {
 		super(board);
