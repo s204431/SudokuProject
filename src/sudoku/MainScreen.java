@@ -5,7 +5,7 @@ import java.awt.event.*;
 import java.util.Scanner;
 
 
-public class MainScreen extends JPanel implements MouseListener{
+public class MainScreen extends JPanel{
     private Font titleFont = new Font(Font.SERIF, Font.PLAIN,100);
     private String title = "Sudoku";
     private int btnSize = 100;
@@ -16,36 +16,30 @@ public class MainScreen extends JPanel implements MouseListener{
     private int k;
     private int n;
     JFrame frame;
-    private boolean isInMainScreen;
 
 
     public MainScreen () {
-        isInMainScreen = true;
         frame = new JFrame(title);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(this);
 
-        //frame.setLocationRelativeTo(null);
         JPanel leftBoxPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
         leftBoxPanel.setLayout(new BoxLayout(leftBoxPanel, BoxLayout.Y_AXIS));
 
+        //Add title
         JLabel titleString = new JLabel("Main menu");
         titleString.setFont(new Font("Serif", Font.BOLD,40));
         titleString.setPreferredSize(new Dimension(300,200));
         titleString.setMinimumSize(new Dimension(300,200));
-        //titleString.setSize(new Dimension(500,500));
         leftBoxPanel.add(titleString);
-
-
+        //Add play button
         JButton playBtn = new JButton("Play");
         playBtn.setPreferredSize(new Dimension(btnSize,btnSize));
         playBtn.addActionListener(new playAction());
         leftBoxPanel.add(playBtn);
-
-        frame.setPreferredSize(new Dimension(1600,800));
-
+        //k and n text fields
         kText = new JTextField("Enter k here: ");
         kText.setPreferredSize(new Dimension(textSize,textSize));
         kText.setMaximumSize(new Dimension(textSize,textSize));
@@ -55,43 +49,16 @@ public class MainScreen extends JPanel implements MouseListener{
         nText = new JTextField("Enter n here: ");
         nText.setPreferredSize(new Dimension(textSize,textSize));
         nText.setMaximumSize(new Dimension(textSize,textSize));
-
         frame.add(nText);
         leftBoxPanel.add(nText);
 
         frame.add(leftBoxPanel);
-
+        frame.setPreferredSize(new Dimension(1600,800));
         frame.pack();
-
         setUpMenuBar(frame);
-
         frame.setVisible(true);
-
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
 
     public void setUpMenuBar(JFrame frame){
         JMenuBar menuBar = new JMenuBar();
@@ -113,15 +80,13 @@ public class MainScreen extends JPanel implements MouseListener{
         menuBar.add(restart);
         restart.add(new JMenuItem("Same Sudoku"));
         restart.add(new JMenuItem("New Sudoku"));
-
-
     }
+
     class playAction implements ActionListener {
         public void actionPerformed (ActionEvent e){
             n = Integer.parseInt(nText.getText());
             k = Integer.parseInt(kText.getText());
             frame.setVisible(false);
-            isInMainScreen = false;
         }
     }
 

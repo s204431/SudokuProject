@@ -62,8 +62,13 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             for (int j = 0; j < model.getBoardSize(); j++) {
                 if (clickedPosition[0] == i && clickedPosition[1] == j) {
                     g2.setColor(gray);
-                } else if (clickedPosition[0] == i || clickedPosition[1] == j || (clickedPosition[0]/iss == i/iss && clickedPosition[1]/iss == j/iss)) {
+                } else if (clickedPosition[0] == i || clickedPosition[1] == j ||
+                        (clickedPosition[0]/iss == i/iss && clickedPosition[1]/iss == j/iss)) {
                     g2.setColor(lightGray);
+                } else if (model.getBoard()[i][j].getValue() ==                                 //marks other fields
+                        model.getBoard()[clickedPosition[0]][clickedPosition[1]].getValue()     //with same value
+                        && model.getBoard()[i][j].getValue() != 0) {                            //as gray color
+                    g2.setColor(gray);
                 } else {
                     g2.setColor(white);
                 }

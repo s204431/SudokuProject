@@ -157,5 +157,9 @@ public class Model {
 			e.printStackTrace();
 		}
 	}
-	
+
+	public Field[][] getBoard() {
+		return board;
+	}
 }
+

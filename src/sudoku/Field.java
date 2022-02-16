@@ -14,4 +14,8 @@ public class Field {
 		this.value = value;
 		this.interactable = interactable;
 	}
+
+	public int getValue() {
+		return value;
+	}
 }
