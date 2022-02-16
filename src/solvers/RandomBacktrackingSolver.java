@@ -37,7 +37,6 @@ public class RandomBacktrackingSolver extends SudokuSolver {
 				if (Model.sudokuSolved(board)) {
 					solutions.add(copyOf(board));
 					solutionsFound++;
-					print();
 				}
 			}
 			else if (y == board.length-1) {
@@ -63,7 +62,6 @@ public class RandomBacktrackingSolver extends SudokuSolver {
 					if (Model.sudokuSolved(board)) {
 						solutions.add(copyOf(board));
 						solutionsFound++;
-						print();
 					}
 				}
 				else if (y == board.length-1) {

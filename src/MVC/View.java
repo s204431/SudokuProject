@@ -94,7 +94,6 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                 g2.setFont(new Font("TimesRoman", Font.BOLD, 30*fieldWidth/Field.DEFAULT_WIDTH));
                 int value = model.board[i][j].value;
                 if (value > 0 && value <= model.getBoardSize()) {
-                    System.out.println("value: " + value);
                     if(!Model.canBePlaced(model.board, i, j, value)) {
                         g2.setColor(red);
                         g2.drawString("" + value, boardX + j * fieldWidth + fieldWidth/2, boardY + i * fieldHeight + fieldHeight/2);
