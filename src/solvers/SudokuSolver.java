@@ -21,6 +21,11 @@ public abstract class SudokuSolver {
 		}
 	}
 	
+	public SudokuSolver(int[][] board, Model model) {
+		this.board = new int[board.length][board[0].length];
+		this.model = model;
+	}
+	
 	//Finds all solutions.
 	public List<int[][]> solve() {
 		return solve(Integer.MAX_VALUE);

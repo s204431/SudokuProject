@@ -24,7 +24,7 @@ public class BacktrackingSolver extends SudokuSolver {
 		return solutions;
 	}
 	
-	public void solveRecursive(int x, int y, int maxSolutions) {
+	private void solveRecursive(int x, int y, int maxSolutions) {
 		if (solutionsFound >= maxSolutions) {
 			return;
 		}
