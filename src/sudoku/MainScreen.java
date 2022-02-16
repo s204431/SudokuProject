@@ -92,7 +92,6 @@ public class MainScreen extends JPanel{
     }
 
     class playAction implements ActionListener {
-<<<<<<< HEAD
         public void actionPerformed (ActionEvent e){
         	try {
                 n = Integer.parseInt(nText.getText());
@@ -102,16 +101,6 @@ public class MainScreen extends JPanel{
         	} catch (NumberFormatException e2) {
         		
         	}
-=======
-        public void actionPerformed (ActionEvent e) {
-            try {
-                n = Integer.parseInt(nText.getText());
-                k = Integer.parseInt(kText.getText());
-                frame.setVisible(false);
-            } catch (IllegalArgumentException exc) {
-                exc.printStackTrace();
-            }
->>>>>>> cf4b88b7014512de9b30e4cc4b3294190beab291
         }
     }
 
