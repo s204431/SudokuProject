@@ -13,6 +13,10 @@ public class RandomBacktrackingSolver extends SudokuSolver {
 	public RandomBacktrackingSolver(Field[][] board) {
 		super(board);
 	}
+	
+	public RandomBacktrackingSolver(int[][] board) {
+		super(board);
+	}
 
 	public List<int[][]> solve(int maxSolutions) {
 		System.out.println("Solving");
