@@ -56,9 +56,9 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 
         Color black = Color.BLACK;
         Color white = Color.WHITE;
-        Color lightGray = Color.LIGHT_GRAY;
-        Color gray = Color.GRAY;
-        Color darkGray = Color.DARK_GRAY;
+        Color lightGray = new Color(190, 190, 190);
+        Color gray = new Color(152, 152, 152);
+        Color darkGray = new Color(100, 100, 100);
         int iss = model.innerSquareSize;
         for (int i = 0; i < model.getBoardSize(); i++) {
             for (int j = 0; j < model.getBoardSize(); j++) {
@@ -184,7 +184,5 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 				}
 			}
 		}
-		
 	}
-	
 }

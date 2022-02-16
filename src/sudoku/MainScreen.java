@@ -83,10 +83,14 @@ public class MainScreen extends JPanel{
     }
 
     class playAction implements ActionListener {
-        public void actionPerformed (ActionEvent e){
-            n = Integer.parseInt(nText.getText());
-            k = Integer.parseInt(kText.getText());
-            frame.setVisible(false);
+        public void actionPerformed (ActionEvent e) {
+            try {
+                n = Integer.parseInt(nText.getText());
+                k = Integer.parseInt(kText.getText());
+                frame.setVisible(false);
+            } catch (IllegalArgumentException exc) {
+                exc.printStackTrace();
+            }
         }
     }
 
