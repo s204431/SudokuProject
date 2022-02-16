@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import sudoku.Field;
-import sudoku.Model;
+import MVC.Model;
 
 public class BacktrackingSolver extends SudokuSolver {
 	List<int[][]> solutions = new ArrayList<>();

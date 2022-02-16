@@ -1,4 +1,4 @@
-package sudoku;
+package MVC;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import solvers.*;
+import sudoku.Field;
 
 public class Model {
 	private View view;

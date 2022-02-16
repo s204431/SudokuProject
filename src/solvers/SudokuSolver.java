@@ -3,7 +3,7 @@ package solvers;
 import java.util.List;
 
 import sudoku.Field;
-import sudoku.Model;
+import MVC.Model;
 
 public abstract class SudokuSolver {
 	

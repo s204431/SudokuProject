@@ -1,4 +1,4 @@
-package sudoku;
+package MVC;
 
 import java.awt.event.KeyEvent;
 

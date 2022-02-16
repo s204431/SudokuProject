@@ -1,8 +1,11 @@
 package sudoku;
+import MVC.Controller;
+import MVC.Model;
+import MVC.View;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Scanner;
 
 
 public class MainScreen extends JPanel{
