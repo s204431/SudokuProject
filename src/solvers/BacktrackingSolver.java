@@ -2,7 +2,6 @@ package solvers;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import sudoku.Field;
 import sudoku.Model;

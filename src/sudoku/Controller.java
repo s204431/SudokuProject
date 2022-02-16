@@ -13,10 +13,16 @@ public class Controller {
 		if (e.getKeyChar() == 's') {
 			model.solve(5);
 		}
-		if (!model.board[selectedFieldPosition[0]][selectedFieldPosition[1]].interactable) {
+		else if (e.getKeyChar() == KeyEvent.VK_ENTER) {
+			model.save("test");
+		}
+		else if (e.getKeyChar() == 'l') {
+			model.load("test");
+		}
+		else if (!model.board[selectedFieldPosition[0]][selectedFieldPosition[1]].interactable) {
 			return;
 		}
-		if (e.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
+		else if (e.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
 			int value = model.board[selectedFieldPosition[0]][selectedFieldPosition[1]].value;
 			if (value > 0) {
 				model.setField(selectedFieldPosition[0], selectedFieldPosition[1], value/10);
@@ -25,7 +31,6 @@ public class Controller {
 		else {
 			char key = e.getKeyChar();
 			if (Character.isDigit(key)) {
-				int digit = Integer.parseInt(key+"");
 				int newValue = Integer.parseInt(model.board[selectedFieldPosition[0]][selectedFieldPosition[1]].value+""+key);
 				if (newValue > 0 && newValue <= model.getBoardSize()) {
 					model.setField(selectedFieldPosition[0], selectedFieldPosition[1], newValue);
