@@ -50,7 +50,7 @@ public class Model {
 	}
 	
 	//Checks if the current sudoku is solved. Takes a 2D integer array.
-	public boolean sudokuSolved(int[][] board) {
+	public static boolean sudokuSolved(int[][] board) {
 		Field[][] toBeSolved = new Field[board.length][board[0].length];
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
@@ -61,8 +61,9 @@ public class Model {
 	}
 	
 	//Checks if the current sudoku is solved. Takes a 2D field array.
-	public boolean sudokuSolved(Field[][] board) {
-		int boardSize = getBoardSize();
+	public static boolean sudokuSolved(Field[][] board) {
+		int boardSize = board.length;
+		int innerSquareSize = (int)Math.sqrt(boardSize);
 		boolean[][] foundColumn = new boolean[boardSize][boardSize];
 		boolean[][] foundRow = new boolean[boardSize][boardSize];
 		boolean[][] foundInnerSquare = new boolean[boardSize][boardSize];
@@ -93,7 +94,7 @@ public class Model {
 	}
 	
 	public void solve(int maxSolutions) {
-		List<int[][]> results = new BacktrackingSolver(board, this).solve(maxSolutions);
+		List<int[][]> results = new BacktrackingSolver(board).solve(maxSolutions);
 		System.out.println("Found "+results.size()+" solutions.");
 		if (results.size() > 0) {
 			for (int i = 0; i < board.length; i++) {

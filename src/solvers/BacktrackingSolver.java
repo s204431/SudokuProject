@@ -9,8 +9,8 @@ import sudoku.Model;
 public class BacktrackingSolver extends SudokuSolver {
 	List<int[][]> solutions = new ArrayList<>();
 	
-	public BacktrackingSolver(Field[][] board, Model model) {
-		super(board, model);
+	public BacktrackingSolver(Field[][] board) {
+		super(board);
 	}
 
 	public List<int[][]> solve(int maxSolutions) {
@@ -30,7 +30,7 @@ public class BacktrackingSolver extends SudokuSolver {
 		}
 		if (board[x][y] > 0) {
 			if (x == board.length-1 && y == board.length-1) {
-				if (model.sudokuSolved(board)) {
+				if (Model.sudokuSolved(board)) {
 					solutions.add(copyOf(board));
 					solutionsFound++;
 					print();
@@ -51,7 +51,7 @@ public class BacktrackingSolver extends SudokuSolver {
 			if (canBePlaced(x, y, v)) {
 				board[x][y] = v;
 				if (x == board.length-1 && y == board.length-1) {
-					if (model.sudokuSolved(board)) {
+					if (Model.sudokuSolved(board)) {
 						solutions.add(copyOf(board));
 						solutionsFound++;
 						print();
