@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import sudoku.Field;
-import sudoku.Model;
+import MVC.Model;
 
 public class RandomBacktrackingSolver extends SudokuSolver {
 	

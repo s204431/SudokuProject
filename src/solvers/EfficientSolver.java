@@ -14,7 +14,7 @@ public class EfficientSolver extends SudokuSolver {
 	}
 	
 	public List<int[][]> solve(int maxSolutions) {
-		
+		return null;
 	}
 	
 }
