@@ -7,7 +7,6 @@ import sudoku.Field;
 import MVC.Model;
 
 public class BacktrackingSolver extends SudokuSolver {
-	List<int[][]> solutions = new ArrayList<>();
 	
 	public BacktrackingSolver(Field[][] board) {
 		super(board);

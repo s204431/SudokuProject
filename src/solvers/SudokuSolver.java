@@ -1,5 +1,6 @@
 package solvers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import sudoku.Field;
@@ -9,6 +10,7 @@ public abstract class SudokuSolver {
 	
 	protected int[][] board;
 	protected int solutionsFound;
+	protected List<int[][]> solutions = new ArrayList<>();
 	
 	public SudokuSolver(Field[][] board) {
 		this.board = new int[board.length][board[0].length];
@@ -20,7 +22,7 @@ public abstract class SudokuSolver {
 	}
 	
 	public SudokuSolver(int[][] board) {
-		this.board = new int[board.length][board[0].length];
+		this.board = copyOf(board);
 	}
 	
 	//Finds all solutions.
