@@ -16,7 +16,7 @@ public class Controller {
 	
 	public void keyTyped(KeyEvent e, int[] selectedFieldPosition) {
 		if (e.getKeyChar() == 's') {
-			model.solve(5);
+			model.solve(1);
 		}
 		else if (e.getKeyChar() == KeyEvent.VK_ENTER) {
 			model.save(view.textField.getText());

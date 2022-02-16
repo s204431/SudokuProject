@@ -158,6 +158,23 @@ public class Model {
 			e.printStackTrace();
 		}
 	}
+	
+	public static boolean canBePlaced(Field[][] board, int x, int y, int value) {
+		for (int i = 0; i < board.length; i++) {
+			if ((i != y && board[x][i].value == value) || (i != x && board[i][y].value == value)) {
+				return false;
+			}
+		}
+		int innerSquareSize = (int) Math.sqrt(board.length);
+		for (int i = x/innerSquareSize*innerSquareSize; i < x/innerSquareSize*innerSquareSize+innerSquareSize; i++) {
+			for (int j = y/innerSquareSize*innerSquareSize; j < y/innerSquareSize*innerSquareSize+innerSquareSize; j++) {
+				if ((i != x || j != y) && board[i][j].value == value) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
 
 	public Field[][] getBoard() {
 		return board;
