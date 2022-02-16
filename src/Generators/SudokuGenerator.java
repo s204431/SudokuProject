@@ -27,7 +27,7 @@ public class SudokuGenerator {
 				}
 				
 			}
-		} while (new BacktrackingSolver(matrix).hasUniqueSolution());
+		} while (new EfficientSolver(matrix).hasUniqueSolution());
 		
 		matrix[col][row] = lastNumber;
 		return matrix;

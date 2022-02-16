@@ -97,7 +97,7 @@ public class Model {
 	}
 	
 	public void solve(int maxSolutions) {
-		List<int[][]> results = new BacktrackingSolver(board).solve(maxSolutions);
+		List<int[][]> results = new EfficientSolver(board).solve(maxSolutions);
 		System.out.println("Found "+results.size()+" solutions.");
 		if (results.size() > 0) {
 			for (int i = 0; i < board.length; i++) {

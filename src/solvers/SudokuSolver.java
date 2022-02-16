@@ -44,13 +44,17 @@ public abstract class SudokuSolver {
 	}
 	
 	protected boolean canBePlaced(int x, int y, int value) {
-		Field[][] fields = new Field[board.length][board[0].length];
+		return Model.canBePlaced(toFields(board), x, y, value);
+	}
+	
+	protected Field[][] toFields(int[][] matrix) {
+		Field[][] fields = new Field[matrix.length][matrix[0].length];
 		for (int i = 0; i < fields.length; i++) {
 			for (int j = 0; j < fields[i].length; j++) {
-				fields[i][j] = new Field(board[i][j], true);
+				fields[i][j] = new Field(matrix[i][j], true);
 			}
 		}
-		return Model.canBePlaced(fields, x, y, value);
+		return fields;
 	}
 	
 	protected boolean isValidSudoku() {
@@ -62,6 +66,10 @@ public abstract class SudokuSolver {
 			}
 		}
 		return true;
+	}
+	
+	protected boolean sudokuSolved() {
+		return Model.sudokuSolved(board);
 	}
 	
 	protected void print() {

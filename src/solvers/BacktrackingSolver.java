@@ -33,7 +33,7 @@ public class BacktrackingSolver extends SudokuSolver {
 		}
 		if (board[x][y] > 0) {
 			if (x == board.length-1 && y == board.length-1) {
-				if (Model.sudokuSolved(board)) {
+				if (sudokuSolved()) {
 					solutions.add(copyOf(board));
 					solutionsFound++;
 				}
@@ -53,7 +53,7 @@ public class BacktrackingSolver extends SudokuSolver {
 			if (canBePlaced(x, y, v)) {
 				board[x][y] = v;
 				if (x == board.length-1 && y == board.length-1) {
-					if (Model.sudokuSolved(board)) {
+					if (sudokuSolved()) {
 						solutions.add(copyOf(board));
 						solutionsFound++;
 					}
