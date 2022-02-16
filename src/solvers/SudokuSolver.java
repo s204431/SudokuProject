@@ -42,20 +42,13 @@ public abstract class SudokuSolver {
 	}
 	
 	protected boolean canBePlaced(int x, int y, int value) {
-		for (int i = 0; i < board.length; i++) {
-			if ((i != y && board[x][i] == value) || (i != x && board[i][y] == value)) {
-				return false;
+		Field[][] fields = new Field[board.length][board[0].length];
+		for (int i = 0; i < fields.length; i++) {
+			for (int j = 0; j < fields[i].length; j++) {
+				fields[i][j] = new Field(board[i][j], true);
 			}
 		}
-		int innerSquareSize = (int) Math.sqrt(board.length);
-		for (int i = x/innerSquareSize*innerSquareSize; i < x/innerSquareSize*innerSquareSize+innerSquareSize; i++) {
-			for (int j = y/innerSquareSize*innerSquareSize; j < y/innerSquareSize*innerSquareSize+innerSquareSize; j++) {
-				if ((i != x || j != y) && board[i][j] == value) {
-					return false;
-				}
-			}
-		}
-		return true;
+		return Model.canBePlaced(fields, x, y, value);
 	}
 	
 	protected boolean isValidSudoku() {
