@@ -2,7 +2,7 @@ package MVC;
 
 import sudoku.Field;
 import sudoku.MainScreen;
-
+import MVC.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -93,26 +93,19 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                 g2.drawRect(boardX + j * fieldWidth, boardY + i * fieldHeight, fieldWidth, fieldHeight);
                 g2.setFont(new Font("TimesRoman", Font.BOLD, 30*fieldWidth/Field.DEFAULT_WIDTH));
                 int value = model.board[i][j].value;
-                System.out.println("value: " + value);
                 if (value > 0 && value <= model.getBoardSize()) {
-                    for (int k = 0; k < model.getBoardSize(); k++) {
-                        if ((model.board[clickedPosition[0]][k].value == value && k != clickedPosition[1])
-                        || (model.board[k][clickedPosition[1]].value == value && k != clickedPosition[0])) {
-                            System.out.println("k: " + k);
-                            System.out.println(clickedPosition[0]);
-                            System.out.println(clickedPosition[1]);
-                            System.out.println(model.board[clickedPosition[0]][k].value + " " + value);
-                            System.out.println(model.board[k][clickedPosition[1]].value + " " + value);
-                            g2.setColor(red);
-                            g2.drawString("" + value, boardX + j * fieldWidth + fieldWidth/2, boardY + i * fieldHeight + fieldHeight/2);
-
-                        }
+                    System.out.println("value: " + value);
+                    if(!Model.canBePlaced(model.board, i, j, value)) {
+                        g2.setColor(red);
+                        g2.drawString("" + value, boardX + j * fieldWidth + fieldWidth/2, boardY + i * fieldHeight + fieldHeight/2);
+                    } else {
+                        g2.drawString("" + value, boardX + j * fieldWidth + fieldWidth/2, boardY + i * fieldHeight + fieldHeight/2);
                     }
-                	g2.drawString("" + value, boardX + j * fieldWidth + fieldWidth/2, boardY + i * fieldHeight + fieldHeight/2);
-
                 }
+
             }
         }
+
 
         // Draw thick lines
         Stroke oldStroke = g2.getStroke();
