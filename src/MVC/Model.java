@@ -10,6 +10,8 @@ import java.util.Scanner;
 
 import solvers.*;
 import sudoku.Field;
+import Generators.*;
+
 
 public class Model {
 	private View view;
@@ -177,6 +179,16 @@ public class Model {
 		return true;
 	}
 
+	public void generateSudoku() {
+		int[][] matrix = new SudokuGenerator().generateSudoku(getBoardSize());
+		for(int i = 0; i < getBoardSize(); i++) {
+			for(int j = 0; j < getBoardSize(); j++){
+				board[i][j].value = matrix[i][j];
+			}
+		}
+		view.repaint();
+	}
+	
 	public Field[][] getBoard() {
 		return board;
 	}

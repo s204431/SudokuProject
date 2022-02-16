@@ -24,6 +24,9 @@ public class Controller {
 		else if (e.getKeyChar() == 'l') {
 			model.load(view.textField.getText());
 		}
+		else if (e.getKeyChar() == 'n') {
+			model.generateSudoku();
+		}
 		else if (!model.board[selectedFieldPosition[0]][selectedFieldPosition[1]].interactable) {
 			return;
 		}
