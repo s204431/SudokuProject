@@ -42,12 +42,7 @@ public class MainScreen extends JPanel{
         playBtn.setPreferredSize(new Dimension(btnSize,btnSize));
         playBtn.addActionListener(new playAction());
         leftBoxPanel.add(playBtn);
-        //k and n text fields
-        //kText = new JTextField("Enter k here: ");
-        //kText.setPreferredSize(new Dimension(textSize,textSize));
-        //kText.setMaximumSize(new Dimension(textSize,textSize));
-        //frame.add(kText);
-        //leftBoxPanel.add(kText);
+        //n text fields
 
         nText = new JTextField();
         nText.setPreferredSize(new Dimension(textSize,textSize));
@@ -114,7 +109,4 @@ public class MainScreen extends JPanel{
         }
     }
 
-    public int getN() {
-        return n;
-    }
 }
