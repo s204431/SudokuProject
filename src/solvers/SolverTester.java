@@ -18,7 +18,11 @@ public class SolverTester {
 		System.out.println("Testing "+solver.getClass().getSimpleName()+".");
 		TestCase[] testCases = new TestCase[] {new TestCase("given", true),
 											   new TestCase("smallunique", true),
-											   new TestCase("unsolvable", false)};
+											   new TestCase("unsolvable", false),
+											   new TestCase("extreme1", true),
+											   new TestCase("extreme2", true),
+											   new TestCase("extreme3", true),
+											   new TestCase("extreme4", true)};
 		boolean success = true;
 		for (TestCase testCase : testCases) {
 			model.load(testCase.fileName);

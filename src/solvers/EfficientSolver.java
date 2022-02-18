@@ -46,6 +46,65 @@ public class EfficientSolver extends SudokuSolver {
 	}
 	
 	private List<Integer>[] makeMove(int[][] board, List<Integer>[][] possibleValues) {
+		int innerSquareSize = (int)Math.sqrt(board.length);
+		boolean[][] foundColumn = new boolean[board.length][board.length];
+		boolean[][] foundRow = new boolean[board.length][board.length];
+		boolean[][] foundInnerSquare = new boolean[board.length][board.length];
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board.length; j++) {
+				if (board[i][j] < 1) {
+					for (int v : possibleValues[i][j]) {
+						foundRow[i][v-1] = true;
+						foundColumn[j][v-1] = true;
+						foundInnerSquare[(i/innerSquareSize)*innerSquareSize+(j/innerSquareSize)][v-1] = true;
+					}
+				}
+				else {
+					foundRow[i][board[i][j]-1] = true;
+					foundColumn[j][board[i][j]-1] = true;
+					foundInnerSquare[(i/innerSquareSize)*innerSquareSize+(j/innerSquareSize)][board[i][j]-1] = true;
+				}
+			}
+		}
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board.length; j++) {
+				if (!foundRow[i][j] || !foundColumn[i][j] || !foundInnerSquare[i][j]) {
+					return null;
+				}
+			}
+		}
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board.length; j++) {
+				for (int v : possibleValues[i][j]) {
+					boolean found1 = false;
+					boolean found2 = false;
+					boolean found3 = false;
+					for (int k = 0; k < board.length; k++) {
+						if (k != j && possibleValues[i][k].contains(v)) {
+							found1 = true;
+						}
+						if (k != i && possibleValues[k][j].contains(v)) {
+							found2 = true;
+						}
+					}
+					for (int k = i/innerSquareSize*innerSquareSize; k < i/innerSquareSize*innerSquareSize+innerSquareSize; k++) {
+						for (int l = j/innerSquareSize*innerSquareSize; l < j/innerSquareSize*innerSquareSize+innerSquareSize; l++) {
+							if ((k != i || l != j) && possibleValues[k][l].contains(v)) {
+								found3 = true;
+							}
+						}
+					}
+					if (!found1 || !found2 || !found3) {
+						ArrayList<Integer> pos = new ArrayList<>();
+						pos.add(i);
+						pos.add(j);
+						ArrayList<Integer> lv = new ArrayList<>();
+						lv.add(v);
+						return new ArrayList[] {pos, lv};
+					}
+				}
+			}
+		}
 		int lowestPossibleValues = Integer.MAX_VALUE;
 		int lowestX = -1;
 		int lowestY = -1;
