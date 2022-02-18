@@ -18,13 +18,10 @@ public class RandomBacktrackingSolver extends SudokuSolver {
 	}
 
 	public List<int[][]> solve(int maxSolutions) {
-		System.out.println("Solving");
-		solutionsFound = 0;
-		solutions = new ArrayList<>();
+		reset();
 		if (isValidSudoku()) {
 			solveRecursive(0, 0, maxSolutions);
 		}
-		System.out.println("Done");
 		return solutions;
 	}
 	

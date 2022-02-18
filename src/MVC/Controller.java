@@ -2,6 +2,8 @@ package MVC;
 
 import java.awt.event.KeyEvent;
 
+import solvers.SolverTester;
+
 public class Controller {
 	private Model model;
 	private View view;
@@ -26,6 +28,9 @@ public class Controller {
 		}
 		else if (e.getKeyChar() == 'n') {
 			model.generateSudoku();
+		}
+		else if (e.getKeyChar() == 't') {
+			new SolverTester().testAll(model);
 		}
 		else if (!model.board[selectedFieldPosition[0]][selectedFieldPosition[1]].interactable) {
 			return;

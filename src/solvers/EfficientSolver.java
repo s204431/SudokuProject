@@ -18,11 +18,13 @@ public class EfficientSolver extends SudokuSolver {
 	}
 	
 	public List<int[][]> solve(int maxSolutions) {
+		reset();
 		solveRecursive(board, initializePossibleValues(), maxSolutions);
 		return solutions;
 	}
 	
 	private void solveRecursive(int[][] board, List<Integer>[][] possibleValues, int maxSolutions) {
+		recursiveCalls++;
 		List<Integer>[] move = makeMove(board, possibleValues);
 		if (move == null) {
 			if (Model.sudokuSolved(board)) {
