@@ -46,6 +46,7 @@ public class EfficientSolver extends SudokuSolver {
 	}
 	
 	private List<Integer>[] makeMove(int[][] board, List<Integer>[][] possibleValues) {
+		//Detect unsolvable.
 		int innerSquareSize = (int)Math.sqrt(board.length);
 		boolean[][] foundColumn = new boolean[board.length][board.length];
 		boolean[][] foundRow = new boolean[board.length][board.length];
@@ -73,6 +74,7 @@ public class EfficientSolver extends SudokuSolver {
 				}
 			}
 		}
+		//Single position.
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board.length; j++) {
 				for (int v : possibleValues[i][j]) {
@@ -105,6 +107,7 @@ public class EfficientSolver extends SudokuSolver {
 				}
 			}
 		}
+		//Choose field with least possible values.
 		int lowestPossibleValues = Integer.MAX_VALUE;
 		int lowestX = -1;
 		int lowestY = -1;

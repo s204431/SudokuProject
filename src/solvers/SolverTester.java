@@ -17,6 +17,7 @@ public class SolverTester {
 		long start = new Date().getTime();
 		System.out.println("Testing "+solver.getClass().getSimpleName()+".");
 		TestCase[] testCases = new TestCase[] {new TestCase("given", true),
+											   new TestCase("empty", true),
 											   new TestCase("smallunique", true),
 											   new TestCase("unsolvable", false),
 											   new TestCase("extreme1", true),
