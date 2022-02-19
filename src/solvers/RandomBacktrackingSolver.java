@@ -26,6 +26,10 @@ public class RandomBacktrackingSolver extends SudokuSolver {
 	}
 	
 	private void solveRecursive(int x, int y, int maxSolutions) {
+		recursiveCalls++;
+		if (recursiveCalls > 500000) {
+			return;
+		}
 		if (solutionsFound >= maxSolutions) {
 			return;
 		}

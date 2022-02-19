@@ -8,8 +8,8 @@ import MVC.Model;
 public class SolverTester {
 	
 	public void testAll(Model model) {
-		//test(model, new BacktrackingSolver(model.board));
-		//test(model, new RandomBacktrackingSolver(model.board));
+		test(model, new BacktrackingSolver(model.board));
+		test(model, new RandomBacktrackingSolver(model.board));
 		test(model, new EfficientSolver(model.board));
 	}
 
@@ -31,7 +31,11 @@ public class SolverTester {
 			long time1 = new Date().getTime();
 			List<int[][]> solutions = solver.solve(1);
 			long time2 = new Date().getTime();
-			if (testCase.solvable && solutions.size() > 0 && Model.sudokuSolved(solutions.get(0))) {
+			if (solver.recursiveCalls >= 500000) {
+				System.out.println(solver.getClass().getSimpleName()+" took too long for test \""+testCase.fileName+"\".");
+				success = false;
+			}
+			else if (testCase.solvable && solutions.size() > 0 && Model.sudokuSolved(solutions.get(0))) {
 				System.out.println(solver.getClass().getSimpleName()+" passed test \""+testCase.fileName+"\" in "+(time2-time1)+" ms and "+solver.recursiveCalls+" recursive calls.");
 			}
 			else if (!testCase.solvable && solutions.size() == 0) {
