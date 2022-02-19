@@ -22,15 +22,18 @@ public class RandomBacktrackingSolver extends SudokuSolver {
 		if (isValidSudoku()) {
 			solveRecursive(0, 0, maxSolutions);
 		}
+		if (recursiveCalls > 500000) {
+			System.out.println("Solver took too long to find solutions.");
+		}
 		return solutions;
 	}
 	
 	private void solveRecursive(int x, int y, int maxSolutions) {
-		recursiveCalls++;
-		if (recursiveCalls > 500000) {
+		if (solutionsFound >= maxSolutions) {
 			return;
 		}
-		if (solutionsFound >= maxSolutions) {
+		recursiveCalls++;
+		if (recursiveCalls > 500000) {
 			return;
 		}
 		if (board[x][y] > 0) {

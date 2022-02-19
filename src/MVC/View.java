@@ -203,8 +203,10 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 			while (!close) {
 				if (dragging) {
 					Point mousePos = getMousePosition();
-					boardX = mousePos.x+mouseBoardVector[0];
-					boardY = mousePos.y+mouseBoardVector[1];
+					if (mousePos != null) {
+						boardX = mousePos.x+mouseBoardVector[0];
+						boardY = mousePos.y+mouseBoardVector[1];
+					}
 					repaint();
 				}
 				try {

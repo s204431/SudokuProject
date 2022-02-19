@@ -20,11 +20,17 @@ public class EfficientSolver extends SudokuSolver {
 	public List<int[][]> solve(int maxSolutions) {
 		reset();
 		solveRecursive(board, initializePossibleValues(), maxSolutions);
+		if (recursiveCalls > 500000) {
+			System.out.println("Solver took too long to find solutions.");
+		}
 		return solutions;
 	}
 	
 	private void solveRecursive(int[][] board, List<Integer>[][] possibleValues, int maxSolutions) {
 		recursiveCalls++;
+		if (recursiveCalls > 500000) {
+			return;
+		}
 		List<Integer>[] move = makeMove(board, possibleValues);
 		if (move == null) {
 			if (Model.sudokuSolved(board)) {
