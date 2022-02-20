@@ -94,6 +94,9 @@ public class MainScreen extends JPanel{
         public void actionPerformed (ActionEvent e){
         	try {
                 n = Integer.parseInt(nText.getText());
+                if (n < 1) {
+                	return;
+                }
                 //k = Integer.parseInt(kText.getText());
                 startGame();
                 frame.dispose();

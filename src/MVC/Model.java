@@ -98,15 +98,20 @@ public class Model {
 	}
 	
 	public void solve(int maxSolutions) {
-		List<int[][]> results = new EfficientSolver(board).solve(maxSolutions);
-		System.out.println("Found "+results.size()+" solutions.");
+		SudokuSolver solver = new EfficientSolver(board);
+		List<int[][]> results = solver.solve(maxSolutions);
+		System.out.println("Found "+results.size()+" solutions. Took "+solver.recursiveCalls+" recursive calls and "+solver.guesses+" guesses. Difficulty: "+solver.difficulty+".");
 		if (results.size() > 0) {
 			for (int i = 0; i < board.length; i++) {
 				for (int j = 0; j < board[0].length; j++) {
-					setField(i, j, results.get(0)[i][j]);
+					board[i][j].value = results.get(0)[i][j];
 				}
-			}	
+			}
 		}
+		if (sudokuSolved(board)) {
+			System.out.println("Solved!");
+		}
+		view.repaint();
 	}
 	
 	public void save(String fileName) {
@@ -188,6 +193,16 @@ public class Model {
 			}
 		}
 		view.repaint();
+	}
+	
+	public void generateSudoku(int difficulty) {
+		generateSudoku();
+		SudokuSolver solver = new EfficientSolver(board);
+		while (solver.difficulty != difficulty) {
+			generateSudoku();
+			solver = new EfficientSolver(board);
+			solver.solve(1);
+		}
 	}
 	
 	public void giveHint() {

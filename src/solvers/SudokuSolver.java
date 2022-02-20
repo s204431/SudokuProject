@@ -11,7 +11,9 @@ public abstract class SudokuSolver {
 	protected int[][] board;
 	protected int solutionsFound;
 	public int recursiveCalls;
+	public int guesses;
 	protected List<int[][]> solutions = new ArrayList<>();
+	public int difficulty = 0;
 	
 	public SudokuSolver(Field[][] board) {
 		setBoard(board);
@@ -105,6 +107,8 @@ public abstract class SudokuSolver {
 		solutions = new ArrayList<>();
 		solutionsFound = 0;
 		recursiveCalls = 0;
+		difficulty = 0;
+		guesses = 0;
 	}
 
 }

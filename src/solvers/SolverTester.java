@@ -24,7 +24,8 @@ public class SolverTester {
 											   new TestCase("extreme2", true),
 											   new TestCase("extreme3", true),
 											   new TestCase("extreme4", true),
-											   new TestCase("hard16", true)};
+											   new TestCase("hard16", true),
+											   new TestCase("difficulty3", true)};
 		boolean success = true;
 		for (TestCase testCase : testCases) {
 			model.load(testCase.fileName);
@@ -37,10 +38,10 @@ public class SolverTester {
 				success = false;
 			}
 			else if (testCase.solvable && solutions.size() > 0 && Model.sudokuSolved(solutions.get(0))) {
-				System.out.println(solver.getClass().getSimpleName()+" passed test \""+testCase.fileName+"\" in "+(time2-time1)+" ms and "+solver.recursiveCalls+" recursive calls.");
+				System.out.println(solver.getClass().getSimpleName()+" passed test \""+testCase.fileName+"\" in "+(time2-time1)+" ms, "+solver.recursiveCalls+" recursive calls and "+solver.guesses+" guesses. Difficulty: "+solver.difficulty+".");
 			}
 			else if (!testCase.solvable && solutions.size() == 0) {
-				System.out.println(solver.getClass().getSimpleName()+" passed test \""+testCase.fileName+"\" in "+(time2-time1)+" ms and "+solver.recursiveCalls+" recursive calls.");
+				System.out.println(solver.getClass().getSimpleName()+" passed test \""+testCase.fileName+"\" in "+(time2-time1)+" ms, "+solver.recursiveCalls+" recursive calls and "+solver.guesses+" guesses. Difficulty: "+solver.difficulty+".");
 			}
 			else {
 				System.out.println(solver.getClass().getSimpleName()+" failed test \""+testCase.fileName+"\".");

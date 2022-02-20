@@ -9,6 +9,9 @@ public class SudokuGenerator {
 	
 	public int[][] generateSudoku(int N){
 		int[][] matrix = new int[N][N];
+		if (N < 2) {
+			return matrix;
+		}
 		matrix = new RandomBacktrackingSolver(matrix).solve(1).get(0);
 		
 		int col;
