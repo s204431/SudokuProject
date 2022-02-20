@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 import solvers.*;
 import sudoku.Field;
@@ -109,7 +110,7 @@ public class Model {
 	}
 	
 	public void save(String fileName) {
-		File file = new File(fileName+".su");
+		File file = new File("savedsudokus/"+fileName+".su");
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 			writer.write(innerSquareSize+";"+innerSquareSize+"\n");
@@ -136,10 +137,10 @@ public class Model {
 	}
 	
 	public void load(String fileName) {
-		File file = new File(fileName+".su");
+		File file = new File("savedsudokus/"+fileName+".su");
 		try {
 			Scanner scanner = new Scanner(file);
-			scanner.useDelimiter(";|\\n");
+			scanner.useDelimiter(Pattern.compile("[\\r\\n;]+"));
 			innerSquareSize = scanner.nextInt();
 			board = new Field[getBoardSize()][getBoardSize()];
 			scanner.nextInt();
