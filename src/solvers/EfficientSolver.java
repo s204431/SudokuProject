@@ -9,6 +9,9 @@ import sudoku.Field;
 
 public class EfficientSolver extends SudokuSolver {
 	
+	private boolean detectUnsolvable = true;
+	private boolean useSinglePosition = true;
+	
 	public EfficientSolver(Field[][] board) {
 		super(board);
 	}
@@ -51,36 +54,43 @@ public class EfficientSolver extends SudokuSolver {
 		}
 	}
 	
-	private List<Integer>[] makeMove(int[][] board, List<Integer>[][] possibleValues) {
-		//Detect unsolvable.
-		int innerSquareSize = (int)Math.sqrt(board.length);
-		boolean[][] foundColumn = new boolean[board.length][board.length];
-		boolean[][] foundRow = new boolean[board.length][board.length];
-		boolean[][] foundInnerSquare = new boolean[board.length][board.length];
-		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board.length; j++) {
-				if (board[i][j] < 1) {
-					for (int v : possibleValues[i][j]) {
-						foundRow[i][v-1] = true;
-						foundColumn[j][v-1] = true;
-						foundInnerSquare[(i/innerSquareSize)*innerSquareSize+(j/innerSquareSize)][v-1] = true;
-					}
-				}
-				else {
-					foundRow[i][board[i][j]-1] = true;
-					foundColumn[j][board[i][j]-1] = true;
-					foundInnerSquare[(i/innerSquareSize)*innerSquareSize+(j/innerSquareSize)][board[i][j]-1] = true;
-				}
+	public List<Integer>[] makeMove(int[][] board, List<Integer>[][] possibleValues) {
+		if (detectUnsolvable && detectUnsolvable(board, possibleValues)) {
+			return null;
+		}
+		if (useSinglePosition) {
+			List<Integer>[] result = singlePosition(board, possibleValues);
+			if (result != null) {
+				return result;
 			}
 		}
+		//Choose field with least possible values.
+		int lowestPossibleValues = Integer.MAX_VALUE;
+		int lowestX = -1;
+		int lowestY = -1;
 		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board.length; j++) {
-				if (!foundRow[i][j] || !foundColumn[i][j] || !foundInnerSquare[i][j]) {
+			for (int j = 0; j < board[i].length; j++) {
+				if (possibleValues[i][j].size() > 0 && possibleValues[i][j].size() < lowestPossibleValues) {
+					lowestPossibleValues = possibleValues[i][j].size();
+					lowestX = i;
+					lowestY = j;
+				}
+				else if (possibleValues[i][j].size() == 0 && board[i][j] <= 0) {
 					return null;
 				}
 			}
 		}
-		//Single position.
+		if (lowestPossibleValues == Integer.MAX_VALUE) {
+			return null;
+		}
+		ArrayList<Integer> pos = new ArrayList<>();
+		pos.add(lowestX);
+		pos.add(lowestY);
+		return new ArrayList[] {pos, (ArrayList)possibleValues[lowestX][lowestY]};
+	}
+	
+	private List<Integer>[] singlePosition(int[][] board, List<Integer>[][] possibleValues) {
+		int innerSquareSize = (int)Math.sqrt(board.length);
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board.length; j++) {
 				for (int v : possibleValues[i][j]) {
@@ -113,29 +123,42 @@ public class EfficientSolver extends SudokuSolver {
 				}
 			}
 		}
-		//Choose field with least possible values.
-		int lowestPossibleValues = Integer.MAX_VALUE;
-		int lowestX = -1;
-		int lowestY = -1;
+		return null;
+	}
+	
+	private List<Integer>[] candidateLines(int[][] board, List<Integer>[][] possibleValues) {
+		return null;
+	}
+	
+	private boolean detectUnsolvable(int[][] board, List<Integer>[][] possibleValues) {
+		int innerSquareSize = (int)Math.sqrt(board.length);
+		boolean[][] foundColumn = new boolean[board.length][board.length];
+		boolean[][] foundRow = new boolean[board.length][board.length];
+		boolean[][] foundInnerSquare = new boolean[board.length][board.length];
 		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board[i].length; j++) {
-				if (possibleValues[i][j].size() > 0 && possibleValues[i][j].size() < lowestPossibleValues) {
-					lowestPossibleValues = possibleValues[i][j].size();
-					lowestX = i;
-					lowestY = j;
+			for (int j = 0; j < board.length; j++) {
+				if (board[i][j] < 1) {
+					for (int v : possibleValues[i][j]) {
+						foundRow[i][v-1] = true;
+						foundColumn[j][v-1] = true;
+						foundInnerSquare[(i/innerSquareSize)*innerSquareSize+(j/innerSquareSize)][v-1] = true;
+					}
 				}
-				else if (possibleValues[i][j].size() == 0 && board[i][j] <= 0) {
-					return null;
+				else {
+					foundRow[i][board[i][j]-1] = true;
+					foundColumn[j][board[i][j]-1] = true;
+					foundInnerSquare[(i/innerSquareSize)*innerSquareSize+(j/innerSquareSize)][board[i][j]-1] = true;
 				}
 			}
 		}
-		if (lowestPossibleValues == Integer.MAX_VALUE) {
-			return null;
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board.length; j++) {
+				if (!foundRow[i][j] || !foundColumn[i][j] || !foundInnerSquare[i][j]) {
+					return true;
+				}
+			}
 		}
-		ArrayList<Integer> pos = new ArrayList<>();
-		pos.add(lowestX);
-		pos.add(lowestY);
-		return new ArrayList[] {pos, (ArrayList)possibleValues[lowestX][lowestY]};
+		return false;
 	}
 	
 	private List<Integer>[][] initializePossibleValues() {
@@ -190,6 +213,24 @@ public class EfficientSolver extends SudokuSolver {
 			}
 		}
 		return newPossibleValues;
+	}
+	
+	public int[] makeOneMove() {
+		List<int[][]> solvedSudoku = solve(1);
+		if (solvedSudoku.size() > 0) {
+			reset();
+			List<Integer>[] move = makeMove(board, initializePossibleValues());
+			if (move == null) {
+				return null;
+			}
+			if (solvedSudoku.get(0)[move[0].get(0)][move[0].get(1)] == move[1].get(0)) {
+				return new int[] {move[0].get(0), move[0].get(1), move[1].get(0)};
+			}
+			else {
+				return new int[] {move[0].get(0), move[0].get(1), solvedSudoku.get(0)[move[0].get(0)][move[0].get(1)]};
+			}
+		}
+		return null;
 	}
 	
 }

@@ -190,6 +190,13 @@ public class Model {
 		view.repaint();
 	}
 	
+	public void giveHint() {
+		int[] move = new EfficientSolver(board).makeOneMove();
+		if (move != null) {
+			setField(move[0], move[1], move[2]);	
+		}
+	}
+	
 	public Field[][] getBoard() {
 		return board;
 	}

@@ -32,6 +32,9 @@ public class Controller {
 		else if (e.getKeyChar() == 't') {
 			new SolverTester().testAll(model);
 		}
+		else if (e.getKeyChar() == 'h') {
+			model.giveHint();
+		}
 		else if (!model.board[selectedFieldPosition[0]][selectedFieldPosition[1]].interactable) {
 			return;
 		}

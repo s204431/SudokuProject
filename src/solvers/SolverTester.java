@@ -8,8 +8,8 @@ import MVC.Model;
 public class SolverTester {
 	
 	public void testAll(Model model) {
-		test(model, new BacktrackingSolver(model.board));
-		test(model, new RandomBacktrackingSolver(model.board));
+		//test(model, new BacktrackingSolver(model.board));
+		//test(model, new RandomBacktrackingSolver(model.board));
 		test(model, new EfficientSolver(model.board));
 	}
 
@@ -23,7 +23,8 @@ public class SolverTester {
 											   new TestCase("extreme1", true),
 											   new TestCase("extreme2", true),
 											   new TestCase("extreme3", true),
-											   new TestCase("extreme4", true)};
+											   new TestCase("extreme4", true),
+											   new TestCase("hard16", true)};
 		boolean success = true;
 		for (TestCase testCase : testCases) {
 			model.load(testCase.fileName);

@@ -31,6 +31,10 @@ public abstract class SudokuSolver {
 		return null;
 	}
 	
+	public int[] makeOneMove() {
+		return null;
+	}
+	
 	public void setBoard(Field[][] board) {
 		this.board = new int[board.length][board[0].length];
 		for (int i = 0; i < board.length; i++) {
