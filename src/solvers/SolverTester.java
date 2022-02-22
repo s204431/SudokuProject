@@ -3,9 +3,13 @@ package solvers;
 import java.util.Date;
 import java.util.List;
 
+import Generators.SudokuGenerator;
 import MVC.Model;
 
 public class SolverTester {
+	
+	private boolean includeRandom = true;
+	private int numberOfRandomTests = 100;
 	
 	public void testAll(Model model) {
 		//test(model, new BacktrackingSolver(model.board));
@@ -48,8 +52,46 @@ public class SolverTester {
 				success = false;
 			}
 		}
+		long timeToGenerate = 0;
+		if (includeRandom) {
+			long totalTime = new Date().getTime();
+			int recursiveCalls = 0;
+			int guesses = 0;
+			int sumOfDifficulties = 0;
+			boolean successGenerated = true;
+			for (int i = 0; i < numberOfRandomTests; i++) {
+				long time1 = new Date().getTime();
+				model.generateSudoku();
+				long time2 = new Date().getTime();
+				timeToGenerate += time2 - time1;
+				solver.setBoard(model.board);
+				List<int[][]> solutions = solver.solve(1);
+				if (solver.recursiveCalls >= 500000) {
+					System.out.println(solver.getClass().getSimpleName()+" took too long for "+numberOfRandomTests+" random tests.");
+					successGenerated = false;
+					break;
+				}
+				else if (solutions.size() == 0) {
+					System.out.println(solver.getClass().getSimpleName()+" failed "+numberOfRandomTests+" random tests.");
+					successGenerated = false;
+					break;
+				}
+				else {
+					recursiveCalls += solver.recursiveCalls;
+					guesses += solver.guesses;
+					sumOfDifficulties += solver.difficulty;
+				}
+			}
+			totalTime = new Date().getTime()-totalTime-timeToGenerate;
+			if (successGenerated) {
+				System.out.println(solver.getClass().getSimpleName()+" passed "+numberOfRandomTests+" random tests in "+totalTime+" ms, "+recursiveCalls+" recursive calls and "+guesses+" guesses. Average difficulty: "+sumOfDifficulties/(double)numberOfRandomTests+".");
+			}
+			else {
+				success = false;
+			}
+		}
 		if (success) {
-			System.out.println(solver.getClass().getSimpleName()+" passed all tests in "+(new Date().getTime()-start)+" ms.");
+			System.out.println(solver.getClass().getSimpleName()+" passed all tests in "+(new Date().getTime()-start-timeToGenerate)+" ms.");
 		}
 	}
 	

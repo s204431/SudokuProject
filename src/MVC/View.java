@@ -135,8 +135,10 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     @Override
     public void mousePressed(MouseEvent e) {
     	Point mousePos = getMousePosition();
-    	mouseBoardVector = new int[] {boardX-mousePos.x, boardY-mousePos.y};
-    	dragging = true;
+    	if (mousePos != null) {
+        	mouseBoardVector = new int[] {boardX-mousePos.x, boardY-mousePos.y};
+        	dragging = true;
+    	}
     }
 
     @Override
