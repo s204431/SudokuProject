@@ -1,34 +1,31 @@
 package sudoku;
 
-import MVC.Controller;
-import MVC.Model;
-import MVC.View;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class NewGameScreen extends JPanel {
+public class GenerateNewSudokuScreen extends JPanel {
     private String title = "Sudoku";
-    private Font titleFont = new Font(Font.SERIF, Font.BOLD, 40);
+    private Font titleFont = new Font(Font.SERIF, Font.BOLD,40);
     private int btnHeight = 50;
     private int btnWidth = 200;
     private JFrame frame;
     private JLabel titleString;
-    private JLabel assistModeString;
-    private JCheckBox assistModeCheck;
+    private JLabel boardSizeString;
+    private JLabel difficulyString;
     private JButton generateBtn;
-    private JButton loadBtn;
     private JButton backBtn;
+    private JComboBox<String> difficultyDDMenu;
 
-    public NewGameScreen(JFrame frame) {
+    public GenerateNewSudokuScreen(JFrame frame) {
         this.frame = frame;
 
         //setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         setLayout(null);
 
         // Add components
+        addDropdownMenu();
         addLabels();
         addButtons();
         addTextFields();
@@ -38,42 +35,42 @@ public class NewGameScreen extends JPanel {
         frame.setVisible(true);
     }
 
+    private void addDropdownMenu() {
+        String[] difficulties = { "Easy", "Medium", "Hard" };
+        difficultyDDMenu = new JComboBox<String>(difficulties);
+        difficultyDDMenu.setFont(new Font(Font.SERIF, Font.BOLD, 20));
+        difficultyDDMenu.setBounds(400, 350, 150, btnHeight);
+        add(difficultyDDMenu);
+    }
 
     private void addLabels() {
         // Title
         titleString = new JLabel("New Game");
         titleString.setFont(titleFont);
         //titleString.setAlignmentX(Component.CENTER_ALIGNMENT);
-        titleString.setBounds(300, 50, 200, 100);
+        titleString.setBounds(300, 50, btnWidth, 100);
         add(titleString);
 
-        assistModeString = new JLabel("Assist mode: ");
-        assistModeString.setFont(new Font(Font.SERIF, Font.BOLD, 20));
-        assistModeString.setBounds(300, 600, 200, 100);
-        add(assistModeString);
+        boardSizeString = new JLabel("Size of board");
+        boardSizeString.setFont(new Font(Font.SERIF, Font.BOLD, 30));
+        boardSizeString.setBounds(300, 200, btnWidth, btnHeight);
+        add(boardSizeString);
 
-        assistModeCheck = new JCheckBox();
-        assistModeCheck.setBounds(420, 600, 100, 100);
-        add(assistModeCheck);
+        difficulyString = new JLabel("Difficulty: ");
+        difficulyString.setFont(new Font(Font.SERIF, Font.BOLD, 30));
+        difficulyString.setBounds(250, 350, btnWidth, btnHeight);
+        add(difficulyString);
     }
 
     private void addButtons() {
-        generateBtn = new JButton("Generate New Sudoku");
-        generateBtn.addActionListener(new generateNewAction());
-        generateBtn.setBounds(300, 200, btnWidth, btnHeight);
+        generateBtn = new JButton("Generate Sudoku");
+        generateBtn.addActionListener(null);
+        generateBtn.setBounds(300, 450, btnWidth, btnHeight);
         add(generateBtn);
-
-        loadBtn = new JButton("Load Existing Sudoku");
-        //newGameBtn.setPreferredSize(new Dimension(btnSize,btnSize));
-        //newGameBtn.setMaximumSize(new Dimension(btnSize,btnSize));
-        //newGameBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        loadBtn.addActionListener(null);
-        loadBtn.setBounds(300, 300, btnWidth, btnHeight);
-        add(loadBtn);
 
         backBtn = new JButton("Back");
         backBtn.addActionListener(new backAction());
-        backBtn.setBounds(300, 400, btnWidth, btnHeight);
+        backBtn.setBounds(300, 550, btnWidth, btnHeight);
         add(backBtn);
     }
 
@@ -106,17 +103,10 @@ public class NewGameScreen extends JPanel {
         frame.remove(this);
     }
 
-    class generateNewAction implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            changePanel();
-            new GenerateNewSudokuScreen(frame);
-        }
-    }
-
     class backAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             changePanel();
-            new MainScreen(frame);
+            new NewGameScreen(frame);
         }
     }
 
