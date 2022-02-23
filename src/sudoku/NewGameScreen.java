@@ -67,7 +67,7 @@ public class NewGameScreen extends JPanel {
         //newGameBtn.setPreferredSize(new Dimension(btnSize,btnSize));
         //newGameBtn.setMaximumSize(new Dimension(btnSize,btnSize));
         //newGameBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        loadBtn.addActionListener(null);
+        loadBtn.addActionListener(new loadGameAction());
         loadBtn.setBounds(300, 300, btnWidth, btnHeight);
         add(loadBtn);
 
@@ -110,6 +110,13 @@ public class NewGameScreen extends JPanel {
         public void actionPerformed(ActionEvent e) {
             changePanel();
             new GenerateNewSudokuScreen(frame);
+        }
+    }
+
+    class loadGameAction implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            changePanel();
+            new LoadGameScreen(frame);
         }
     }
 

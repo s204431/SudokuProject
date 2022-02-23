@@ -4,28 +4,27 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-public class GenerateNewSudokuScreen extends JPanel {
+public class LoadGameScreen extends JPanel {
     private String title = "Sudoku";
     private Font titleFont = new Font(Font.SERIF, Font.BOLD,40);
     private int btnHeight = 50;
     private int btnWidth = 200;
     private JFrame frame;
     private JLabel titleString;
-    private JLabel boardSizeString;
-    private JLabel difficulyString;
-    private JButton generateBtn;
+    private JButton loadGameBtn;
     private JButton backBtn;
-    private JComboBox<String> difficultyDDMenu;
+    private JList<String> loadList;
 
-    public GenerateNewSudokuScreen(JFrame frame) {
+    public LoadGameScreen(JFrame frame) {
         this.frame = frame;
 
         //setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         setLayout(null);
 
         // Add components
-        addDropdownMenu();
+        addLists();
         addLabels();
         addButtons();
 
@@ -34,42 +33,39 @@ public class GenerateNewSudokuScreen extends JPanel {
         frame.setVisible(true);
     }
 
-    private void addDropdownMenu() {
-        String[] difficulties = { "Easy", "Medium", "Hard" };
-        difficultyDDMenu = new JComboBox<>(difficulties);
-        difficultyDDMenu.setFont(new Font(Font.SERIF, Font.BOLD, 20));
-        difficultyDDMenu.setBounds(400, 350, 150, btnHeight);
-        add(difficultyDDMenu);
+    private void addLists() {
+        ArrayList<String> savedSudokus = new ArrayList<>();
+        for (int i = 0; i < 25; i++) {
+            savedSudokus.add("My Saved Sudoku " + i);
+        }
+        loadList = new JList<String>(savedSudokus.toArray(new String[savedSudokus.size()]));
+
+        // Add scroll function
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setViewportView(loadList);
+        loadList.setLayoutOrientation(JList.VERTICAL);
+        scrollPane.setBounds(300, 200, 200, 300);
+        add(scrollPane);
     }
 
     private void addLabels() {
         // Title
-        titleString = new JLabel("New Game");
+        titleString = new JLabel("Load Game");
         titleString.setFont(titleFont);
         //titleString.setAlignmentX(Component.CENTER_ALIGNMENT);
-        titleString.setBounds(300, 50, btnWidth, 100);
+        titleString.setBounds(300, 50, 300, 100);
         add(titleString);
-
-        boardSizeString = new JLabel("Size of board");
-        boardSizeString.setFont(new Font(Font.SERIF, Font.BOLD, 30));
-        boardSizeString.setBounds(300, 200, btnWidth, btnHeight);
-        add(boardSizeString);
-
-        difficulyString = new JLabel("Difficulty: ");
-        difficulyString.setFont(new Font(Font.SERIF, Font.BOLD, 30));
-        difficulyString.setBounds(250, 350, btnWidth, btnHeight);
-        add(difficulyString);
     }
 
     private void addButtons() {
-        generateBtn = new JButton("Generate Sudoku");
-        generateBtn.addActionListener(null);
-        generateBtn.setBounds(300, 450, btnWidth, btnHeight);
-        add(generateBtn);
+        loadGameBtn = new JButton("Load Game");
+        loadGameBtn.addActionListener(null);
+        loadGameBtn.setBounds(300, 550, btnWidth, btnHeight);
+        add(loadGameBtn);
 
         backBtn = new JButton("Back");
         backBtn.addActionListener(new backAction());
-        backBtn.setBounds(300, 550, btnWidth, btnHeight);
+        backBtn.setBounds(300, 650, btnWidth, btnHeight);
         add(backBtn);
     }
 
