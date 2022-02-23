@@ -1,6 +1,7 @@
 package MVC;
 
 import sudoku.Field;
+import sudoku.Main;
 import sudoku.MainScreen;
 import MVC.*;
 import javax.swing.*;
@@ -120,8 +121,8 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     }
     
     public void quitToMenu() {
-    	new MainScreen();
-    	frame.dispose();
+        frame.dispose();
+        Main.main(null);
     }
 
     @Override
