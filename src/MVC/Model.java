@@ -205,5 +205,17 @@ public class Model {
 	public Field[][] getBoard() {
 		return board;
 	}
+	
+	private static long start;
+	
+	public static void Stopwatch() {
+		start = System.currentTimeMillis();
+	}
+	
+    public static double elapsedTime() {
+        long now = System.currentTimeMillis();
+        return (now - start) / 1000.0;
+    }
+	
 }
 

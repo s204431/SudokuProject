@@ -28,6 +28,10 @@ public class Controller {
 		}
 		else if (e.getKeyChar() == 'n') {
 			model.generateSudoku(1);
+			Model.Stopwatch();
+		}
+		else if (e.getKeyChar() == 'a') {
+			System.out.println(Model.elapsedTime());
 		}
 		else if (e.getKeyChar() == 't') {
 			new SolverTester().testAll(model);
