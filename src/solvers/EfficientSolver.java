@@ -217,7 +217,6 @@ public class EfficientSolver extends SudokuSolver {
 		return updated;
 	}
 	
-	//Needs optimization.
 	private boolean nakedPairs(int[][] board, List<Integer>[][] possibleValues) {
 		boolean updated = false;
 		for (int i = 0; i < board.length; i++) {
@@ -268,7 +267,7 @@ public class EfficientSolver extends SudokuSolver {
 						}
 					}
 				}
-				if (foundPositions.size() < board.length && foundPositions.size() == possibleValues[i][j].size() && distinctValues.size() == foundPositions.size()) {
+				if (foundPositions.size() > 0 && foundPositions.size() < board.length && distinctValues.size() == foundPositions.size()) {
 					for (int r = 0; r < board.length; r++) {
 						if (!foundPositions.contains(r)) {
 							int sizeBefore = possibleValues[r][j].size();
@@ -325,7 +324,7 @@ public class EfficientSolver extends SudokuSolver {
 						}
 					}
 				}
-				if (foundPositions.size() < board.length && foundPositions.size() == possibleValues[i][j].size() && distinctValues.size() == foundPositions.size()) {
+				if (foundPositions.size() > 0 && foundPositions.size() < board.length && distinctValues.size() == foundPositions.size()) {
 					for (int c = 0; c < board.length; c++) {
 						if (!foundPositions.contains(c)) {
 							int sizeBefore = possibleValues[i][c].size();
