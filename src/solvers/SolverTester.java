@@ -61,7 +61,7 @@ public class SolverTester {
 			boolean successGenerated = true;
 			for (int i = 0; i < numberOfRandomTests; i++) {
 				long time1 = new Date().getTime();
-				model.generateSudoku();
+				model.generateSudoku(1);
 				long time2 = new Date().getTime();
 				timeToGenerate += time2 - time1;
 				solver.setBoard(model.board);

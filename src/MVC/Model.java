@@ -185,24 +185,14 @@ public class Model {
 		return true;
 	}
 
-	public void generateSudoku() {
-		int[][] matrix = new SudokuGenerator().generateSudoku(getBoardSize());
+	public void generateSudoku(int difficulty) {
+		int[][] matrix = new SudokuGenerator().generateSudoku(getBoardSize(), difficulty, (int)(getBoardSize()*getBoardSize()*0.4));
 		for(int i = 0; i < getBoardSize(); i++) {
 			for(int j = 0; j < getBoardSize(); j++){
 				board[i][j].value = matrix[i][j];
 			}
 		}
 		view.repaint();
-	}
-	
-	public void generateSudoku(int difficulty) {
-		generateSudoku();
-		SudokuSolver solver = new EfficientSolver(board);
-		while (solver.difficulty != difficulty) {
-			generateSudoku();
-			solver = new EfficientSolver(board);
-			solver.solve(1);
-		}
 	}
 	
 	public void giveHint() {

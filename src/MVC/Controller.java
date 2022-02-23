@@ -27,7 +27,7 @@ public class Controller {
 			model.load(view.textField.getText());
 		}
 		else if (e.getKeyChar() == 'n') {
-			model.generateSudoku();
+			model.generateSudoku(1);
 		}
 		else if (e.getKeyChar() == 't') {
 			new SolverTester().testAll(model);
