@@ -73,7 +73,7 @@ public class EfficientSolver extends SudokuSolver {
 			List<Integer>[] result = singleCandidate(board, possibleValues);
 			if (result != null) {
 				if (difficulty < 1) {
-					difficulty = 1;	
+					difficulty = 1;
 				}
 				return result;
 			}
@@ -222,7 +222,7 @@ public class EfficientSolver extends SudokuSolver {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
 				List<Integer> foundPositions = new ArrayList<Integer>();
-				for (int r = i; r < board.length; r++) {
+				for (int r = 0; r < board.length; r++) {
 					if (possibleValues[i][j].size() == possibleValues[r][j].size()) {
 						boolean add = false;
 						for (int v : possibleValues[i][j]) {
@@ -279,7 +279,7 @@ public class EfficientSolver extends SudokuSolver {
 					}
 				}
 				foundPositions = new ArrayList<Integer>();
-				for (int c = j; c < board.length; c++) {
+				for (int c = 0; c < board.length; c++) {
 					if (possibleValues[i][j].size() == possibleValues[i][c].size()) {
 						boolean add = false;
 						for (int v : possibleValues[i][j]) {
