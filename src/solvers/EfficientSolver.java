@@ -217,17 +217,58 @@ public class EfficientSolver extends SudokuSolver {
 		return updated;
 	}
 	
+	//Needs optimization.
 	private boolean nakedPairs(int[][] board, List<Integer>[][] possibleValues) {
 		boolean updated = false;
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
 				List<Integer> foundPositions = new ArrayList<Integer>();
 				for (int r = i; r < board.length; r++) {
-					if (possibleValues[i][j].size() == possibleValues[r][j].size() && possibleValues[i][j].containsAll(possibleValues[r][j])) {
-						foundPositions.add(r);
+					if (possibleValues[i][j].size() == possibleValues[r][j].size()) {
+						boolean add = false;
+						for (int v : possibleValues[i][j]) {
+							if (possibleValues[r][j].contains(v)) {
+								add = true;
+							}
+						}
+						if (add) {
+							foundPositions.add(r);
+						}
 					}
 				}
-				if (foundPositions.size() < board.length && foundPositions.size() == possibleValues[i][j].size()) {
+				boolean remove = true;
+				while (remove) {
+					remove = false;
+					for (int p : foundPositions) {
+						remove = false;
+						for (int v : possibleValues[p][j]) {
+							boolean found = false;
+							for (int p2 : foundPositions) {
+								if (p != p2 && possibleValues[p2][j].contains(v)) {
+									found = true;
+									break;
+								}
+							}
+							if (!found) {
+								remove = true;
+								break;
+							}
+						}
+						if (remove) {
+							foundPositions.remove((Integer)p);
+							break;
+						}
+					}
+				}
+				List<Integer> distinctValues = new ArrayList<>();
+				for (int p : foundPositions) {
+					for (int v : possibleValues[p][j]) {
+						if (!distinctValues.contains(v)) {
+							distinctValues.add(v);
+						}
+					}
+				}
+				if (foundPositions.size() < board.length && foundPositions.size() == possibleValues[i][j].size() && distinctValues.size() == foundPositions.size()) {
 					for (int r = 0; r < board.length; r++) {
 						if (!foundPositions.contains(r)) {
 							int sizeBefore = possibleValues[r][j].size();
@@ -240,11 +281,51 @@ public class EfficientSolver extends SudokuSolver {
 				}
 				foundPositions = new ArrayList<Integer>();
 				for (int c = j; c < board.length; c++) {
-					if (possibleValues[i][j].size() == possibleValues[i][c].size() && possibleValues[i][j].containsAll(possibleValues[i][c])) {
-						foundPositions.add(c);
+					if (possibleValues[i][j].size() == possibleValues[i][c].size()) {
+						boolean add = false;
+						for (int v : possibleValues[i][j]) {
+							if (possibleValues[i][c].contains(v)) {
+								add = true;
+							}
+						}
+						if (add) {
+							foundPositions.add(c);
+						}
 					}
 				}
-				if (foundPositions.size() < board.length && foundPositions.size() == possibleValues[i][j].size()) {
+				remove = true;
+				while (remove) {
+					remove = false;
+					for (int p : foundPositions) {
+						remove = false;
+						for (int v : possibleValues[i][p]) {
+							boolean found = false;
+							for (int p2 : foundPositions) {
+								if (p != p2 && possibleValues[i][p].contains(v)) {
+									found = true;
+									break;
+								}
+							}
+							if (!found) {
+								remove = true;
+								break;
+							}
+						}
+						if (remove) {
+							foundPositions.remove((Integer)p);
+							break;
+						}
+					}
+				}
+				distinctValues = new ArrayList<>();
+				for (int p : foundPositions) {
+					for (int v : possibleValues[i][p]) {
+						if (!distinctValues.contains(v)) {
+							distinctValues.add(v);
+						}
+					}
+				}
+				if (foundPositions.size() < board.length && foundPositions.size() == possibleValues[i][j].size() && distinctValues.size() == foundPositions.size()) {
 					for (int c = 0; c < board.length; c++) {
 						if (!foundPositions.contains(c)) {
 							int sizeBefore = possibleValues[i][c].size();
