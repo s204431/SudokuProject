@@ -13,6 +13,7 @@ public class EfficientSolver extends SudokuSolver {
 	private boolean useSingleCandidate = true;
 	private boolean useSinglePosition = true;
 	private boolean useCandidateLines = true;
+	private boolean useNakedPairs = true;
 	
 	public EfficientSolver(Field[][] board) {
 		super(board);
@@ -95,6 +96,15 @@ public class EfficientSolver extends SudokuSolver {
 				return makeMove(board, possibleValues);
 			}
 		}
+		if (useNakedPairs) {
+			boolean updated = nakedPairs(board, possibleValues);
+			if (updated) {
+				if (difficulty < 4) {
+					difficulty = 4;	
+				}
+				return makeMove(board, possibleValues);
+			}
+		}
 		//Choose field with least possible values.
 		int lowestPossibleValues = Integer.MAX_VALUE;
 		int lowestX = -1;
@@ -108,7 +118,7 @@ public class EfficientSolver extends SudokuSolver {
 				}
 			}
 		}
-		difficulty = 4;
+		difficulty = 5;
 		return toMove(lowestX, lowestY, (ArrayList)possibleValues[lowestX][lowestY]);
 	}
 	
@@ -198,6 +208,49 @@ public class EfficientSolver extends SudokuSolver {
 									possibleValues[k][foundInColumn].remove((Integer) v);
 									updated = true;
 								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return updated;
+	}
+	
+	private boolean nakedPairs(int[][] board, List<Integer>[][] possibleValues) {
+		boolean updated = false;
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				List<Integer> foundPositions = new ArrayList<Integer>();
+				for (int r = i; r < board.length; r++) {
+					if (possibleValues[i][j].size() == possibleValues[r][j].size() && possibleValues[i][j].containsAll(possibleValues[r][j])) {
+						foundPositions.add(r);
+					}
+				}
+				if (foundPositions.size() < board.length && foundPositions.size() == possibleValues[i][j].size()) {
+					for (int r = 0; r < board.length; r++) {
+						if (!foundPositions.contains(r)) {
+							int sizeBefore = possibleValues[r][j].size();
+							possibleValues[r][j].removeAll(possibleValues[i][j]);
+							if (sizeBefore != possibleValues[r][j].size()) {
+								updated = true;
+							}
+						}
+					}
+				}
+				foundPositions = new ArrayList<Integer>();
+				for (int c = j; c < board.length; c++) {
+					if (possibleValues[i][j].size() == possibleValues[i][c].size() && possibleValues[i][j].containsAll(possibleValues[i][c])) {
+						foundPositions.add(c);
+					}
+				}
+				if (foundPositions.size() < board.length && foundPositions.size() == possibleValues[i][j].size()) {
+					for (int c = 0; c < board.length; c++) {
+						if (!foundPositions.contains(c)) {
+							int sizeBefore = possibleValues[i][c].size();
+							possibleValues[i][c].removeAll(possibleValues[i][j]);
+							if (sizeBefore != possibleValues[i][c].size()) {
+								updated = true;
 							}
 						}
 					}
