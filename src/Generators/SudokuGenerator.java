@@ -17,6 +17,9 @@ public class SudokuGenerator {
 		int col;
 		int row;
 		int lastNumber;
+//		int uniqueAttempts = 0;
+		int difficulty;
+		
 		
 		do {
 			while(true) {
@@ -30,9 +33,35 @@ public class SudokuGenerator {
 				}
 				
 			}
-		} while (new EfficientSolver(matrix).hasUniqueSolution());
+			SudokuSolver solver = new EfficientSolver(matrix);
+			if(!(solver.hasUniqueSolution()) || solver.difficulty > 2) {
+				matrix[col][row] = lastNumber;
+//				uniqueAttempts++;
+			}
+			difficulty = solver.difficulty;
+			System.out.println(difficulty);
+		} while (difficulty != 2);
 		
-		matrix[col][row] = lastNumber;
+		
+		
+//		do {
+//			while(true) {
+//				col = randomNumber(0,N - 1);
+//				row = randomNumber(0,N - 1);
+//				if(matrix[col][row] != 0) {
+//					lastNumber = matrix[col][row];
+//					matrix[col][row] = 0;
+//					break;
+//					
+//				}
+//				
+//			}
+//			System.out.println("test");
+//		} while (new BacktrackingSolver(matrix).hasUniqueSolution());
+//		
+//		matrix[col][row] = lastNumber;
+		
+
 		return matrix;
 		
 	}
