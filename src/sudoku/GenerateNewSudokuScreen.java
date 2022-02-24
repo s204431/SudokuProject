@@ -117,7 +117,8 @@ public class GenerateNewSudokuScreen extends JPanel {
     class startAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             frame.dispose();
-            startGame(3);
+            startGame(3);    // TODO: Use chosen size of board
+                                // TODO: Generate the sudoku
         }
     }
 
