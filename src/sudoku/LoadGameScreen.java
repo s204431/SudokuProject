@@ -1,9 +1,15 @@
 package sudoku;
 
+import MVC.Controller;
+import MVC.Model;
+import MVC.View;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
 
 public class LoadGameScreen extends JPanel {
@@ -34,11 +40,18 @@ public class LoadGameScreen extends JPanel {
     }
 
     private void addLists() {
-        ArrayList<String> savedSudokus = new ArrayList<>();
-        for (int i = 0; i < 25; i++) {
-            savedSudokus.add("My Saved Sudoku " + i);
+        File folder = new File("savedsudokus");
+        File[] matchingFiles = folder.listFiles(new FilenameFilter() {
+            public boolean accept(File dir, String name) {
+                return name.endsWith(".su");
+            }
+        });
+
+        String[] savedSudokus = new String[matchingFiles.length];
+        for (int i = 0; i < matchingFiles.length; i++) {
+            savedSudokus[i] = matchingFiles[i].getName().substring(0, matchingFiles[i].getName().length() - 3);
         }
-        loadList = new JList<String>(savedSudokus.toArray(new String[savedSudokus.size()]));
+        loadList = new JList<String>(savedSudokus);
 
         // Add scroll function
         JScrollPane scrollPane = new JScrollPane();
@@ -59,7 +72,7 @@ public class LoadGameScreen extends JPanel {
 
     private void addButtons() {
         loadGameBtn = new JButton("Load Game");
-        loadGameBtn.addActionListener(null);
+        loadGameBtn.addActionListener(new loadAction());
         loadGameBtn.setBounds(300, 550, btnWidth, btnHeight);
         add(loadGameBtn);
 
@@ -93,6 +106,24 @@ public class LoadGameScreen extends JPanel {
 
     private void changePanel() {
         frame.remove(this);
+    }
+
+    private Model startGame(int n) {
+        Model model = new Model(n);
+        View view = new View(model);
+        Controller controller = new Controller();
+        model.setView(view);
+        controller.setModel(model);
+        controller.setView(view);
+        view.setController(controller);
+        return model;
+    }
+
+    class loadAction implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            frame.dispose();
+            startGame(1).load(loadList.getSelectedValue());
+        }
     }
 
     class backAction implements ActionListener {
