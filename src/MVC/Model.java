@@ -162,6 +162,7 @@ public class Model {
 			}
 			scanner.close();
 			view.clickedPosition = new int[] {0, 0};
+			view.resetBoardPosition();
 			view.repaint();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

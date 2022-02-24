@@ -124,6 +124,13 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         frame.dispose();
         Main.main(null);
     }
+    
+    public void resetBoardPosition() {
+		fieldWidth = Field.DEFAULT_WIDTH;
+		fieldHeight = Field.DEFAULT_HEIGHT;
+		boardX = getPreferredSize().width/2-model.getBoardSize()*fieldWidth/2;
+		boardY = 0;
+    }
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -164,10 +171,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 			quitToMenu();
 		}
 		if (e.getKeyChar() == KeyEvent.VK_SPACE) {
-			fieldWidth = Field.DEFAULT_WIDTH;
-			fieldHeight = Field.DEFAULT_HEIGHT;
-			boardX = getPreferredSize().width/2-model.getBoardSize()*fieldWidth/2;
-			boardY = 0;
+			resetBoardPosition();
 			repaint();
 		}
 		else {
