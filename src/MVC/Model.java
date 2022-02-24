@@ -18,7 +18,9 @@ public class Model {
 	private View view;
 	public Field[][] board;
 	public int innerSquareSize; //Width/height an inner square.
-	
+	public enum Mode {play, create, solver};
+	public Mode mode = Mode.play;
+
 	public Model(int innerSquareSize) {
 		this.innerSquareSize = innerSquareSize;
 		board = new Field[getBoardSize()][getBoardSize()];

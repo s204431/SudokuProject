@@ -2,6 +2,7 @@ package MVC;
 
 import java.awt.event.KeyEvent;
 
+import MVC.Model.Mode;
 import solvers.SolverTester;
 
 public class Controller {

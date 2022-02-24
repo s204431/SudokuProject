@@ -2,6 +2,7 @@ package sudoku;
 import MVC.Controller;
 import MVC.Model;
 import MVC.View;
+import MVC.Model.Mode;
 
 import javax.swing.*;
 import java.awt.*;
