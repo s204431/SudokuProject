@@ -1,5 +1,9 @@
 package sudoku;
 
+import MVC.Controller;
+import MVC.Model;
+import MVC.View;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -63,7 +67,7 @@ public class GenerateNewSudokuScreen extends JPanel {
 
     private void addButtons() {
         generateBtn = new JButton("Generate Sudoku");
-        generateBtn.addActionListener(null);
+        generateBtn.addActionListener(new startAction());
         generateBtn.setBounds(300, 450, btnWidth, btnHeight);
         add(generateBtn);
 
@@ -97,6 +101,24 @@ public class GenerateNewSudokuScreen extends JPanel {
 
     private void changePanel() {
         frame.remove(this);
+    }
+
+    private Model startGame(int n) {
+        Model model = new Model(n);
+        View view = new View(model);
+        Controller controller = new Controller();
+        model.setView(view);
+        controller.setModel(model);
+        controller.setView(view);
+        view.setController(controller);
+        return model;
+    }
+
+    class startAction implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            frame.dispose();
+            startGame(3);
+        }
     }
 
     class backAction implements ActionListener {
