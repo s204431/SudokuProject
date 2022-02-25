@@ -14,6 +14,7 @@ public class EfficientSolver extends SudokuSolver {
 	private boolean useSinglePosition = true;
 	private boolean useCandidateLines = true;
 	private boolean useNakedPairs = true;
+	private boolean useXWing = true;
 	
 	public EfficientSolver(Field[][] board) {
 		super(board);
@@ -105,6 +106,15 @@ public class EfficientSolver extends SudokuSolver {
 				return makeMove(board, possibleValues);
 			}
 		}
+		if (useXWing) {
+			boolean updated = xWing(board, possibleValues);
+			if (updated) {
+				if (difficulty < 5) {
+					difficulty = 5;	
+				}
+				return makeMove(board, possibleValues);
+			}
+		}
 		//Choose field with least possible values.
 		int lowestPossibleValues = Integer.MAX_VALUE;
 		int lowestX = -1;
@@ -118,7 +128,7 @@ public class EfficientSolver extends SudokuSolver {
 				}
 			}
 		}
-		difficulty = 5;
+		difficulty = 6;
 		return toMove(lowestX, lowestY, (ArrayList)possibleValues[lowestX][lowestY]);
 	}
 	
@@ -331,6 +341,58 @@ public class EfficientSolver extends SudokuSolver {
 							possibleValues[i][c].removeAll(possibleValues[i][j]);
 							if (sizeBefore != possibleValues[i][c].size()) {
 								updated = true;
+							}
+						}
+					}
+				}
+			}
+		}
+		return updated;
+	}
+	
+	//Needs optimization.
+	private boolean xWing(int[][] board, List<Integer>[][] possibleValues) {
+		boolean updated = false;
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				for (int v : possibleValues[i][j]) {
+					for (int c = j+1; c < board.length; c++) {
+						if (possibleValues[i][c].contains(v)) {
+							for (int r = i+1; r < board.length; r++) {
+								if (possibleValues[r][c].contains(v) && possibleValues[r][j].contains(v)) {
+									boolean foundRow = false;
+									boolean foundColumn = false;
+									for (int k = 0; k < board.length; k++) {
+										if (k != j && k != c && (possibleValues[i][k].contains(v) || possibleValues[r][k].contains(v))) {
+											foundRow = true;
+ 										}
+										if (k != i && k != r && (possibleValues[k][j].contains(v) || possibleValues[k][c].contains(v))) {
+											foundColumn = true;
+										}
+									}
+									if (foundRow != foundColumn) {
+										for (int k = 0; k < board.length; k++) {
+											if (!foundColumn && k != j && k != c) {
+												int size1 = possibleValues[i][k].size();
+												int size2 = possibleValues[r][k].size();
+												possibleValues[i][k].remove((Integer)v);
+												possibleValues[r][k].remove((Integer)v);
+												if (size1 != possibleValues[i][k].size() || size2 != possibleValues[r][k].size()) {
+													updated = true;
+												}
+	 										}
+											if (!foundRow && k != i && k != r) {
+												int size1 = possibleValues[k][j].size();
+												int size2 = possibleValues[k][c].size();
+												possibleValues[k][j].remove((Integer)v);
+												possibleValues[k][c].remove((Integer)v);
+												if (size1 != possibleValues[k][j].size() || size2 != possibleValues[k][c].size()) {
+													updated = true;
+												}
+											}
+										}
+									}
+								}
 							}
 						}
 					}

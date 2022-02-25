@@ -158,7 +158,7 @@ public class Model {
 						board[i][j] = new Field(0, true);
 					}
 					else {
-						board[i][j] = new Field(Integer.parseInt(next), true);
+						board[i][j] = new Field(Integer.parseInt(next), mode != Mode.play);
 					}
 				}
 			}
