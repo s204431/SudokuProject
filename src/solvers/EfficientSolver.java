@@ -350,56 +350,70 @@ public class EfficientSolver extends SudokuSolver {
 		return updated;
 	}
 	
-	//Needs optimization.
 	private boolean xWing(int[][] board, List<Integer>[][] possibleValues) {
 		boolean updated = false;
-		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board[i].length; j++) {
-				for (int v : possibleValues[i][j]) {
-					for (int c = j+1; c < board.length; c++) {
-						if (possibleValues[i][c].contains(v)) {
-							for (int r = i+1; r < board.length; r++) {
-								if (possibleValues[r][c].contains(v) && possibleValues[r][j].contains(v)) {
-									boolean foundRow = false;
-									boolean foundColumn = false;
-									for (int k = 0; k < board.length; k++) {
-										if (k != j && k != c && (possibleValues[i][k].contains(v) || possibleValues[r][k].contains(v))) {
-											foundRow = true;
- 										}
-										if (k != i && k != r && (possibleValues[k][j].contains(v) || possibleValues[k][c].contains(v))) {
-											foundColumn = true;
-										}
+		for (int v = 1; v <= board.length; v++) {
+			for (int i = 0; i < board.length; i++) {
+				int[] cs = exactlyTwo(possibleValues, i, v, true);
+				if (cs[1] > 0) {
+					for (int k = i+1; k < board.length; k++) {
+						int[] cs2 = exactlyTwo(possibleValues, k, v, true);
+						if (cs[0] == cs2[0] && cs[1] == cs2[1]) {
+							for (int r = 0; r < board.length; r++) {
+								if (r != i && r != k) {
+									int size1 = possibleValues[r][cs[0]].size();
+									int size2 = possibleValues[r][cs[1]].size();
+									possibleValues[r][cs[0]].remove((Integer)v);
+									possibleValues[r][cs[1]].remove((Integer)v);
+									if (size1 != possibleValues[r][cs[0]].size() || size2 != possibleValues[r][cs[1]].size()) {
+										updated = true;
 									}
-									if (foundRow != foundColumn) {
-										for (int k = 0; k < board.length; k++) {
-											if (!foundColumn && k != j && k != c) {
-												int size1 = possibleValues[i][k].size();
-												int size2 = possibleValues[r][k].size();
-												possibleValues[i][k].remove((Integer)v);
-												possibleValues[r][k].remove((Integer)v);
-												if (size1 != possibleValues[i][k].size() || size2 != possibleValues[r][k].size()) {
-													updated = true;
-												}
-	 										}
-											if (!foundRow && k != i && k != r) {
-												int size1 = possibleValues[k][j].size();
-												int size2 = possibleValues[k][c].size();
-												possibleValues[k][j].remove((Integer)v);
-												possibleValues[k][c].remove((Integer)v);
-												if (size1 != possibleValues[k][j].size() || size2 != possibleValues[k][c].size()) {
-													updated = true;
-												}
-											}
-										}
+								}	
+							}			
+						}
+					}
+				}
+				int[] rs = exactlyTwo(possibleValues, i, v, false);
+				if (rs[1] > 0) {
+					for (int k = i+1; k < board.length; k++) {
+						int[] rs2 = exactlyTwo(possibleValues, k, v, false);
+						if (rs[0] == rs2[0] && rs[1] == rs2[1]) {
+							for (int c = 0; c < board.length; c++) {
+								if (c != i && c != k) {
+									int size1 = possibleValues[rs[0]][c].size();
+									int size2 = possibleValues[rs[1]][c].size();
+									possibleValues[rs[0]][c].remove((Integer)v);
+									possibleValues[rs[1]][c].remove((Integer)v);
+									if (size1 != possibleValues[rs[0]][c].size() || size2 != possibleValues[rs[1]][c].size()) {
+										updated = true;
 									}
-								}
-							}
+								}	
+							}			
 						}
 					}
 				}
 			}
 		}
 		return updated;
+	}
+	
+	private int[] exactlyTwo(List<Integer>[][] possibleValues, int k, int v, boolean row) {
+		int cr1 = -1;
+		int cr2 = -1;
+		for (int i = 0; i < board.length; i++) {
+			if ((row && possibleValues[k][i].contains(v)) || (!row && possibleValues[i][k].contains(v))) {
+				if (cr1 == -1) {
+					cr1 = i;
+				}
+				else if (cr2 == -1) {
+					cr2 = i;
+				}
+				else {
+					cr2 = -2;
+				}
+			}
+		}
+		return new int[] {cr1, cr2};
 	}
 	
 	private List<Integer>[] toMove(int x, int y, int value) {
