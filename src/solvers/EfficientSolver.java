@@ -16,12 +16,12 @@ public class EfficientSolver extends SudokuSolver {
 	private boolean useNakedPairs = true;
 	private boolean useXWing = true;
 	
-	public EfficientSolver(Field[][] board) {
-		super(board);
+	public EfficientSolver(Field[][] board, int innerSquareSize) {
+		super(board, innerSquareSize);
 	}
 	
-	public EfficientSolver(int[][] board) {
-		super(board);
+	public EfficientSolver(int[][] board, int innerSquareSize) {
+		super(board, innerSquareSize);
 	}
 	
 	public List<int[][]> solve(int maxSolutions) {
@@ -45,7 +45,7 @@ public class EfficientSolver extends SudokuSolver {
 		}
 		List<Integer>[] move = makeMove(board, possibleValues);
 		if (move == null) {
-			if (Model.sudokuSolved(board)) {
+			if (Model.sudokuSolved(board, innerSquareSize)) {
 				solutions.add(copyOf(board));
 				solutionsFound++;
 			}
@@ -106,7 +106,7 @@ public class EfficientSolver extends SudokuSolver {
 				return makeMove(board, possibleValues);
 			}
 		}
-		if (useXWing) {
+		if (useXWing && kEqualsN()) {
 			boolean updated = xWing(board, possibleValues);
 			if (updated) {
 				if (difficulty < 5) {
@@ -129,6 +129,9 @@ public class EfficientSolver extends SudokuSolver {
 			}
 		}
 		difficulty = 6;
+		if (lowestX < 0 || lowestY < 0) {
+			return null;
+		}
 		return toMove(lowestX, lowestY, (ArrayList)possibleValues[lowestX][lowestY]);
 	}
 	
@@ -144,7 +147,6 @@ public class EfficientSolver extends SudokuSolver {
 	}
 	
 	private List<Integer>[] singlePosition(int[][] board, List<Integer>[][] possibleValues) {
-		int innerSquareSize = (int)Math.sqrt(board.length);
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board.length; j++) {
 				for (int v : possibleValues[i][j]) {
@@ -176,10 +178,9 @@ public class EfficientSolver extends SudokuSolver {
 	}
 	
 	private boolean candidateLines(int[][] board, List<Integer>[][] possibleValues) {
-		int innerSquareSize = (int)Math.sqrt(board.length);
 		boolean updated = false;
-		for (int i = 0; i < innerSquareSize; i++) {
-			for (int j = 0; j < innerSquareSize; j++) {
+		for (int i = 0; i < getNumInnerSquares(); i++) {
+			for (int j = 0; j < getNumInnerSquares(); j++) {
 				for (int v = 1; v <= board.length; v++) {
 					int foundInRow = -1;
 					int foundInColumn = -1;
@@ -430,10 +431,9 @@ public class EfficientSolver extends SudokuSolver {
 	}
 	
 	private boolean detectUnsolvable(int[][] board, List<Integer>[][] possibleValues) {
-		int innerSquareSize = (int)Math.sqrt(board.length);
-		boolean[][] foundColumn = new boolean[board.length][board.length];
-		boolean[][] foundRow = new boolean[board.length][board.length];
-		boolean[][] foundInnerSquare = new boolean[board.length][board.length];
+		boolean[][] foundColumn = new boolean[board.length][getMaxValue()];
+		boolean[][] foundRow = new boolean[board.length][getMaxValue()];
+		boolean[][] foundInnerSquare = new boolean[getNumInnerSquares()*getNumInnerSquares()][getMaxValue()];
 		boolean foundPossibleMove = false;
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board.length; j++) {
@@ -444,13 +444,13 @@ public class EfficientSolver extends SudokuSolver {
 					for (int v : possibleValues[i][j]) {
 						foundRow[i][v-1] = true;
 						foundColumn[j][v-1] = true;
-						foundInnerSquare[(i/innerSquareSize)*innerSquareSize+(j/innerSquareSize)][v-1] = true;
+						foundInnerSquare[(i/innerSquareSize)*getNumInnerSquares()+(j/innerSquareSize)][v-1] = true;
 					}
 				}
 				else {
 					foundRow[i][board[i][j]-1] = true;
 					foundColumn[j][board[i][j]-1] = true;
-					foundInnerSquare[(i/innerSquareSize)*innerSquareSize+(j/innerSquareSize)][board[i][j]-1] = true;
+					foundInnerSquare[(i/innerSquareSize)*getNumInnerSquares()+(j/innerSquareSize)][board[i][j]-1] = true;
 				}
 			}
 		}
@@ -459,7 +459,14 @@ public class EfficientSolver extends SudokuSolver {
 		}
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board.length; j++) {
-				if (!foundRow[i][j] || !foundColumn[i][j] || !foundInnerSquare[i][j]) {
+				if ((kEqualsN() && !foundRow[i][j]) || (kEqualsN() && !foundColumn[i][j])) {
+					return true;
+				}
+			}
+		}
+		for (boolean[] ba : foundInnerSquare) {
+			for (boolean b : ba) {
+				if (!b) {
 					return true;
 				}
 			}
@@ -472,7 +479,7 @@ public class EfficientSolver extends SudokuSolver {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
 				possibleValues[i][j] = new ArrayList<Integer>();
-				for (int k = 1; k <= board.length; k++) {
+				for (int k = 1; k <= getMaxValue(); k++) {
 					possibleValues[i][j].add(k);
 				}
 			}
@@ -498,7 +505,6 @@ public class EfficientSolver extends SudokuSolver {
 				possibleValues[i][y].remove((Integer)value);
 			}
 		}
-		int innerSquareSize = (int) Math.sqrt(board.length);
 		for (int i = x/innerSquareSize*innerSquareSize; i < x/innerSquareSize*innerSquareSize+innerSquareSize; i++) {
 			for (int j = y/innerSquareSize*innerSquareSize; j < y/innerSquareSize*innerSquareSize+innerSquareSize; j++) {
 				if ((i != x || j != y)) {

@@ -9,12 +9,12 @@ import MVC.Model;
 
 public class RandomBacktrackingSolver extends SudokuSolver {
 	
-	public RandomBacktrackingSolver(Field[][] board) {
-		super(board);
+	public RandomBacktrackingSolver(Field[][] board, int innerSquareSize) {
+		super(board, innerSquareSize);
 	}
 	
-	public RandomBacktrackingSolver(int[][] board) {
-		super(board);
+	public RandomBacktrackingSolver(int[][] board, int innerSquareSize) {
+		super(board, innerSquareSize);
 	}
 
 	public List<int[][]> solve(int maxSolutions) {
@@ -52,7 +52,7 @@ public class RandomBacktrackingSolver extends SudokuSolver {
 			return;
 		}
 		List<Integer> randomOrder = new ArrayList<>();
-		for (int i = 1; i <= board.length; i++) {
+		for (int i = 1; i <= getMaxValue(); i++) {
 			randomOrder.add(i);
 		}
 		Collections.shuffle(randomOrder);

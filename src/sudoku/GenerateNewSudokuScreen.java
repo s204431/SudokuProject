@@ -103,8 +103,8 @@ public class GenerateNewSudokuScreen extends JPanel {
         frame.remove(this);
     }
 
-    private Model startGame(int n) {
-        Model model = new Model(n);
+    private Model startGame(int k, int n) {
+        Model model = new Model(k, n);
         View view = new View(model);
         Controller controller = new Controller();
         model.setView(view);
@@ -117,7 +117,7 @@ public class GenerateNewSudokuScreen extends JPanel {
     class startAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             frame.dispose();
-            startGame(3);    // TODO: Use chosen size of board
+            startGame(3, 3);    // TODO: Use chosen size of board
                                 // TODO: Generate the sudoku
         }
     }

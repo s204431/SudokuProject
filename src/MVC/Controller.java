@@ -28,7 +28,7 @@ public class Controller {
 			model.load(view.textField.getText());
 		}
 		else if (e.getKeyChar() == 'n') {
-			model.generateSudoku(5);
+			model.generateSudoku(1);
 			Model.Stopwatch();
 		}
 		else if (e.getKeyChar() == 'a') {
@@ -53,7 +53,7 @@ public class Controller {
 			char key = e.getKeyChar();
 			if (Character.isDigit(key)) {
 				int newValue = Integer.parseInt(model.board[selectedFieldPosition[0]][selectedFieldPosition[1]].value+""+key);
-				if (newValue > 0 && newValue <= model.getBoardSize()) {
+				if (newValue > 0 && newValue <= model.innerSquareSize*model.innerSquareSize) {
 					model.setField(selectedFieldPosition[0], selectedFieldPosition[1], newValue);
 				}
 			}

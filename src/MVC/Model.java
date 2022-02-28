@@ -17,12 +17,14 @@ import Generators.*;
 public class Model {
 	private View view;
 	public Field[][] board;
-	public int innerSquareSize; //Width/height an inner square.
+	public int innerSquareSize; //Width/height an inner square (n).
+	public int numInnerSquares; //Number of inner squares in one side of the sudoku (k).
 	public enum Mode {play, create, solver};
 	public Mode mode = Mode.play;
 
-	public Model(int innerSquareSize) {
+	public Model(int numInnerSquares, int innerSquareSize) {
 		this.innerSquareSize = innerSquareSize;
+		this.numInnerSquares = numInnerSquares;
 		board = new Field[getBoardSize()][getBoardSize()];
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board.length; j++) {
@@ -36,12 +38,12 @@ public class Model {
 	}
 	
 	public int getBoardSize() {
-		return innerSquareSize*innerSquareSize;
+		return innerSquareSize*numInnerSquares;
 	}
 	
 	public void setField(int x, int y, Field field) {
 		board[x][y] = field;
-		if (sudokuSolved(board)) {
+		if (sudokuSolved(board, innerSquareSize)) {
 			System.out.println("Solved!");
 		}
 		view.repaint();
@@ -49,46 +51,43 @@ public class Model {
 	
 	public void setField(int x, int y, int value) {
 		board[x][y].value = value;
-		if (sudokuSolved(board)) {
+		if (sudokuSolved(board, innerSquareSize)) {
 			System.out.println("Solved!");
 		}
 		view.repaint();
 	}
 	
 	//Checks if the current sudoku is solved. Takes a 2D integer array.
-	public static boolean sudokuSolved(int[][] board) {
+	public static boolean sudokuSolved(int[][] board, int innerSquareSize) {
 		Field[][] toBeSolved = new Field[board.length][board[0].length];
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
 				toBeSolved[i][j] = new Field(board[i][j], true);
 			}
 		}
-		return sudokuSolved(toBeSolved);
+		return sudokuSolved(toBeSolved, innerSquareSize);
 	}
 	
 	//Checks if the current sudoku is solved. Takes a 2D field array.
-	public static boolean sudokuSolved(Field[][] board) {
+	public static boolean sudokuSolved(Field[][] board, int innerSquareSize) {
 		int boardSize = board.length;
-		int innerSquareSize = (int)Math.sqrt(boardSize);
-		boolean[][] foundColumn = new boolean[boardSize][boardSize];
-		boolean[][] foundRow = new boolean[boardSize][boardSize];
-		boolean[][] foundInnerSquare = new boolean[boardSize][boardSize];
+		int numInnerSquares = boardSize/innerSquareSize;
+		int maxValue = innerSquareSize*innerSquareSize;
+		boolean[][] foundColumn = new boolean[boardSize][maxValue];
+		boolean[][] foundRow = new boolean[boardSize][maxValue];
+		boolean[][] foundInnerSquare = new boolean[numInnerSquares*numInnerSquares][maxValue];
 		for (int i = 0; i < boardSize; i++) {
 			for (int j = 0; j < boardSize; j++) {
-				if (board[i][j].value < 1 || board[i][j].value > boardSize) {
+				if (board[i][j].value < 1 || board[i][j].value > maxValue) {
 					return false;
 				}
 				else {
+					if (foundRow[i][board[i][j].value-1] || foundColumn[j][board[i][j].value-1] || foundInnerSquare[(i/innerSquareSize)*numInnerSquares+(j/innerSquareSize)][board[i][j].value-1]) {
+						return false;
+					}
 					foundRow[i][board[i][j].value-1] = true;
 					foundColumn[j][board[i][j].value-1] = true;
-					foundInnerSquare[(i/innerSquareSize)*innerSquareSize+(j/innerSquareSize)][board[i][j].value-1] = true;
-				}
-			}
-		}
-		for (int i = 0; i < boardSize; i++) {
-			for (int j = 0; j < boardSize; j++) {
-				if (!foundRow[i][j] || !foundColumn[i][j] || !foundInnerSquare[i][j]) {
-					return false;
+					foundInnerSquare[(i/innerSquareSize)*numInnerSquares+(j/innerSquareSize)][board[i][j].value-1] = true;
 				}
 			}
 		}
@@ -100,7 +99,7 @@ public class Model {
 	}
 	
 	public void solve(int maxSolutions) {
-		SudokuSolver solver = new EfficientSolver(board);
+		SudokuSolver solver = new EfficientSolver(board, innerSquareSize);
 		List<int[][]> results = solver.solve(maxSolutions);
 		System.out.println("Found "+results.size()+" solutions. Took "+solver.recursiveCalls+" recursive calls and "+solver.guesses+" guesses. Difficulty: "+solver.difficulty+".");
 		if (results.size() > 0) {
@@ -110,7 +109,7 @@ public class Model {
 				}
 			}
 		}
-		if (sudokuSolved(board)) {
+		if (sudokuSolved(board, innerSquareSize)) {
 			System.out.println("Solved!");
 		}
 		view.repaint();
@@ -120,7 +119,7 @@ public class Model {
 		File file = new File("savedsudokus/"+fileName+".su");
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-			writer.write(innerSquareSize+";"+innerSquareSize+"\n");
+			writer.write(numInnerSquares+";"+innerSquareSize+"\n");
 			for (int i = 0; i < getBoardSize(); i++) {
 				for (int j = 0; j < getBoardSize(); j++) {
 					if (board[i][j].value <= 0) {
@@ -148,9 +147,9 @@ public class Model {
 		try {
 			Scanner scanner = new Scanner(file);
 			scanner.useDelimiter(Pattern.compile("[\\r\\n;]+"));
+			numInnerSquares = scanner.nextInt();
 			innerSquareSize = scanner.nextInt();
 			board = new Field[getBoardSize()][getBoardSize()];
-			scanner.nextInt();
 			for (int i = 0; i < getBoardSize(); i++) {
 				for (int j = 0; j < getBoardSize(); j++) {
 					String next = scanner.next();
@@ -171,13 +170,12 @@ public class Model {
 		}
 	}
 	
-	public static boolean canBePlaced(Field[][] board, int x, int y, int value) {
+	public static boolean canBePlaced(Field[][] board, int innerSquareSize, int x, int y, int value) {
 		for (int i = 0; i < board.length; i++) {
 			if ((i != y && board[x][i].value == value) || (i != x && board[i][y].value == value)) {
 				return false;
 			}
 		}
-		int innerSquareSize = (int) Math.sqrt(board.length);
 		for (int i = x/innerSquareSize*innerSquareSize; i < x/innerSquareSize*innerSquareSize+innerSquareSize; i++) {
 			for (int j = y/innerSquareSize*innerSquareSize; j < y/innerSquareSize*innerSquareSize+innerSquareSize; j++) {
 				if ((i != x || j != y) && board[i][j].value == value) {
@@ -189,7 +187,7 @@ public class Model {
 	}
 
 	public void generateSudoku(int difficulty) {
-		int[][] matrix = new SudokuGenerator().generateSudoku(getBoardSize(), difficulty, (int)(getBoardSize()*getBoardSize()*0.4));
+		int[][] matrix = new SudokuGenerator().generateSudoku(innerSquareSize, numInnerSquares, difficulty, (int)(getBoardSize()*getBoardSize()*0.4));
 		for(int i = 0; i < getBoardSize(); i++) {
 			for(int j = 0; j < getBoardSize(); j++){
 				board[i][j].value = matrix[i][j];
@@ -199,7 +197,7 @@ public class Model {
 	}
 	
 	public void giveHint() {
-		int[] move = new EfficientSolver(board).makeOneMove();
+		int[] move = new EfficientSolver(board, innerSquareSize).makeOneMove();
 		if (move != null) {
 			setField(move[0], move[1], move[2]);	
 		}
@@ -218,6 +216,10 @@ public class Model {
     public static double elapsedTime() {
         long now = System.currentTimeMillis();
         return (now - start) / 1000.0;
+    }
+    
+    public int getMaxNumber() {
+    	return innerSquareSize*innerSquareSize;
     }
 	
 }

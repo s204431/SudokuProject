@@ -95,8 +95,8 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                 g2.drawRect(boardX + j * fieldWidth, boardY + i * fieldHeight, fieldWidth, fieldHeight);
                 g2.setFont(new Font("TimesRoman", Font.BOLD, 30*fieldWidth/Field.DEFAULT_WIDTH));
                 int value = model.board[i][j].value;
-                if (value > 0 && value <= model.getBoardSize()) {
-                    if(!Model.canBePlaced(model.board, i, j, value)) {
+                if (value > 0 && value <= model.innerSquareSize*model.innerSquareSize) {
+                    if(!Model.canBePlaced(model.board, model.innerSquareSize, i, j, value)) {
                         g2.setColor(red);
                         g2.drawString("" + value, boardX + j * fieldWidth + fieldWidth/2, boardY + i * fieldHeight + fieldHeight/2);
                     } else {
@@ -110,8 +110,8 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 
         // Draw thick lines
         Stroke oldStroke = g2.getStroke();
-        for (int i = 0; i < iss; i++) {
-            for (int j = 0; j < iss; j++) {
+        for (int i = 0; i < model.numInnerSquares; i++) {
+            for (int j = 0; j < model.numInnerSquares; j++) {
                 g2.setColor(black);
                 g2.setStroke(new BasicStroke(3));
                 g2.drawRect(boardX + j * fieldWidth * iss, boardY + i * fieldHeight * iss, fieldWidth*iss, fieldHeight*iss);

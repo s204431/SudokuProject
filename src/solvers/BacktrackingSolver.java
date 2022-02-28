@@ -8,12 +8,12 @@ import MVC.Model;
 
 public class BacktrackingSolver extends SudokuSolver {
 	
-	public BacktrackingSolver(Field[][] board) {
-		super(board);
+	public BacktrackingSolver(Field[][] board, int innerSquareSize) {
+		super(board, innerSquareSize);
 	}
 	
-	public BacktrackingSolver(int[][] board) {
-		super(board);
+	public BacktrackingSolver(int[][] board, int innerSquareSize) {
+		super(board, innerSquareSize);
 	}
 
 	public List<int[][]> solve(int maxSolutions) {
@@ -50,7 +50,7 @@ public class BacktrackingSolver extends SudokuSolver {
 			}
 			return;
 		}
-		for (int v = 1; v <= board.length; v++) {
+		for (int v = 1; v <= getMaxValue(); v++) {
 			if (solutionsFound >= maxSolutions) {
 				return;
 			}

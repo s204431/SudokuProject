@@ -9,17 +9,19 @@ import MVC.Model;
 public abstract class SudokuSolver {
 	
 	protected int[][] board;
+	protected int innerSquareSize;
 	protected int solutionsFound;
 	public int recursiveCalls;
 	public int guesses;
 	protected List<int[][]> solutions = new ArrayList<>();
 	public int difficulty = 0;
 	
-	public SudokuSolver(Field[][] board) {
-		setBoard(board);
+	public SudokuSolver(Field[][] board, int innerSquareSize) {
+		setBoard(board, innerSquareSize);
 	}
 	
-	public SudokuSolver(int[][] board) {
+	public SudokuSolver(int[][] board, int innerSquareSize) {
+		this.innerSquareSize = innerSquareSize;
 		this.board = copyOf(board);
 	}
 	
@@ -37,7 +39,8 @@ public abstract class SudokuSolver {
 		return null;
 	}
 	
-	public void setBoard(Field[][] board) {
+	public void setBoard(Field[][] board, int innerSquareSize) {
+		this.innerSquareSize = innerSquareSize;
 		this.board = new int[board.length][board[0].length];
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
@@ -55,7 +58,7 @@ public abstract class SudokuSolver {
 	}
 	
 	protected boolean canBePlaced(int x, int y, int value) {
-		return Model.canBePlaced(toFields(board), x, y, value);
+		return Model.canBePlaced(toFields(board), innerSquareSize, x, y, value);
 	}
 	
 	protected Field[][] toFields(int[][] matrix) {
@@ -80,10 +83,10 @@ public abstract class SudokuSolver {
 	}
 	
 	protected boolean sudokuSolved() {
-		return Model.sudokuSolved(board);
+		return Model.sudokuSolved(board, innerSquareSize);
 	}
 	
-	protected void print() {
+	protected void print(int[][] board) {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board.length; j++) {
 				System.out.print(board[i][j]+" ");
@@ -109,6 +112,18 @@ public abstract class SudokuSolver {
 		recursiveCalls = 0;
 		difficulty = 0;
 		guesses = 0;
+	}
+	
+	protected boolean kEqualsN() {
+		return innerSquareSize*innerSquareSize == board.length;
+	}
+	
+	protected int getNumInnerSquares() {
+		return board.length/innerSquareSize;
+	}
+	
+	protected int getMaxValue() {
+		return innerSquareSize*innerSquareSize;
 	}
 
 }

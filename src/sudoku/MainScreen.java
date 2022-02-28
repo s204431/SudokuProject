@@ -117,7 +117,7 @@ public class MainScreen extends JPanel{
     }
     
     private void startGame() {
-		Model model = new Model(n);
+		Model model = new Model(k, n);
 		View view = new View(model);
 		Controller controller = new Controller();
 		model.setView(view);
@@ -138,6 +138,7 @@ public class MainScreen extends JPanel{
                 	return;
                 }
                 //k = Integer.parseInt(kText.getText());
+                k = n; //TODO: change this.
                 frame.dispose();
                 startGame();
             } catch (NumberFormatException e2) {

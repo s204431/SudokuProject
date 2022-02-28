@@ -12,9 +12,9 @@ public class SolverTester {
 	private int numberOfRandomTests = 100;
 	
 	public void testAll(Model model) {
-		//test(model, new BacktrackingSolver(model.board));
-		//test(model, new RandomBacktrackingSolver(model.board));
-		test(model, new EfficientSolver(model.board));
+		//test(model, new BacktrackingSolver(model.board, model.innerSquareSize));
+		//test(model, new RandomBacktrackingSolver(model.board, model.innerSquareSize));
+		test(model, new EfficientSolver(model.board, model.innerSquareSize));
 	}
 
 	public void test(Model model, SudokuSolver solver) {
@@ -34,7 +34,7 @@ public class SolverTester {
 		boolean success = true;
 		for (TestCase testCase : testCases) {
 			model.load(testCase.fileName);
-			solver.setBoard(model.board);
+			solver.setBoard(model.board, model.innerSquareSize);
 			long time1 = new Date().getTime();
 			List<int[][]> solutions = solver.solve(1);
 			long time2 = new Date().getTime();
@@ -42,7 +42,7 @@ public class SolverTester {
 				System.out.println(solver.getClass().getSimpleName()+" took too long for test \""+testCase.fileName+"\".");
 				success = false;
 			}
-			else if (testCase.solvable && solutions.size() > 0 && Model.sudokuSolved(solutions.get(0))) {
+			else if (testCase.solvable && solutions.size() > 0 && Model.sudokuSolved(solutions.get(0), model.innerSquareSize)) {
 				System.out.println(solver.getClass().getSimpleName()+" passed test \""+testCase.fileName+"\" in "+(time2-time1)+" ms, "+solver.recursiveCalls+" recursive calls and "+solver.guesses+" guesses. Difficulty: "+solver.difficulty+".");
 			}
 			else if (!testCase.solvable && solutions.size() == 0) {
@@ -65,7 +65,7 @@ public class SolverTester {
 				model.generateSudoku(1);
 				long time2 = new Date().getTime();
 				timeToGenerate += time2 - time1;
-				solver.setBoard(model.board);
+				solver.setBoard(model.board, model.innerSquareSize);
 				List<int[][]> solutions = solver.solve(1);
 				if (solver.recursiveCalls >= 500000) {
 					System.out.println(solver.getClass().getSimpleName()+" took too long for "+numberOfRandomTests+" random tests.");
