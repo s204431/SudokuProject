@@ -2,6 +2,7 @@ package sudoku;
 
 import MVC.Controller;
 import MVC.Model;
+import MVC.Model.Mode;
 import MVC.View;
 
 import javax.swing.*;
@@ -103,8 +104,13 @@ public class GenerateNewSudokuScreen extends JPanel {
         frame.remove(this);
     }
 
+<<<<<<< HEAD
     private Model startGame(int k, int n) {
         Model model = new Model(k, n);
+=======
+    private Model startGame(int n) {
+        Model model = new Model(n, Mode.play);
+>>>>>>> 4b0f0165ea8f732d3113b31874ffa91fb27eb5f5
         View view = new View(model);
         Controller controller = new Controller();
         model.setView(view);

@@ -117,7 +117,11 @@ public class MainScreen extends JPanel{
     }
     
     private void startGame() {
+<<<<<<< HEAD
 		Model model = new Model(k, n);
+=======
+		Model model = new Model(n, Mode.play);
+>>>>>>> 4b0f0165ea8f732d3113b31874ffa91fb27eb5f5
 		View view = new View(model);
 		Controller controller = new Controller();
 		model.setView(view);
