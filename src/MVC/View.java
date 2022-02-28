@@ -42,6 +42,17 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         textField = new JTextField();
         textField.setPreferredSize(new Dimension(100, 25));
         frame.add(textField);
+
+        /*  I don't know how to place stuff in specific places when layout of frame is set
+        JPanel buttonPanel = new JPanel(null);
+        JButton button = new JButton("This is a button!");
+        button.setBounds(1450, 340, 150, 340);
+        buttonPanel.add(button);
+        buttonPanel.setPreferredSize(new Dimension(150, 340));
+        buttonPanel.setLocation(1450, 0);
+        frame.add(buttonPanel);
+         */
+
         frame.add(this);
         
         frame.pack();

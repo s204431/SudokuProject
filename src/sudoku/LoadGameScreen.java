@@ -2,6 +2,7 @@ package sudoku;
 
 import MVC.Controller;
 import MVC.Model;
+import MVC.Model.Mode;
 import MVC.View;
 
 import javax.swing.*;
@@ -108,8 +109,8 @@ public class LoadGameScreen extends JPanel {
         frame.remove(this);
     }
 
-    private Model startGame(int n) {
-        Model model = new Model(n);
+    private Model startGame(int n, Mode mode) {
+        Model model = new Model(n, mode);
         View view = new View(model);
         Controller controller = new Controller();
         model.setView(view);
@@ -122,7 +123,7 @@ public class LoadGameScreen extends JPanel {
     class loadAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             frame.dispose();
-            startGame(1).load(loadList.getSelectedValue());
+            startGame(1, Mode.play).load(loadList.getSelectedValue());
         }
     }
 

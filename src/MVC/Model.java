@@ -21,7 +21,8 @@ public class Model {
 	public enum Mode {play, create, solver};
 	public Mode mode = Mode.play;
 
-	public Model(int innerSquareSize) {
+	public Model(int innerSquareSize, Mode mode) {
+		this.mode = mode;
 		this.innerSquareSize = innerSquareSize;
 		board = new Field[getBoardSize()][getBoardSize()];
 		for (int i = 0; i < board.length; i++) {
