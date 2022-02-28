@@ -22,12 +22,8 @@ public class Model {
 	public enum Mode {play, create, solver};
 	public Mode mode = Mode.play;
 
-<<<<<<< HEAD
-	public Model(int numInnerSquares, int innerSquareSize) {
-=======
-	public Model(int innerSquareSize, Mode mode) {
+	public Model(int numInnerSquares, int innerSquareSize, Mode mode) {
 		this.mode = mode;
->>>>>>> 4b0f0165ea8f732d3113b31874ffa91fb27eb5f5
 		this.innerSquareSize = innerSquareSize;
 		this.numInnerSquares = numInnerSquares;
 		board = new Field[getBoardSize()][getBoardSize()];
