@@ -168,7 +168,7 @@ public class EfficientSolver extends SudokuSolver {
 							}
 						}
 					}
-					if (!found1 || !found2 || !found3) {
+					if ((!found1 && kEqualsN()) || (!found2 && kEqualsN()) || !found3) {
 						return toMove(i, j, v);
 					}
 				}
@@ -458,10 +458,18 @@ public class EfficientSolver extends SudokuSolver {
 			return true;
 		}
 		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board.length; j++) {
-				if ((kEqualsN() && !foundRow[i][j]) || (kEqualsN() && !foundColumn[i][j])) {
-					return true;
+			int n1 = 0;
+			int n2 = 0;
+			for (int j = 0; j < getMaxValue(); j++) {
+				if (foundRow[i][j]) {
+					n1++;
 				}
+				if (foundColumn[i][j]) {
+					n2++;
+				}
+			}
+			if (n1 < board.length || n2 < board.length) {
+				return true;
 			}
 		}
 		for (boolean[] ba : foundInnerSquare) {
