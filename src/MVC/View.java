@@ -126,7 +126,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 
         // Draw components
         for (Component comp : frame.getComponents()) {
-            if (comp != this) {
+            if (comp.equals(this)) {
                 comp.repaint();
             }
         }
