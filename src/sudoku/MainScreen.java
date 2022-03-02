@@ -92,6 +92,13 @@ public class MainScreen extends JPanel{
         nText.setHorizontalAlignment(JTextField.CENTER);
         nText.setBounds(550, 200, 50, 50);
         add(nText);
+        kText = new JTextField();
+        //nText.setPreferredSize(new Dimension(textSize,textSize));
+        //nText.setMaximumSize(new Dimension(textSize,textSize));
+        kText.setFont(new Font("Serif", Font.BOLD, 30));
+        kText.setHorizontalAlignment(JTextField.CENTER);
+        kText.setBounds(620, 200, 50, 50);
+        add(kText);
     }
 
     public void setUpMenuBar(JFrame frame){
@@ -134,11 +141,10 @@ public class MainScreen extends JPanel{
         public void actionPerformed (ActionEvent e){
         	try {
                 n = Integer.parseInt(nText.getText());
-                if (n < 1) {
+                k = Integer.parseInt(kText.getText());
+                if (n < 1 || k > n) {
                 	return;
                 }
-                //k = Integer.parseInt(kText.getText());
-                k = n; //TODO: change this.
                 frame.dispose();
                 startGame();
             } catch (NumberFormatException e2) {
