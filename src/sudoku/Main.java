@@ -5,8 +5,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Main {
-	public static final int SCREEN_HEIGHT = 800;
-	public static final int SCREEN_WIDTH = 800;
+	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	public static final int SCREEN_HEIGHT = screenSize.height-screenSize.height/9;
+	public static final int SCREEN_WIDTH = screenSize.width-screenSize.width/2;
 	private static String title = "Sudoku";
 
 	public static void main(String[] args) {

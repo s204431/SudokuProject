@@ -110,9 +110,6 @@ public class GenerateNewSudokuScreen extends JPanel {
         add(backBtn);
     }
 
-    public void addSliders(){
-    }
-
     public void addSlider() {
         nListener = new ChangeListener() {
             public void stateChanged(ChangeEvent event) {
