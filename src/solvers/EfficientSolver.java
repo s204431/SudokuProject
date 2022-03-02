@@ -15,6 +15,7 @@ public class EfficientSolver extends SudokuSolver {
 	private boolean useCandidateLines = true;
 	private boolean useNakedPairs = true;
 	private boolean useXWing = true;
+	private boolean useForcingChains = true;
 	
 	public EfficientSolver(Field[][] board, int innerSquareSize) {
 		super(board, innerSquareSize);
@@ -115,6 +116,15 @@ public class EfficientSolver extends SudokuSolver {
 				return makeMove(board, possibleValues);
 			}
 		}
+		if (useForcingChains) {
+			List<Integer>[] result = forcingChains(board, possibleValues);
+			if (result != null) {
+				if (difficulty < 6) {
+					difficulty = 6;	
+				}
+				return result;
+			}
+		}
 		//Choose field with least possible values.
 		int lowestPossibleValues = Integer.MAX_VALUE;
 		int lowestX = -1;
@@ -128,7 +138,7 @@ public class EfficientSolver extends SudokuSolver {
 				}
 			}
 		}
-		difficulty = 6;
+		difficulty = 7;
 		if (lowestX < 0 || lowestY < 0) {
 			return null;
 		}
@@ -415,6 +425,74 @@ public class EfficientSolver extends SudokuSolver {
 			}
 		}
 		return new int[] {cr1, cr2};
+	}
+	
+	private List<Integer>[] forcingChains(int[][] board, List<Integer>[][] possibleValues) {
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board.length; j++) {
+				if (possibleValues[i][j].size() == 2) {
+					List<int[]> forces1 = new ArrayList<>();
+					List<int[]> forces2 = new ArrayList<>();
+					int[][] board1 = copyOf(board);
+					board1[i][j] = possibleValues[i][j].get(0);
+					forcingChainsRecursive(board1, possibleValues, forces1, i, j);
+					int[][] board2 = copyOf(board);
+					board2[i][j] = possibleValues[i][j].get(1);
+					forcingChainsRecursive(board2, possibleValues, forces2, i, j);
+					//Compute intersection
+					for (int[] a : forces1) {
+						for (int[] a2 : forces2) {
+							if (a[0] == a2[0] && a[1] == a2[1] && a[2] == a2[2]) {
+								return toMove(a[0], a[1], a[2]);
+							}
+							if (a.equals(a2)) {
+								return toMove(a[0], a[1], a[2]);
+							}
+						}
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	private void forcingChainsRecursive(int[][] board, List<Integer>[][] possibleValues, List<int[]> forces, int x, int y) {
+		for (int i = 0; i < board.length; i++) {
+			if (i != x) { //Look through column
+				if (board[i][y] <= 0 && possibleValues[i][y].size() == 2) {
+					int k = possibleValues[i][y].indexOf(board[x][y]);
+					if (k >= 0) {
+						board[i][y] = possibleValues[i][y].get(k == 0 ? 1 : 0);
+						forces.add(new int[] {i, y, board[i][y]});
+						forcingChainsRecursive(board, possibleValues, forces, i, y);
+					}
+				}
+			}
+			if (i != y) { //Look through row
+				if (board[x][i] <= 0 && possibleValues[x][i].size() == 2) {
+					int k = possibleValues[x][i].indexOf(board[x][y]);
+					if (k >= 0) {
+						board[x][i] = possibleValues[x][i].get(k == 0 ? 1 : 0);
+						forces.add(new int[] {x, i, board[x][i]});
+						forcingChainsRecursive(board, possibleValues, forces, x, i);
+					}
+				}
+			}
+		}
+		for (int i = x/innerSquareSize*innerSquareSize; i < x/innerSquareSize*innerSquareSize+innerSquareSize; i++) {
+			for (int j = y/innerSquareSize*innerSquareSize; j < y/innerSquareSize*innerSquareSize+innerSquareSize; j++) {
+				if ((i != x || j != y)) {
+					if (board[i][j] <= 0 && possibleValues[i][j].size() == 2) {
+						int k = possibleValues[i][j].indexOf(board[x][y]);
+						if (k >= 0) {
+							board[i][j] = possibleValues[i][j].get(k == 0 ? 1 : 0);
+							forces.add(new int[] {i, j, board[i][j]});
+							forcingChainsRecursive(board, possibleValues, forces, i, j);
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	private List<Integer>[] toMove(int x, int y, int value) {

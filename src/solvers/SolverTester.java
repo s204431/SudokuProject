@@ -29,8 +29,10 @@ public class SolverTester {
 											   new TestCase("extreme3", true),
 											   new TestCase("extreme4", true),
 											   new TestCase("hard16", true),
+											   new TestCase("sixbysix1", true),
 											   new TestCase("difficulty3", true),
-											   new TestCase("difficulty5", true)};
+											   new TestCase("difficulty5", true),
+											   new TestCase("difficulty6", true)};
 		boolean success = true;
 		for (TestCase testCase : testCases) {
 			model.load(testCase.fileName);
