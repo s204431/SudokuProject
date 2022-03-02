@@ -105,7 +105,7 @@ public class MainScreen extends JPanel{
         //nText.setMaximumSize(new Dimension(textSize,textSize));
         kText.setFont(new Font("Serif", Font.BOLD, 30));
         kText.setHorizontalAlignment(JTextField.CENTER);
-        kText.setBounds(620, 200, 50, 50);
+        kText.setMaximumSize(new Dimension(textSize,textSize));
         add(kText);
     }
 
