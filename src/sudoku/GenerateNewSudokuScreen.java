@@ -6,15 +6,18 @@ import MVC.Model.Mode;
 import MVC.View;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GenerateNewSudokuScreen extends JPanel {
     private String title = "Sudoku";
-    private Font titleFont = new Font(Font.SERIF, Font.BOLD,40);
+    private Font titleFont = new Font(Font.SERIF, Font.BOLD,50);
     private int btnHeight = 50;
     private int btnWidth = 200;
+    private int spacing = 30;
     private JFrame frame;
     private JLabel titleString;
     private JLabel boardSizeString;
@@ -22,61 +25,94 @@ public class GenerateNewSudokuScreen extends JPanel {
     private JButton generateBtn;
     private JButton backBtn;
     private JComboBox<String> difficultyDDMenu;
+    private int n;
+    JSlider nSlider = new JSlider();
+
+    private JLabel nLabel = new JLabel("5");
+    private JPanel sliderPanel;
+    private ChangeListener listener;
 
     public GenerateNewSudokuScreen(JFrame frame) {
         this.frame = frame;
 
         //setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-        setLayout(null);
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
         // Add components
-        addDropdownMenu();
-        addLabels();
-        addButtons();
+        addComponents();
 
         // Set frame
         frame.add(this);
         frame.setVisible(true);
     }
 
-    private void addDropdownMenu() {
-        String[] difficulties = { "Easy", "Medium", "Hard" };
-        difficultyDDMenu = new JComboBox<>(difficulties);
-        difficultyDDMenu.setFont(new Font(Font.SERIF, Font.BOLD, 20));
-        difficultyDDMenu.setBounds(400, 350, 150, btnHeight);
-        add(difficultyDDMenu);
+    private void addComponents(){
+        addLabels();
+        addButtons();
     }
 
     private void addLabels() {
         // Title
-        titleString = new JLabel("New Game");
+        titleString = new JLabel("Choose size and Difficulty");
         titleString.setFont(titleFont);
         //titleString.setAlignmentX(Component.CENTER_ALIGNMENT);
-        titleString.setBounds(300, 50, btnWidth, 100);
+        titleString.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(titleString);
+
+        add(Box.createRigidArea(new Dimension(0, spacing*2)));
 
         boardSizeString = new JLabel("Size of board");
         boardSizeString.setFont(new Font(Font.SERIF, Font.BOLD, 30));
-        boardSizeString.setBounds(300, 200, btnWidth, btnHeight);
+        boardSizeString.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(boardSizeString);
+
+        addSlider();
+
+        add(Box.createRigidArea(new Dimension(0, spacing)));
 
         difficulyString = new JLabel("Difficulty: ");
         difficulyString.setFont(new Font(Font.SERIF, Font.BOLD, 30));
-        difficulyString.setBounds(250, 350, btnWidth, btnHeight);
+        difficulyString.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(difficulyString);
+
+        add(Box.createRigidArea(new Dimension(0, spacing)));
     }
 
     private void addButtons() {
         generateBtn = new JButton("Generate Sudoku");
         generateBtn.addActionListener(new startAction());
-        generateBtn.setBounds(300, 450, btnWidth, btnHeight);
+        generateBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(generateBtn);
+
+        add(Box.createRigidArea(new Dimension(0, spacing)));
 
         backBtn = new JButton("Back");
         backBtn.addActionListener(new backAction());
-        backBtn.setBounds(300, 550, btnWidth, btnHeight);
+        backBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(backBtn);
     }
+
+    public void addSlider() {
+        add(nLabel);
+        listener = new ChangeListener() {
+            public void stateChanged(ChangeEvent event) {
+                JSlider source = (JSlider) event.getSource();
+                nLabel.setText("" + source.getValue());
+            }
+        };
+        DefaultBoundedRangeModel model = new DefaultBoundedRangeModel(5, 0, 2, 10);
+        nSlider = new JSlider(model);
+        nSlider.setPaintTicks(true);
+        nSlider.setMajorTickSpacing(2);
+        nSlider.setMinorTickSpacing(1);
+        nSlider.addChangeListener(listener);
+        JPanel panel = new JPanel();
+        panel.setMaximumSize(new Dimension(200,50));
+        panel.add(nSlider);
+        panel.add(new JLabel("n"));
+        add(panel);
+    }
+
 
     public void setUpMenuBar(JFrame frame) {
         JMenuBar menuBar = new JMenuBar();
