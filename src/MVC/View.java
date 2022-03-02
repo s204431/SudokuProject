@@ -32,7 +32,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 	
     public View(Model model) {
     	this.model = model;
-        setPreferredSize(new Dimension(645, 700));
+        setPreferredSize(new Dimension(1600, 680));
         boardX = getPreferredSize().width/2-model.getBoardSize()*fieldWidth/2;
         // Create frame
         frame = new JFrame("Sudoku");

@@ -28,7 +28,7 @@ public class Controller {
 			model.load(view.textField.getText());
 		}
 		else if (e.getKeyChar() == 'n') {
-			model.generateSudoku(6);
+			model.generateSudoku(1);
 			Model.Stopwatch();
 		}
 		else if (e.getKeyChar() == 'a') {
