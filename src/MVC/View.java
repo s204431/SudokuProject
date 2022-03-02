@@ -125,11 +125,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         g2.setStroke(oldStroke);
 
         // Draw components
-        for (Component comp : frame.getComponents()) {
-            if (comp.equals(this)) {
-                comp.repaint();
-            }
-        }
+        buttonPanel.repaint();
     }
 
     public void addComponentsToButtonPanel(Mode mode) {
@@ -146,6 +142,8 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         } else if (mode == Mode.solver) {
 
         }
+
+        // TODO: Hint button when assist-mode is on
     }
     
     public void quitToMenu() {
