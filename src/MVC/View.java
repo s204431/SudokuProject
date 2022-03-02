@@ -69,6 +69,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 
     //Draws everything on screen.
     public void paint(Graphics g) {
+    	setVisible(false);
         super.paint(g);
 
         Graphics2D g2 = (Graphics2D) g;
@@ -127,6 +128,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 
         // Draw components
         buttonPanel.repaint();
+        setVisible(true);
     }
 
     public void addComponentsToButtonPanel(Mode mode) {
