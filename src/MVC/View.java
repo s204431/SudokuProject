@@ -33,9 +33,10 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 	
     public View(Model model) {
     	this.model = model;
-        setPreferredSize(new Dimension(1600, 680));
+    	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    	setPreferredSize(new Dimension(screenSize.width-screenSize.width/10, screenSize.height-screenSize.height/10));
         boardX = getPreferredSize().width/2-model.getBoardSize()*fieldWidth/2;
-        setBounds(0, 0, 1600, 680);
+        setBounds(0, 0, getPreferredSize().width, getPreferredSize().height);
         // Create frame
         frame = new JFrame("Sudoku");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,7 +44,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         frame.setLayout(null);
 
         buttonPanel = new JPanel(null);
-        buttonPanel.setBounds(1400, -1, 200, 680);
+        buttonPanel.setBounds(getPreferredSize().width-200, -1, 200, getPreferredSize().height);
         buttonPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         addComponentsToButtonPanel(model.mode);
 
