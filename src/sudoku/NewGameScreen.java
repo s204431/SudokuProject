@@ -65,7 +65,7 @@ public class NewGameScreen extends JPanel {
         add(Box.createRigidArea(new Dimension(0, spacing)));
 
         loadBtn = new JButton("Load Existing Sudoku");
-        loadBtn.addActionListener(null);
+        loadBtn.addActionListener(new loadGameAction());
         loadBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(loadBtn);
 
