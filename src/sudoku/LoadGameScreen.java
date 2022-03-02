@@ -132,7 +132,15 @@ public class LoadGameScreen extends JPanel {
     class backAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             changePanel();
-            new NewGameScreen(frame);
+            if (mode == Mode.play) {
+                new NewGameScreen(frame);
+            }
+            else if (mode == Mode.create) {
+                new CreateSudokuScreen(frame);
+            }
+            else {
+                new SudokuSolverScreen(frame);
+            }
         }
     }
 

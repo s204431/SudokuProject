@@ -24,7 +24,7 @@ public class GenerateNewSudokuScreen extends JPanel {
     private JLabel difficultyLabel;
     private JButton generateBtn;
     private JButton backBtn;
-    private JComboBox<String> difficultyDDMenu;
+    private JComboBox<String> difficultyBox;
     private int n;
     private JSlider nSlider;
     private JSlider kSlider;
@@ -82,7 +82,12 @@ public class GenerateNewSudokuScreen extends JPanel {
         difficultyLabel.setFont(new Font(Font.SERIF, Font.BOLD, 30));
         difficultyLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.add(difficultyLabel);
-        JComboBox difficultyBox = new JComboBox(new String[]{"Easy", "Medium", "Hard"});
+        if (mode == Mode.create) {
+            difficultyBox = new JComboBox(new String[]{"Empty", "Easy", "Medium", "Hard"});
+        }
+        else {
+            difficultyBox = new JComboBox(new String[]{"Easy", "Medium", "Hard"});
+        }
         panel.add(difficultyBox);
         add(panel);
 
@@ -205,15 +210,36 @@ public class GenerateNewSudokuScreen extends JPanel {
                 return;
             }
             frame.dispose();
-            startGame(kSlider.getValue(), nSlider.getValue(), mode);
-            // TODO: Generate the sudoku
+            Model model = startGame(kSlider.getValue(), nSlider.getValue(), mode);
+            String difficulty = (String)difficultyBox.getSelectedItem();
+            switch (difficulty) {
+            	case "Easy":
+                    model.generateSudoku(1);
+                    break;
+            	case "Medium":
+                    model.generateSudoku(2);
+                    break;
+            	case "Hard":
+                    model.generateSudoku(3);
+                    break;
+                default:
+                	break;
+            }
         }
     }
 
     class backAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             changePanel();
-            new NewGameScreen(frame);
+            if (mode == Mode.play) {
+                new NewGameScreen(frame);
+            }
+            else if (mode == Mode.create) {
+                new CreateSudokuScreen(frame);
+            }
+            else {
+                new SudokuSolverScreen(frame);
+            }
         }
     }
 
