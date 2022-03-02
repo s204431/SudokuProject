@@ -14,6 +14,7 @@ public class NewGameScreen extends JPanel {
     private Font titleFont = new Font(Font.SERIF, Font.BOLD, 40);
     private int btnHeight = 50;
     private int btnWidth = 200;
+    private int spacing = 30;
     private JFrame frame;
     private JLabel titleString;
     private JLabel assistModeString;
@@ -26,7 +27,7 @@ public class NewGameScreen extends JPanel {
         this.frame = frame;
 
         //setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-        setLayout(null);
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
         // Add components
         addLabels();
@@ -44,8 +45,10 @@ public class NewGameScreen extends JPanel {
         titleString = new JLabel("New Game");
         titleString.setFont(titleFont);
         //titleString.setAlignmentX(Component.CENTER_ALIGNMENT);
-        titleString.setBounds(300, 50, 200, 100);
+        titleString.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(titleString);
+
+        add(Box.createRigidArea(new Dimension(0, spacing*2)));
 
         assistModeString = new JLabel("Assist mode: ");
         assistModeString.setFont(new Font(Font.SERIF, Font.BOLD, 20));
@@ -60,20 +63,24 @@ public class NewGameScreen extends JPanel {
     private void addButtons() {
         generateBtn = new JButton("Generate New Sudoku");
         generateBtn.addActionListener(new generateNewAction());
-        generateBtn.setBounds(300, 200, btnWidth, btnHeight);
+        generateBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(generateBtn);
+
+        add(Box.createRigidArea(new Dimension(0, spacing)));
 
         loadBtn = new JButton("Load Existing Sudoku");
         //newGameBtn.setPreferredSize(new Dimension(btnSize,btnSize));
         //newGameBtn.setMaximumSize(new Dimension(btnSize,btnSize));
         //newGameBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        loadBtn.addActionListener(new loadGameAction());
-        loadBtn.setBounds(300, 300, btnWidth, btnHeight);
+        loadBtn.addActionListener(null);
+        loadBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(loadBtn);
+
+        add(Box.createRigidArea(new Dimension(0, spacing)));
 
         backBtn = new JButton("Back");
         backBtn.addActionListener(new backAction());
-        backBtn.setBounds(300, 400, btnWidth, btnHeight);
+        backBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(backBtn);
     }
 

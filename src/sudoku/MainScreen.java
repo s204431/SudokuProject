@@ -11,11 +11,9 @@ import java.awt.event.*;
 
 public class MainScreen extends JPanel{
 
-    private Font titleFont = new Font(Font.SERIF, Font.BOLD,40);
-    private int btnHeight = 50;
-    private int btnWidth = 200;
-    private int textSize = 200;
-    private int spacing = 50;
+    private Font titleFont = new Font(Font.SERIF, Font.BOLD,50);
+    private int textSize = 100;
+    private int spacing = 30;
     private int k;
     private int n;
     private JFrame frame;
@@ -26,18 +24,22 @@ public class MainScreen extends JPanel{
     private JButton newGameBtn;
     private JButton createBtn;
     private JButton solverBtn;
-    private JButton highscoreBtn;
+    private JButton highScoreBtn;
 
 
     public MainScreen (JFrame frame) {
         this.frame = frame;
 
         //setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-        setLayout(null);
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
         // Add components
         addLabels();
+
+        add(Box.createRigidArea(new Dimension(0, spacing*2)));
+
         addButtons();
+        add(Box.createRigidArea(new Dimension(0, spacing)));
         addTextFields();
 
         // Set frame
@@ -49,39 +51,51 @@ public class MainScreen extends JPanel{
         // Title
         titleString = new JLabel("Main Menu");
         titleString.setFont(titleFont);
-        //titleString.setAlignmentX(Component.CENTER_ALIGNMENT);
-        titleString.setBounds(300, 50, 200, 100);
+        titleString.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(titleString);
     }
 
     private void addButtons() {
         playBtn = new JButton("Play Game");
         playBtn.addActionListener(new playAction());
-        playBtn.setBounds(300, 200, btnWidth, btnHeight);
+        playBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         add(playBtn);
+
+        add(Box.createRigidArea(new Dimension(0, spacing)));
 
         newGameBtn = new JButton("New Game");
         //newGameBtn.setPreferredSize(new Dimension(btnSize,btnSize));
         //newGameBtn.setMaximumSize(new Dimension(btnSize,btnSize));
         //newGameBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         newGameBtn.addActionListener(new newGameAction());
-        newGameBtn.setBounds(300, 300, btnWidth, btnHeight);
+        newGameBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         add(newGameBtn);
+
+        add(Box.createRigidArea(new Dimension(0, spacing)));
 
         createBtn = new JButton("Create Sudoku");
         createBtn.addActionListener(null);
-        createBtn.setBounds(300, 400, btnWidth, btnHeight);
+        createBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         add(createBtn);
+
+        add(Box.createRigidArea(new Dimension(0, spacing)));
 
         solverBtn = new JButton("Sudoku Solver");
         solverBtn.addActionListener(null);
-        solverBtn.setBounds(300, 500, btnWidth, btnHeight);
+        solverBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         add(solverBtn);
 
-        highscoreBtn = new JButton("Stats");
-        highscoreBtn.addActionListener(null);
-        highscoreBtn.setBounds(300, 600, btnWidth, btnHeight);
-        add(highscoreBtn);
+        add(Box.createRigidArea(new Dimension(0, spacing)));
+
+        highScoreBtn = new JButton("Stats");
+        highScoreBtn.addActionListener(null);
+        highScoreBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        add(highScoreBtn);
     }
 
     private void addTextFields() {
@@ -89,8 +103,8 @@ public class MainScreen extends JPanel{
         //nText.setPreferredSize(new Dimension(textSize,textSize));
         //nText.setMaximumSize(new Dimension(textSize,textSize));
         nText.setFont(new Font("Serif", Font.BOLD, 30));
-        nText.setHorizontalAlignment(JTextField.CENTER);
-        nText.setBounds(550, 200, 50, 50);
+        nText.setMaximumSize(new Dimension(textSize,textSize));
+        nText.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(nText);
     }
 
@@ -115,15 +129,15 @@ public class MainScreen extends JPanel{
         restart.add(new JMenuItem("Same Sudoku"));
         restart.add(new JMenuItem("New Sudoku"));
     }
-    
+
     private void startGame() {
-		Model model = new Model(k, n, Mode.play);
-		View view = new View(model);
-		Controller controller = new Controller();
-		model.setView(view);
-		controller.setModel(model);
-		controller.setView(view);
-		view.setController(controller);
+        Model model = new Model(k, n, Mode.play);
+        View view = new View(model);
+        Controller controller = new Controller();
+        model.setView(view);
+        controller.setModel(model);
+        controller.setView(view);
+        view.setController(controller);
     }
 
     private void changePanel() {
@@ -132,18 +146,18 @@ public class MainScreen extends JPanel{
 
     class playAction implements ActionListener {
         public void actionPerformed (ActionEvent e){
-        	try {
+            try {
                 n = Integer.parseInt(nText.getText());
                 if (n < 1) {
-                	return;
+                    return;
                 }
                 //k = Integer.parseInt(kText.getText());
                 k = n; //TODO: change this.
                 frame.dispose();
                 startGame();
             } catch (NumberFormatException e2) {
-        		
-        	}
+
+            }
         }
     }
 
@@ -159,5 +173,4 @@ public class MainScreen extends JPanel{
             System.exit(0);
         }
     }
-
 }
