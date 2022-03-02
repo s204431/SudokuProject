@@ -2,8 +2,7 @@ package MVC;
 
 import sudoku.Field;
 import sudoku.Main;
-import sudoku.MainScreen;
-import MVC.*;
+import MVC.Model.Mode;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -26,6 +25,8 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 	private int fieldHeight = Field.DEFAULT_HEIGHT;
 	private boolean close = false;
 	private JFrame frame;
+    private JPanel buttonPanel;
+    private JButton button;
 	public JTextField textField;
 
     public int[] clickedPosition = new int[] {0, 0};
@@ -34,27 +35,20 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     	this.model = model;
         setPreferredSize(new Dimension(1600, 680));
         boardX = getPreferredSize().width/2-model.getBoardSize()*fieldWidth/2;
+        setBounds(0, 0, 1600, 680);
         // Create frame
         frame = new JFrame("Sudoku");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setPreferredSize(getPreferredSize());
-        frame.setLayout(new FlowLayout());
-        textField = new JTextField();
-        textField.setPreferredSize(new Dimension(100, 25));
-        frame.add(textField);
+        frame.setLayout(null);
 
-        /*  I don't know how to place stuff in specific places when layout of frame is set
-        JPanel buttonPanel = new JPanel(null);
-        JButton button = new JButton("This is a button!");
-        button.setBounds(1450, 340, 150, 340);
-        buttonPanel.add(button);
-        buttonPanel.setPreferredSize(new Dimension(150, 340));
-        buttonPanel.setLocation(1450, 0);
+        buttonPanel = new JPanel(null);
+        buttonPanel.setBounds(1400, -1, 200, 680);
+        buttonPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        addComponentsToButtonPanel(model.mode);
+
         frame.add(buttonPanel);
-         */
-
         frame.add(this);
-        
         frame.pack();
         setFocusable(true);
         requestFocus();
@@ -129,6 +123,29 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             }
         }
         g2.setStroke(oldStroke);
+
+        // Draw components
+        for (Component comp : frame.getComponents()) {
+            if (comp != this) {
+                comp.repaint();
+            }
+        }
+    }
+
+    public void addComponentsToButtonPanel(Mode mode) {
+        if (mode == Mode.play) {
+            textField = new JTextField();
+            textField.setBounds(50, 100, 100, 25);
+            frame.add(textField);
+            button = new JButton("Load");
+            button.setBounds(50, 150, 100, 25);
+            buttonPanel.add(textField);
+            buttonPanel.add(button);
+        } else if (mode == Mode.create) {
+
+        } else if (mode == Mode.solver) {
+
+        }
     }
     
     public void quitToMenu() {
