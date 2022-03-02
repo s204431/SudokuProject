@@ -199,12 +199,11 @@ public class GenerateNewSudokuScreen extends JPanel {
 
     class startAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            frame.dispose();
             if (kSlider.getValue() > nSlider.getValue()) {
                 return;
             }
+            frame.dispose();
             startGame(kSlider.getValue(), nSlider.getValue());
-
             // TODO: Generate the sudoku
         }
     }
