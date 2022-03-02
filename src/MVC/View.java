@@ -29,6 +29,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     private JButton button;
 	public JTextField textField;
 	private JLabel timerLabel;
+	private boolean inFocus = true;
 
     public int[] clickedPosition = new int[] {0, 0};
 	
@@ -48,12 +49,13 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setPreferredSize(getPreferredSize());
         frame.setLayout(null);
-
+        
         buttonPanel = new JPanel(null);
+        buttonPanel.setFocusable(true);
         buttonPanel.setBounds(getPreferredSize().width-200, -1, 200, getPreferredSize().height);
         buttonPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         addComponentsToButtonPanel(model.mode);
-
+        
         frame.add(buttonPanel);
         frame.add(this);
         frame.pack();
@@ -137,9 +139,13 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 
         buttonPanel.repaint();
         setVisible(true);
-
         timerLabel.setText(currentHour + ":"+ (currentMinute < 10 ? "0" : "") + currentMinute + ":"+ (currentSecond < 10 ? "0" : "") + currentSecond);
-
+        if (inFocus) {
+            requestFocus();
+        }
+        else {
+        	textField.requestFocus();
+        }
     }
     
 
@@ -147,7 +153,14 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         if (mode == Mode.play) {
             textField = new JTextField();
             textField.setBounds(50, 100, 100, 25);
-            frame.add(textField);
+            textField.addMouseListener(new MouseListener() {
+        		public void mousePressed(MouseEvent e) {}
+        		public void mouseReleased(MouseEvent e) {}
+        		public void mouseEntered(MouseEvent e) {}
+        		public void mouseExited(MouseEvent e) {}
+        		public void mouseClicked(MouseEvent e) {
+        			inFocus = false;
+        		}});
             button = new JButton("Load");
             button.setBounds(50, 150, 100, 25);
             String Time = String.valueOf(Model.elapsedTime());
@@ -180,7 +193,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 
     @Override
     public void mouseClicked(MouseEvent e) {
-    	requestFocus();
+    	inFocus = true;
     	if (e.getButton() == MouseEvent.BUTTON1 && e.getX() >= boardX && e.getY() >= boardY && e.getX() <= boardX+model.getBoardSize()*fieldWidth && e.getY() <= boardY+model.getBoardSize()*fieldHeight) {
             clickedPosition = new int[]{(e.getY()-boardY)/fieldHeight, (e.getX()-boardX)/fieldWidth};
             repaint();
@@ -189,6 +202,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 
     @Override
     public void mousePressed(MouseEvent e) {
+    	inFocus = true;
     	Point mousePos = getMousePosition();
     	if (mousePos != null) {
         	mouseBoardVector = new int[] {boardX-mousePos.x, boardY-mousePos.y};
