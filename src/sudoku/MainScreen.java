@@ -30,7 +30,6 @@ public class MainScreen extends JPanel{
     public MainScreen (JFrame frame) {
         this.frame = frame;
 
-        //setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
         // Add components
@@ -65,9 +64,6 @@ public class MainScreen extends JPanel{
         add(Box.createRigidArea(new Dimension(0, spacing)));
 
         newGameBtn = new JButton("New Game");
-        //newGameBtn.setPreferredSize(new Dimension(btnSize,btnSize));
-        //newGameBtn.setMaximumSize(new Dimension(btnSize,btnSize));
-        //newGameBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         newGameBtn.addActionListener(new newGameAction());
         newGameBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -100,8 +96,6 @@ public class MainScreen extends JPanel{
 
     private void addTextFields() {
         nText = new JTextField();
-        //nText.setPreferredSize(new Dimension(textSize,textSize));
-        //nText.setMaximumSize(new Dimension(textSize,textSize));
         nText.setFont(new Font("Serif", Font.BOLD, 30));
         nText.setMaximumSize(new Dimension(textSize,textSize));
         nText.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -151,7 +145,6 @@ public class MainScreen extends JPanel{
                 if (n < 1) {
                     return;
                 }
-                //k = Integer.parseInt(kText.getText());
                 k = n; //TODO: change this.
                 frame.dispose();
                 startGame();

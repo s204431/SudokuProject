@@ -12,8 +12,6 @@ import java.awt.event.ActionListener;
 public class NewGameScreen extends JPanel {
     private String title = "Sudoku";
     private Font titleFont = new Font(Font.SERIF, Font.BOLD, 40);
-    private int btnHeight = 50;
-    private int btnWidth = 200;
     private int spacing = 30;
     private JFrame frame;
     private JLabel titleString;
@@ -26,7 +24,6 @@ public class NewGameScreen extends JPanel {
     public NewGameScreen(JFrame frame) {
         this.frame = frame;
 
-        //setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
         // Add components
@@ -44,7 +41,6 @@ public class NewGameScreen extends JPanel {
         // Title
         titleString = new JLabel("New Game");
         titleString.setFont(titleFont);
-        //titleString.setAlignmentX(Component.CENTER_ALIGNMENT);
         titleString.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(titleString);
 
@@ -69,9 +65,6 @@ public class NewGameScreen extends JPanel {
         add(Box.createRigidArea(new Dimension(0, spacing)));
 
         loadBtn = new JButton("Load Existing Sudoku");
-        //newGameBtn.setPreferredSize(new Dimension(btnSize,btnSize));
-        //newGameBtn.setMaximumSize(new Dimension(btnSize,btnSize));
-        //newGameBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         loadBtn.addActionListener(null);
         loadBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(loadBtn);
