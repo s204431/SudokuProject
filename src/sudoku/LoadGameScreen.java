@@ -60,7 +60,7 @@ public class LoadGameScreen extends JPanel {
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setViewportView(loadList);
         loadList.setLayoutOrientation(JList.VERTICAL);
-        scrollPane.setBounds(300, 200, 200, 300);
+        scrollPane.setBounds(300, 100, 200, 300);
         add(scrollPane);
     }
 
@@ -69,19 +69,19 @@ public class LoadGameScreen extends JPanel {
         titleString = new JLabel("Load Game");
         titleString.setFont(titleFont);
         //titleString.setAlignmentX(Component.CENTER_ALIGNMENT);
-        titleString.setBounds(300, 50, 300, 100);
+        titleString.setBounds(300, 0, 300, 100);
         add(titleString);
     }
 
     private void addButtons() {
         loadGameBtn = new JButton("Load Game");
         loadGameBtn.addActionListener(new loadAction());
-        loadGameBtn.setBounds(300, 550, btnWidth, btnHeight);
+        loadGameBtn.setBounds(300, 450, btnWidth, btnHeight);
         add(loadGameBtn);
 
         backBtn = new JButton("Back");
         backBtn.addActionListener(new backAction());
-        backBtn.setBounds(300, 650, btnWidth, btnHeight);
+        backBtn.setBounds(300, 550, btnWidth, btnHeight);
         add(backBtn);
     }
 
