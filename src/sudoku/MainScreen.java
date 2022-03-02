@@ -81,7 +81,7 @@ public class MainScreen extends JPanel{
         add(Box.createRigidArea(new Dimension(0, spacing)));
 
         createBtn = new JButton("Create Sudoku");
-        createBtn.addActionListener(null);
+        createBtn.addActionListener(new createSudokuAction());
         createBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         createBtn.setMaximumSize(new Dimension(btnWidth, btnHeight));
         add(createBtn);
@@ -89,7 +89,7 @@ public class MainScreen extends JPanel{
         add(Box.createRigidArea(new Dimension(0, spacing)));
 
         solverBtn = new JButton("Sudoku Solver");
-        solverBtn.addActionListener(null);
+        solverBtn.addActionListener(new sudokuSolverAction());
         solverBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         solverBtn.setMaximumSize(new Dimension(btnWidth, btnHeight));
         add(solverBtn);
@@ -178,10 +178,24 @@ public class MainScreen extends JPanel{
         }
     }
 
-    class newGameAction implements ActionListener {
+    private class newGameAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             changePanel();
             new NewGameScreen(frame);
+        }
+    }
+    
+    private class createSudokuAction implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            changePanel();
+            new CreateSudokuScreen(frame);
+        }
+    }
+
+    private class sudokuSolverAction implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            changePanel();
+            new SudokuSolverScreen(frame);
         }
     }
 

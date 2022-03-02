@@ -23,9 +23,11 @@ public class LoadGameScreen extends JPanel {
     private JButton loadGameBtn;
     private JButton backBtn;
     private JList<String> loadList;
+    private Mode mode;
 
-    public LoadGameScreen(JFrame frame) {
+    public LoadGameScreen(JFrame frame, Mode mode) {
         this.frame = frame;
+        this.mode = mode;
 
         //setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         setLayout(null);
@@ -123,7 +125,7 @@ public class LoadGameScreen extends JPanel {
     class loadAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             frame.dispose();
-            startGame(1, 1, Mode.play).load(loadList.getSelectedValue());
+            startGame(1, 1, mode).load(loadList.getSelectedValue());
         }
     }
 

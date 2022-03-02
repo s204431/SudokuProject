@@ -128,7 +128,8 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         Stroke oldStroke = g2.getStroke();
         for (int i = 0; i < model.numInnerSquares; i++) {
             for (int j = 0; j < model.numInnerSquares; j++) {
-                g2.setColor(black);
+                //g2.setColor(model.sudokuSolved(model.board, model.innerSquareSize) ? new Color(0, 200, 0) : black);
+            	g2.setColor(black);
                 g2.setStroke(new BasicStroke(3));
                 g2.drawRect(boardX + j * fieldWidth * iss, boardY + i * fieldHeight * iss, fieldWidth*iss, fieldHeight*iss);
             }
@@ -139,7 +140,9 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 
         buttonPanel.repaint();
         setVisible(true);
-        timerLabel.setText(currentHour + ":"+ (currentMinute < 10 ? "0" : "") + currentMinute + ":"+ (currentSecond < 10 ? "0" : "") + currentSecond);
+        if (timerLabel != null) {
+        	timerLabel.setText(currentHour + ":"+ (currentMinute < 10 ? "0" : "") + currentMinute + ":"+ (currentSecond < 10 ? "0" : "") + currentSecond);
+        }
         if (inFocus) {
             requestFocus();
         }

@@ -34,9 +34,11 @@ public class GenerateNewSudokuScreen extends JPanel {
     private JPanel sliderPanel;
     private ChangeListener nListener;
     private ChangeListener kListener;
+    private Mode mode;
 
-    public GenerateNewSudokuScreen(JFrame frame) {
+    public GenerateNewSudokuScreen(JFrame frame, Mode mode) {
         this.frame = frame;
+        this.mode = mode;
 
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
@@ -186,8 +188,8 @@ public class GenerateNewSudokuScreen extends JPanel {
         frame.remove(this);
     }
 
-    private Model startGame(int k, int n) {
-        Model model = new Model(k, n, Mode.play);
+    private Model startGame(int k, int n, Mode mode) {
+        Model model = new Model(k, n, mode);
         View view = new View(model);
         Controller controller = new Controller();
         model.setView(view);
@@ -203,7 +205,7 @@ public class GenerateNewSudokuScreen extends JPanel {
                 return;
             }
             frame.dispose();
-            startGame(kSlider.getValue(), nSlider.getValue());
+            startGame(kSlider.getValue(), nSlider.getValue(), mode);
             // TODO: Generate the sudoku
         }
     }
