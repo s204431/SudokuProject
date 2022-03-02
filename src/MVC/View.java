@@ -28,9 +28,15 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     private JPanel buttonPanel;
     private JButton button;
 	public JTextField textField;
+	private JLabel timerLabel;
 
     public int[] clickedPosition = new int[] {0, 0};
 	
+	public int currentSecond;
+	public int currentMinute;
+	public int currentHour;
+    
+    
     public View(Model model) {
     	this.model = model;
     	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -61,6 +67,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         addKeyListener(this);
         addMouseWheelListener(this);
         (new Thread(new BoardDragger())).start();
+        (new Thread(new TimerUpdater())).start();
     }
     
     public void setController(Controller controller) {
@@ -127,9 +134,14 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         g2.setStroke(oldStroke);
 
         // Draw components
+
         buttonPanel.repaint();
         setVisible(true);
+
+        timerLabel.setText(currentHour + ":"+ (currentMinute < 10 ? "0" : "") + currentMinute + ":"+ (currentSecond < 10 ? "0" : "") + currentSecond);
+
     }
+    
 
     public void addComponentsToButtonPanel(Mode mode) {
         if (mode == Mode.play) {
@@ -138,6 +150,10 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             frame.add(textField);
             button = new JButton("Load");
             button.setBounds(50, 150, 100, 25);
+            String Time = String.valueOf(Model.elapsedTime());
+            timerLabel = new JLabel("0");
+            timerLabel.setBounds(0, 200, 50, 50);
+            buttonPanel.add(timerLabel);
             buttonPanel.add(textField);
             buttonPanel.add(button);
         } else if (mode == Mode.create) {
@@ -234,6 +250,26 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 		}
 	}
 	
+	private class TimerUpdater implements Runnable {
+		@Override
+		public void run() {
+			int currentTime = 0;
+			while (!close) {
+				if (currentTime != model.elapsedTime()) {
+					currentTime = model.elapsedTime();
+					currentSecond = model.elapsedTime() % 60;
+					currentMinute = model.elapsedTime() / 60 % 60;
+					currentHour = model.elapsedTime() / 3600;
+					repaint();
+				}
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 	//Concurrent thread that moves the board when dragging.
 	private class BoardDragger implements Runnable {
 		@Override

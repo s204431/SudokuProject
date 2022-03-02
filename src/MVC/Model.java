@@ -32,6 +32,7 @@ public class Model {
 				board[i][j] = new Field();
 			}
 		}
+		Stopwatch();
 	}
 	
 	public void setView(View view) {
@@ -214,9 +215,10 @@ public class Model {
 		start = System.currentTimeMillis();
 	}
 	
-    public static double elapsedTime() {
+    public static int elapsedTime() {
         long now = System.currentTimeMillis();
-        return (now - start) / 1000.0;
+        int Time = (int) ((now - start) / 1000.0);
+        return Time;
     }
     
     public int getMaxNumber() {
