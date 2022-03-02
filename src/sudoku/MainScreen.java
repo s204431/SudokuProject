@@ -12,8 +12,10 @@ import java.awt.event.*;
 public class MainScreen extends JPanel{
 
     private Font titleFont = new Font(Font.SERIF, Font.BOLD,50);
-    private int textSize = 100;
+    private int textSize = 50;
     private int spacing = 30;
+    private int btnHeight = 50;
+    private int btnWidth = 200;
     private int k;
     private int n;
     private JFrame frame;
@@ -39,7 +41,7 @@ public class MainScreen extends JPanel{
 
         addButtons();
         add(Box.createRigidArea(new Dimension(0, spacing)));
-        addTextFields();
+
 
         // Set frame
         frame.add(this);
@@ -58,15 +60,22 @@ public class MainScreen extends JPanel{
         playBtn = new JButton("Play Game");
         playBtn.addActionListener(new playAction());
         playBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-
+        playBtn.setMaximumSize(new Dimension(btnWidth, btnHeight));
         add(playBtn);
+
+        add(Box.createRigidArea(new Dimension(0, spacing/2)));
+
+        JPanel panel = new JPanel();
+        panel.setMaximumSize(new Dimension(400,50));
+        addTextFields(panel);
+
 
         add(Box.createRigidArea(new Dimension(0, spacing)));
 
         newGameBtn = new JButton("New Game");
         newGameBtn.addActionListener(new newGameAction());
         newGameBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-
+        newGameBtn.setMaximumSize(new Dimension(btnWidth, btnHeight));
         add(newGameBtn);
 
         add(Box.createRigidArea(new Dimension(0, spacing)));
@@ -74,7 +83,7 @@ public class MainScreen extends JPanel{
         createBtn = new JButton("Create Sudoku");
         createBtn.addActionListener(null);
         createBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-
+        createBtn.setMaximumSize(new Dimension(btnWidth, btnHeight));
         add(createBtn);
 
         add(Box.createRigidArea(new Dimension(0, spacing)));
@@ -82,7 +91,7 @@ public class MainScreen extends JPanel{
         solverBtn = new JButton("Sudoku Solver");
         solverBtn.addActionListener(null);
         solverBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-
+        solverBtn.setMaximumSize(new Dimension(btnWidth, btnHeight));
         add(solverBtn);
 
         add(Box.createRigidArea(new Dimension(0, spacing)));
@@ -90,23 +99,31 @@ public class MainScreen extends JPanel{
         highScoreBtn = new JButton("Stats");
         highScoreBtn.addActionListener(null);
         highScoreBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-
+        highScoreBtn.setMaximumSize(new Dimension(btnWidth, btnHeight));
         add(highScoreBtn);
     }
 
-    private void addTextFields() {
+    private void addTextFields(JPanel panel) {
+        JLabel nLabel = new JLabel("N:");
+        nLabel.setFont(new Font("Serif", Font.BOLD, 20));
+        nLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.add(nLabel);
         nText = new JTextField();
-        nText.setFont(new Font("Serif", Font.BOLD, 30));
-        nText.setMaximumSize(new Dimension(textSize,textSize));
+        nText.setFont(new Font("Serif", Font.BOLD, 20));
         nText.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(nText);
+        nText.setPreferredSize(new Dimension(textSize,textSize));
+        panel.add(nText);
+        JLabel kLabel = new JLabel("K:");
+        kLabel.setFont(new Font("Serif", Font.BOLD, 20));
+        kLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.add(kLabel);
         kText = new JTextField();
-        //nText.setPreferredSize(new Dimension(textSize,textSize));
-        //nText.setMaximumSize(new Dimension(textSize,textSize));
-        kText.setFont(new Font("Serif", Font.BOLD, 30));
-        kText.setHorizontalAlignment(JTextField.CENTER);
-        kText.setMaximumSize(new Dimension(textSize,textSize));
-        add(kText);
+        kText.setFont(new Font("Serif", Font.BOLD, 20));
+        kText.setAlignmentX(Component.CENTER_ALIGNMENT);
+        kText.setPreferredSize(new Dimension(textSize,textSize));
+        panel.add(kText);
+
+        add(panel);
     }
 
     public void setUpMenuBar(JFrame frame){
@@ -150,8 +167,8 @@ public class MainScreen extends JPanel{
             try {
                 n = Integer.parseInt(nText.getText());
                 k = Integer.parseInt(kText.getText());
-                if (n < 1 || k > n) {
-                	return;
+                if (n < 1) {
+                    return;
                 }
                 frame.dispose();
                 startGame();

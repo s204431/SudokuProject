@@ -19,23 +19,25 @@ public class GenerateNewSudokuScreen extends JPanel {
     private int btnWidth = 200;
     private int spacing = 30;
     private JFrame frame;
-    private JLabel titleString;
-    private JLabel boardSizeString;
-    private JLabel difficulyString;
+    private JLabel titleLabel;
+    private JLabel boardSizeLabel;
+    private JLabel difficultyLabel;
     private JButton generateBtn;
     private JButton backBtn;
     private JComboBox<String> difficultyDDMenu;
     private int n;
-    JSlider nSlider = new JSlider();
+    private JSlider nSlider;
+    private JSlider kSlider;
 
     private JLabel nLabel = new JLabel("5");
+    private JLabel kLabel = new JLabel("5");
     private JPanel sliderPanel;
-    private ChangeListener listener;
+    private ChangeListener nListener;
+    private ChangeListener kListener;
 
     public GenerateNewSudokuScreen(JFrame frame) {
         this.frame = frame;
 
-        //setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
         // Add components
@@ -53,27 +55,34 @@ public class GenerateNewSudokuScreen extends JPanel {
 
     private void addLabels() {
         // Title
-        titleString = new JLabel("Choose size and Difficulty");
-        titleString.setFont(titleFont);
-        //titleString.setAlignmentX(Component.CENTER_ALIGNMENT);
-        titleString.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(titleString);
+        titleLabel = new JLabel("Choose size and Difficulty");
+        titleLabel.setFont(titleFont);
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        add(titleLabel);
 
         add(Box.createRigidArea(new Dimension(0, spacing*2)));
 
-        boardSizeString = new JLabel("Size of board");
-        boardSizeString.setFont(new Font(Font.SERIF, Font.BOLD, 30));
-        boardSizeString.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(boardSizeString);
+        boardSizeLabel = new JLabel("Size of board");
+        boardSizeLabel.setFont(new Font(Font.SERIF, Font.BOLD, 30));
+        boardSizeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        add(boardSizeLabel);
+
+        add(Box.createRigidArea(new Dimension(0, spacing)));
 
         addSlider();
 
         add(Box.createRigidArea(new Dimension(0, spacing)));
 
-        difficulyString = new JLabel("Difficulty: ");
-        difficulyString.setFont(new Font(Font.SERIF, Font.BOLD, 30));
-        difficulyString.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(difficulyString);
+
+        JPanel panel = new JPanel();
+        panel.setMaximumSize(new Dimension(400,50));
+        difficultyLabel = new JLabel("Difficulty: ");
+        difficultyLabel.setFont(new Font(Font.SERIF, Font.BOLD, 30));
+        difficultyLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.add(difficultyLabel);
+        JComboBox difficultyBox = new JComboBox(new String[]{"Easy", "Medium", "Hard"});
+        panel.add(difficultyBox);
+        add(panel);
 
         add(Box.createRigidArea(new Dimension(0, spacing)));
     }
@@ -82,6 +91,7 @@ public class GenerateNewSudokuScreen extends JPanel {
         generateBtn = new JButton("Generate Sudoku");
         generateBtn.addActionListener(new startAction());
         generateBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        generateBtn.setMaximumSize(new Dimension(btnWidth, btnHeight));
         add(generateBtn);
 
         add(Box.createRigidArea(new Dimension(0, spacing)));
@@ -89,28 +99,64 @@ public class GenerateNewSudokuScreen extends JPanel {
         backBtn = new JButton("Back");
         backBtn.addActionListener(new backAction());
         backBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        backBtn.setMaximumSize(new Dimension(btnWidth, btnHeight));
         add(backBtn);
     }
 
+    public void addSliders(){
+    }
+
     public void addSlider() {
-        add(nLabel);
-        listener = new ChangeListener() {
+        nListener = new ChangeListener() {
             public void stateChanged(ChangeEvent event) {
                 JSlider source = (JSlider) event.getSource();
-                nLabel.setText("" + source.getValue());
+                if (source == nSlider) {
+                    nLabel.setText("" + source.getValue());
+                }
             }
         };
-        DefaultBoundedRangeModel model = new DefaultBoundedRangeModel(5, 0, 2, 10);
-        nSlider = new JSlider(model);
+        DefaultBoundedRangeModel model1 = new DefaultBoundedRangeModel(5, 0, 2, 10);
+        nSlider = new JSlider(model1);
         nSlider.setPaintTicks(true);
         nSlider.setMajorTickSpacing(2);
         nSlider.setMinorTickSpacing(1);
-        nSlider.addChangeListener(listener);
-        JPanel panel = new JPanel();
-        panel.setMaximumSize(new Dimension(200,50));
-        panel.add(nSlider);
-        panel.add(new JLabel("n"));
-        add(panel);
+        nSlider.addChangeListener(nListener);
+
+        kListener = new ChangeListener() {
+            public void stateChanged(ChangeEvent event) {
+                JSlider source = (JSlider) event.getSource();
+                if (source == kSlider ){
+                    kLabel.setText("" + source.getValue());
+                }
+            }
+        };
+        DefaultBoundedRangeModel model2 = new DefaultBoundedRangeModel(5, 0, 2, 10);
+        kSlider = new JSlider(model2);
+        kSlider.setPaintTicks(true);
+        kSlider.setMajorTickSpacing(2);
+        kSlider.setMinorTickSpacing(1);
+        kSlider.addChangeListener(kListener);
+
+        add(nLabel);
+
+        JPanel nPanel = new JPanel();
+        nPanel.setMaximumSize(new Dimension(200,50));
+        nPanel.add(nSlider);
+        nPanel.add(new JLabel("n"));
+
+        add(nPanel);
+
+        add(Box.createRigidArea(new Dimension(0, spacing)));
+
+        add(kLabel);
+
+        JPanel kPanel = new JPanel();
+        kPanel.setMaximumSize(new Dimension(200,50));
+        kPanel.add(kSlider);
+        kPanel.add(new JLabel("k"));
+
+        add(kPanel);
+
     }
 
 
@@ -154,8 +200,12 @@ public class GenerateNewSudokuScreen extends JPanel {
     class startAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             frame.dispose();
-            startGame(3, 3);    // TODO: Use chosen size of board
-                                // TODO: Generate the sudoku
+            if (kSlider.getValue() > nSlider.getValue()) {
+                return;
+            }
+            startGame(kSlider.getValue(), nSlider.getValue());
+
+            // TODO: Generate the sudoku
         }
     }
 
