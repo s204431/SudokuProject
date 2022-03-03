@@ -111,14 +111,8 @@ public class GenerateNewSudokuScreen extends JPanel {
     }
 
     public void addSlider() {
-        nListener = new ChangeListener() {
-            public void stateChanged(ChangeEvent event) {
-                JSlider source = (JSlider) event.getSource();
-                if (source == nSlider) {
-                    nLabel.setText("" + source.getValue());
-                }
-            }
-        };
+        nListener = setListener(nListener, nLabel);
+
         DefaultBoundedRangeModel model1 = new DefaultBoundedRangeModel(3, 0, 2, 10);
         nSlider = new JSlider(model1);
         nSlider.setPaintTicks(true);
@@ -126,14 +120,8 @@ public class GenerateNewSudokuScreen extends JPanel {
         nSlider.setMinorTickSpacing(1);
         nSlider.addChangeListener(nListener);
 
-        kListener = new ChangeListener() {
-            public void stateChanged(ChangeEvent event) {
-                JSlider source = (JSlider) event.getSource();
-                if (source == kSlider ){
-                    kLabel.setText("" + source.getValue());
-                }
-            }
-        };
+        kListener = setListener(kListener, kLabel);
+
         DefaultBoundedRangeModel model2 = new DefaultBoundedRangeModel(3, 0, 2, 10);
         kSlider = new JSlider(model2);
         kSlider.setPaintTicks(true);
@@ -161,6 +149,16 @@ public class GenerateNewSudokuScreen extends JPanel {
 
         add(kPanel);
 
+    }
+
+    public ChangeListener setListener(ChangeListener listener, JLabel label){
+        listener = new ChangeListener() {
+            public void stateChanged(ChangeEvent event) {
+                JSlider source = (JSlider) event.getSource();
+                label.setText("" + source.getValue());
+            }
+        };
+        return listener;
     }
 
 

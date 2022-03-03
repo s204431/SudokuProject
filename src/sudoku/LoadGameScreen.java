@@ -18,6 +18,7 @@ public class LoadGameScreen extends JPanel {
     private Font titleFont = new Font(Font.SERIF, Font.BOLD,40);
     private int btnHeight = 50;
     private int btnWidth = 200;
+    private int spacing = 30;
     private JFrame frame;
     private JLabel titleString;
     private JButton loadGameBtn;
@@ -29,8 +30,8 @@ public class LoadGameScreen extends JPanel {
         this.frame = frame;
         this.mode = mode;
 
-        //setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-        setLayout(null);
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+
 
         // Add components
         addLists();
@@ -60,8 +61,10 @@ public class LoadGameScreen extends JPanel {
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setViewportView(loadList);
         loadList.setLayoutOrientation(JList.VERTICAL);
-        scrollPane.setBounds(300, 100, 200, 300);
+        scrollPane.setAlignmentX(Component.CENTER_ALIGNMENT);
+        scrollPane.setMaximumSize(new Dimension(btnWidth,300));
         add(scrollPane);
+        add(Box.createRigidArea(new Dimension(0, spacing)));
     }
 
     private void addLabels() {
@@ -69,19 +72,23 @@ public class LoadGameScreen extends JPanel {
         titleString = new JLabel("Load Game");
         titleString.setFont(titleFont);
         //titleString.setAlignmentX(Component.CENTER_ALIGNMENT);
-        titleString.setBounds(300, 0, 300, 100);
+        titleString.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(titleString);
+        add(Box.createRigidArea(new Dimension(0, spacing)));
     }
 
     private void addButtons() {
         loadGameBtn = new JButton("Load Game");
         loadGameBtn.addActionListener(new loadAction());
-        loadGameBtn.setBounds(300, 450, btnWidth, btnHeight);
+        loadGameBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        loadGameBtn.setMaximumSize(new Dimension(btnWidth, btnHeight));
         add(loadGameBtn);
+        add(Box.createRigidArea(new Dimension(0, spacing)));
 
         backBtn = new JButton("Back");
         backBtn.addActionListener(new backAction());
-        backBtn.setBounds(300, 550, btnWidth, btnHeight);
+        backBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        backBtn.setMaximumSize(new Dimension(btnWidth, btnHeight));
         add(backBtn);
     }
 
