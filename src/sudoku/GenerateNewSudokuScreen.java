@@ -29,8 +29,8 @@ public class GenerateNewSudokuScreen extends JPanel {
     private JSlider nSlider;
     private JSlider kSlider;
 
-    private JLabel nLabel = new JLabel("5");
-    private JLabel kLabel = new JLabel("5");
+    private JLabel nLabel = new JLabel("3");
+    private JLabel kLabel = new JLabel("3");
     private JPanel sliderPanel;
     private ChangeListener nListener;
     private ChangeListener kListener;
@@ -115,7 +115,7 @@ public class GenerateNewSudokuScreen extends JPanel {
                 }
             }
         };
-        DefaultBoundedRangeModel model1 = new DefaultBoundedRangeModel(5, 0, 2, 10);
+        DefaultBoundedRangeModel model1 = new DefaultBoundedRangeModel(3, 0, 2, 10);
         nSlider = new JSlider(model1);
         nSlider.setPaintTicks(true);
         nSlider.setMajorTickSpacing(2);
@@ -130,7 +130,7 @@ public class GenerateNewSudokuScreen extends JPanel {
                 }
             }
         };
-        DefaultBoundedRangeModel model2 = new DefaultBoundedRangeModel(5, 0, 2, 10);
+        DefaultBoundedRangeModel model2 = new DefaultBoundedRangeModel(3, 0, 2, 10);
         kSlider = new JSlider(model2);
         kSlider.setPaintTicks(true);
         kSlider.setMajorTickSpacing(2);
