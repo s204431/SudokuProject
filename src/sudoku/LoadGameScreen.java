@@ -23,9 +23,11 @@ public class LoadGameScreen extends JPanel {
     private JButton loadGameBtn;
     private JButton backBtn;
     private JList<String> loadList;
+    private Mode mode;
 
-    public LoadGameScreen(JFrame frame) {
+    public LoadGameScreen(JFrame frame, Mode mode) {
         this.frame = frame;
+        this.mode = mode;
 
         //setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         setLayout(null);
@@ -58,7 +60,7 @@ public class LoadGameScreen extends JPanel {
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setViewportView(loadList);
         loadList.setLayoutOrientation(JList.VERTICAL);
-        scrollPane.setBounds(300, 200, 200, 300);
+        scrollPane.setBounds(300, 100, 200, 300);
         add(scrollPane);
     }
 
@@ -67,19 +69,19 @@ public class LoadGameScreen extends JPanel {
         titleString = new JLabel("Load Game");
         titleString.setFont(titleFont);
         //titleString.setAlignmentX(Component.CENTER_ALIGNMENT);
-        titleString.setBounds(300, 50, 300, 100);
+        titleString.setBounds(300, 0, 300, 100);
         add(titleString);
     }
 
     private void addButtons() {
         loadGameBtn = new JButton("Load Game");
         loadGameBtn.addActionListener(new loadAction());
-        loadGameBtn.setBounds(300, 550, btnWidth, btnHeight);
+        loadGameBtn.setBounds(300, 450, btnWidth, btnHeight);
         add(loadGameBtn);
 
         backBtn = new JButton("Back");
         backBtn.addActionListener(new backAction());
-        backBtn.setBounds(300, 650, btnWidth, btnHeight);
+        backBtn.setBounds(300, 550, btnWidth, btnHeight);
         add(backBtn);
     }
 
@@ -123,14 +125,22 @@ public class LoadGameScreen extends JPanel {
     class loadAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             frame.dispose();
-            startGame(1, 1, Mode.play).load(loadList.getSelectedValue());
+            startGame(1, 1, mode).load(loadList.getSelectedValue());
         }
     }
 
     class backAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             changePanel();
-            new NewGameScreen(frame);
+            if (mode == Mode.play) {
+                new NewGameScreen(frame);
+            }
+            else if (mode == Mode.create) {
+                new CreateSudokuScreen(frame);
+            }
+            else {
+                new SudokuSolverScreen(frame);
+            }
         }
     }
 

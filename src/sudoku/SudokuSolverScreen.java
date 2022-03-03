@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class NewGameScreen extends JPanel {
+public class SudokuSolverScreen extends JPanel {
     private String title = "Sudoku";
     private Font titleFont = new Font(Font.SERIF, Font.BOLD, 40);
     private int spacing = 30;
@@ -24,7 +24,7 @@ public class NewGameScreen extends JPanel {
     private JButton loadBtn;
     private JButton backBtn;
 
-    public NewGameScreen(JFrame frame) {
+    public SudokuSolverScreen(JFrame frame) {
         this.frame = frame;
 
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -42,7 +42,7 @@ public class NewGameScreen extends JPanel {
 
     private void addLabels() {
         // Title
-        titleString = new JLabel("New Game");
+        titleString = new JLabel("Sudoku Solver");
         titleString.setFont(titleFont);
         titleString.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(titleString);
@@ -50,14 +50,6 @@ public class NewGameScreen extends JPanel {
         add(Box.createRigidArea(new Dimension(0, spacing*2)));
         JPanel panel = new JPanel();
         panel.setMaximumSize(new Dimension(400,50));
-        assistModeString = new JLabel("Assist mode: ");
-        assistModeString.setFont(new Font(Font.SERIF, Font.BOLD, 20));
-        assistModeString.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panel.add(assistModeString);
-
-        assistModeCheck = new JCheckBox();
-        assistModeCheck.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panel.add(assistModeCheck);
         add(panel);
     }
 
@@ -117,14 +109,14 @@ public class NewGameScreen extends JPanel {
     class generateNewAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             changePanel();
-            new GenerateNewSudokuScreen(frame, Mode.play);
+            new GenerateNewSudokuScreen(frame, Mode.solver);
         }
     }
 
     class loadGameAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             changePanel();
-            new LoadGameScreen(frame, Mode.play);
+            new LoadGameScreen(frame, Mode.solver);
         }
     }
 

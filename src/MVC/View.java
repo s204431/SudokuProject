@@ -5,12 +5,7 @@ import sudoku.Main;
 import MVC.Model.Mode;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
+import java.awt.event.*;
 
 public class View extends JPanel implements MouseListener, KeyListener, MouseWheelListener {
 	
@@ -26,7 +21,9 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 	private boolean close = false;
 	private JFrame frame;
     private JPanel buttonPanel;
-    private JButton button;
+    private JButton saveButton;
+    private JButton loadButton;
+    private JButton exitButton;
 	public JTextField textField;
 	private JLabel timerLabel;
 	private boolean inFocus = true;
@@ -128,7 +125,8 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         Stroke oldStroke = g2.getStroke();
         for (int i = 0; i < model.numInnerSquares; i++) {
             for (int j = 0; j < model.numInnerSquares; j++) {
-                g2.setColor(black);
+                //g2.setColor(model.sudokuSolved(model.board, model.innerSquareSize) ? new Color(0, 200, 0) : black);
+            	g2.setColor(black);
                 g2.setStroke(new BasicStroke(3));
                 g2.drawRect(boardX + j * fieldWidth * iss, boardY + i * fieldHeight * iss, fieldWidth*iss, fieldHeight*iss);
             }
@@ -139,7 +137,9 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 
         buttonPanel.repaint();
         setVisible(true);
-        timerLabel.setText(currentHour + ":"+ (currentMinute < 10 ? "0" : "") + currentMinute + ":"+ (currentSecond < 10 ? "0" : "") + currentSecond);
+        if (timerLabel != null) {
+        	timerLabel.setText(currentHour + ":"+ (currentMinute < 10 ? "0" : "") + currentMinute + ":"+ (currentSecond < 10 ? "0" : "") + currentSecond);
+        }
         if (inFocus) {
             requestFocus();
         }
@@ -150,9 +150,19 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     
 
     public void addComponentsToButtonPanel(Mode mode) {
+        exitButton = new JButton("Exit");
+        exitButton.setBounds(50, 450, 100, 25);
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                quitToMenu();
+            }
+        });
+        buttonPanel.add(exitButton);
+
         if (mode == Mode.play) {
             textField = new JTextField();
-            textField.setBounds(50, 100, 100, 25);
+            textField.setBounds(50, 550, 100, 25);
             textField.addMouseListener(new MouseListener() {
         		public void mousePressed(MouseEvent e) {}
         		public void mouseReleased(MouseEvent e) {}
@@ -161,18 +171,35 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         		public void mouseClicked(MouseEvent e) {
         			inFocus = false;
         		}});
-            button = new JButton("Load");
-            button.setBounds(50, 150, 100, 25);
-            String Time = String.valueOf(Model.elapsedTime());
+            loadButton = new JButton("Load");
+            loadButton.setBounds(50, 580, 100, 25);
+            loadButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    model.load(textField.getText());
+                }
+            });
             timerLabel = new JLabel("0");
-            timerLabel.setBounds(0, 200, 50, 50);
+            timerLabel.setFont(new Font("Serif", Font.BOLD, 20));
+            timerLabel.setBounds(70, 0, 200, 150);
             buttonPanel.add(timerLabel);
             buttonPanel.add(textField);
-            buttonPanel.add(button);
+            buttonPanel.add(loadButton);
         } else if (mode == Mode.create) {
+            saveButton = new JButton("Save");
+            saveButton.setBounds(50, 250, 100, 25);
+            saveButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    //  TODO: Open save window
+                }
+            });
 
         } else if (mode == Mode.solver) {
-
+            /*
+            solveButton;
+            oneStepSolveButton;
+             */
         }
 
         // TODO: Hint button when assist-mode is on

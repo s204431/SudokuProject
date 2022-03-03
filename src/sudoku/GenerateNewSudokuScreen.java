@@ -24,7 +24,7 @@ public class GenerateNewSudokuScreen extends JPanel {
     private JLabel difficultyLabel;
     private JButton generateBtn;
     private JButton backBtn;
-    private JComboBox<String> difficultyDDMenu;
+    private JComboBox<String> difficultyBox;
     private int n;
     private JSlider nSlider;
     private JSlider kSlider;
@@ -34,9 +34,11 @@ public class GenerateNewSudokuScreen extends JPanel {
     private JPanel sliderPanel;
     private ChangeListener nListener;
     private ChangeListener kListener;
+    private Mode mode;
 
-    public GenerateNewSudokuScreen(JFrame frame) {
+    public GenerateNewSudokuScreen(JFrame frame, Mode mode) {
         this.frame = frame;
+        this.mode = mode;
 
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
@@ -80,7 +82,12 @@ public class GenerateNewSudokuScreen extends JPanel {
         difficultyLabel.setFont(new Font(Font.SERIF, Font.BOLD, 30));
         difficultyLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.add(difficultyLabel);
-        JComboBox difficultyBox = new JComboBox(new String[]{"Easy", "Medium", "Hard"});
+        if (mode == Mode.create) {
+            difficultyBox = new JComboBox(new String[]{"Empty", "Easy", "Medium", "Hard"});
+        }
+        else {
+            difficultyBox = new JComboBox(new String[]{"Easy", "Medium", "Hard"});
+        }
         panel.add(difficultyBox);
         add(panel);
 
@@ -101,9 +108,6 @@ public class GenerateNewSudokuScreen extends JPanel {
         backBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         backBtn.setMaximumSize(new Dimension(btnWidth, btnHeight));
         add(backBtn);
-    }
-
-    public void addSliders(){
     }
 
     public void addSlider() {
@@ -186,8 +190,8 @@ public class GenerateNewSudokuScreen extends JPanel {
         frame.remove(this);
     }
 
-    private Model startGame(int k, int n) {
-        Model model = new Model(k, n, Mode.play);
+    private Model startGame(int k, int n, Mode mode) {
+        Model model = new Model(k, n, mode);
         View view = new View(model);
         Controller controller = new Controller();
         model.setView(view);
@@ -203,15 +207,36 @@ public class GenerateNewSudokuScreen extends JPanel {
                 return;
             }
             frame.dispose();
-            startGame(kSlider.getValue(), nSlider.getValue());
-            // TODO: Generate the sudoku
+            Model model = startGame(kSlider.getValue(), nSlider.getValue(), mode);
+            String difficulty = (String)difficultyBox.getSelectedItem();
+            switch (difficulty) {
+            	case "Easy":
+                    model.generateSudoku(1);
+                    break;
+            	case "Medium":
+                    model.generateSudoku(2);
+                    break;
+            	case "Hard":
+                    model.generateSudoku(3);
+                    break;
+                default:
+                	break;
+            }
         }
     }
 
     class backAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             changePanel();
-            new NewGameScreen(frame);
+            if (mode == Mode.play) {
+                new NewGameScreen(frame);
+            }
+            else if (mode == Mode.create) {
+                new CreateSudokuScreen(frame);
+            }
+            else {
+                new SudokuSolverScreen(frame);
+            }
         }
     }
 
