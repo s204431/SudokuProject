@@ -176,7 +176,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             loadButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    model.load(textField.getText());
+                    model.loadAndUpdate(textField.getText());
                 }
             });
             timerLabel = new JLabel("0");

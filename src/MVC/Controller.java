@@ -25,7 +25,7 @@ public class Controller {
 			model.save(view.textField.getText());
 		}
 		else if (e.getKeyChar() == 'l') {
-			model.load(view.textField.getText());
+			model.loadAndUpdate(view.textField.getText());
 		}
 		else if (e.getKeyChar() == 'n') {
 			model.generateSudoku(6);

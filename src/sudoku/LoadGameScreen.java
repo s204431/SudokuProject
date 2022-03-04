@@ -23,7 +23,8 @@ public class LoadGameScreen extends JPanel {
     private JLabel titleString;
     private JButton loadGameBtn;
     private JButton backBtn;
-    private JList<String> loadList;
+    //private JList<String> loadList;
+    private JList<LoadListElement> loadList;
     private Mode mode;
 
     public LoadGameScreen(JFrame frame, Mode mode) {
@@ -51,18 +52,23 @@ public class LoadGameScreen extends JPanel {
             }
         });
 
-        String[] savedSudokus = new String[matchingFiles.length];
+        LoadListElement[] savedSudokus = new LoadListElement[matchingFiles.length];
         for (int i = 0; i < matchingFiles.length; i++) {
-            savedSudokus[i] = matchingFiles[i].getName().substring(0, matchingFiles[i].getName().length() - 3);
+        	String name = matchingFiles[i].getName().substring(0, matchingFiles[i].getName().length() - 3);
+        	Object[] result = Model.load(name, Mode.play);
+        	Field[][] board = (Field[][]) result[0];
+            savedSudokus[i] = new LoadListElement(name, 0, board.length, board, (int) result[1], (int) result[2]);
         }
-        loadList = new JList<String>(savedSudokus);
-
+        
+        loadList = new JList<LoadListElement>(savedSudokus);
+        loadList.setCellRenderer(new LoadListRenderer(btnWidth*2));
+        
         // Add scroll function
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setViewportView(loadList);
         loadList.setLayoutOrientation(JList.VERTICAL);
         scrollPane.setAlignmentX(Component.CENTER_ALIGNMENT);
-        scrollPane.setMaximumSize(new Dimension(btnWidth,300));
+        scrollPane.setMaximumSize(new Dimension(btnWidth*2,300));
         add(scrollPane);
         add(Box.createRigidArea(new Dimension(0, spacing)));
     }
@@ -132,7 +138,8 @@ public class LoadGameScreen extends JPanel {
     class loadAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             frame.dispose();
-            startGame(1, 1, mode).load(loadList.getSelectedValue());
+            //startGame(1, 1, mode).load(loadList.getSelectedValue());
+            startGame(1, 1, mode).loadAndUpdate(loadList.getSelectedValue().name);
         }
     }
 

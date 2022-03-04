@@ -50,7 +50,7 @@ public class SolverTester {
 											   new TestCase("Puzzle_6_01", true)};
 		boolean success = true;
 		for (TestCase testCase : testCases) {
-			model.load(testCase.fileName);
+			model.loadAndUpdate(testCase.fileName);
 			solver.setBoard(model.board, model.innerSquareSize);
 			long time1 = new Date().getTime();
 			List<int[][]> solutions = solver.solve(1);

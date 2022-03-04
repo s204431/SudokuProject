@@ -144,16 +144,17 @@ public class Model {
 		}
 	}
 	
-	public void load(String fileName) {
+	public static Object[] load(String fileName, Mode mode) {
 		File file = new File("savedsudokus/"+fileName+".su");
 		try {
 			Scanner scanner = new Scanner(file);
 			scanner.useDelimiter(Pattern.compile("[\\r\\n;]+"));
-			numInnerSquares = scanner.nextInt();
-			innerSquareSize = scanner.nextInt();
-			board = new Field[getBoardSize()][getBoardSize()];
-			for (int i = 0; i < getBoardSize(); i++) {
-				for (int j = 0; j < getBoardSize(); j++) {
+			int numInnerSquares = scanner.nextInt();
+			int innerSquareSize = scanner.nextInt();
+			int boardSize = numInnerSquares*innerSquareSize;
+			Field[][] board = new Field[boardSize][boardSize];
+			for (int i = 0; i < boardSize; i++) {
+				for (int j = 0; j < boardSize; j++) {
 					String next = scanner.next();
 					if (next.equals(".")) {
 						board[i][j] = new Field(0, true);
@@ -164,12 +165,21 @@ public class Model {
 				}
 			}
 			scanner.close();
-			view.clickedPosition = new int[] {0, 0};
-			view.resetBoardPosition();
-			view.repaint();
+			return new Object[] {board, innerSquareSize, numInnerSquares};
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		return null;
+	}
+	
+	public void loadAndUpdate(String fileName) {
+		Object[] result = load(fileName, mode);
+		board = (Field[][]) result[0];
+		innerSquareSize = (int) result[1];
+		numInnerSquares = (int) result[2];
+		view.clickedPosition = new int[] {0, 0};
+		view.resetBoardPosition();
+		view.repaint();
 	}
 	
 	public static boolean canBePlaced(Field[][] board, int innerSquareSize, int x, int y, int value) {
