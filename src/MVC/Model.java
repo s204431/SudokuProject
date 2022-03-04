@@ -187,14 +187,22 @@ public class Model {
 		}
 		return true;
 	}
-
+	
 	public void generateSudoku(int difficulty) {
+		generateSudoku(difficulty, innerSquareSize, numInnerSquares);
+	}
+
+	public void generateSudoku(int difficulty, int innerSquareSize, int numInnerSquares) {
+		this.innerSquareSize = innerSquareSize;
+		this.numInnerSquares = numInnerSquares;
 		int[][] matrix = new SudokuGenerator().generateSudoku(innerSquareSize, numInnerSquares, difficulty, (int)(getBoardSize()*getBoardSize()*0.4));
+		board = new Field[getBoardSize()][getBoardSize()];
 		for(int i = 0; i < getBoardSize(); i++) {
 			for(int j = 0; j < getBoardSize(); j++){
-				board[i][j].value = matrix[i][j];
+				board[i][j] = new Field(matrix[i][j], true);
 			}
 		}
+		view.resetBoardPosition();
 		view.repaint();
 	}
 	

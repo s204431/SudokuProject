@@ -32,7 +32,22 @@ public class SolverTester {
 											   new TestCase("sixbysix1", true),
 											   new TestCase("difficulty3", true),
 											   new TestCase("difficulty5", true),
-											   new TestCase("difficulty6", true)};
+											   new TestCase("difficulty6", true),
+											   new TestCase("Puzzle_3_01", true),
+											   new TestCase("Puzzle_3_02", true),
+											   new TestCase("Puzzle_3_03", true),
+											   new TestCase("Puzzle_3_04", true),
+											   new TestCase("Puzzle_3_05", true),
+											   new TestCase("Puzzle_3_06", true),
+											   new TestCase("Puzzle_3_07", true),
+											   new TestCase("Puzzle_3_08", true),
+											   new TestCase("Puzzle_3_09", true),
+											   new TestCase("Puzzle_3_10", true),
+											   new TestCase("Puzzle_3_X1", false),
+											   new TestCase("Puzzle_4_01", true),
+											   new TestCase("Puzzle_4_02", true),
+											   new TestCase("Puzzle_5_01", true),
+											   new TestCase("Puzzle_6_01", true)};
 		boolean success = true;
 		for (TestCase testCase : testCases) {
 			model.load(testCase.fileName);
@@ -64,7 +79,7 @@ public class SolverTester {
 			boolean successGenerated = true;
 			for (int i = 0; i < numberOfRandomTests; i++) {
 				long time1 = new Date().getTime();
-				model.generateSudoku(1);
+				model.generateSudoku(1, 3, 3);
 				long time2 = new Date().getTime();
 				timeToGenerate += time2 - time1;
 				solver.setBoard(model.board, model.innerSquareSize);
