@@ -38,7 +38,10 @@ public class MultiplayerView extends View {
     }
     
     public void paint(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g;
     	if (!((MultiplayerModel) model).started) {
+        	g2.setFont(new Font("TimesRoman", Font.BOLD, 50));
+        	g2.drawString("Waiting for opponent...", getPreferredSize().width/2-getPreferredSize().height/4, getPreferredSize().height/2-getPreferredSize().height/10);
     		return;
     	}
         super.paint(g);
@@ -55,8 +58,6 @@ public class MultiplayerView extends View {
         int opponentBoardY = (int) tuple[2];
         int opponentFieldWidth = (int) tuple[3];
         int opponentFieldHeight = (int) tuple[4];
-
-        Graphics2D g2 = (Graphics2D) g;
 
         // Draw fields and numbers
         Color red = new Color(175, 4, 4);

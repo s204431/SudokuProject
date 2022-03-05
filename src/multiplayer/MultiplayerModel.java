@@ -114,7 +114,7 @@ public class MultiplayerModel extends Model implements Runnable {
 			fromOpponent.put("disconnected");
 			fromOpponent.put(0, 0, 0);
 			toOpponent.put("disconnected");
-			Thread.sleep(50);
+			Thread.sleep(100);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
