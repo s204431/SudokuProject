@@ -2,6 +2,8 @@ package sudoku;
 import MVC.Controller;
 import MVC.Model;
 import MVC.View;
+import multiplayer.MultiplayerModel;
+import multiplayer.MultiplayerView;
 import MVC.Model.Mode;
 
 import javax.swing.*;
@@ -149,13 +151,27 @@ public class MainScreen extends JPanel{
     }
 
     private void startGame() {
-        Model model = new Model(k, n, Mode.play);
+       /*Model model = new Model(k, n, Mode.play);
         View view = new View(model);
         Controller controller = new Controller();
         model.setView(view);
         controller.setModel(model);
         controller.setView(view);
+        view.setController(controller);*/
+    	MultiplayerModel model;
+    	if (k == 3) {
+        	model = new MultiplayerModel(k, n);
+    	}
+    	else {
+    		model = new MultiplayerModel(k, n, "localhost");
+    	}
+    	MultiplayerView view = new MultiplayerView(model);
+    	Controller controller = new Controller();
+        model.setView(view);
+        controller.setModel(model);
+        controller.setView(view);
         view.setController(controller);
+    	new Thread(model).start();
     }
 
     private void changePanel() {

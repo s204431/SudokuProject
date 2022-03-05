@@ -15,7 +15,7 @@ import Generators.*;
 
 
 public class Model {
-	private View view;
+	protected View view;
 	public Field[][] board;
 	public int innerSquareSize; //Width/height an inner square (n).
 	public int numInnerSquares; //Number of inner squares in one side of the sudoku (k).

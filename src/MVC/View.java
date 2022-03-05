@@ -10,23 +10,23 @@ import java.awt.event.*;
 public class View extends JPanel implements MouseListener, KeyListener, MouseWheelListener {
 	
 	private static final long serialVersionUID = 1L;
-	private Model model;
-	private Controller controller;
+	protected Model model;
+	protected Controller controller;
 	public int boardX = 0; //x coordinate for top left corner.
 	public int boardY = 0; //y coordinate for top left corner.
-	private boolean dragging = false;
-	private int[] mouseBoardVector = new int[] {0, 0};
-	private int fieldWidth = Field.DEFAULT_WIDTH;
-	private int fieldHeight = Field.DEFAULT_HEIGHT;
-	private boolean close = false;
-	private JFrame frame;
-    private JPanel buttonPanel;
-    private JButton saveButton;
-    private JButton loadButton;
-    private JButton exitButton;
+	protected boolean dragging = false;
+	protected int[] mouseBoardVector = new int[] {0, 0};
+	protected int fieldWidth = Field.DEFAULT_WIDTH;
+	protected int fieldHeight = Field.DEFAULT_HEIGHT;
+	protected boolean close = false;
+	protected JFrame frame;
+	protected JPanel buttonPanel;
+	protected JButton saveButton;
+	protected JButton loadButton;
+	protected JButton exitButton;
 	public JTextField textField;
-	private JLabel timerLabel;
-	private boolean inFocus = true;
+	protected JLabel timerLabel;
+	protected boolean inFocus = true;
 
     public int[] clickedPosition = new int[] {0, 0};
 	
@@ -312,7 +312,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 		}
 	}
 	//Concurrent thread that moves the board when dragging.
-	private class BoardDragger implements Runnable {
+	protected class BoardDragger implements Runnable {
 		@Override
 		public void run() {
 			while (!close) {
