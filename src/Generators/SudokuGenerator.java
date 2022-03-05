@@ -10,18 +10,18 @@ import solvers.*;
 public class SudokuGenerator {
 	private int currentMissingFields = 0;
 	
-	public int[][] generateSudoku(int innerSquareSize, int numInnerSquares, int difficulty, int minMissingFields) {
+	public int[][] generateSudoku(int innerSquareSize, int numInnerSquares, int minDifficulty, int maxDifficulty, int minMissingFields) {
 		int[][] matrix = new int[innerSquareSize*numInnerSquares][innerSquareSize*numInnerSquares];
 		matrix = new RandomBacktrackingSolver(matrix, innerSquareSize).solve(1).get(0);
-		return generateRecursive(matrix, innerSquareSize, difficulty, minMissingFields);
+		return generateRecursive(matrix, innerSquareSize, minDifficulty, maxDifficulty, minMissingFields);
 	}
 	
-	private int[][] generateRecursive(int[][] board, int innerSquareSize, int difficulty, int minMissingFields) {
+	private int[][] generateRecursive(int[][] board, int innerSquareSize, int minDifficulty, int maxDifficulty, int minMissingFields) {
 		SudokuSolver solver = new EfficientSolver(board, innerSquareSize);
-		if (!solver.hasUniqueSolution() || solver.difficulty > difficulty) {
+		if (!solver.hasUniqueSolution() || solver.difficulty > maxDifficulty) {
 			return null;
 		}
-		if (solver.difficulty == difficulty && currentMissingFields >= minMissingFields) {
+		if (solver.difficulty >= minDifficulty && solver.difficulty <= maxDifficulty && currentMissingFields >= minMissingFields) {
 			return board;
 		}
 		List<Integer[]> coordinates = new ArrayList();
@@ -37,7 +37,7 @@ public class SudokuGenerator {
 			int num = board[coord[0]][coord[1]];
 			board[coord[0]][coord[1]] = 0;
 			currentMissingFields++;
-			int[][] result = generateRecursive(board, innerSquareSize, difficulty, minMissingFields);
+			int[][] result = generateRecursive(board, innerSquareSize, minDifficulty, maxDifficulty, minMissingFields);
 			if (result == null) {
 				board[coord[0]][coord[1]] = num;
 				currentMissingFields--;

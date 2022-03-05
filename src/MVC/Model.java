@@ -198,14 +198,14 @@ public class Model {
 		return true;
 	}
 	
-	public void generateSudoku(int difficulty) {
-		generateSudoku(difficulty, innerSquareSize, numInnerSquares);
+	public void generateSudoku(int minDifficulty, int maxDifficulty, double minMissingFieldsPercent) {
+		generateSudoku(minDifficulty, maxDifficulty, minMissingFieldsPercent, innerSquareSize, numInnerSquares);
 	}
 
-	public void generateSudoku(int difficulty, int innerSquareSize, int numInnerSquares) {
+	public void generateSudoku(int minDifficulty, int maxDifficulty, double minMissingFieldsPercent, int innerSquareSize, int numInnerSquares) {
 		this.innerSquareSize = innerSquareSize;
 		this.numInnerSquares = numInnerSquares;
-		int[][] matrix = new SudokuGenerator().generateSudoku(innerSquareSize, numInnerSquares, difficulty, (int)(getBoardSize()*getBoardSize()*0.4));
+		int[][] matrix = new SudokuGenerator().generateSudoku(innerSquareSize, numInnerSquares, minDifficulty, maxDifficulty, (int)(getBoardSize()*getBoardSize()*minMissingFieldsPercent));
 		board = new Field[getBoardSize()][getBoardSize()];
 		for(int i = 0; i < getBoardSize(); i++) {
 			for(int j = 0; j < getBoardSize(); j++){

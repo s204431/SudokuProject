@@ -15,6 +15,7 @@ public class EfficientSolver extends SudokuSolver {
 	private boolean useCandidateLines = true;
 	private boolean useNakedPairs = true;
 	private boolean useXWing = true;
+	private boolean useSwordfish = true;
 	private boolean useForcingChains = true;
 	
 	public EfficientSolver(Field[][] board, int innerSquareSize) {
@@ -116,11 +117,20 @@ public class EfficientSolver extends SudokuSolver {
 				return makeMove(board, possibleValues);
 			}
 		}
+		if (useSwordfish && kEqualsN()) {
+			boolean updated = swordfish(board, possibleValues);
+			if (updated) {
+				if (difficulty < 6) {
+					difficulty = 6;	
+				}
+				return makeMove(board, possibleValues);
+			}
+		}
 		if (useForcingChains) {
 			List<Integer>[] result = forcingChains(board, possibleValues);
 			if (result != null) {
-				if (difficulty < 6) {
-					difficulty = 6;	
+				if (difficulty < 7) {
+					difficulty = 7;	
 				}
 				return result;
 			}
@@ -138,7 +148,7 @@ public class EfficientSolver extends SudokuSolver {
 				}
 			}
 		}
-		difficulty = 7;
+		difficulty = 8;
 		if (lowestX < 0 || lowestY < 0) {
 			return null;
 		}
@@ -366,7 +376,7 @@ public class EfficientSolver extends SudokuSolver {
 		for (int v = 1; v <= board.length; v++) {
 			for (int i = 0; i < board.length; i++) {
 				int[] cs = exactlyTwo(possibleValues, i, v, true);
-				if (cs[1] > 0) {
+				if (cs[1] >= 0) {
 					for (int k = i+1; k < board.length; k++) {
 						int[] cs2 = exactlyTwo(possibleValues, k, v, true);
 						if (cs[0] == cs2[0] && cs[1] == cs2[1]) {
@@ -385,7 +395,7 @@ public class EfficientSolver extends SudokuSolver {
 					}
 				}
 				int[] rs = exactlyTwo(possibleValues, i, v, false);
-				if (rs[1] > 0) {
+				if (rs[1] >= 0) {
 					for (int k = i+1; k < board.length; k++) {
 						int[] rs2 = exactlyTwo(possibleValues, k, v, false);
 						if (rs[0] == rs2[0] && rs[1] == rs2[1]) {
@@ -408,6 +418,108 @@ public class EfficientSolver extends SudokuSolver {
 		return updated;
 	}
 	
+	private boolean swordfish(int[][] board, List<Integer>[][] possibleValues) {
+		boolean updated = false;
+		for (int v = 1; v <= board.length; v++) {
+			for (int i = 0; i < board.length; i++) {
+				int[] cs = exactlyTwo(possibleValues, i, v, true);
+				if (cs[1] >= 0) {
+					for (int k = i+1; k < board.length; k++) {
+						int[] cs2 = exactlyTwo(possibleValues, k, v, true);
+						if (cs2[1] >= 0) {
+							int i1 = -1;
+							int i2 = -1;
+							if (cs[0] == cs2[0] && cs[1] != cs2[1]) {
+								i1 = 1;
+								i2 = 1;
+							}
+							else if (cs[0] == cs2[1]) {
+								i1 = 1;
+								i2 = 0;
+							}
+							else if (cs[1] == cs2[0]) {
+								i1 = 0;
+								i2 = 1;
+							}
+							else if (cs[1] == cs2[1] && cs[0] != cs2[0]) {
+								i1 = 0;
+								i2 = 0;
+							}
+							if (i1 >= 0) {
+								for (int l = k+1; l < board.length; l++) {
+									int[] cs3 = exactlyTwo(possibleValues, l, v, true);
+									if (cs3[0] == cs[i1] && cs3[1] == cs2[i2]) {
+										for (int r = 0; r < board.length; r++) {
+											if (r != i && r != k && r != l) {
+												int size1 = possibleValues[r][cs3[0]].size();
+												int size2 = possibleValues[r][cs3[1]].size();
+												int size3 = possibleValues[r][cs[i1 == 0 ? 1 : 0]].size();
+												possibleValues[r][cs3[0]].remove((Integer)v);
+												possibleValues[r][cs3[1]].remove((Integer)v);
+												possibleValues[r][cs[i1 == 0 ? 1 : 0]].remove((Integer)v);
+												if (size1 != possibleValues[r][cs3[0]].size() || size2 != possibleValues[r][cs3[1]].size() || size3 != possibleValues[r][cs[i1 == 0 ? 1 : 0]].size()) {
+													updated = true;
+												}
+											}	
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				int[] rs = exactlyTwo(possibleValues, i, v, false);
+				if (rs[1] >= 0) {
+					for (int k = i+1; k < board.length; k++) {
+						int[] rs2 = exactlyTwo(possibleValues, k, v, false);
+						if (rs2[1] >= 0) {
+							int i1 = -1;
+							int i2 = -1;
+							if (rs[0] == rs2[0] && rs[1] != rs2[1]) {
+								i1 = 1;
+								i2 = 1;
+							}
+							else if (rs[0] == rs2[1]) {
+								i1 = 1;
+								i2 = 0;
+							}
+							else if (rs[1] == rs2[0]) {
+								i1 = 0;
+								i2 = 1;
+							}
+							else if (rs[1] == rs2[1] && rs[0] != rs2[0]) {
+								i1 = 0;
+								i2 = 0;
+							}
+							if (i1 >= 0) {
+								for (int l = k+1; l < board.length; l++) {
+									int[] rs3 = exactlyTwo(possibleValues, l, v, false);
+									if (rs3[0] == rs[i1] && rs3[1] == rs2[i2]) {
+										for (int c = 0; c < board.length; c++) {
+											if (c != i && c != k && c != l) {
+												int size1 = possibleValues[rs3[0]][c].size();
+												int size2 = possibleValues[rs3[1]][c].size();
+												int size3 = possibleValues[rs[i1 == 0 ? 1 : 0]][c].size();
+												possibleValues[rs3[0]][c].remove((Integer)v);
+												possibleValues[rs3[1]][c].remove((Integer)v);
+												possibleValues[rs[i1 == 0 ? 1 : 0]][c].remove((Integer)v);
+												if (size1 != possibleValues[rs3[0]][c].size() || size2 != possibleValues[rs3[1]][c].size() || size3 != possibleValues[rs[i1 == 0 ? 1 : 0]][c].size()) {
+													updated = true;
+												}
+											}	
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return updated;
+	}
+	
+	//Used for X-Wing and Swordfish to check if a row or column contains a specific possible value in exactly two fields.
 	private int[] exactlyTwo(List<Integer>[][] possibleValues, int k, int v, boolean row) {
 		int cr1 = -1;
 		int cr2 = -1;

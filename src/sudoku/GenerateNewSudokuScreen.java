@@ -209,13 +209,13 @@ public class GenerateNewSudokuScreen extends JPanel {
             String difficulty = (String)difficultyBox.getSelectedItem();
             switch (difficulty) {
             	case "Easy":
-                    model.generateSudoku(1);
+                    model.generateSudoku(1, 2, 0.62);
                     break;
             	case "Medium":
-                    model.generateSudoku(2);
+                    model.generateSudoku(3, 4, 0);
                     break;
             	case "Hard":
-                    model.generateSudoku(3);
+                    model.generateSudoku(5, 8, 0);
                     break;
                 default:
                 	break;

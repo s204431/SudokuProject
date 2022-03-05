@@ -33,6 +33,7 @@ public class SolverTester {
 											   new TestCase("difficulty3", true),
 											   new TestCase("difficulty5", true),
 											   new TestCase("difficulty6", true),
+											   new TestCase("difficulty7", true),
 											   new TestCase("Puzzle_3_01", true),
 											   new TestCase("Puzzle_3_02", true),
 											   new TestCase("Puzzle_3_03", true),
@@ -79,7 +80,7 @@ public class SolverTester {
 			boolean successGenerated = true;
 			for (int i = 0; i < numberOfRandomTests; i++) {
 				long time1 = new Date().getTime();
-				model.generateSudoku(1, 3, 3);
+				model.generateSudoku(1, 8, 0.62, 3, 3);
 				long time2 = new Date().getTime();
 				timeToGenerate += time2 - time1;
 				solver.setBoard(model.board, model.innerSquareSize);
