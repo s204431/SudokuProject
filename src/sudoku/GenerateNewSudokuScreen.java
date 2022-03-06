@@ -212,10 +212,10 @@ public class GenerateNewSudokuScreen extends JPanel {
                     model.generateSudoku(1, 2, 0.62);
                     break;
             	case "Medium":
-                    model.generateSudoku(3, 4, 0);
+                    model.generateSudoku(3, 5, 0);
                     break;
             	case "Hard":
-                    model.generateSudoku(5, 8, 0);
+                    model.generateSudoku(6, 9, 0);
                     break;
                 default:
                 	break;

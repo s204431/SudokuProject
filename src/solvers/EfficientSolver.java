@@ -13,6 +13,7 @@ public class EfficientSolver extends SudokuSolver {
 	private boolean useSingleCandidate = true;
 	private boolean useSinglePosition = true;
 	private boolean useCandidateLines = true;
+	private boolean useMultipleLines = true;
 	private boolean useNakedPairs = true;
 	private boolean useXWing = true;
 	private boolean useSwordfish = true;
@@ -99,17 +100,18 @@ public class EfficientSolver extends SudokuSolver {
 				return makeMove(board, possibleValues);
 			}
 		}
-		if (useNakedPairs) {
-			boolean updated = nakedPairs(board, possibleValues);
+		if (useMultipleLines) {
+			boolean updated = multipleLines(board, possibleValues);
 			if (updated) {
+				//System.out.println("asd");
 				if (difficulty < 4) {
 					difficulty = 4;	
 				}
 				return makeMove(board, possibleValues);
 			}
 		}
-		if (useXWing && kEqualsN()) {
-			boolean updated = xWing(board, possibleValues);
+		if (useNakedPairs) {
+			boolean updated = nakedPairs(board, possibleValues);
 			if (updated) {
 				if (difficulty < 5) {
 					difficulty = 5;	
@@ -117,8 +119,8 @@ public class EfficientSolver extends SudokuSolver {
 				return makeMove(board, possibleValues);
 			}
 		}
-		if (useSwordfish && kEqualsN()) {
-			boolean updated = swordfish(board, possibleValues);
+		if (useXWing && kEqualsN()) {
+			boolean updated = xWing(board, possibleValues);
 			if (updated) {
 				if (difficulty < 6) {
 					difficulty = 6;	
@@ -126,11 +128,20 @@ public class EfficientSolver extends SudokuSolver {
 				return makeMove(board, possibleValues);
 			}
 		}
+		if (useSwordfish && kEqualsN()) {
+			boolean updated = swordfish(board, possibleValues);
+			if (updated) {
+				if (difficulty < 7) {
+					difficulty = 7;	
+				}
+				return makeMove(board, possibleValues);
+			}
+		}
 		if (useForcingChains) {
 			List<Integer>[] result = forcingChains(board, possibleValues);
 			if (result != null) {
-				if (difficulty < 7) {
-					difficulty = 7;	
+				if (difficulty < 8) {
+					difficulty = 8;	
 				}
 				return result;
 			}
@@ -148,7 +159,7 @@ public class EfficientSolver extends SudokuSolver {
 				}
 			}
 		}
-		difficulty = 8;
+		difficulty = 9;
 		if (lowestX < 0 || lowestY < 0) {
 			return null;
 		}
@@ -238,6 +249,112 @@ public class EfficientSolver extends SudokuSolver {
 								if (possibleValues[k][foundInColumn].contains(v)) {
 									possibleValues[k][foundInColumn].remove((Integer) v);
 									updated = true;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return updated;
+	}
+	
+	private boolean multipleLines(int[][] board, List<Integer>[][] possibleValues) {
+		boolean updated = false;
+		for (int i = 0; i < getNumInnerSquares(); i++) {
+			for (int j = 0; j < getNumInnerSquares(); j++) {
+				for (int v = 1; v <= getMaxValue(); v++) {
+					List<Integer> foundRows = new ArrayList<>();
+					List<Integer> foundColumns = new ArrayList<>();
+					for (int r = i*innerSquareSize; r < i*innerSquareSize+innerSquareSize; r++) {
+						for (int c = j*innerSquareSize; c < j*innerSquareSize+innerSquareSize; c++) {
+							if (possibleValues[r][c].contains(v) && !foundRows.contains(r)) {
+								foundRows.add(r);
+							}
+						}
+					}
+					if (foundRows.size() > 1 && foundRows.size() < innerSquareSize) {
+						List<Integer> foundInnerSquares = new ArrayList<>();
+						for (int k = j+1; k < getNumInnerSquares(); k++) {
+							List<Integer> foundRows2 = new ArrayList<>();
+							for (int r = i*innerSquareSize; r < i*innerSquareSize+innerSquareSize; r++) {
+								for (int c = k*innerSquareSize; c < k*innerSquareSize+innerSquareSize; c++) {
+									if (possibleValues[r][c].contains(v) && !foundRows2.contains(r)) {
+										foundRows2.add(r);
+									}
+								}
+							}
+							if (foundRows2.size() == foundRows.size()) {
+								foundRows2.removeAll(foundRows);
+								if (foundRows2.size() == 0) {
+									foundInnerSquares.add(k);
+								}
+							}
+						}
+						if (foundInnerSquares.size() == foundRows.size()-1) {
+							for (int k = 0; k < getNumInnerSquares(); k++) {
+								if (k != j && !foundInnerSquares.contains(k)) {
+									for (int r = i*innerSquareSize; r < i*innerSquareSize+innerSquareSize; r++) {
+										for (int c = k*innerSquareSize; c < k*innerSquareSize+innerSquareSize; c++) {
+											if (foundRows.contains(r)) {
+												int size = possibleValues[r][c].size();
+												possibleValues[r][c].remove((Integer) v);
+												if (size != possibleValues[r][c].size()) {
+													updated = true;
+												}
+											}
+										}
+									}	
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		for (int i = 0; i < getNumInnerSquares(); i++) {
+			for (int j = 0; j < getNumInnerSquares(); j++) {
+				for (int v = 1; v <= getMaxValue(); v++) {
+					List<Integer> foundColumns = new ArrayList<>();
+					for (int r = j*innerSquareSize; r < j*innerSquareSize+innerSquareSize; r++) {
+						for (int c = i*innerSquareSize; c < i*innerSquareSize+innerSquareSize; c++) {
+							if (possibleValues[r][c].contains(v) && !foundColumns.contains(c)) {
+								foundColumns.add(c);
+							}
+						}
+					}
+					if (foundColumns.size() > 1 && foundColumns.size() < innerSquareSize) {
+						List<Integer> foundInnerSquares = new ArrayList<>();
+						for (int k = i+1; k < getNumInnerSquares(); k++) {
+							List<Integer> foundColumns2 = new ArrayList<>();
+							for (int r = k*innerSquareSize; r < k*innerSquareSize+innerSquareSize; r++) {
+								for (int c = j*innerSquareSize; c < j*innerSquareSize+innerSquareSize; c++) {
+									if (possibleValues[r][c].contains(v) && !foundColumns2.contains(c)) {
+										foundColumns2.add(c);
+									}
+								}
+							}
+							if (foundColumns2.size() == foundColumns.size()) {
+								foundColumns2.removeAll(foundColumns);
+								if (foundColumns2.size() == 0) {
+									foundInnerSquares.add(k);
+								}
+							}
+						}
+						if (foundInnerSquares.size() == foundColumns.size()-1) {
+							for (int k = 0; k < getNumInnerSquares(); k++) {
+								if (k != i && !foundInnerSquares.contains(k)) {
+									for (int r = k*innerSquareSize; r < k*innerSquareSize+innerSquareSize; r++) {
+										for (int c = j*innerSquareSize; c < j*innerSquareSize+innerSquareSize; c++) {
+											if (foundColumns.contains(c)) {
+												int size = possibleValues[r][c].size();
+												possibleValues[r][c].remove((Integer) v);
+												if (size != possibleValues[r][c].size()) {
+													updated = true;
+												}
+											}
+										}
+									}	
 								}
 							}
 						}
