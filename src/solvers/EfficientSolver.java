@@ -265,7 +265,6 @@ public class EfficientSolver extends SudokuSolver {
 			for (int j = 0; j < getNumInnerSquares(); j++) {
 				for (int v = 1; v <= getMaxValue(); v++) {
 					List<Integer> foundRows = new ArrayList<>();
-					List<Integer> foundColumns = new ArrayList<>();
 					for (int r = i*innerSquareSize; r < i*innerSquareSize+innerSquareSize; r++) {
 						for (int c = j*innerSquareSize; c < j*innerSquareSize+innerSquareSize; c++) {
 							if (possibleValues[r][c].contains(v) && !foundRows.contains(r)) {
