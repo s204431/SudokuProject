@@ -9,14 +9,26 @@ import solvers.*;
 
 public class SudokuGenerator {
 	private int currentMissingFields = 0;
+	private int recursiveCalls = 0;
 	
 	public int[][] generateSudoku(int innerSquareSize, int numInnerSquares, int minDifficulty, int maxDifficulty, int minMissingFields) {
 		int[][] matrix = new int[innerSquareSize*numInnerSquares][innerSquareSize*numInnerSquares];
-		matrix = new RandomBacktrackingSolver(matrix, innerSquareSize).solve(1).get(0);
-		return generateRecursive(matrix, innerSquareSize, minDifficulty, maxDifficulty, minMissingFields);
+		
+		int[][] solvedMatrix = new RandomBacktrackingSolver(matrix, innerSquareSize).solve(1).get(0);
+		int[][] result = generateRecursive(solvedMatrix, innerSquareSize, minDifficulty, maxDifficulty, minMissingFields);
+		while (result == null) {
+			recursiveCalls = 0;
+			solvedMatrix = new RandomBacktrackingSolver(matrix, innerSquareSize).solve(1).get(0);
+			result = generateRecursive(solvedMatrix, innerSquareSize, minDifficulty, maxDifficulty, minMissingFields);
+		}
+		return result;
 	}
 	
 	private int[][] generateRecursive(int[][] board, int innerSquareSize, int minDifficulty, int maxDifficulty, int minMissingFields) {
+		recursiveCalls++;
+		if (recursiveCalls > 2*(board.length*board.length)) {
+			return null;
+		}
 		SudokuSolver solver = new EfficientSolver(board, innerSquareSize);
 		if (!solver.hasUniqueSolution() || solver.difficulty > maxDifficulty) {
 			return null;
