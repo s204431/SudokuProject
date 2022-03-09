@@ -42,7 +42,8 @@ public class MultiplayerView extends View {
     	if (!((MultiplayerModel) model).started) {
         	g2.setFont(new Font("TimesRoman", Font.BOLD, 50));
         	g2.drawString("Waiting for opponent...", getPreferredSize().width/2-getPreferredSize().height/4, getPreferredSize().height/2-getPreferredSize().height/10);
-    		return;
+        	buttonPanel.repaint();
+        	return;
     	}
         super.paint(g);
         //setVisible(false);
