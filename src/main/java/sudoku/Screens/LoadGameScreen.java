@@ -1,9 +1,12 @@
-package sudoku;
+package sudoku.Screens;
 
 import MVC.Controller;
 import MVC.Model;
 import MVC.Model.Mode;
 import MVC.View;
+import sudoku.Field;
+import sudoku.LoadListElement;
+import sudoku.LoadListRenderer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +14,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FilenameFilter;
-import java.util.ArrayList;
 
 public class LoadGameScreen extends MenuScreen {
     private JLabel titleString;

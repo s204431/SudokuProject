@@ -1,8 +1,5 @@
-package sudoku;
+package sudoku.Screens;
 import MVC.Controller;
-import MVC.Model;
-import MVC.View;
-import MVC.Model.Mode;
 import multiplayer.MultiplayerModel;
 import multiplayer.MultiplayerView;
 
@@ -20,6 +17,7 @@ public class MainScreen extends MenuScreen {
     private JButton createBtn;
     private JButton solverBtn;
     private JButton highScoreBtn;
+    Dimension panelSize = new Dimension(400,50);
 
 
     public MainScreen (JFrame frame) {

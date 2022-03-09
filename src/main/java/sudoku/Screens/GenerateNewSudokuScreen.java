@@ -1,4 +1,4 @@
-package sudoku;
+package sudoku.Screens;
 
 import MVC.Controller;
 import MVC.Model;

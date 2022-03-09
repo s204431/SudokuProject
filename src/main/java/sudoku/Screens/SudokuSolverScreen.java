@@ -1,8 +1,5 @@
-package sudoku;
+package sudoku.Screens;
 
-import MVC.Controller;
-import MVC.Model;
-import MVC.View;
 import MVC.Model.Mode;
 
 import javax.swing.*;

@@ -1,4 +1,4 @@
-package sudoku;
+package sudoku.Screens;
 
 import MVC.Controller;
 import MVC.Model;
@@ -18,6 +18,7 @@ public abstract class MenuScreen extends JPanel {
     protected int k;
     protected int n;
     protected JFrame frame;
+    protected Font textFont = new Font("Serif", Font.BOLD,20);
 
     public MenuScreen(JFrame frame) {
         this.frame = frame;
@@ -28,6 +29,7 @@ public abstract class MenuScreen extends JPanel {
     }
 
     public abstract void addComponents();
+
 
     private void startGame() {
         Model model = new Model(k, n, Model.Mode.play);
