@@ -150,7 +150,7 @@ public class MultiplayerView extends View {
 					g2.setFont(new Font("TimesRoman", Font.BOLD, 30*opponentFieldWidth/Field.DEFAULT_WIDTH));
 					int value = ((MultiplayerModel) model).opponentBoard[i][j].value;
 					if (value > 0 && value <= model.innerSquareSize*model.innerSquareSize) {
-						g2.drawString("" + value, opponentBoardX + j * opponentFieldWidth + opponentFieldWidth/2, opponentBoardY + i * opponentFieldHeight + opponentFieldHeight/2);
+						g2.drawString("?", opponentBoardX + j * opponentFieldWidth + opponentFieldWidth/2, opponentBoardY + i * opponentFieldHeight + opponentFieldHeight/2);
 					}
 				}
 			}
