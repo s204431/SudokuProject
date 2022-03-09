@@ -37,6 +37,7 @@ public class MultiplayerView extends View {
 	public void addOpponentBoard() {
 		opponentPanel = new OpponentBoard();
 		opponentPanel.setBounds((getPreferredSize().width-200) / 2, 0, (getPreferredSize().width-200) / 2, getPreferredSize().height);
+		opponentPanel.setFocusable(false);
 		frame.remove(this);
 		frame.add(opponentPanel);
 		frame.add(this);
