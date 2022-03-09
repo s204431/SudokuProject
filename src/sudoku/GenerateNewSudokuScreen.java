@@ -12,45 +12,28 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GenerateNewSudokuScreen extends JPanel {
-    private String title = "Sudoku";
-    private Font titleFont = new Font(Font.SERIF, Font.BOLD,50);
-    private int btnHeight = 50;
-    private int btnWidth = 200;
-    private int spacing = 30;
-    private JFrame frame;
+public class GenerateNewSudokuScreen extends MenuScreen {
     private JLabel titleLabel;
     private JLabel boardSizeLabel;
     private JLabel difficultyLabel;
     private JButton generateBtn;
     private JButton backBtn;
     private JComboBox<String> difficultyBox;
-    private int n;
     private JSlider nSlider;
     private JSlider kSlider;
-
-    private JLabel nLabel = new JLabel("3");
-    private JLabel kLabel = new JLabel("3");
+    private JLabel nLabel;
+    private JLabel kLabel;
     private JPanel sliderPanel;
     private ChangeListener nListener;
     private ChangeListener kListener;
     private Mode mode;
 
     public GenerateNewSudokuScreen(JFrame frame, Mode mode) {
-        this.frame = frame;
+        super(frame);
         this.mode = mode;
-
-        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-
-        // Add components
-        addComponents();
-
-        // Set frame
-        frame.add(this);
-        frame.setVisible(true);
     }
 
-    private void addComponents(){
+    public void addComponents(){
         addLabels();
         addButtons();
     }
@@ -74,7 +57,6 @@ public class GenerateNewSudokuScreen extends JPanel {
         addSlider();
 
         add(Box.createRigidArea(new Dimension(0, spacing)));
-
 
         JPanel panel = new JPanel();
         panel.setMaximumSize(new Dimension(400,50));
@@ -111,44 +93,39 @@ public class GenerateNewSudokuScreen extends JPanel {
     }
 
     public void addSlider() {
-        nListener = setListener(nListener, nLabel);
+        nLabel = new JLabel("3");
+        add(nLabel);
 
+        nListener = setListener(nListener, nLabel);
         DefaultBoundedRangeModel model1 = new DefaultBoundedRangeModel(3, 0, 2, 10);
         nSlider = new JSlider(model1);
         nSlider.setPaintTicks(true);
         nSlider.setMajorTickSpacing(2);
         nSlider.setMinorTickSpacing(1);
         nSlider.addChangeListener(nListener);
+        JPanel nPanel = new JPanel();
+        nPanel.setMaximumSize(new Dimension(200,50));
+        nPanel.add(nSlider);
+        nPanel.add(new JLabel("n"));
+        add(nPanel);
+
+        add(Box.createRigidArea(new Dimension(0, spacing)));
+
+        kLabel = new JLabel("3");
+        add(kLabel);
 
         kListener = setListener(kListener, kLabel);
-
         DefaultBoundedRangeModel model2 = new DefaultBoundedRangeModel(3, 0, 2, 10);
         kSlider = new JSlider(model2);
         kSlider.setPaintTicks(true);
         kSlider.setMajorTickSpacing(2);
         kSlider.setMinorTickSpacing(1);
         kSlider.addChangeListener(kListener);
-
-        add(nLabel);
-
-        JPanel nPanel = new JPanel();
-        nPanel.setMaximumSize(new Dimension(200,50));
-        nPanel.add(nSlider);
-        nPanel.add(new JLabel("n"));
-
-        add(nPanel);
-
-        add(Box.createRigidArea(new Dimension(0, spacing)));
-
-        add(kLabel);
-
         JPanel kPanel = new JPanel();
         kPanel.setMaximumSize(new Dimension(200,50));
         kPanel.add(kSlider);
         kPanel.add(new JLabel("k"));
-
         add(kPanel);
-
     }
 
     public ChangeListener setListener(ChangeListener listener, JLabel label){
@@ -182,10 +159,6 @@ public class GenerateNewSudokuScreen extends JPanel {
         menuBar.add(restart);
         restart.add(new JMenuItem("Same Sudoku"));
         restart.add(new JMenuItem("New Sudoku"));
-    }
-
-    private void changePanel() {
-        frame.remove(this);
     }
 
     private Model startGame(int k, int n, Mode mode) {
@@ -237,11 +210,4 @@ public class GenerateNewSudokuScreen extends JPanel {
             }
         }
     }
-
-    static class exitAction implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            System.exit(0);
-        }
-    }
-
 }

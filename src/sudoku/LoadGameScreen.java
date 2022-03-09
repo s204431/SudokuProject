@@ -13,13 +13,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 
-public class LoadGameScreen extends JPanel {
-    private String title = "Sudoku";
-    private Font titleFont = new Font(Font.SERIF, Font.BOLD,40);
-    private int btnHeight = 50;
-    private int btnWidth = 200;
-    private int spacing = 30;
-    private JFrame frame;
+public class LoadGameScreen extends MenuScreen {
     private JLabel titleString;
     private JButton loadGameBtn;
     private JButton backBtn;
@@ -28,20 +22,14 @@ public class LoadGameScreen extends JPanel {
     private Mode mode;
 
     public LoadGameScreen(JFrame frame, Mode mode) {
-        this.frame = frame;
+        super(frame);
         this.mode = mode;
+    }
 
-        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-
-
-        // Add components
+    public void addComponents() {
         addLists();
         addLabels();
         addButtons();
-
-        // Set frame
-        frame.add(this);
-        frame.setVisible(true);
     }
 
     private void addLists() {
@@ -120,10 +108,6 @@ public class LoadGameScreen extends JPanel {
         restart.add(new JMenuItem("New Sudoku"));
     }
 
-    private void changePanel() {
-        frame.remove(this);
-    }
-
     private Model startGame(int k, int n, Mode mode) {
         Model model = new Model(k, n, mode);
         View view = new View(model);
@@ -157,11 +141,4 @@ public class LoadGameScreen extends JPanel {
             }
         }
     }
-
-    static class exitAction implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            System.exit(0);
-        }
-    }
-
 }
