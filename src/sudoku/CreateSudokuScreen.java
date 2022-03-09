@@ -10,13 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class CreateSudokuScreen extends JPanel {
-    private String title = "Sudoku";
-    private Font titleFont = new Font(Font.SERIF, Font.BOLD, 40);
-    private int spacing = 30;
-    private int btnHeight = 50;
-    private int btnWidth = 200;
-    private JFrame frame;
+public class CreateSudokuScreen extends MenuScreen {
     private JLabel titleString;
     private JLabel assistModeString;
     private JCheckBox assistModeCheck;
@@ -25,20 +19,14 @@ public class CreateSudokuScreen extends JPanel {
     private JButton backBtn;
 
     public CreateSudokuScreen(JFrame frame) {
-        this.frame = frame;
+        super(frame);
+    }
 
-        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-
-        // Add components
+    public void addComponents() {
         addLabels();
         addButtons();
         addTextFields();
-
-        // Set frame
-        frame.add(this);
-        frame.setVisible(true);
     }
-
 
     private void addLabels() {
         // Title
@@ -102,10 +90,6 @@ public class CreateSudokuScreen extends JPanel {
         restart.add(new JMenuItem("New Sudoku"));
     }
 
-    private void changePanel() {
-        frame.remove(this);
-    }
-
     class generateNewAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             changePanel();
@@ -126,11 +110,4 @@ public class CreateSudokuScreen extends JPanel {
             new MainScreen(frame);
         }
     }
-
-    static class exitAction implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            System.exit(0);
-        }
-    }
-
 }

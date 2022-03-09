@@ -10,13 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class NewGameScreen extends JPanel {
-    private String title = "Sudoku";
-    private Font titleFont = new Font(Font.SERIF, Font.BOLD, 40);
-    private int spacing = 30;
-    private int btnHeight = 50;
-    private int btnWidth = 200;
-    private JFrame frame;
+public class NewGameScreen extends MenuScreen {
     private JLabel titleString;
     private JLabel assistModeString;
     private JCheckBox assistModeCheck;
@@ -25,20 +19,13 @@ public class NewGameScreen extends JPanel {
     private JButton backBtn;
 
     public NewGameScreen(JFrame frame) {
-        this.frame = frame;
-
-        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-
-        // Add components
-        addLabels();
-        addButtons();
-        addTextFields();
-
-        // Set frame
-        frame.add(this);
-        frame.setVisible(true);
+        super(frame);
     }
 
+    public void addComponents() {
+        addLabels();
+        addButtons();
+    }
 
     private void addLabels() {
         // Title
@@ -85,9 +72,6 @@ public class NewGameScreen extends JPanel {
         add(backBtn);
     }
 
-    private void addTextFields() {
-    }
-
     public void setUpMenuBar(JFrame frame) {
         JMenuBar menuBar = new JMenuBar();
         frame.setJMenuBar(menuBar);
@@ -110,10 +94,6 @@ public class NewGameScreen extends JPanel {
         restart.add(new JMenuItem("New Sudoku"));
     }
 
-    private void changePanel() {
-        frame.remove(this);
-    }
-
     class generateNewAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             changePanel();
@@ -134,11 +114,4 @@ public class NewGameScreen extends JPanel {
             new MainScreen(frame);
         }
     }
-
-    static class exitAction implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            System.exit(0);
-        }
-    }
-
 }
