@@ -163,7 +163,7 @@ public class MainScreen extends JPanel{
         	model = new MultiplayerModel(k, n);
     	}
     	else {
-    		model = new MultiplayerModel(k, n, "localhost");
+    		model = new MultiplayerModel(k, n, MultiplayerModel.getIP());
     	}
     	MultiplayerView view = new MultiplayerView(model);
     	Controller controller = new Controller();

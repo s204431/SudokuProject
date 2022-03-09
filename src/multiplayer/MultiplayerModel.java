@@ -1,6 +1,7 @@
 package multiplayer;
 
 import java.io.IOException;
+import java.net.Inet4Address;
 import java.net.UnknownHostException;
 
 import org.jspace.ActualField;
@@ -91,7 +92,7 @@ public class MultiplayerModel extends Model implements Runnable {
 	
 	private void startServer() {
 		repository = new SpaceRepository();
-		repository.addGate("tcp://localhost:9001/?keep");
+		repository.addGate("tcp://"+getIP()+":9001/?keep");
 		toOpponent = new SequentialSpace();
 		fromOpponent = new SequentialSpace();
 		repository.add("hosttoclient", toOpponent);
@@ -148,6 +149,17 @@ public class MultiplayerModel extends Model implements Runnable {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static String getIP(){
+		String address = "localhost";
+		try {
+			address = Inet4Address.getLocalHost().getHostAddress();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
+
+		return address;
 	}
 	
 	//Checks for updated fields from opponent.
