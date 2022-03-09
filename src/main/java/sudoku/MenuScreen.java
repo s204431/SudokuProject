@@ -10,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public abstract class MenuScreen extends JPanel {
-
     protected Font titleFont = new Font(Font.SERIF, Font.BOLD,50);
     protected int textSize = 50;
     protected int spacing = 30;
@@ -50,7 +49,7 @@ public abstract class MenuScreen extends JPanel {
         }
     }
 
-    public void setUpMenuBar(JFrame frame){
+    protected void setUpMenuBar(JFrame frame){
         JMenuBar menuBar = new JMenuBar();
         frame.setJMenuBar(menuBar);
 
