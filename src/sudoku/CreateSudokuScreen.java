@@ -10,17 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-<<<<<<< HEAD
 public class CreateSudokuScreen extends MenuScreen {
-=======
-public class CreateSudokuScreen extends JPanel {
-    private String title = "Sudoku";
-    private Font titleFont = new Font(Font.SERIF, Font.BOLD, 40);
-    private int spacing = 30;
-    private int btnHeight = 50;
-    private int btnWidth = 200;
-    private JFrame frame;
->>>>>>> parent of 0139c6f (no message)
     private JLabel titleString;
     private JLabel assistModeString;
     private JCheckBox assistModeCheck;
@@ -29,7 +19,6 @@ public class CreateSudokuScreen extends JPanel {
     private JButton backBtn;
 
     public CreateSudokuScreen(JFrame frame) {
-<<<<<<< HEAD
         super(frame);
     }
 
@@ -39,23 +28,6 @@ public class CreateSudokuScreen extends JPanel {
         addTextFields();
     }
 
-=======
-        this.frame = frame;
-
-        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-
-        // Add components
-        addLabels();
-        addButtons();
-        addTextFields();
-
-        // Set frame
-        frame.add(this);
-        frame.setVisible(true);
-    }
-
-
->>>>>>> parent of 0139c6f (no message)
     private void addLabels() {
         // Title
         titleString = new JLabel("Create Sudoku");
@@ -118,13 +90,6 @@ public class CreateSudokuScreen extends JPanel {
         restart.add(new JMenuItem("New Sudoku"));
     }
 
-<<<<<<< HEAD
-=======
-    private void changePanel() {
-        frame.remove(this);
-    }
-
->>>>>>> parent of 0139c6f (no message)
     class generateNewAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             changePanel();
@@ -145,14 +110,4 @@ public class CreateSudokuScreen extends JPanel {
             new MainScreen(frame);
         }
     }
-<<<<<<< HEAD
-=======
-
-    static class exitAction implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            System.exit(0);
-        }
-    }
-
->>>>>>> parent of 0139c6f (no message)
 }

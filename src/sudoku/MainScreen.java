@@ -2,32 +2,15 @@ package sudoku;
 import MVC.Controller;
 import MVC.Model;
 import MVC.View;
-<<<<<<< HEAD
-=======
 import multiplayer.MultiplayerModel;
 import multiplayer.MultiplayerView;
->>>>>>> parent of 0139c6f (no message)
 import MVC.Model.Mode;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-
-<<<<<<< HEAD
 public class MainScreen extends MenuScreen {
-=======
-public class MainScreen extends JPanel{
-
-    private Font titleFont = new Font(Font.SERIF, Font.BOLD,50);
-    private int textSize = 50;
-    private int spacing = 30;
-    private int btnHeight = 50;
-    private int btnWidth = 200;
-    private int k;
-    private int n;
-    private JFrame frame;
->>>>>>> parent of 0139c6f (no message)
     private JLabel titleString;
     private JTextField kText;
     private JTextField nText;
@@ -39,31 +22,12 @@ public class MainScreen extends JPanel{
 
 
     public MainScreen (JFrame frame) {
-<<<<<<< HEAD
         super(frame);
     }
 
     public void addComponents() {
         addLabels();
         addButtons();
-=======
-        this.frame = frame;
-
-        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-
-        // Add components
-        addLabels();
-
-        add(Box.createRigidArea(new Dimension(0, spacing*2)));
-
-        addButtons();
-        add(Box.createRigidArea(new Dimension(0, spacing)));
-
-
-        // Set frame
-        frame.add(this);
-        frame.setVisible(true);
->>>>>>> parent of 0139c6f (no message)
     }
 
     private void addLabels() {
@@ -75,11 +39,7 @@ public class MainScreen extends JPanel{
     }
 
     private void addButtons() {
-<<<<<<< HEAD
         add(Box.createRigidArea(new Dimension(0, spacing*2)));
-
-=======
->>>>>>> parent of 0139c6f (no message)
         playBtn = new JButton("Play Game");
         playBtn.addActionListener(new playAction());
         playBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -149,43 +109,13 @@ public class MainScreen extends JPanel{
         add(panel);
     }
 
-<<<<<<< HEAD
-    private void startGame() {
-        Model model = new Model(k, n, Mode.play);
-=======
-    public void setUpMenuBar(JFrame frame){
-        JMenuBar menuBar = new JMenuBar();
-        frame.setJMenuBar(menuBar);
-
-        JMenu file = new JMenu("File");
-        menuBar.add(file);
-        JMenuItem exit = new JMenuItem("Exit");
-        file.add(exit);
-        exit.addActionListener(new exitAction());
-
-        JMenu difficulty = new JMenu("Difficulty");
-        menuBar.add(difficulty);
-        difficulty.add(new JMenuItem("Easy"));
-        difficulty.add(new JMenuItem("Medium"));
-        difficulty.add(new JMenuItem("Hard"));
-
-        JMenu restart = new JMenu("Restart");
-        menuBar.add(restart);
-        restart.add(new JMenuItem("Same Sudoku"));
-        restart.add(new JMenuItem("New Sudoku"));
-    }
-
     private void startGame() {
        /*Model model = new Model(k, n, Mode.play);
->>>>>>> parent of 0139c6f (no message)
         View view = new View(model);
         Controller controller = new Controller();
         model.setView(view);
         controller.setModel(model);
         controller.setView(view);
-<<<<<<< HEAD
-        view.setController(controller);
-=======
         view.setController(controller);*/
     	MultiplayerModel model;
     	if (k == 3) {
@@ -201,11 +131,6 @@ public class MainScreen extends JPanel{
         controller.setView(view);
         view.setController(controller);
     	new Thread(model).start();
-    }
-
-    private void changePanel() {
-        frame.remove(this);
->>>>>>> parent of 0139c6f (no message)
     }
 
     class playAction implements ActionListener {
@@ -244,13 +169,4 @@ public class MainScreen extends JPanel{
             new SudokuSolverScreen(frame);
         }
     }
-<<<<<<< HEAD
-=======
-
-    static class exitAction implements ActionListener {
-        public void actionPerformed (ActionEvent e){
-            System.exit(0);
-        }
-    }
->>>>>>> parent of 0139c6f (no message)
 }

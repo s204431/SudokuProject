@@ -115,10 +115,7 @@ public class MultiplayerModel extends Model implements Runnable {
 			fromOpponent.put("disconnected");
 			fromOpponent.put(0, 0, 0);
 			toOpponent.put("disconnected");
-<<<<<<< HEAD
-=======
 			Thread.sleep(500);
->>>>>>> parent of 0139c6f (no message)
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -131,14 +128,11 @@ public class MultiplayerModel extends Model implements Runnable {
 			}*/
 		}
 		else {
-<<<<<<< HEAD
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-=======
->>>>>>> parent of 0139c6f (no message)
 			repository.closeGates();
 			repository.shutDown();
 		}

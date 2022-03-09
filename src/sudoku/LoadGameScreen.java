@@ -13,17 +13,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 
-<<<<<<< HEAD
 public class LoadGameScreen extends MenuScreen {
-=======
-public class LoadGameScreen extends JPanel {
-    private String title = "Sudoku";
-    private Font titleFont = new Font(Font.SERIF, Font.BOLD,40);
-    private int btnHeight = 50;
-    private int btnWidth = 200;
-    private int spacing = 30;
-    private JFrame frame;
->>>>>>> parent of 0139c6f (no message)
     private JLabel titleString;
     private JButton loadGameBtn;
     private JButton backBtn;
@@ -32,7 +22,6 @@ public class LoadGameScreen extends JPanel {
     private Mode mode;
 
     public LoadGameScreen(JFrame frame, Mode mode) {
-<<<<<<< HEAD
         super(frame);
         this.mode = mode;
     }
@@ -41,22 +30,6 @@ public class LoadGameScreen extends JPanel {
         addLists();
         addLabels();
         addButtons();
-=======
-        this.frame = frame;
-        this.mode = mode;
-
-        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-
-
-        // Add components
-        addLists();
-        addLabels();
-        addButtons();
-
-        // Set frame
-        frame.add(this);
-        frame.setVisible(true);
->>>>>>> parent of 0139c6f (no message)
     }
 
     private void addLists() {
@@ -134,14 +107,7 @@ public class LoadGameScreen extends JPanel {
         restart.add(new JMenuItem("Same Sudoku"));
         restart.add(new JMenuItem("New Sudoku"));
     }
-
-<<<<<<< HEAD
-=======
-    private void changePanel() {
-        frame.remove(this);
-    }
-
->>>>>>> parent of 0139c6f (no message)
+    
     private Model startGame(int k, int n, Mode mode) {
         Model model = new Model(k, n, mode);
         View view = new View(model);
@@ -175,14 +141,4 @@ public class LoadGameScreen extends JPanel {
             }
         }
     }
-<<<<<<< HEAD
-=======
-
-    static class exitAction implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            System.exit(0);
-        }
-    }
-
->>>>>>> parent of 0139c6f (no message)
 }
