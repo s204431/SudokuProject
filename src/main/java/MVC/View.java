@@ -3,6 +3,8 @@ package MVC;
 import sudoku.Field;
 import sudoku.Main;
 import MVC.Model.Mode;
+import multiplayer.MultiplayerView;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -72,11 +74,17 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     public void setController(Controller controller) {
     	this.controller = controller;
     }
+    
+    protected void clearPaint(Graphics g) {
+    	super.paint(g);
+    }
 
     //Draws everything on screen.
     public void paint(Graphics g) {
     	setVisible(false);
-        super.paint(g);
+    	if (!(this instanceof MultiplayerView)) {
+            super.paint(g);
+    	}
 
         Graphics2D g2 = (Graphics2D) g;
 

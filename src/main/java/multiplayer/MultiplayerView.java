@@ -38,6 +38,7 @@ public class MultiplayerView extends View {
     }
     
     public void paint(Graphics g) {
+		clearPaint(g);
         Graphics2D g2 = (Graphics2D) g;
     	if (!((MultiplayerModel) model).started) {
         	g2.setFont(new Font("TimesRoman", Font.BOLD, 50));

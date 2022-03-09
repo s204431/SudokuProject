@@ -137,7 +137,6 @@ public class MainScreen extends MenuScreen {
 
     class playAction implements ActionListener {
         public void actionPerformed (ActionEvent e){
-        	System.out.println("asdwadefa");
             try {
                 n = Integer.parseInt(nText.getText());
                 k = Integer.parseInt(kText.getText());
