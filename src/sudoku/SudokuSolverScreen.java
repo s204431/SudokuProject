@@ -10,7 +10,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+<<<<<<< HEAD
 public class SudokuSolverScreen extends MenuScreen {
+=======
+public class SudokuSolverScreen extends JPanel {
+    private String title = "Sudoku";
+    private Font titleFont = new Font(Font.SERIF, Font.BOLD, 40);
+    private int spacing = 30;
+    private int btnHeight = 50;
+    private int btnWidth = 200;
+    private JFrame frame;
+>>>>>>> parent of 0139c6f (no message)
     private JLabel titleString;
     private JLabel assistModeString;
     private JCheckBox assistModeCheck;
@@ -19,12 +29,27 @@ public class SudokuSolverScreen extends MenuScreen {
     private JButton backBtn;
 
     public SudokuSolverScreen(JFrame frame) {
+<<<<<<< HEAD
         super(frame);
     }
 
     public void addComponents() {
         addLabels();
         addButtons();
+=======
+        this.frame = frame;
+
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+
+        // Add components
+        addLabels();
+        addButtons();
+        addTextFields();
+
+        // Set frame
+        frame.add(this);
+        frame.setVisible(true);
+>>>>>>> parent of 0139c6f (no message)
     }
 
 
@@ -65,6 +90,12 @@ public class SudokuSolverScreen extends MenuScreen {
         add(backBtn);
     }
 
+<<<<<<< HEAD
+=======
+    private void addTextFields() {
+    }
+
+>>>>>>> parent of 0139c6f (no message)
     public void setUpMenuBar(JFrame frame) {
         JMenuBar menuBar = new JMenuBar();
         frame.setJMenuBar(menuBar);
@@ -87,6 +118,13 @@ public class SudokuSolverScreen extends MenuScreen {
         restart.add(new JMenuItem("New Sudoku"));
     }
 
+<<<<<<< HEAD
+=======
+    private void changePanel() {
+        frame.remove(this);
+    }
+
+>>>>>>> parent of 0139c6f (no message)
     class generateNewAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             changePanel();
@@ -107,4 +145,14 @@ public class SudokuSolverScreen extends MenuScreen {
             new MainScreen(frame);
         }
     }
+<<<<<<< HEAD
+=======
+
+    static class exitAction implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            System.exit(0);
+        }
+    }
+
+>>>>>>> parent of 0139c6f (no message)
 }
