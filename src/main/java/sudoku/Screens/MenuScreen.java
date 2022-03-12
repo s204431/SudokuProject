@@ -19,6 +19,8 @@ public abstract class MenuScreen extends JPanel {
     protected int n;
     protected JFrame frame;
     protected Font textFont = new Font("Serif", Font.BOLD,20);
+    protected Dimension panelDimension = new Dimension(400,50);
+    protected Dimension buttonDimension = new Dimension(200,50);
 
     public MenuScreen(JFrame frame) {
         this.frame = frame;
@@ -30,6 +32,50 @@ public abstract class MenuScreen extends JPanel {
 
     public abstract void addComponents();
 
+    protected void setButtons(JButton[] buttons){
+        for (JButton button : buttons) {
+            button.setAlignmentX(Component.CENTER_ALIGNMENT);
+            button.setMaximumSize(buttonDimension);
+            add(button);
+            add(Box.createRigidArea(new Dimension(0, spacing)));
+        }
+    }
+
+    protected void setPanel(JPanel panel, JComponent[] components){
+        panel.setMaximumSize(panelDimension);
+        for (JComponent component : components) {
+            component.setAlignmentX(Component.CENTER_ALIGNMENT);
+            if (component instanceof JLabel ||
+                    component instanceof JTextField) {
+                component.setFont(textFont);
+            }
+            panel.add(component);
+            add(panel);
+        }
+    }
+    protected void setTextFields(JTextField[] fields){
+        for (JTextField field : fields) {
+            field.setAlignmentX(Component.CENTER_ALIGNMENT);
+            field.setMaximumSize(buttonDimension);
+            add(field);
+            add(Box.createRigidArea(new Dimension(0, spacing)));
+        }
+    }
+
+    protected void setLabels(JLabel[] labels){
+        for (JLabel label : labels) {
+            label.setAlignmentX(Component.CENTER_ALIGNMENT);
+            label.setMaximumSize(buttonDimension);
+            add(label);
+            add(Box.createRigidArea(new Dimension(0, spacing)));
+        }
+    }
+    protected void setTitle(JLabel title){
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        title.setFont(titleFont);
+        add(title);
+        add(Box.createRigidArea(new Dimension(0, spacing)));
+    }
 
     private void startGame() {
         Model model = new Model(k, n, Model.Mode.play);

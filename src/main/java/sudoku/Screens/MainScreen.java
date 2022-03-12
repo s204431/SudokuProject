@@ -14,6 +14,7 @@ public class MainScreen extends MenuScreen {
     private JTextField nText;
     private JButton playBtn;
     private JButton newGameBtn;
+    private JButton MPBtn;
     private JButton createBtn;
     private JButton solverBtn;
     private JButton highScoreBtn;
@@ -60,6 +61,14 @@ public class MainScreen extends MenuScreen {
         newGameBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         newGameBtn.setMaximumSize(new Dimension(btnWidth, btnHeight));
         add(newGameBtn);
+
+        add(Box.createRigidArea(new Dimension(0, spacing)));
+
+        MPBtn = new JButton("Multiplayer");
+        MPBtn.addActionListener(new MPAction());
+        MPBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        MPBtn.setMaximumSize(new Dimension(btnWidth, btnHeight));
+        add(MPBtn);
 
         add(Box.createRigidArea(new Dimension(0, spacing)));
 
@@ -146,6 +155,13 @@ public class MainScreen extends MenuScreen {
             } catch (NumberFormatException e2) {
 
             }
+        }
+    }
+
+    private class MPAction implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            changePanel();
+            new MultiplayerScreen(frame);
         }
     }
 
