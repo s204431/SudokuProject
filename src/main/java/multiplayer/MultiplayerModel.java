@@ -85,6 +85,7 @@ public class MultiplayerModel extends Model implements Runnable {
 			}
 		}
 		new Thread(new UpdateReader()).start();
+		((MultiplayerView)view).addOpponentBoard();
 		started = true;
 		view.resetBoardPosition();
 		view.repaint();
@@ -128,7 +129,7 @@ public class MultiplayerModel extends Model implements Runnable {
 		}
 		else {
 			try {
-				Thread.sleep(100);
+				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

@@ -57,6 +57,7 @@ public class EfficientSolver extends SudokuSolver {
 		if (move[1].size() == 1) {
 			guesses--;
 		}
+		generateOrder(move[1]);
 		for (int i = 0; i < move[1].size(); i++) {
 			int[][] newBoard = copyOf(board);
 			newBoard[move[0].get(0)][move[0].get(1)] = move[1].get(i);
@@ -67,6 +68,11 @@ public class EfficientSolver extends SudokuSolver {
 				return;
 			}
 		}
+	}
+	
+	//Generate the correct order of values (does nothing in this case, used for subclasses).
+	protected void generateOrder(List<Integer> values) {
+		//Do nothing.
 	}
 	
 	public List<Integer>[] makeMove(int[][] board, List<Integer>[][] possibleValues) {
@@ -103,7 +109,6 @@ public class EfficientSolver extends SudokuSolver {
 		if (useMultipleLines) {
 			boolean updated = multipleLines(board, possibleValues);
 			if (updated) {
-				//System.out.println("asd");
 				if (difficulty < 4) {
 					difficulty = 4;	
 				}
@@ -146,24 +151,7 @@ public class EfficientSolver extends SudokuSolver {
 				return result;
 			}
 		}
-		//Choose field with least possible values.
-		int lowestPossibleValues = Integer.MAX_VALUE;
-		int lowestX = -1;
-		int lowestY = -1;
-		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board[i].length; j++) {
-				if (possibleValues[i][j].size() > 0 && possibleValues[i][j].size() < lowestPossibleValues) {
-					lowestPossibleValues = possibleValues[i][j].size();
-					lowestX = i;
-					lowestY = j;
-				}
-			}
-		}
-		difficulty = 9;
-		if (lowestX < 0 || lowestY < 0) {
-			return null;
-		}
-		return toMove(lowestX, lowestY, (ArrayList)possibleValues[lowestX][lowestY]);
+		return makeGuess(board, possibleValues);
 	}
 	
 	private List<Integer>[] singleCandidate(int[][] board, List<Integer>[][] possibleValues) {
@@ -721,6 +709,27 @@ public class EfficientSolver extends SudokuSolver {
 				}
 			}
 		}
+	}
+	
+	private List<Integer>[] makeGuess(int[][] board, List<Integer>[][] possibleValues) {
+		//Choose field with least possible values.
+		int lowestPossibleValues = Integer.MAX_VALUE;
+		int lowestX = -1;
+		int lowestY = -1;
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				if (possibleValues[i][j].size() > 0 && possibleValues[i][j].size() < lowestPossibleValues) {
+					lowestPossibleValues = possibleValues[i][j].size();
+					lowestX = i;
+					lowestY = j;
+				}
+			}
+		}
+		difficulty = 9;
+		if (lowestX < 0 || lowestY < 0) {
+			return null;
+		}
+		return toMove(lowestX, lowestY, (ArrayList)possibleValues[lowestX][lowestY]);
 	}
 	
 	private List<Integer>[] toMove(int x, int y, int value) {

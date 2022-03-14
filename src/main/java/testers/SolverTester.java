@@ -1,10 +1,12 @@
-package solvers;
+package testers;
 
 import java.util.Date;
 import java.util.List;
 
 import Generators.SudokuGenerator;
 import MVC.Model;
+import solvers.EfficientSolver;
+import solvers.SudokuSolver;
 
 public class SolverTester {
 	
@@ -14,43 +16,44 @@ public class SolverTester {
 	public void testAll(Model model) {
 		//test(model, new BacktrackingSolver(model.board, model.innerSquareSize));
 		//test(model, new RandomBacktrackingSolver(model.board, model.innerSquareSize));
+		//test(model, new RandomEfficientSolver(model.board, model.innerSquareSize));
 		test(model, new EfficientSolver(model.board, model.innerSquareSize));
 	}
 
 	public void test(Model model, SudokuSolver solver) {
 		long start = new Date().getTime();
 		System.out.println("Testing "+solver.getClass().getSimpleName()+".");
-		TestCase[] testCases = new TestCase[] {new TestCase("given", true),
-											   new TestCase("empty", true),
-											   new TestCase("smallunique", true),
-											   new TestCase("unsolvable", false),
-											   new TestCase("extreme1", true),
-											   new TestCase("extreme2", true),
-											   new TestCase("extreme3", true),
-											   new TestCase("extreme4", true),
-											   new TestCase("hard16", true),
-											   new TestCase("sixbysix1", true),
-											   new TestCase("difficulty3", true),
-											   new TestCase("difficulty4", true),
-											   new TestCase("difficulty7", true),
-											   new TestCase("difficulty8", true),
-											   new TestCase("Puzzle_3_01", true),
-											   new TestCase("Puzzle_3_02", true),
-											   new TestCase("Puzzle_3_03", true),
-											   new TestCase("Puzzle_3_04", true),
-											   new TestCase("Puzzle_3_05", true),
-											   new TestCase("Puzzle_3_06", true),
-											   new TestCase("Puzzle_3_07", true),
-											   new TestCase("Puzzle_3_08", true),
-											   new TestCase("Puzzle_3_09", true),
-											   new TestCase("Puzzle_3_10", true),
-											   new TestCase("Puzzle_3_X1", false),
-											   new TestCase("Puzzle_4_01", true),
-											   new TestCase("Puzzle_4_02", true),
-											   new TestCase("Puzzle_5_01", true),
-											   new TestCase("Puzzle_6_01", true)};
+		SolverTestCase[] testCases = new SolverTestCase[] {new SolverTestCase("given", true),
+											   new SolverTestCase("empty", true),
+											   new SolverTestCase("smallunique", true),
+											   new SolverTestCase("unsolvable", false),
+											   new SolverTestCase("extreme1", true),
+											   new SolverTestCase("extreme2", true),
+											   new SolverTestCase("extreme3", true),
+											   new SolverTestCase("extreme4", true),
+											   new SolverTestCase("hard16", true),
+											   new SolverTestCase("sixbysix1", true),
+											   new SolverTestCase("difficulty3", true),
+											   new SolverTestCase("difficulty4", true),
+											   new SolverTestCase("difficulty7", true),
+											   new SolverTestCase("difficulty8", true),
+											   new SolverTestCase("Puzzle_3_01", true),
+											   new SolverTestCase("Puzzle_3_02", true),
+											   new SolverTestCase("Puzzle_3_03", true),
+											   new SolverTestCase("Puzzle_3_04", true),
+											   new SolverTestCase("Puzzle_3_05", true),
+											   new SolverTestCase("Puzzle_3_06", true),
+											   new SolverTestCase("Puzzle_3_07", true),
+											   new SolverTestCase("Puzzle_3_08", true),
+											   new SolverTestCase("Puzzle_3_09", true),
+											   new SolverTestCase("Puzzle_3_10", true),
+											   new SolverTestCase("Puzzle_3_X1", false),
+											   new SolverTestCase("Puzzle_4_01", true),
+											   new SolverTestCase("Puzzle_4_02", true),
+											   new SolverTestCase("Puzzle_5_01", true),
+											   new SolverTestCase("Puzzle_6_01", true)};
 		boolean success = true;
-		for (TestCase testCase : testCases) {
+		for (SolverTestCase testCase : testCases) {
 			model.loadAndUpdate(testCase.fileName);
 			solver.setBoard(model.board, model.innerSquareSize);
 			long time1 = new Date().getTime();
@@ -80,7 +83,8 @@ public class SolverTester {
 			boolean successGenerated = true;
 			for (int i = 0; i < numberOfRandomTests; i++) {
 				long time1 = new Date().getTime();
-				model.generateSudoku(1, 8, 0.62, 3, 3);
+				int[] range = SudokuSolver.getDifficultyRange();
+				model.generateSudoku(range[0], range[1], 0.62, 3, 3);
 				long time2 = new Date().getTime();
 				timeToGenerate += time2 - time1;
 				solver.setBoard(model.board, model.innerSquareSize);
@@ -112,13 +116,16 @@ public class SolverTester {
 		if (success) {
 			System.out.println(solver.getClass().getSimpleName()+" passed all tests in "+(new Date().getTime()-start-timeToGenerate)+" ms.");
 		}
+		else {
+			System.out.println(solver.getClass().getSimpleName()+" failed tests.");
+		}
 	}
 	
-	private class TestCase {
+	private class SolverTestCase {
 		public String fileName;
 		public boolean solvable;
 		
-		public TestCase(String fileName, boolean solvable) {
+		public SolverTestCase(String fileName, boolean solvable) {
 			this.fileName = fileName;
 			this.solvable = solvable;
 		}

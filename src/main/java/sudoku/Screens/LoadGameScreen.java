@@ -21,11 +21,9 @@ public class LoadGameScreen extends MenuScreen {
     private JButton backBtn;
     //private JList<String> loadList;
     private JList<LoadListElement> loadList;
-    private Mode mode;
 
     public LoadGameScreen(JFrame frame, Mode mode) {
-        super(frame);
-        this.mode = mode;
+        super(frame, mode);
     }
 
     public void addComponents() {
