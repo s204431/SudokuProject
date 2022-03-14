@@ -2,6 +2,7 @@ package solvers;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import sudoku.Field;
 import MVC.Model;
@@ -50,12 +51,13 @@ public class BacktrackingSolver extends SudokuSolver {
 			}
 			return;
 		}
-		for (int v = 1; v <= getMaxValue(); v++) {
+		List<Integer> order = generateOrder();
+		for (int i = 0; i < order.size(); i++) {
 			if (solutionsFound >= maxSolutions) {
 				return;
 			}
-			if (canBePlaced(x, y, v)) {
-				board[x][y] = v;
+			if (canBePlaced(x, y, order.get(i))) {
+				board[x][y] = order.get(i);
 				if (x == board.length-1 && y == board.length-1) {
 					if (sudokuSolved()) {
 						solutions.add(copyOf(board));
@@ -71,6 +73,14 @@ public class BacktrackingSolver extends SudokuSolver {
 			}
 		}
 		board[x][y] = 0;
+	}
+	
+	protected List<Integer> generateOrder() {
+		List<Integer> order = new ArrayList<>();
+		for (int i = 1; i <= getMaxValue(); i++) {
+			order.add(i);
+		}
+		return order;
 	}
 	
 }

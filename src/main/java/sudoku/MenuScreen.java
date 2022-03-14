@@ -2,6 +2,7 @@ package sudoku;
 
 import MVC.Controller;
 import MVC.Model;
+import MVC.Model.Mode;
 import MVC.View;
 
 import javax.swing.*;
@@ -18,9 +19,20 @@ public abstract class MenuScreen extends JPanel {
     protected int k;
     protected int n;
     protected JFrame frame;
+    protected Mode mode;
 
     public MenuScreen(JFrame frame) {
         this.frame = frame;
+        initialize();
+    }
+    
+    public MenuScreen(JFrame frame, Mode mode) {
+        this.frame = frame;
+    	this.mode = mode;
+    	initialize();
+    }
+    
+    private void initialize() {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         addComponents();
         frame.add(this);
@@ -30,7 +42,7 @@ public abstract class MenuScreen extends JPanel {
     public abstract void addComponents();
 
     private void startGame() {
-        Model model = new Model(k, n, Model.Mode.play);
+        Model model = new Model(k, n, Mode.play);
         View view = new View(model);
         Controller controller = new Controller();
         model.setView(view);

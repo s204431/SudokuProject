@@ -4,6 +4,7 @@ import MVC.Controller;
 import MVC.Model;
 import MVC.Model.Mode;
 import MVC.View;
+import solvers.SudokuSolver;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -26,11 +27,9 @@ public class GenerateNewSudokuScreen extends MenuScreen {
     private JPanel sliderPanel;
     private ChangeListener nListener;
     private ChangeListener kListener;
-    private Mode mode;
 
     public GenerateNewSudokuScreen(JFrame frame, Mode mode) {
-        super(frame);
-        this.mode = mode;
+        super(frame, mode);
     }
 
     public void addComponents(){
@@ -65,10 +64,16 @@ public class GenerateNewSudokuScreen extends MenuScreen {
         difficultyLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.add(difficultyLabel);
         if (mode == Mode.create) {
-            difficultyBox = new JComboBox(new String[]{"Empty", "Easy", "Medium", "Hard"});
+        	String[] difficulties = SudokuSolver.getDifficultyStrings();
+        	String[] choices = new String[difficulties.length+1];
+        	choices[0] = "Empty";
+        	for (int i = 0; i < difficulties.length; i++) {
+        		choices[i+1] = difficulties[i];
+        	}
+            difficultyBox = new JComboBox(choices);
         }
         else {
-            difficultyBox = new JComboBox(new String[]{"Easy", "Medium", "Hard"});
+            difficultyBox = new JComboBox(SudokuSolver.getDifficultyStrings());
         }
         panel.add(difficultyBox);
         add(panel);
@@ -157,18 +162,9 @@ public class GenerateNewSudokuScreen extends MenuScreen {
             frame.dispose();
             Model model = startGame(kSlider.getValue(), nSlider.getValue(), mode);
             String difficulty = (String)difficultyBox.getSelectedItem();
-            switch (difficulty) {
-            	case "Easy":
-                    model.generateSudoku(1, 2, 0.62);
-                    break;
-            	case "Medium":
-                    model.generateSudoku(3, 4, 0);
-                    break;
-            	case "Hard":
-                    model.generateSudoku(5, 8, 0);
-                    break;
-                default:
-                	break;
+            int[] range = SudokuSolver.getDifficultyRange(difficulty);
+            if (range != null) {
+            	model.generateSudoku(range[0], range[1], difficulty.equals("Easy") ? 0.50 : 0);
             }
         }
     }

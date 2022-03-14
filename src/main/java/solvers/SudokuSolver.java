@@ -125,5 +125,44 @@ public abstract class SudokuSolver {
 	protected int getMaxValue() {
 		return innerSquareSize*innerSquareSize;
 	}
+	
+	public static int[] getDifficultyRange() {
+		return new int[] {1, 9};
+	}
+	
+	public static int[] getDifficultyRange(String difficulty) {
+		switch(difficulty) {
+			case "Unsolvable":
+				return new int[] {0, 0};
+			case "Easy":
+				return new int[] {1, 2};
+			case "Medium":
+				return new int[] {3, 4};
+			case "Hard":
+				return new int[] {5, 9};
+			default:
+				return null;
+		}
+	}
+	
+	public static String[] getDifficultyStrings() {
+		return new String[] {"Easy", "Medium", "Hard"};
+	}
+	
+	public static String getDifficultyString(int difficulty) {
+		if (difficulty <= 0) {
+			return "Unsolvable";
+		}
+		else if (difficulty >= 1 && difficulty <= 2) {
+			return "Easy";
+		}
+		else if (difficulty >= 3 && difficulty <= 4) {
+			return "Medium";
+		}
+		else if (difficulty >= 5 && difficulty <= 9) {
+			return "Hard";
+		}
+		return "";
+	}
 
 }

@@ -3,7 +3,9 @@ package MVC;
 import java.awt.event.KeyEvent;
 
 import MVC.Model.Mode;
-import solvers.SolverTester;
+import solvers.SudokuSolver;
+import testers.GeneratorTester;
+import testers.SolverTester;
 
 public class Controller {
 	private Model model;
@@ -28,7 +30,8 @@ public class Controller {
 			model.loadAndUpdate(view.textField.getText());
 		}
 		else if (e.getKeyChar() == 'n') {
-			model.generateSudoku(1, 9, 0.62);
+			int[] range = SudokuSolver.getDifficultyRange();
+			model.generateSudoku(range[0], range[1], 0.62);
 			Model.Stopwatch();
 		}
 		else if (e.getKeyChar() == 'a') {
@@ -36,6 +39,9 @@ public class Controller {
 		}
 		else if (e.getKeyChar() == 't') {
 			new SolverTester().testAll(model);
+		}
+		else if (e.getKeyChar() == 'y') {
+			new GeneratorTester().test(model);
 		}
 		else if (e.getKeyChar() == 'h') {
 			model.giveHint();
