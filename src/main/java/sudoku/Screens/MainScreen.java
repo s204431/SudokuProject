@@ -26,96 +26,41 @@ public class MainScreen extends MenuScreen {
     }
 
     public void addComponents() {
-        addLabels();
-        addButtons();
-    }
-
-    private void addLabels() {
-        // Title
+        isMultiplayer = false;
+        //Title
         titleString = new JLabel("Main Menu");
-        titleString.setFont(titleFont);
-        titleString.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(titleString);
-    }
+        setTitle(titleString);
 
-    private void addButtons() {
-        add(Box.createRigidArea(new Dimension(0, spacing*2)));
-
+        //Play button
         playBtn = new JButton("Play Game");
+        setButtons(new JButton[]{playBtn});
         playBtn.addActionListener(new playAction());
-        playBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        playBtn.setMaximumSize(new Dimension(btnWidth, btnHeight));
-        add(playBtn);
 
-        add(Box.createRigidArea(new Dimension(0, spacing/2)));
+        //k and n text fields
+        JLabel nLabel = new JLabel("N:");
+        nText = new JTextField();
+        JLabel kLabel = new JLabel("K:");
+        kText = new JTextField();
+        setPanel(new JPanel(), new JComponent[]{nLabel, nText, kLabel, kText});
 
-        JPanel panel = new JPanel();
-        panel.setMaximumSize(new Dimension(400,50));
-        addTextFields(panel);
-
-
-        add(Box.createRigidArea(new Dimension(0, spacing)));
-
+        //The rest of the buttons
         newGameBtn = new JButton("New Game");
-        newGameBtn.addActionListener(new newGameAction());
-        newGameBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        newGameBtn.setMaximumSize(new Dimension(btnWidth, btnHeight));
-        add(newGameBtn);
-
-        add(Box.createRigidArea(new Dimension(0, spacing)));
-
         MPBtn = new JButton("Multiplayer");
-        MPBtn.addActionListener(new MPAction());
-        MPBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        MPBtn.setMaximumSize(new Dimension(btnWidth, btnHeight));
-        add(MPBtn);
-
-        add(Box.createRigidArea(new Dimension(0, spacing)));
-
         createBtn = new JButton("Create Sudoku");
-        createBtn.addActionListener(new createSudokuAction());
-        createBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        createBtn.setMaximumSize(new Dimension(btnWidth, btnHeight));
-        add(createBtn);
-
-        add(Box.createRigidArea(new Dimension(0, spacing)));
-
         solverBtn = new JButton("Sudoku Solver");
-        solverBtn.addActionListener(new sudokuSolverAction());
-        solverBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        solverBtn.setMaximumSize(new Dimension(btnWidth, btnHeight));
-        add(solverBtn);
-
-        add(Box.createRigidArea(new Dimension(0, spacing)));
-
         highScoreBtn = new JButton("Stats");
-        highScoreBtn.addActionListener(null);
-        highScoreBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        highScoreBtn.setMaximumSize(new Dimension(btnWidth, btnHeight));
-        add(highScoreBtn);
+        setButtons(new JButton[]{newGameBtn, MPBtn, createBtn, solverBtn, highScoreBtn});
+
+        setActionListeners();
     }
 
-    private void addTextFields(JPanel panel) {
-        JLabel nLabel = new JLabel("N:");
-        nLabel.setFont(new Font("Serif", Font.BOLD, 20));
-        nLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panel.add(nLabel);
-        nText = new JTextField();
-        nText.setFont(new Font("Serif", Font.BOLD, 20));
-        nText.setAlignmentX(Component.CENTER_ALIGNMENT);
-        nText.setPreferredSize(new Dimension(textSize,textSize));
-        panel.add(nText);
-        JLabel kLabel = new JLabel("K:");
-        kLabel.setFont(new Font("Serif", Font.BOLD, 20));
-        kLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panel.add(kLabel);
-        kText = new JTextField();
-        kText.setFont(new Font("Serif", Font.BOLD, 20));
-        kText.setAlignmentX(Component.CENTER_ALIGNMENT);
-        kText.setPreferredSize(new Dimension(textSize,textSize));
-        panel.add(kText);
-
-        add(panel);
+    private void setActionListeners(){
+        playBtn.addActionListener(new playAction());
+        MPBtn.addActionListener(new MPAction());
+        newGameBtn.addActionListener(new newGameAction());
+        createBtn.addActionListener(new createSudokuAction());
+        solverBtn.addActionListener(new sudokuSolverAction());
+        highScoreBtn.addActionListener(null);
     }
 
     private void startGame() {
@@ -158,17 +103,17 @@ public class MainScreen extends MenuScreen {
         }
     }
 
-    private class MPAction implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            changePanel();
-            new MultiplayerScreen(frame);
-        }
-    }
-
     private class newGameAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             changePanel();
             new NewGameScreen(frame);
+        }
+    }
+
+    private class MPAction implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            changePanel();
+            new MultiplayerScreen(frame);
         }
     }
     

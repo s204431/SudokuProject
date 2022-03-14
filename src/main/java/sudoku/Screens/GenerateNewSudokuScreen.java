@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GenerateNewSudokuScreen extends MenuScreen {
+    private Boolean isMultiplayer;
     private JLabel titleLabel;
     private JLabel boardSizeLabel;
     private JLabel difficultyLabel;
@@ -27,6 +28,7 @@ public class GenerateNewSudokuScreen extends MenuScreen {
     private JPanel sliderPanel;
     private ChangeListener nListener;
     private ChangeListener kListener;
+
 
     public GenerateNewSudokuScreen(JFrame frame, Mode mode) {
         super(frame, mode);
@@ -172,7 +174,11 @@ public class GenerateNewSudokuScreen extends MenuScreen {
     class backAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             changePanel();
-            if (mode == Mode.play) {
+            if (isMultiplayer) {
+                isMultiplayer = false;
+                new MultiplayerScreen(frame);
+            }
+            else if (mode == Mode.play) {
                 new NewGameScreen(frame);
             }
             else if (mode == Mode.create) {

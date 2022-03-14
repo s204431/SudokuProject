@@ -1,5 +1,7 @@
 package sudoku.Screens;
 
+import MVC.Model;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -32,14 +34,16 @@ public class MultiplayerScreen extends MenuScreen{
 
     private void setActionListeners() {
         hostBtn.addActionListener(new hostAction());
-        joinBtn.addActionListener(new hostAction());
-        backBtn.addActionListener(new hostAction());
+        joinBtn.addActionListener(new joinAction());
+        backBtn.addActionListener(new backAction());
 
     }
 
     class hostAction implements ActionListener  {
         public void actionPerformed(ActionEvent e) {
-
+            changePanel();
+            setMultiplayer(true);
+            new GenerateNewSudokuScreen(frame, Model.Mode.play);
         }
     }
     class joinAction implements ActionListener  {
@@ -49,7 +53,8 @@ public class MultiplayerScreen extends MenuScreen{
     }
     class backAction implements ActionListener  {
         public void actionPerformed(ActionEvent e) {
-
+            changePanel();
+            new MainScreen(frame);
         }
     }
 }

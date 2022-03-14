@@ -2,6 +2,7 @@ package sudoku.Screens;
 
 import MVC.Controller;
 import MVC.Model;
+import MVC.Model.Mode;
 import MVC.View;
 
 import javax.swing.*;
@@ -11,6 +12,7 @@ import java.awt.event.ActionListener;
 
 public abstract class MenuScreen extends JPanel {
     protected Font titleFont = new Font(Font.SERIF, Font.BOLD,50);
+    protected boolean isMultiplayer;
     protected int textSize = 50;
     protected int spacing = 30;
     protected int btnHeight = 50;
@@ -21,9 +23,20 @@ public abstract class MenuScreen extends JPanel {
     protected Font textFont = new Font("Serif", Font.BOLD,20);
     protected Dimension panelDimension = new Dimension(400,50);
     protected Dimension buttonDimension = new Dimension(200,50);
+    protected Dimension textDimension = new Dimension(textSize, textSize);
+    protected Mode mode;
+
 
     public MenuScreen(JFrame frame) {
         this.frame = frame;
+        initialize();
+    }
+    public MenuScreen(JFrame frame, Mode mode) {
+        this.frame = frame;
+        this.mode = mode;
+        initialize();
+    }
+    private void initialize() {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         addComponents();
         frame.add(this);
@@ -49,9 +62,13 @@ public abstract class MenuScreen extends JPanel {
                     component instanceof JTextField) {
                 component.setFont(textFont);
             }
+            if (component instanceof JTextField) {
+                component.setPreferredSize(textDimension);
+            }
             panel.add(component);
             add(panel);
         }
+        add(Box.createRigidArea(new Dimension(0, spacing)));
     }
     protected void setTextFields(JTextField[] fields){
         for (JTextField field : fields) {
@@ -62,19 +79,14 @@ public abstract class MenuScreen extends JPanel {
         }
     }
 
-    protected void setLabels(JLabel[] labels){
-        for (JLabel label : labels) {
-            label.setAlignmentX(Component.CENTER_ALIGNMENT);
-            label.setMaximumSize(buttonDimension);
-            add(label);
-            add(Box.createRigidArea(new Dimension(0, spacing)));
-        }
-    }
     protected void setTitle(JLabel title){
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         title.setFont(titleFont);
         add(title);
         add(Box.createRigidArea(new Dimension(0, spacing)));
+    }
+    protected void setMultiplayer(boolean isMultiplayer){
+        this.isMultiplayer = isMultiplayer;
     }
 
     private void startGame() {
