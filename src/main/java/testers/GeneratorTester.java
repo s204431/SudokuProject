@@ -15,13 +15,16 @@ public class GeneratorTester {
 		GeneratorTestCase[] testCases = new GeneratorTestCase[] {new GeneratorTestCase(50, "Easy", 3, 3),
 																 new GeneratorTestCase(5, "Medium", 3, 3),
 																 new GeneratorTestCase(5, "Hard", 3, 3),
+																 new GeneratorTestCase(5, "Extreme", 3, 3),
 																 new GeneratorTestCase(50, "Easy", 3, 2),
 																 new GeneratorTestCase(2, "Easy", 4, 4),
 																 new GeneratorTestCase(2, "Medium", 4, 4),
 																 new GeneratorTestCase(2, "Hard", 4, 4),
+																 new GeneratorTestCase(2, "Extreme", 4, 4),
 																 new GeneratorTestCase(1, "Easy", 5, 5),
 																 new GeneratorTestCase(1, "Medium", 5, 5),
 																 new GeneratorTestCase(1, "Hard", 5, 5),
+																 new GeneratorTestCase(1, "Extreme", 5, 5),
 																 new GeneratorTestCase(1, 3, 3, 3, 3)};
 		int totalGenerated = 0;
 		boolean passed = true;
@@ -84,6 +87,7 @@ public class GeneratorTester {
 		public int maxDifficulty = 0; //Only used if difficulty is not specified.
 		public int innerSquareSize = 0;
 		public int numInnerSquares = 0;
+		
 		public GeneratorTestCase(int amount, String difficulty, int innerSquareSize, int numInnerSquares) {
 			this.amount = amount;
 			this.difficulty = difficulty;

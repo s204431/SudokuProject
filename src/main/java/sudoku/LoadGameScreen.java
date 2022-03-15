@@ -43,7 +43,7 @@ public class LoadGameScreen extends MenuScreen {
         	String name = matchingFiles[i].getName().substring(0, matchingFiles[i].getName().length() - 3);
         	Object[] result = Model.load(name, Mode.play);
         	Field[][] board = (Field[][]) result[0];
-            savedSudokus[i] = new LoadListElement(name, 0, board.length, board, (int) result[1], (int) result[2]);
+            savedSudokus[i] = new LoadListElement(name, (int) result[3], board.length, board, (int) result[1], (int) result[2]);
         }
         
         loadList = new JList<LoadListElement>(savedSudokus);

@@ -118,6 +118,10 @@ public class Model {
 	}
 	
 	public void save(String fileName) {
+		save(fileName, -1);
+	}
+	
+	public void save(String fileName, int difficulty) {
 		File file = new File("savedsudokus/"+fileName+".su");
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
@@ -138,12 +142,16 @@ public class Model {
 					writer.write("\n");
 				}
 			}
+			if (difficulty >= 0) {
+				writer.write("\n"+difficulty);
+			}
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
+	//Loads without updating the current sudoku. Returns loaded sudoku, innerSquareSize, numInnerSquares and difficulty (difficulty = -1 if it is not saved in the file).
 	public static Object[] load(String fileName, Mode mode) {
 		File file = new File("savedsudokus/"+fileName+".su");
 		try {
@@ -164,8 +172,9 @@ public class Model {
 					}
 				}
 			}
+			int difficulty = scanner.hasNextInt() ? scanner.nextInt() : -1;
 			scanner.close();
-			return new Object[] {board, innerSquareSize, numInnerSquares};
+			return new Object[] {board, innerSquareSize, numInnerSquares, difficulty};
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
