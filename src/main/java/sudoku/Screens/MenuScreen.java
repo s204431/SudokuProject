@@ -6,6 +6,7 @@ import MVC.Model.Mode;
 import MVC.View;
 
 import javax.swing.*;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +22,7 @@ public abstract class MenuScreen extends JPanel {
     protected int n;
     protected JFrame frame;
     protected Font textFont = new Font("Serif", Font.BOLD,20);
+    protected Font labelFont = new Font("Serif", Font.BOLD,30);
     protected Dimension panelDimension = new Dimension(400,50);
     protected Dimension buttonDimension = new Dimension(200,50);
     protected Dimension textDimension = new Dimension(textSize, textSize);
@@ -53,6 +55,21 @@ public abstract class MenuScreen extends JPanel {
             add(Box.createRigidArea(new Dimension(0, spacing)));
         }
     }
+    protected void setSliders(JLabel[] labels, ChangeListener[] listener, JSlider[] sliders, String[] names){
+        for (int i = 0; i < labels.length; i++) {
+            add(labels[i]);
+            sliders[i].setPaintTicks(true);
+            sliders[i].setMajorTickSpacing(2);
+            sliders[i].setMinorTickSpacing(1);
+            sliders[i].addChangeListener(listener[i]);
+            JPanel panel = new JPanel();
+            panel.setMaximumSize(new Dimension(200,50));
+            panel.add(sliders[i]);
+            panel.add(new JLabel(names[i]));
+            add(panel);
+            add(Box.createRigidArea(new Dimension(0, spacing)));
+        }
+    }
 
     protected void setPanel(JPanel panel, JComponent[] components){
         panel.setMaximumSize(panelDimension);
@@ -75,6 +92,14 @@ public abstract class MenuScreen extends JPanel {
             field.setAlignmentX(Component.CENTER_ALIGNMENT);
             field.setMaximumSize(buttonDimension);
             add(field);
+            add(Box.createRigidArea(new Dimension(0, spacing)));
+        }
+    }
+    protected void setLabels(JLabel[] labels){
+        for (JLabel label : labels) {
+            label.setFont(labelFont);
+            label.setAlignmentX(Component.CENTER_ALIGNMENT);
+            add(label);
             add(Box.createRigidArea(new Dimension(0, spacing)));
         }
     }

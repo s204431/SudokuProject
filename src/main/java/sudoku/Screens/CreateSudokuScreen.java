@@ -20,46 +20,23 @@ public class CreateSudokuScreen extends MenuScreen {
     }
 
     public void addComponents() {
-        addLabels();
-        addButtons();
-    }
-
-    private void addLabels() {
-        // Title
+        //Title
         titleString = new JLabel("Create Sudoku");
-        titleString.setFont(titleFont);
-        titleString.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(titleString);
-
-        add(Box.createRigidArea(new Dimension(0, spacing*2)));
-        JPanel panel = new JPanel();
-        panel.setMaximumSize(new Dimension(400,50));
-        add(panel);
-    }
-
-    private void addButtons() {
+        setTitle(titleString);
+        //Buttons
         generateBtn = new JButton("Generate New Sudoku");
-        generateBtn.addActionListener(new generateNewAction());
-        generateBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        generateBtn.setMaximumSize(new Dimension(btnWidth, btnHeight));
-        add(generateBtn);
-
-        add(Box.createRigidArea(new Dimension(0, spacing)));
-
         loadBtn = new JButton("Load Existing Sudoku");
-        loadBtn.addActionListener(new loadGameAction());
-        loadBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        loadBtn.setMaximumSize(new Dimension(btnWidth, btnHeight));
-        add(loadBtn);
-
-        add(Box.createRigidArea(new Dimension(0, spacing)));
-
         backBtn = new JButton("Back");
-        backBtn.addActionListener(new backAction());
-        backBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        backBtn.setMaximumSize(new Dimension(btnWidth, btnHeight));
-        add(backBtn);
+        setButtons(new JButton[]{generateBtn, loadBtn, backBtn});
+        //Buttons action listeners
+        setActionListeners();
     }
+    private void setActionListeners(){
+        generateBtn.addActionListener(new generateNewAction());
+        loadBtn.addActionListener(new loadGameAction());
+        backBtn.addActionListener(new backAction());
+    }
+
 
     class generateNewAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
