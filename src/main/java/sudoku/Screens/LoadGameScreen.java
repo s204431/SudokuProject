@@ -4,6 +4,7 @@ import MVC.Controller;
 import MVC.Model;
 import MVC.Model.Mode;
 import MVC.View;
+import com.sun.org.apache.xpath.internal.operations.Mult;
 import sudoku.Field;
 import sudoku.LoadListElement;
 import sudoku.LoadListRenderer;
@@ -103,6 +104,8 @@ public class LoadGameScreen extends MenuScreen {
             }
             else if (mode == Mode.create) {
                 new CreateSudokuScreen(frame);
+            } else if (mode == Mode.multiplayer){
+                new MultiplayerScreen(frame);
             }
             else {
                 new SudokuSolverScreen(frame);
