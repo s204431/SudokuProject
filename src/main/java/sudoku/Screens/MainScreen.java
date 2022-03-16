@@ -34,7 +34,6 @@ public class MainScreen extends MenuScreen {
         //Play button
         playBtn = new JButton("Play Game");
         setButtons(new JButton[]{playBtn});
-        playBtn.addActionListener(new playAction());
 
         //k and n text fields
         JLabel nLabel = new JLabel("N:");
@@ -84,6 +83,7 @@ public class MainScreen extends MenuScreen {
         controller.setModel(model);
         controller.setView(view);
         view.setController(controller);
+        //Creates thread to wait for opponent
     	new Thread(model).start();
     }
 
@@ -97,7 +97,7 @@ public class MainScreen extends MenuScreen {
                 }
                 frame.dispose();
                 startGame();
-            } catch (NumberFormatException e2) {
+            } catch (NumberFormatException ignored) {
 
             }
         }

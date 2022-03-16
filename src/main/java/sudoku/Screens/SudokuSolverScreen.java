@@ -30,7 +30,6 @@ public class SudokuSolverScreen extends MenuScreen {
         setButtons(new JButton[]{generateBtn, loadBtn, backBtn});
 
         setActionListeners();
-        //test
     }
 
     private void setActionListeners(){
