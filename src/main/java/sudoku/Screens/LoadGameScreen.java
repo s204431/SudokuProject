@@ -22,13 +22,21 @@ public class LoadGameScreen extends MenuScreen {
     //private JList<String> loadList;
     private JList<LoadListElement> loadList;
     private boolean isHost;
+    private boolean assistMode;
 
     public LoadGameScreen(JFrame frame, Mode mode) {
         super(frame, mode);
     }
+
     public LoadGameScreen(JFrame frame, Mode mode, boolean isHost) {
         super(frame, mode);
         this.isHost = isHost;
+    }
+
+    public LoadGameScreen(JFrame frame, Mode mode, boolean isHost, boolean assistMode) {
+        super(frame, mode);
+        this.isHost = false;
+        this.assistMode = assistMode;
     }
 
     public void addComponents() {
@@ -80,7 +88,7 @@ public class LoadGameScreen extends MenuScreen {
     }
 
     private Model startGame(int k, int n, Mode mode) {
-        return getModel(k, n, mode);
+        return getModel(k, n, mode, assistMode);
     }
 
     class loadAction implements ActionListener {

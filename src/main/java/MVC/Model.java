@@ -24,6 +24,7 @@ public class Model {
 	public enum Mode {play, create, solver, multiplayer};
 	public Mode mode = Mode.play;
 	public String fileName = "";
+	public boolean assistMode = false;
 
 	public Model(int numInnerSquares, int innerSquareSize, Mode mode) {
 		this.mode = mode;
@@ -36,6 +37,11 @@ public class Model {
 			}
 		}
 		Stopwatch();
+	}
+
+	public Model(int numInnerSquares, int innerSquareSize, Mode mode, boolean assistMode) {
+		this(numInnerSquares, innerSquareSize, mode);
+		this.assistMode = assistMode;
 	}
 	
 	public void setView(View view) {

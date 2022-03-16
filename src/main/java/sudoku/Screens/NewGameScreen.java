@@ -47,7 +47,7 @@ public class NewGameScreen extends MenuScreen {
     class generateNewAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             changePanel();
-            new GenerateNewSudokuScreen(frame, Mode.play);
+            new GenerateNewSudokuScreen(frame, Mode.play, assistModeCheck.isSelected());
         }
     }
 

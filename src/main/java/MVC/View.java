@@ -28,6 +28,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 	protected JButton saveButton;
 	protected JButton loadButton;
 	protected JButton exitButton;
+    private JButton hintButton;
 	public JTextField textField;
 	protected JLabel timerLabel;
 	protected boolean inFocus = true;
@@ -203,7 +204,6 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             saveButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    //  TODO: Open save window
                     showSavePopup();
                 }
             });
@@ -216,7 +216,17 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
              */
         }
 
-        // TODO: Hint button when assist-mode is on
+        if (model.assistMode) {
+            hintButton = new JButton("Hint");
+            hintButton.setBounds(50, 200, 100, 25);
+            hintButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    model.giveHint();
+                }
+            });
+            buttonPanel.add(hintButton);
+        }
     }
 
     public void showSavePopup() {

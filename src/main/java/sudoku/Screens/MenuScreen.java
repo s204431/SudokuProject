@@ -26,7 +26,7 @@ public abstract class MenuScreen extends JPanel {
     protected JFrame frame;
     protected Font textFont = new Font("Serif", Font.BOLD,20);
     protected Font labelFont = new Font("Serif", Font.BOLD,30);
-    protected Dimension panelDimension = new Dimension(400,50);
+    protected Dimension panelDimension = new Dimension(400,60);
     protected Dimension buttonDimension = new Dimension(200,50);
     protected Dimension textDimension = new Dimension(textSize, textSize);
     protected Mode mode;
@@ -157,8 +157,20 @@ public abstract class MenuScreen extends JPanel {
         new Thread(model).start();
         return model;
     }
+
     protected Model getModel(int k, int n, Mode mode) {
         Model model = new Model(k, n, mode);
+        View view = new View(model);
+        Controller controller = new Controller();
+        model.setView(view);
+        controller.setModel(model);
+        controller.setView(view);
+        view.setController(controller);
+        return model;
+    }
+
+    protected Model getModel(int k, int n, Mode mode, boolean assistMode) {
+        Model model = new Model(k, n, mode, assistMode);
         View view = new View(model);
         Controller controller = new Controller();
         model.setView(view);
