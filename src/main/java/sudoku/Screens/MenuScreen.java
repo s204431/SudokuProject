@@ -86,8 +86,8 @@ public abstract class MenuScreen extends JPanel {
                 component.setPreferredSize(textDimension);
             }
             panel.add(component);
-            add(panel);
         }
+        add(panel);
         add(Box.createRigidArea(new Dimension(0, spacing)));
     }
     protected void setTextFields(JTextField[] fields){
