@@ -21,6 +21,7 @@ public class Model {
 	public int numInnerSquares; //Number of inner squares in one side of the sudoku (k).
 	public enum Mode {play, create, solver, multiplayer};
 	public Mode mode = Mode.play;
+	public String fileName = "";
 
 	public Model(int numInnerSquares, int innerSquareSize, Mode mode) {
 		this.mode = mode;
@@ -189,6 +190,7 @@ public class Model {
 		view.clickedPosition = new int[] {0, 0};
 		view.resetBoardPosition();
 		view.repaint();
+		fileName = fileName;
 	}
 	
 	public static boolean canBePlaced(Field[][] board, int innerSquareSize, int x, int y, int value) {
