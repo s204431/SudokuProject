@@ -214,9 +214,13 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     }
     
     public void quitToMenu() {
+    	quitToMenu("");
+    }
+    
+    public void quitToMenu(String message) {
     	close = true;
         frame.dispose();
-        Main.main(null);
+        Main.restart(message);
     }
     
     public void resetBoardPosition() {
