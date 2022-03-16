@@ -147,18 +147,7 @@ public class GenerateNewSudokuScreen extends MenuScreen {
                 default:
                     new SudokuSolverScreen(frame);
             }*/
-            if (mode == Mode.play) {
-                new NewGameScreen(frame);
-            }
-            else if (mode == Mode.create) {
-                new CreateSudokuScreen(frame);
-            }
-            else if (mode == Mode.multiplayer) {
-                new MultiplayerScreen(frame);
-            }
-            else {
-                new SudokuSolverScreen(frame);
-            }
+            backAction();
         }
     }
 }

@@ -51,7 +51,7 @@ public class MultiplayerScreen extends MenuScreen{
     class loadAction implements ActionListener  {
         public void actionPerformed(ActionEvent e) {
             changePanel();
-            new LoadGameScreen(frame, Model.Mode.play, true);
+            new LoadGameScreen(frame, Model.Mode.multiplayer, true);
         }
     }
     class joinAction implements ActionListener  {

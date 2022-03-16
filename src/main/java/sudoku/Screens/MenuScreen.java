@@ -167,6 +167,20 @@ public abstract class MenuScreen extends JPanel {
         view.setController(controller);
         return model;
     }
+    protected void backAction(){
+        changePanel();
+        if (mode == Mode.play) {
+            new NewGameScreen(frame);
+        }
+        else if (mode == Mode.create) {
+            new CreateSudokuScreen(frame);
+        } else if (mode == Mode.multiplayer){
+            new MultiplayerScreen(frame);
+        }
+        else {
+            new SudokuSolverScreen(frame);
+        }
+    }
 
     protected void setUpMenuBar(JFrame frame){
         JMenuBar menuBar = new JMenuBar();
