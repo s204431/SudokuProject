@@ -36,6 +36,9 @@ public class EfficientSolver extends SudokuSolver {
 		if (solutions.size() == 0) {
 			difficulty = 0;
 		}
+		else if (difficulty == 0) {
+			difficulty = 1;
+		}
 		guesses--;
 		return solutions;
 	}
