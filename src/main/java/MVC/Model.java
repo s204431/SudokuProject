@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import javax.swing.JOptionPane;
+
 import solvers.*;
 import sudoku.Field;
 import Generators.*;
@@ -169,7 +171,7 @@ public class Model {
 						board[i][j] = new Field(0, true);
 					}
 					else {
-						board[i][j] = new Field(Integer.parseInt(next), (mode != Mode.play && mode != Mode.multiplayer));
+						board[i][j] = new Field(Integer.parseInt(next), mode != Mode.play && mode != Mode.multiplayer);
 					}
 				}
 			}
@@ -220,7 +222,8 @@ public class Model {
 		board = new Field[getBoardSize()][getBoardSize()];
 		for(int i = 0; i < getBoardSize(); i++) {
 			for(int j = 0; j < getBoardSize(); j++){
-				board[i][j] = new Field(matrix[i][j], true);
+				boolean interactable = matrix[i][j] <= 0 || (mode != Mode.play && mode != Mode.multiplayer);
+				board[i][j] = new Field(matrix[i][j], interactable);
 			}
 		}
 		view.resetBoardPosition();
