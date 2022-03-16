@@ -37,16 +37,18 @@ public class MainScreen extends MenuScreen {
         titleString = new JLabel("Main Menu");
         setTitle(titleString);
 
-        //Play button
-        playBtn = new JButton("Play Game");
-        setButtons(new JButton[]{playBtn});
+        if (Main.DEBUG_MODE) {
+            //Play button
+            playBtn = new JButton("Play Game");
+            setButtons(new JButton[]{playBtn});
 
-        //k and n text fields
-        JLabel nLabel = new JLabel("N:");
-        nText = new JTextField();
-        JLabel kLabel = new JLabel("K:");
-        kText = new JTextField();
-        setPanel(new JPanel(), new JComponent[]{nLabel, nText, kLabel, kText});
+            //k and n text fields
+            JLabel nLabel = new JLabel("N:");
+            nText = new JTextField();
+            JLabel kLabel = new JLabel("K:");
+            kText = new JTextField();
+            setPanel(new JPanel(), new JComponent[]{nLabel, nText, kLabel, kText});	
+        }
 
         //The rest of the buttons
         newGameBtn = new JButton("New Game");
@@ -60,7 +62,9 @@ public class MainScreen extends MenuScreen {
     }
 
     private void setActionListeners(){
-        playBtn.addActionListener(new playAction());
+    	if (Main.DEBUG_MODE) {
+            playBtn.addActionListener(new playAction());	
+    	}
         MPBtn.addActionListener(new MPAction());
         newGameBtn.addActionListener(new newGameAction());
         createBtn.addActionListener(new createSudokuAction());
