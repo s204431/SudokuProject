@@ -1,5 +1,7 @@
 package MVC;
 
+import solvers.EfficientSolver;
+import solvers.SudokuSolver;
 import sudoku.Field;
 import sudoku.Main;
 import MVC.Model.Mode;
@@ -29,6 +31,8 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 	public JTextField textField;
 	protected JLabel timerLabel;
 	protected boolean inFocus = true;
+    private boolean infoButtonClicked = false;
+    private int savedDifficulty;
 
     public int[] clickedPosition = new int[] {0, 0};
 	
@@ -200,8 +204,10 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     //  TODO: Open save window
+                    showSavePopup();
                 }
             });
+            buttonPanel.add(saveButton);
 
         } else if (mode == Mode.solver) {
             /*
@@ -211,6 +217,52 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         }
 
         // TODO: Hint button when assist-mode is on
+    }
+
+    public void showSavePopup() {
+        JPanel panel = new JPanel(null);
+        panel.setPreferredSize(new Dimension(350, 100));
+
+        savedDifficulty = -1;
+
+        JLabel boardSizeLabel = new JLabel("Size: " + model.getBoardSize() + "x" + model.getBoardSize());
+        JLabel solutionsLabel = new JLabel("Solutions: Unknown");
+        JLabel difficultyLabel = new JLabel("Difficulty: Unknown");
+        JButton infoButton = new JButton("Show additional information");
+
+        boardSizeLabel.setFont(new Font("Serif", Font.BOLD, 15));
+        solutionsLabel.setFont(new Font("Serif", Font.BOLD, 15));
+        difficultyLabel.setFont(new Font("Serif", Font.BOLD, 15));
+
+        boardSizeLabel.setBounds(100, 10, 200, 20);
+        solutionsLabel.setBounds(100, 40, 200, 20);
+        difficultyLabel.setBounds(100, 70, 200, 20);
+        infoButton.setBounds(25, 40, 250, 30);
+        infoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                infoButtonClicked = true;
+                EfficientSolver es = new EfficientSolver(model.board, model.innerSquareSize);
+                int solutions = es.solve(6).size();
+                savedDifficulty = es.difficulty;
+                String difficultyString = SudokuSolver.getDifficultyString(savedDifficulty);
+
+                solutionsLabel.setText("Solutions: " + (solutions > 5 ? ">5" : solutions));
+                difficultyLabel.setText("Difficulty: " + savedDifficulty + " (" + difficultyString + ")");
+                panel.add(boardSizeLabel);
+                panel.add(solutionsLabel);
+                panel.add(difficultyLabel);
+                panel.remove(infoButton);
+                panel.repaint();
+            }
+        });
+        panel.add(infoButton);
+        String a = JOptionPane.showInputDialog(frame, panel, "Save", JOptionPane.QUESTION_MESSAGE);
+        if (infoButtonClicked) {
+            model.save(a, savedDifficulty);
+        } else {
+            model.save(a);
+        }
     }
     
     public void quitToMenu() {
