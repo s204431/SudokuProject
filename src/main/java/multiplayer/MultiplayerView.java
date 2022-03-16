@@ -62,14 +62,14 @@ public class MultiplayerView extends View {
 		opponentPanel.repaint();
         super.paint(g);
 
-		g2.drawLine((getPreferredSize().width-200) / 2 - 1, 0, (getPreferredSize().width-200) / 2 - 1, getPreferredSize().height);
+		g2.drawLine((getPreferredSize().width - 200) / 2 - 1, 0, (getPreferredSize().width - 200) / 2 - 1, getPreferredSize().height);
     }
 
 	public void resetBoardPosition() {
 		fieldWidth = (int)(Field.DEFAULT_WIDTH / 1.5);
 		fieldHeight = (int)(Field.DEFAULT_HEIGHT / 1.5);
-		boardX = (getPreferredSize().width-200)/4 - fieldWidth * model.board.length / 2;
-		boardY = getPreferredSize().height/2 - fieldHeight * model.board.length / 2;
+		boardX = (getPreferredSize().width - 200) / 4 - fieldWidth * model.board.length / 2;
+		boardY = getPreferredSize().height / 2 - fieldHeight * model.board.length / 2;
 		updateBoardPosition();
 	}
     
@@ -97,8 +97,8 @@ public class MultiplayerView extends View {
   				if (dragging && ((MultiplayerModel) model).started) {
   					Point mousePos = getMousePosition();
   					if (mousePos != null) {
-  						boardX = mousePos.x+mouseBoardVector[0];
-  						boardY = mousePos.y+mouseBoardVector[1];
+  						boardX = mousePos.x + mouseBoardVector[0];
+  						boardY = mousePos.y + mouseBoardVector[1];
   						updateBoardPosition();
   					}
   					repaint();
@@ -120,7 +120,7 @@ public class MultiplayerView extends View {
 			super.paint(g);
 
 			//setVisible(true);
-			Object[] tuple = null;
+			Object[] 	tuple = null;
 			try {
 				((MultiplayerModel) model).fromOpponent.get(new ActualField("lock"), new ActualField("dragging"));
 				tuple = ((MultiplayerModel) model).fromOpponent.query(new ActualField("boardposition"), new FormalField(Integer.class), new FormalField(Integer.class), new FormalField(Integer.class), new FormalField(Integer.class));

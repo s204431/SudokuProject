@@ -21,9 +21,14 @@ public class LoadGameScreen extends MenuScreen {
     private JButton backBtn;
     //private JList<String> loadList;
     private JList<LoadListElement> loadList;
+    private boolean isHost;
 
     public LoadGameScreen(JFrame frame, Mode mode) {
         super(frame, mode);
+    }
+    public LoadGameScreen(JFrame frame, Mode mode, boolean isHost) {
+        super(frame, mode);
+        this.isHost = isHost;
     }
 
     public void addComponents() {
@@ -82,7 +87,11 @@ public class LoadGameScreen extends MenuScreen {
         public void actionPerformed(ActionEvent e) {
             frame.dispose();
             //startGame(1, 1, mode).load(loadList.getSelectedValue());
-            startGame(1, 1, mode).loadAndUpdate(loadList.getSelectedValue().name);
+            if (isHost) {
+                setMultiplayerInstance(isHost,"").loadAndUpdate(loadList.getSelectedValue().name);
+            } else {
+                startGame(1, 1, mode).loadAndUpdate(loadList.getSelectedValue().name);
+            }
         }
     }
 

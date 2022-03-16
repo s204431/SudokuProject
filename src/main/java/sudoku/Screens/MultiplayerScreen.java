@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 public class MultiplayerScreen extends MenuScreen{
     private JLabel titleLabel;
     private JButton hostBtn;
+    private JButton loadBtn;
     private JButton joinBtn;
     private JButton backBtn;
     private JTextField ip_address;
@@ -20,13 +21,14 @@ public class MultiplayerScreen extends MenuScreen{
     }
     public void addComponents(){
         titleLabel = new JLabel("Multiplayer");
-        hostBtn = new JButton("Host");
+        hostBtn = new JButton("Host New Sudoku");
+        loadBtn = new JButton("Host Old Sudoku");
         joinBtn = new JButton("Join");
         backBtn = new JButton("Back");
         ip_address = new JTextField(MultiplayerModel.getIP());
 
         setTitle(titleLabel);
-        setButtons(new JButton[]{hostBtn});
+        setButtons(new JButton[]{hostBtn, loadBtn});
         setTextFields(new JTextField[]{ip_address});
         setButtons(new JButton[]{joinBtn, backBtn});
 
@@ -35,6 +37,7 @@ public class MultiplayerScreen extends MenuScreen{
 
     private void setActionListeners() {
         hostBtn.addActionListener(new hostAction());
+        loadBtn.addActionListener(new loadAction());
         joinBtn.addActionListener(new joinAction());
         backBtn.addActionListener(new backAction());
     }
@@ -42,8 +45,13 @@ public class MultiplayerScreen extends MenuScreen{
     class hostAction implements ActionListener  {
         public void actionPerformed(ActionEvent e) {
             changePanel();
-            //setMultiplayerInstance(true, "");
             new GenerateNewSudokuScreen(frame, Model.Mode.multiplayer);
+        }
+    }
+    class loadAction implements ActionListener  {
+        public void actionPerformed(ActionEvent e) {
+            changePanel();
+            new LoadGameScreen(frame, Model.Mode.play, true);
         }
     }
     class joinAction implements ActionListener  {
