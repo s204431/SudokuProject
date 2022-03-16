@@ -257,7 +257,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             }
         });
         panel.add(infoButton);
-        String a = JOptionPane.showInputDialog(frame, panel, "Save", JOptionPane.QUESTION_MESSAGE);
+        String a = (String)JOptionPane.showInputDialog(frame, panel, "Save", JOptionPane.QUESTION_MESSAGE, null, null, model.fileName);
         if (a != null) {
             if (infoButtonClicked) {
                 model.save(a, savedDifficulty);

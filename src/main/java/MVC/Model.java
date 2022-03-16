@@ -190,7 +190,7 @@ public class Model {
 		view.clickedPosition = new int[] {0, 0};
 		view.resetBoardPosition();
 		view.repaint();
-		fileName = fileName;
+		this.fileName = fileName;
 	}
 	
 	public static boolean canBePlaced(Field[][] board, int innerSquareSize, int x, int y, int value) {
