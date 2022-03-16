@@ -1,6 +1,7 @@
 package sudoku.Screens;
 
 import MVC.Model;
+import multiplayer.MultiplayerModel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -22,7 +23,7 @@ public class MultiplayerScreen extends MenuScreen{
         hostBtn = new JButton("Host");
         joinBtn = new JButton("Join");
         backBtn = new JButton("Back");
-        ip_address = new JTextField();
+        ip_address = new JTextField(MultiplayerModel.getIP());
 
         setTitle(titleLabel);
         setButtons(new JButton[]{hostBtn});

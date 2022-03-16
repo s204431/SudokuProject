@@ -6,7 +6,6 @@ import MVC.Model.Mode;
 import MVC.View;
 import multiplayer.MultiplayerModel;
 import multiplayer.MultiplayerView;
-
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
