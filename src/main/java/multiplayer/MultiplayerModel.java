@@ -34,7 +34,7 @@ public class MultiplayerModel extends Model implements Runnable {
 	}
 	
 	//Constructor for client (not host).
-	public MultiplayerModel(int numInnerSquares, int innerSquareSize, String address) {
+	public MultiplayerModel(int numInnerSquares, int innerSquareSize, String address) throws IOException {
 		super(numInnerSquares, innerSquareSize, Mode.play);
 		isServer = false;
 		connectToServer(address);
@@ -71,7 +71,7 @@ public class MultiplayerModel extends Model implements Runnable {
 				Object[] response = fromOpponent.get(new FormalField(String.class));
 				if (response[0].equals("full")) { //Server is full. Disconnect.
 					System.out.println("Server full!");
-					view.quitToMenu();
+					view.quitToMenu("Server is full");
 					return;
 				}
 				//Joined successfully.
@@ -106,13 +106,9 @@ public class MultiplayerModel extends Model implements Runnable {
 		repository.add("clienttohost", fromOpponent);
 	}
 	
-	private void connectToServer(String address) {
-		try {
-			toOpponent = new RemoteSpace("tcp://" + address + ":9001/clienttohost?keep");
-			fromOpponent = new RemoteSpace("tcp://" + address + ":9001/hosttoclient?keep");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	private void connectToServer(String address) throws IOException {
+		toOpponent = new RemoteSpace("tcp://" + address + ":9001/clienttohost?keep");
+		fromOpponent = new RemoteSpace("tcp://" + address + ":9001/hosttoclient?keep");
 	}
 	
 	public void disconnect() {
@@ -210,7 +206,7 @@ public class MultiplayerModel extends Model implements Runnable {
 				e.printStackTrace();
 			}
 			if (!close) {
-				view.quitToMenu();	
+				view.quitToMenu("Opponent disconnected");	
 			}
 		}
 	}

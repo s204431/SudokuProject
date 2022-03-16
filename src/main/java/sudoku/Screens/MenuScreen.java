@@ -6,12 +6,14 @@ import MVC.Model.Mode;
 import MVC.View;
 import multiplayer.MultiplayerModel;
 import multiplayer.MultiplayerView;
+import sudoku.Main;
 
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public abstract class MenuScreen extends JPanel {
     protected Font titleFont = new Font(Font.SERIF, Font.BOLD,50);
@@ -137,7 +139,13 @@ public abstract class MenuScreen extends JPanel {
             model = new MultiplayerModel(k, n);
         }
         else {
-            model = new MultiplayerModel(k, n, address);
+        	try {
+                model = new MultiplayerModel(k, n, address);
+        	}
+			catch (IOException e) {
+				Main.restart("Could not connect to server");
+				return null;
+			}
         }
         MultiplayerView view = new MultiplayerView(model);
         Controller controller = new Controller();

@@ -2,11 +2,13 @@ package sudoku.Screens;
 import MVC.Controller;
 import multiplayer.MultiplayerModel;
 import multiplayer.MultiplayerView;
+import sudoku.Main;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
-
+import java.io.IOException;
 
 public class MainScreen extends MenuScreen {
     private JLabel titleString;
@@ -23,6 +25,11 @@ public class MainScreen extends MenuScreen {
 
     public MainScreen (JFrame frame) {
         super(frame);
+    }
+    
+    public MainScreen (JFrame frame, String message) {
+        this(frame);
+        JOptionPane.showMessageDialog(frame, message);
     }
 
     public void addComponents() {
@@ -74,8 +81,14 @@ public class MainScreen extends MenuScreen {
         	model = new MultiplayerModel(k, n);
     	}
     	else {
-    		model = new MultiplayerModel(k, n, MultiplayerModel.getIP());
-    	}
+    		try {
+        		model = new MultiplayerModel(k, n, MultiplayerModel.getIP());
+    		}
+			catch (IOException e) {
+				Main.restart("Could not connect to server");
+				return;
+			}
+		}
         MultiplayerView view = new MultiplayerView(model);
         Controller controller = new Controller();
         model.setView(view);
