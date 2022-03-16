@@ -20,46 +20,22 @@ public class SudokuSolverScreen extends MenuScreen {
     }
 
     public void addComponents() {
-        addLabels();
-        addButtons();
-    }
-
-
-    private void addLabels() {
         // Title
         titleString = new JLabel("Sudoku Solver");
-        titleString.setFont(titleFont);
-        titleString.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(titleString);
+        setTitle(titleString);
+        //Buttons
+        generateBtn = new JButton("Generate New Sudoku");
+        loadBtn = new JButton("Load Existing Sudoku");
+        backBtn = new JButton("Back");
+        setButtons(new JButton[]{generateBtn, loadBtn, backBtn});
 
-        add(Box.createRigidArea(new Dimension(0, spacing*2)));
-        JPanel panel = new JPanel();
-        panel.setMaximumSize(new Dimension(400,50));
-        add(panel);
+        setActionListeners();
     }
 
-    private void addButtons() {
-        generateBtn = new JButton("Generate New Sudoku");
+    private void setActionListeners(){
         generateBtn.addActionListener(new generateNewAction());
-        generateBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        generateBtn.setMaximumSize(new Dimension(btnWidth, btnHeight));
-        add(generateBtn);
-
-        add(Box.createRigidArea(new Dimension(0, spacing)));
-
-        loadBtn = new JButton("Load Existing Sudoku");
         loadBtn.addActionListener(new loadGameAction());
-        loadBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        loadBtn.setMaximumSize(new Dimension(btnWidth, btnHeight));
-        add(loadBtn);
-
-        add(Box.createRigidArea(new Dimension(0, spacing)));
-
-        backBtn = new JButton("Back");
         backBtn.addActionListener(new backAction());
-        backBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        backBtn.setMaximumSize(new Dimension(btnWidth, btnHeight));
-        add(backBtn);
     }
 
     class generateNewAction implements ActionListener {

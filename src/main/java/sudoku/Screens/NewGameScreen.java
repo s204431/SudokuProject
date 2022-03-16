@@ -28,17 +28,13 @@ public class NewGameScreen extends MenuScreen {
         assistModeString = new JLabel("Assist mode: ");
         assistModeCheck = new JCheckBox();
         setPanel(new JPanel(), new JComponent[]{assistModeCheck, assistModeCheck});
-
-        addButtons();
-        setActionListeners();
-    }
-
-    private void addButtons() {
         //Buttons
         generateBtn = new JButton("Generate New Sudoku");
         loadBtn = new JButton("Load Existing Sudoku");
         backBtn = new JButton("Back");
         setButtons(new JButton[]{generateBtn, loadBtn, backBtn});
+
+        setActionListeners();
     }
 
     private void setActionListeners(){
