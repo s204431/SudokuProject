@@ -36,6 +36,7 @@ public class LoadGameScreen extends MenuScreen {
         loadGameBtn = new JButton("Load Game");
         backBtn = new JButton("Back");
         setButtons(new JButton[]{loadGameBtn, backBtn});
+
         setActionListeners();
     }
 
@@ -74,14 +75,7 @@ public class LoadGameScreen extends MenuScreen {
     }
 
     private Model startGame(int k, int n, Mode mode) {
-        Model model = new Model(k, n, mode);
-        View view = new View(model);
-        Controller controller = new Controller();
-        model.setView(view);
-        controller.setModel(model);
-        controller.setView(view);
-        view.setController(controller);
-        return model;
+        return getModel(k, n, mode);
     }
 
     class loadAction implements ActionListener {

@@ -14,7 +14,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GenerateNewSudokuScreen extends MenuScreen {
-    private Boolean isMultiplayer;
     private JLabel titleLabel;
     private JLabel boardSizeLabel;
     private JLabel difficultyLabel;
@@ -106,27 +105,28 @@ public class GenerateNewSudokuScreen extends MenuScreen {
     }
 
     private Model startGame(int k, int n, Mode mode) {
-        Model model = new Model(k, n, mode);
-        View view = new View(model);
-        Controller controller = new Controller();
-        model.setView(view);
-        controller.setModel(model);
-        controller.setView(view);
-        view.setController(controller);
-        return model;
+        return getModel(k, n, mode);
     }
 
     class startAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+            Model model;
             if (kSlider.getValue() > nSlider.getValue()) {
                 return;
             }
             frame.dispose();
-            Model model = startGame(kSlider.getValue(), nSlider.getValue(), mode);
+            if (mode == Mode.multiplayer) {
+                k = kSlider.getValue();
+                n = nSlider.getValue();
+                model = setMultiplayerInstance(true,"");
+            } else {
+                model = startGame(kSlider.getValue(), nSlider.getValue(), mode);
+                }
             String difficulty = (String)difficultyBox.getSelectedItem();
             int[] range = SudokuSolver.getDifficultyRange(difficulty);
             if (range != null) {
-            	model.generateSudoku(range[0], range[1], difficulty.equals("Easy") ? 0.50 : 0);
+                model.generateSudoku(range[0], range[1], difficulty.equals("Easy") ? 0.50 : 0);
+
             }
         }
     }
@@ -134,15 +134,27 @@ public class GenerateNewSudokuScreen extends MenuScreen {
     class backAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             changePanel();
-            if (isMultiplayer) {
-                isMultiplayer = false;
-                new MultiplayerScreen(frame);
-            }
-            else if (mode == Mode.play) {
+            /*switch(mode) {
+                case Mode.play:
+                    new NewGameScreen(frame);
+                    break;
+                case Mode.create:
+                    new CreateSudokuScreen(frame);
+                    break;
+                case Mode.multiplayer:
+                    new MultiplayerScreen(frame);
+                    break;
+                default:
+                    new SudokuSolverScreen(frame);
+            }*/
+            if (mode == Mode.play) {
                 new NewGameScreen(frame);
             }
             else if (mode == Mode.create) {
                 new CreateSudokuScreen(frame);
+            }
+            else if (mode == Mode.multiplayer) {
+                new MultiplayerScreen(frame);
             }
             else {
                 new SudokuSolverScreen(frame);

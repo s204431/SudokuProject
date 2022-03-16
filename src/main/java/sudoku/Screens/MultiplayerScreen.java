@@ -3,7 +3,6 @@ package sudoku.Screens;
 import MVC.Model;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,6 +12,7 @@ public class MultiplayerScreen extends MenuScreen{
     private JButton joinBtn;
     private JButton backBtn;
     private JTextField ip_address;
+
 
     public MultiplayerScreen(JFrame frame) {
         super(frame);
@@ -36,19 +36,20 @@ public class MultiplayerScreen extends MenuScreen{
         hostBtn.addActionListener(new hostAction());
         joinBtn.addActionListener(new joinAction());
         backBtn.addActionListener(new backAction());
-
     }
 
     class hostAction implements ActionListener  {
         public void actionPerformed(ActionEvent e) {
             changePanel();
-            setMultiplayer(true);
-            new GenerateNewSudokuScreen(frame, Model.Mode.play);
+            //setMultiplayerInstance(true, "");
+            new GenerateNewSudokuScreen(frame, Model.Mode.multiplayer);
         }
     }
     class joinAction implements ActionListener  {
         public void actionPerformed(ActionEvent e) {
-
+            String address = ip_address.getText();
+            frame.dispose();
+            setMultiplayerInstance(false, address);
         }
     }
     class backAction implements ActionListener  {

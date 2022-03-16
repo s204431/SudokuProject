@@ -26,7 +26,6 @@ public class MainScreen extends MenuScreen {
     }
 
     public void addComponents() {
-        isMultiplayer = false;
         //Title
         titleString = new JLabel("Main Menu");
         setTitle(titleString);
@@ -77,14 +76,14 @@ public class MainScreen extends MenuScreen {
     	else {
     		model = new MultiplayerModel(k, n, MultiplayerModel.getIP());
     	}
-    	MultiplayerView view = new MultiplayerView(model);
-    	Controller controller = new Controller();
+        MultiplayerView view = new MultiplayerView(model);
+        Controller controller = new Controller();
         model.setView(view);
         controller.setModel(model);
         controller.setView(view);
         view.setController(controller);
         //Creates thread to wait for opponent
-    	new Thread(model).start();
+        new Thread(model).start();
     }
 
     class playAction implements ActionListener {

@@ -19,7 +19,7 @@ public class Model {
 	public Field[][] board;
 	public int innerSquareSize; //Width/height an inner square (n).
 	public int numInnerSquares; //Number of inner squares in one side of the sudoku (k).
-	public enum Mode {play, create, solver};
+	public enum Mode {play, create, solver, multiplayer};
 	public Mode mode = Mode.play;
 
 	public Model(int numInnerSquares, int innerSquareSize, Mode mode) {

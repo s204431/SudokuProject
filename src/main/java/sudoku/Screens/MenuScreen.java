@@ -4,6 +4,8 @@ import MVC.Controller;
 import MVC.Model;
 import MVC.Model.Mode;
 import MVC.View;
+import multiplayer.MultiplayerModel;
+import multiplayer.MultiplayerView;
 
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
@@ -13,7 +15,6 @@ import java.awt.event.ActionListener;
 
 public abstract class MenuScreen extends JPanel {
     protected Font titleFont = new Font(Font.SERIF, Font.BOLD,50);
-    protected boolean isMultiplayer;
     protected int textSize = 50;
     protected int spacing = 30;
     protected int btnHeight = 50;
@@ -110,9 +111,6 @@ public abstract class MenuScreen extends JPanel {
         add(title);
         add(Box.createRigidArea(new Dimension(0, spacing)));
     }
-    protected void setMultiplayer(boolean isMultiplayer){
-        this.isMultiplayer = isMultiplayer;
-    }
 
     private void startGame() {
         Model model = new Model(k, n, Model.Mode.play);
@@ -132,6 +130,34 @@ public abstract class MenuScreen extends JPanel {
         public void actionPerformed (ActionEvent e){
             System.exit(0);
         }
+    }
+    protected Model setMultiplayerInstance(boolean isHost, String address){
+        MultiplayerModel model;
+        if (isHost) {
+            model = new MultiplayerModel(k, n);
+        }
+        else {
+            model = new MultiplayerModel(k, n, address);
+        }
+        MultiplayerView view = new MultiplayerView(model);
+        Controller controller = new Controller();
+        model.setView(view);
+        controller.setModel(model);
+        controller.setView(view);
+        view.setController(controller);
+        //Creates thread to wait for opponent
+        new Thread(model).start();
+        return model;
+    }
+    protected Model getModel(int k, int n, Mode mode) {
+        Model model = new Model(k, n, mode);
+        View view = new View(model);
+        Controller controller = new Controller();
+        model.setView(view);
+        controller.setModel(model);
+        controller.setView(view);
+        view.setController(controller);
+        return model;
     }
 
     protected void setUpMenuBar(JFrame frame){
