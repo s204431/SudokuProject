@@ -42,6 +42,12 @@ public class MultiplayerModel extends Model implements Runnable {
 	
 	public void start() {
 		new Thread(new DisconnectedReader()).start();
+		/*
+		new Thread(() -> {
+			System.out.println("Hello my man!");
+			//this shit is bussing!
+		}).start();*/
+
 		if (isServer) {
 			//Wait for other player to join.
 			try {

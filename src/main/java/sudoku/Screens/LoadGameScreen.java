@@ -28,8 +28,15 @@ public class LoadGameScreen extends MenuScreen {
 
     public void addComponents() {
         addLists();
-        addLabels();
-        addButtons();
+
+        // Title
+        titleString = new JLabel("Load Game");
+        setTitle(titleString);
+
+        loadGameBtn = new JButton("Load Game");
+        backBtn = new JButton("Back");
+        setButtons(new JButton[]{loadGameBtn, backBtn});
+        setActionListeners();
     }
 
     private void addLists() {
@@ -61,29 +68,9 @@ public class LoadGameScreen extends MenuScreen {
         add(Box.createRigidArea(new Dimension(0, spacing)));
     }
 
-    private void addLabels() {
-        // Title
-        titleString = new JLabel("Load Game");
-        titleString.setFont(titleFont);
-        //titleString.setAlignmentX(Component.CENTER_ALIGNMENT);
-        titleString.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(titleString);
-        add(Box.createRigidArea(new Dimension(0, spacing)));
-    }
-
-    private void addButtons() {
-        loadGameBtn = new JButton("Load Game");
+    private void setActionListeners(){
         loadGameBtn.addActionListener(new loadAction());
-        loadGameBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        loadGameBtn.setMaximumSize(new Dimension(btnWidth, btnHeight));
-        add(loadGameBtn);
-        add(Box.createRigidArea(new Dimension(0, spacing)));
-
-        backBtn = new JButton("Back");
         backBtn.addActionListener(new backAction());
-        backBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        backBtn.setMaximumSize(new Dimension(btnWidth, btnHeight));
-        add(backBtn);
     }
 
     private Model startGame(int k, int n, Mode mode) {

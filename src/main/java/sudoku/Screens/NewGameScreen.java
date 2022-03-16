@@ -20,53 +20,31 @@ public class NewGameScreen extends MenuScreen {
     }
 
     public void addComponents() {
-        addLabels();
-        addButtons();
-    }
-
-    private void addLabels() {
         // Title
         titleString = new JLabel("New Game");
-        titleString.setFont(titleFont);
-        titleString.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(titleString);
+        setTitle(titleString);
 
-        add(Box.createRigidArea(new Dimension(0, spacing*2)));
-        JPanel panel = new JPanel();
-        panel.setMaximumSize(new Dimension(400,50));
+        //Panel
         assistModeString = new JLabel("Assist mode: ");
-        assistModeString.setFont(new Font(Font.SERIF, Font.BOLD, 20));
-        assistModeString.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panel.add(assistModeString);
-
         assistModeCheck = new JCheckBox();
-        assistModeCheck.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panel.add(assistModeCheck);
-        add(panel);
+        setPanel(new JPanel(), new JComponent[]{assistModeCheck, assistModeCheck});
+
+        addButtons();
+        setActionListeners();
     }
 
     private void addButtons() {
+        //Buttons
         generateBtn = new JButton("Generate New Sudoku");
-        generateBtn.addActionListener(new generateNewAction());
-        generateBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        generateBtn.setMaximumSize(new Dimension(btnWidth, btnHeight));
-        add(generateBtn);
-
-        add(Box.createRigidArea(new Dimension(0, spacing)));
-
         loadBtn = new JButton("Load Existing Sudoku");
-        loadBtn.addActionListener(new loadGameAction());
-        loadBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        loadBtn.setMaximumSize(new Dimension(btnWidth, btnHeight));
-        add(loadBtn);
-
-        add(Box.createRigidArea(new Dimension(0, spacing)));
-
         backBtn = new JButton("Back");
+        setButtons(new JButton[]{generateBtn, loadBtn, backBtn});
+    }
+
+    private void setActionListeners(){
+        generateBtn.addActionListener(new generateNewAction());
+        loadBtn.addActionListener(new loadGameAction());
         backBtn.addActionListener(new backAction());
-        backBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        backBtn.setMaximumSize(new Dimension(btnWidth, btnHeight));
-        add(backBtn);
     }
 
     class generateNewAction implements ActionListener {
