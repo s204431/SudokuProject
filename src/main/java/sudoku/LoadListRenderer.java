@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 
 import MVC.Model;
+import solvers.SudokuSolver;
 
 public class LoadListRenderer extends JPanel implements ListCellRenderer<LoadListElement> {
  
@@ -49,7 +50,12 @@ public class LoadListRenderer extends JPanel implements ListCellRenderer<LoadLis
     public Component getListCellRendererComponent(JList<? extends LoadListElement> list, LoadListElement element, int index, boolean isSelected, boolean cellHasFocus) {
  
     	nameLabel.setText(element.name);
-    	difficultyLabel.setText("Difficulty: "+element.difficulty);
+    	if (element.difficulty >= 0) {
+        	difficultyLabel.setText("Difficulty: "+SudokuSolver.getDifficultyString(element.difficulty));
+    	}
+    	else {
+        	difficultyLabel.setText("Difficulty: -");
+    	}
     	sizeLabel.setText("Size: "+element.size+"x"+element.size);
     	previewPanel.setElement(element);
     	
