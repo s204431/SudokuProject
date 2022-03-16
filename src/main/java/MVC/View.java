@@ -29,6 +29,8 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 	protected JButton loadButton;
 	protected JButton exitButton;
     private JButton hintButton;
+    private JButton solveButton;
+    private JButton stepSolveButton;
 	public JTextField textField;
 	protected JLabel timerLabel;
 	protected boolean inFocus = true;
@@ -210,10 +212,25 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             buttonPanel.add(saveButton);
 
         } else if (mode == Mode.solver) {
-            /*
-            solveButton;
-            oneStepSolveButton;
-             */
+            solveButton = new JButton("Solve");
+            solveButton.setBounds(50, 200, 100, 25);
+            solveButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    model.solve();
+                }
+            });
+            stepSolveButton = new JButton("Solve step");
+            stepSolveButton.setBounds(50, 250, 100, 25);
+            stepSolveButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    model.giveHint();
+                    // TODO: model.solveStep();
+                }
+            });
+            buttonPanel.add(solveButton);
+            buttonPanel.add(stepSolveButton);
         }
 
         if (model.assistMode) {
