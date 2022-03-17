@@ -28,14 +28,14 @@ public class MultiplayerModel extends Model implements Runnable {
 	
 	//Constructor for host of the game.
 	public MultiplayerModel(int numInnerSquares, int innerSquareSize) {
-		super(numInnerSquares, innerSquareSize, Mode.play);
+		super(numInnerSquares, innerSquareSize, Mode.multiplayer);
 		isServer = true;
 		startServer();
 	}
 	
 	//Constructor for client (not host).
 	public MultiplayerModel(int numInnerSquares, int innerSquareSize, String address) throws IOException {
-		super(numInnerSquares, innerSquareSize, Mode.play);
+		super(numInnerSquares, innerSquareSize, Mode.multiplayer);
 		isServer = false;
 		connectToServer(address);
 	}

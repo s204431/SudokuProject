@@ -120,7 +120,7 @@ public class MultiplayerView extends View {
 			super.paint(g);
 
 			//setVisible(true);
-			Object[] 	tuple = null;
+			Object[] tuple = null;
 			try {
 				((MultiplayerModel) model).fromOpponent.get(new ActualField("lock"), new ActualField("dragging"));
 				tuple = ((MultiplayerModel) model).fromOpponent.query(new ActualField("boardposition"), new FormalField(Integer.class), new FormalField(Integer.class), new FormalField(Integer.class), new FormalField(Integer.class));
@@ -150,7 +150,12 @@ public class MultiplayerView extends View {
 					g2.setFont(new Font("TimesRoman", Font.BOLD, 30 * opponentFieldWidth / Field.DEFAULT_WIDTH));
 					int value = ((MultiplayerModel) model).opponentBoard[i][j].value;
 					if (value > 0 && value <= model.innerSquareSize * model.innerSquareSize) {
-						g2.drawString("?", opponentBoardX + j * opponentFieldWidth + opponentFieldWidth / 2, opponentBoardY + i * opponentFieldHeight + opponentFieldHeight/2);
+						if (model.board[i][j].interactable) {
+							g2.drawString("?", opponentBoardX + j * opponentFieldWidth + opponentFieldWidth / 2, opponentBoardY + i * opponentFieldHeight + opponentFieldHeight/2);
+						}
+						else {
+							g2.drawString(value+"", opponentBoardX + j * opponentFieldWidth + opponentFieldWidth / 2, opponentBoardY + i * opponentFieldHeight + opponentFieldHeight/2);
+						}
 					}
 				}
 			}

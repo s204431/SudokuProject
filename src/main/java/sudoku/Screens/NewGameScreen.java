@@ -24,10 +24,11 @@ public class NewGameScreen extends MenuScreen {
         titleString = new JLabel("New Game");
         setTitle(titleString);
 
-        //Panel
+        //Panels
         assistModeString = new JLabel("Assist mode: ");
         assistModeCheck = new JCheckBox();
-        setPanel(new JPanel(), new JComponent[]{assistModeCheck, assistModeCheck});
+        setPanel(new JPanel(), new JComponent[]{assistModeString, assistModeCheck});
+
         //Buttons
         generateBtn = new JButton("Generate New Sudoku");
         loadBtn = new JButton("Load Existing Sudoku");
@@ -46,7 +47,7 @@ public class NewGameScreen extends MenuScreen {
     class generateNewAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             changePanel();
-            new GenerateNewSudokuScreen(frame, Mode.play);
+            new GenerateNewSudokuScreen(frame, Mode.play, assistModeCheck.isSelected());
         }
     }
 

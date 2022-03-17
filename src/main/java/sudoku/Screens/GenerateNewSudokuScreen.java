@@ -27,10 +27,16 @@ public class GenerateNewSudokuScreen extends MenuScreen {
     private JPanel sliderPanel;
     private ChangeListener nListener;
     private ChangeListener kListener;
+    private boolean assistMode;
 
 
     public GenerateNewSudokuScreen(JFrame frame, Mode mode) {
         super(frame, mode);
+    }
+
+    public GenerateNewSudokuScreen(JFrame frame, Mode mode, boolean assistMode) {
+        this(frame, mode);
+        this.assistMode = assistMode;
     }
 
     public void addComponents(){
@@ -105,7 +111,7 @@ public class GenerateNewSudokuScreen extends MenuScreen {
     }
 
     private Model startGame(int k, int n, Mode mode) {
-        return getModel(k, n, mode);
+        return getModel(k, n, mode, assistMode);
     }
 
     class startAction implements ActionListener {
@@ -121,7 +127,7 @@ public class GenerateNewSudokuScreen extends MenuScreen {
                 model = setMultiplayerInstance(true,"");
             } else {
                 model = startGame(kSlider.getValue(), nSlider.getValue(), mode);
-                }
+            }
             String difficulty = (String)difficultyBox.getSelectedItem();
             int[] range = SudokuSolver.getDifficultyRange(difficulty);
             if (range != null) {

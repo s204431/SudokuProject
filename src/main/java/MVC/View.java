@@ -28,6 +28,9 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 	protected JButton saveButton;
 	protected JButton loadButton;
 	protected JButton exitButton;
+    private JButton hintButton;
+    private JButton solveButton;
+    private JButton stepSolveButton;
 	public JTextField textField;
 	protected JLabel timerLabel;
 	protected boolean inFocus = true;
@@ -173,50 +176,78 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         buttonPanel.add(exitButton);
 
         if (mode == Mode.play) {
-            textField = new JTextField();
-            textField.setBounds(50, 550, 100, 25);
-            textField.addMouseListener(new MouseListener() {
-        		public void mousePressed(MouseEvent e) {}
-        		public void mouseReleased(MouseEvent e) {}
-        		public void mouseEntered(MouseEvent e) {}
-        		public void mouseExited(MouseEvent e) {}
-        		public void mouseClicked(MouseEvent e) {
-        			inFocus = false;
-        		}});
-            loadButton = new JButton("Load");
-            loadButton.setBounds(50, 580, 100, 25);
-            loadButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    model.loadAndUpdate(textField.getText());
-                }
-            });
+            if (Main.DEBUG_MODE) {
+                textField = new JTextField();
+                textField.setBounds(50, 550, 100, 25);
+                textField.addMouseListener(new MouseListener() {
+            		public void mousePressed(MouseEvent e) {}
+            		public void mouseReleased(MouseEvent e) {}
+            		public void mouseEntered(MouseEvent e) {}
+            		public void mouseExited(MouseEvent e) {}
+            		public void mouseClicked(MouseEvent e) {
+            			inFocus = false;
+            		}});
+            	loadButton = new JButton("Load");
+                loadButton.setBounds(50, 580, 100, 25);
+                loadButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        model.loadAndUpdate(textField.getText());
+                    }
+                });
+            }
             timerLabel = new JLabel("0");
             timerLabel.setFont(new Font("Serif", Font.BOLD, 20));
             timerLabel.setBounds(70, 0, 200, 150);
             buttonPanel.add(timerLabel);
-            buttonPanel.add(textField);
-            buttonPanel.add(loadButton);
+            if (Main.DEBUG_MODE) {
+                buttonPanel.add(textField);
+                buttonPanel.add(loadButton);
+            }
         } else if (mode == Mode.create) {
             saveButton = new JButton("Save");
             saveButton.setBounds(50, 250, 100, 25);
             saveButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    //  TODO: Open save window
                     showSavePopup();
                 }
             });
             buttonPanel.add(saveButton);
 
         } else if (mode == Mode.solver) {
-            /*
-            solveButton;
-            oneStepSolveButton;
-             */
+            solveButton = new JButton("Solve");
+            solveButton.setBounds(50, 200, 100, 25);
+            solveButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    model.solve();
+                }
+            });
+            stepSolveButton = new JButton("Solve step");
+            stepSolveButton.setBounds(50, 250, 100, 25);
+            stepSolveButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    model.giveHint();
+                    // TODO: model.solveStep();
+                }
+            });
+            buttonPanel.add(solveButton);
+            buttonPanel.add(stepSolveButton);
         }
 
-        // TODO: Hint button when assist-mode is on
+        if (model.assistMode) {
+            hintButton = new JButton("Hint");
+            hintButton.setBounds(50, 200, 100, 25);
+            hintButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    model.giveHint();
+                }
+            });
+            buttonPanel.add(hintButton);
+        }
     }
 
     public void showSavePopup() {
