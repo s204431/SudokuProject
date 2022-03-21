@@ -30,43 +30,74 @@ import MVC.*;
 public class UITester extends ComponentTestFixture {
 
 	public void testMainMenu() {
-		Main.restart();
-		checkPanelActive(MainScreen.class);
-		//Test new game button.
-		performButtonClickSequence(new String[] {"New Game", "Back", "New Game", "Generate New Sudoku", "Back", "Load Existing Sudoku", "Back", "Back"},
-								   new Class<?>[] {NewGameScreen.class, MainScreen.class, NewGameScreen.class, GenerateNewSudokuScreen.class, NewGameScreen.class, LoadGameScreen.class, NewGameScreen.class, MainScreen.class});
-		//Test multiplayer button.
-		//performButtonClickSequence(new String[] {"Multiplayer", "Back", "Multiplayer", "Host New Sudoku", "Back", "Host Old Sudoku", "Back", "Back"},
-		//						   new Class<?>[] {MultiplayerScreen.class, MainScreen.class, MultiplayerScreen.class, GenerateNewSudokuScreen.class, MultiplayerScreen.class, LoadGameScreen.class, MultiplayerScreen.class, MainScreen.class});
-		//Test create sudoku button.
-		performButtonClickSequence(new String[] {"Create Sudoku", "Back", "Create Sudoku", "Generate New Sudoku", "Back", "Load Existing Sudoku", "Back", "Back"},
-								   new Class<?>[] {CreateSudokuScreen.class, MainScreen.class, CreateSudokuScreen.class, GenerateNewSudokuScreen.class, CreateSudokuScreen.class, LoadGameScreen.class, CreateSudokuScreen.class, MainScreen.class});
-		//Test sudoku solver button.
-		performButtonClickSequence(new String[] {"Sudoku Solver", "Back", "Sudoku Solver", "Generate New Sudoku", "Back", "Load Existing Sudoku", "Back", "Back"},
-								   new Class<?>[] {SudokuSolverScreen.class, MainScreen.class, SudokuSolverScreen.class, GenerateNewSudokuScreen.class, SudokuSolverScreen.class, LoadGameScreen.class, SudokuSolverScreen.class, MainScreen.class});
+		try {
+			Main.restart();
+			checkPanelActive(MainScreen.class);
+			//Test new game button.
+			performButtonClickSequence(new String[] {"New Game", "Back", "New Game", "Generate New Sudoku", "Back", "Load Existing Sudoku", "Back", "Back"},
+									   new Class<?>[] {NewGameScreen.class, MainScreen.class, NewGameScreen.class, GenerateNewSudokuScreen.class, NewGameScreen.class, LoadGameScreen.class, NewGameScreen.class, MainScreen.class});
+			//Test multiplayer button.
+			//performButtonClickSequence(new String[] {"Multiplayer", "Back", "Multiplayer", "Host New Sudoku", "Back", "Host Old Sudoku", "Back", "Back"},
+			//						   new Class<?>[] {MultiplayerScreen.class, MainScreen.class, MultiplayerScreen.class, GenerateNewSudokuScreen.class, MultiplayerScreen.class, LoadGameScreen.class, MultiplayerScreen.class, MainScreen.class});
+			//Test create sudoku button.
+			performButtonClickSequence(new String[] {"Create Sudoku", "Back", "Create Sudoku", "Generate New Sudoku", "Back", "Load Existing Sudoku", "Back", "Back"},
+									   new Class<?>[] {CreateSudokuScreen.class, MainScreen.class, CreateSudokuScreen.class, GenerateNewSudokuScreen.class, CreateSudokuScreen.class, LoadGameScreen.class, CreateSudokuScreen.class, MainScreen.class});
+			//Test sudoku solver button.
+			performButtonClickSequence(new String[] {"Sudoku Solver", "Back", "Sudoku Solver", "Generate New Sudoku", "Back", "Load Existing Sudoku", "Back", "Back"},
+									   new Class<?>[] {SudokuSolverScreen.class, MainScreen.class, SudokuSolverScreen.class, GenerateNewSudokuScreen.class, SudokuSolverScreen.class, LoadGameScreen.class, SudokuSolverScreen.class, MainScreen.class});	
+		} catch (AssertionError e) {
+			sleep(2000);
+			throw e;
+		}
 	}
 	
 	public void testPlayMode() {
-		Main.restart();
-		for (String difficulty : SudokuSolver.getDifficultyStrings()) {
-			checkDifficulty(difficulty, "New Game", false, "Easy", "Medium", "Hard", "Extreme");
-			clickButton("Exit");
-			checkPanelActive(MainScreen.class);
+		try {
+			Main.restart();
+			for (String difficulty : SudokuSolver.getDifficultyStrings()) {
+				checkDifficulty(difficulty, "New Game", false, "Easy", "Medium", "Hard", "Extreme");
+				clickButton("Exit");
+				sleep(200);
+				checkPanelActive(MainScreen.class);
+			}
+		} catch (AssertionError e) {
+			sleep(2000);
+			throw e;
 		}
 	}
 	
 	public void testCreateMode() {
-		Main.restart();
-		checkDifficulty("Easy", "Create Sudoku", true, "Empty", "Easy", "Medium", "Hard", "Extreme");
-		clickButton("Exit");
-		checkPanelActive(MainScreen.class);
+		try {
+			Main.restart();
+			checkDifficulty("Easy", "Create Sudoku", true, "Empty", "Easy", "Medium", "Hard", "Extreme");
+			clickButton("Exit");
+			sleep(200);
+			checkPanelActive(MainScreen.class);
+		} catch (AssertionError e) {
+			sleep(2000);
+			throw e;
+		}
 	}
 	
 	public void testSolverMode() {
-		Main.restart();
-		checkDifficulty("Easy", "Sudoku Solver", true, "Easy", "Medium", "Hard", "Extreme");
-		clickButton("Exit");
-		checkPanelActive(MainScreen.class);
+		try {
+			Main.restart();
+			checkDifficulty("Easy", "Sudoku Solver", true, "Easy", "Medium", "Hard", "Extreme");
+			clickButton("Exit");
+			sleep(200);
+			checkPanelActive(MainScreen.class);
+		} catch (AssertionError e) {
+			sleep(2000);
+			throw e;
+		}
+	}
+	
+	private void sleep(long millis) {
+		try {
+			Thread.sleep(millis);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void checkDifficulty(String difficulty, String initialButtonName, boolean allowRemovingInitialValues, String... expectedChoices) {
