@@ -121,14 +121,23 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                 g2.fillRect(boardX + j * fieldWidth, boardY + i * fieldHeight, fieldWidth, fieldHeight);
                 g2.setColor(black);
                 g2.drawRect(boardX + j * fieldWidth, boardY + i * fieldHeight, fieldWidth, fieldHeight);
-                g2.setFont(new Font("TimesRoman", Font.BOLD, 30*fieldWidth/Field.DEFAULT_WIDTH));
+
+                // Calculate font size
                 int value = model.board[i][j].value;
+                int valueDigits = String.valueOf(value).length();
+                int scaling = (valueDigits + 1) * 3;
+                g2.setFont(new Font("Courier", Font.BOLD, (40 - scaling) * fieldWidth / Field.DEFAULT_WIDTH));
+
+                // Calculate text placement
+                String text = "" + value;
+                int fontHeight = g2.getFontMetrics().getHeight();
+                int fontWidth = g2.getFontMetrics().stringWidth(text);
                 if (value > 0 && value <= model.innerSquareSize*model.innerSquareSize) {
                     if(!Model.canBePlaced(model.board, model.innerSquareSize, i, j, value)) {
                         g2.setColor(red);
-                        g2.drawString("" + value, boardX + j * fieldWidth + fieldWidth/2, boardY + i * fieldHeight + fieldHeight/2);
+                        g2.drawString(text, boardX + j * fieldWidth + fieldWidth/2 - fontWidth/2, boardY + i * fieldHeight + fieldHeight/2 + fontHeight/3);
                     } else {
-                        g2.drawString("" + value, boardX + j * fieldWidth + fieldWidth/2, boardY + i * fieldHeight + fieldHeight/2);
+                        g2.drawString(text, boardX + j * fieldWidth + fieldWidth/2 - fontWidth/2, boardY + i * fieldHeight + fieldHeight/2 + fontHeight/3);
                     }
                 }
 
