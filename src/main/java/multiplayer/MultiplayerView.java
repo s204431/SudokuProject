@@ -155,11 +155,13 @@ public class MultiplayerView extends View {
 					int fontHeight = g2.getFontMetrics().getHeight();
 					int fontWidth = g2.getFontMetrics().stringWidth(text);
 					if (value > 0 && value <= model.innerSquareSize * model.innerSquareSize) {
+						int x = opponentBoardX + j * opponentFieldWidth + opponentFieldWidth / 2 - fontWidth / 2;
+						int y = opponentBoardY + i * opponentFieldHeight + opponentFieldHeight/2 + fontHeight/3;
 						if (model.board[i][j].interactable) {
-							g2.drawString("?", opponentBoardX + j * opponentFieldWidth + opponentFieldWidth/2 - fontWidth/2, opponentBoardY + i * opponentFieldHeight + opponentFieldHeight/2 + fontHeight/3);
+							g2.drawString("?", x, y);
 						}
 						else {
-							g2.drawString(value+"", opponentBoardX + j * opponentFieldWidth + opponentFieldWidth/2 - fontWidth/2, opponentBoardY + i * opponentFieldHeight + opponentFieldHeight/2 + fontHeight/3);
+							g2.drawString(value+"", x, y);
 						}
 					}
 				}

@@ -33,7 +33,7 @@ public class SudokuGenerator {
 		if (!solver.hasUniqueSolution() || solver.difficulty > maxDifficulty) {
 			return null;
 		}
-		if (solver.difficulty >= minDifficulty && solver.difficulty <= maxDifficulty && currentMissingFields >= minMissingFields) {
+		if (solver.difficulty >= minDifficulty && currentMissingFields >= minMissingFields) {
 			return board; //Sudoku found.
 		}
 		List<Integer[]> coordinates = new ArrayList();

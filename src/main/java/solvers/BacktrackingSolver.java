@@ -37,44 +37,37 @@ public class BacktrackingSolver extends SudokuSolver {
 			return;
 		}
 		if (board[x][y] > 0) {
-			if (x == board.length-1 && y == board.length-1) {
-				if (sudokuSolved()) {
-					solutions.add(copyOf(board));
-					solutionsFound++;
-				}
-			}
-			else if (y == board.length-1) {
-				solveRecursive(x+1, 0, maxSolutions);
-			}
-			else {
-				solveRecursive(x, y+1, maxSolutions);
-			}
+			iterate(x, y, maxSolutions);
 			return;
 		}
 		List<Integer> order = generateOrder();
-		for (int i = 0; i < order.size(); i++) {
+		for (Integer integer : order) {
 			if (solutionsFound >= maxSolutions) {
 				return;
 			}
-			if (canBePlaced(x, y, order.get(i))) {
-				board[x][y] = order.get(i);
-				if (x == board.length-1 && y == board.length-1) {
-					if (sudokuSolved()) {
-						solutions.add(copyOf(board));
-						solutionsFound++;
-					}
-				}
-				else if (y == board.length-1) {
-					solveRecursive(x+1, 0, maxSolutions);
-				}
-				else {
-					solveRecursive(x, y+1, maxSolutions);
-				}
+			if (canBePlaced(x, y, integer)) {
+				board[x][y] = integer;
+				iterate(x, y, maxSolutions);
 			}
 		}
 		board[x][y] = 0;
 	}
-	
+
+	private void iterate(int x, int y, int maxSolutions) {
+		if (x == board.length-1 && y == board.length-1) {
+			if (sudokuSolved()) {
+				solutions.add(copyOf(board));
+				solutionsFound++;
+			}
+		}
+		else if (y == board.length-1) {
+			solveRecursive(x+1, 0, maxSolutions);
+		}
+		else {
+			solveRecursive(x, y+1, maxSolutions);
+		}
+	}
+
 	protected List<Integer> generateOrder() {
 		List<Integer> order = new ArrayList<>();
 		for (int i = 1; i <= getMaxValue(); i++) {

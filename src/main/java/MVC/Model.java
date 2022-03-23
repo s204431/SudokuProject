@@ -263,8 +263,7 @@ public class Model {
 	
     public static int elapsedTime() {
         long now = System.currentTimeMillis();
-        int Time = (int) ((now - start) / 1000.0);
-        return Time;
+		return (int) ((now - start) / 1000.0);
     }
     
     public int getMaxNumber() {
