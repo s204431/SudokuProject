@@ -147,6 +147,10 @@ public abstract class MenuScreen extends JPanel {
 				return null;
 			}
         }
+        startThread(model);
+        return model;
+    }
+    protected void startThread(MultiplayerModel model){
         MultiplayerView view = new MultiplayerView(model);
         Controller controller = new Controller();
         model.setView(view);
@@ -155,7 +159,6 @@ public abstract class MenuScreen extends JPanel {
         view.setController(controller);
         //Creates thread to wait for opponent
         new Thread(model).start();
-        return model;
     }
 
     protected Model getModel(int k, int n, Mode mode) {

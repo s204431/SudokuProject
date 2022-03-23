@@ -1,7 +1,5 @@
 package sudoku.Screens;
-import MVC.Controller;
 import multiplayer.MultiplayerModel;
-import multiplayer.MultiplayerView;
 import sudoku.Main;
 
 import javax.swing.*;
@@ -73,13 +71,6 @@ public class MainScreen extends MenuScreen {
     }
 
     private void startGame() {
-    	/*Model model = new Model(k, n, Mode.play);
-        View view = new View(model);
-        Controller controller = new Controller();
-        model.setView(view);
-        controller.setModel(model);
-        controller.setView(view);
-        view.setController(controller);*/
     	MultiplayerModel model;
     	if (k == 3) {
         	model = new MultiplayerModel(k, n);
@@ -93,14 +84,7 @@ public class MainScreen extends MenuScreen {
 				return;
 			}
 		}
-        MultiplayerView view = new MultiplayerView(model);
-        Controller controller = new Controller();
-        model.setView(view);
-        controller.setModel(model);
-        controller.setView(view);
-        view.setController(controller);
-        //Creates thread to wait for opponent
-        new Thread(model).start();
+        startThread(model);
     }
 
     class playAction implements ActionListener {
