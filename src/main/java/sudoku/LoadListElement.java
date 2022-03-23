@@ -1,5 +1,8 @@
 package sudoku;
-
+/*
+* This class
+*
+* */
 public class LoadListElement {
 	public String name;
 	public int difficulty;

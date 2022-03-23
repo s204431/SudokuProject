@@ -6,12 +6,15 @@ import Generators.SudokuGenerator;
 import MVC.Model;
 import solvers.EfficientSolver;
 import solvers.SudokuSolver;
-
+/*
+This class tests different generated sudokus
+and how much time it takes to be generated.
+ */
 public class GeneratorTester {
-	
 	public void test(Model model) {
 		long start = new Date().getTime();
 		System.out.println("Testing generator...");
+		//These are the different sudokus that are generated, and will determine the time complexity.
 		GeneratorTestCase[] testCases = new GeneratorTestCase[] {new GeneratorTestCase(50, "Easy", 3, 3),
 																 new GeneratorTestCase(5, "Medium", 3, 3),
 																 new GeneratorTestCase(5, "Hard", 3, 3),
