@@ -224,7 +224,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                     model.solve();
                 }
             });
-            stepSolveButton = new JButton("Solve step");
+            stepSolveButton = new JButton("Step-solve");
             stepSolveButton.setBounds(50, 250, 100, 25);
             stepSolveButton.addActionListener(new ActionListener() {
                 @Override
