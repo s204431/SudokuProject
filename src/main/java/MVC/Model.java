@@ -55,7 +55,8 @@ public class Model {
 	public void setField(int x, int y, Field field) {
 		board[x][y] = field;
 		if (sudokuSolved(board, innerSquareSize)) {
-			System.out.println("Solved!");
+			System.out.println("Solved! 1 ");
+			MVC.View.winPopup();
 		}
 		view.repaint();
 	}
@@ -63,7 +64,8 @@ public class Model {
 	public void setField(int x, int y, int value) {
 		board[x][y].value = value;
 		if (sudokuSolved(board, innerSquareSize)) {
-			System.out.println("Solved!");
+			System.out.println("Solved! 2");
+			MVC.View.winPopup();
 		}
 		view.repaint();
 	}

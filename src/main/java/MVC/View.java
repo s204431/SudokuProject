@@ -429,4 +429,16 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 			}
 		}
 	}
+	
+	public static void winPopup() {
+		final JFrame winPop = new JFrame();
+
+		int hour = Model.elapsedTime() / 3600;
+		int minute = Model.elapsedTime() / 60 % 60;
+		int second = Model.elapsedTime() % 60;
+		JOptionPane.showMessageDialog(winPop, "Sudoku solved! your time was: " + hour + ":" + minute + ":" + second);
+		//return to menu, save time
+		
+	}
+	
 }
