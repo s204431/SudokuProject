@@ -146,14 +146,20 @@ public class MultiplayerView extends View {
 					g2.fillRect(opponentBoardX + j * opponentFieldWidth, opponentBoardY + i * opponentFieldHeight, opponentFieldWidth, opponentFieldHeight);
 					g2.setColor(black);
 					g2.drawRect(opponentBoardX + j * opponentFieldWidth, opponentBoardY + i * opponentFieldHeight, opponentFieldWidth, opponentFieldHeight);
-					g2.setFont(new Font("TimesRoman", Font.BOLD, 30 * opponentFieldWidth / Field.DEFAULT_WIDTH));
+
 					int value = ((MultiplayerModel) model).opponentBoard[i][j].value;
+					int valueDigits = String.valueOf(value).length();
+					int scaling = (valueDigits + 1) * 3;
+					g2.setFont(new Font("Courier", Font.BOLD, (40 - scaling) * fieldWidth / Field.DEFAULT_WIDTH));
+					String text = "" + value;
+					int fontHeight = g2.getFontMetrics().getHeight();
+					int fontWidth = g2.getFontMetrics().stringWidth(text);
 					if (value > 0 && value <= model.innerSquareSize * model.innerSquareSize) {
 						if (model.board[i][j].interactable) {
-							g2.drawString("?", opponentBoardX + j * opponentFieldWidth + opponentFieldWidth / 2, opponentBoardY + i * opponentFieldHeight + opponentFieldHeight/2);
+							g2.drawString("?", opponentBoardX + j * opponentFieldWidth + opponentFieldWidth/2 - fontWidth/2, opponentBoardY + i * opponentFieldHeight + opponentFieldHeight/2 + fontHeight/3);
 						}
 						else {
-							g2.drawString(value+"", opponentBoardX + j * opponentFieldWidth + opponentFieldWidth / 2, opponentBoardY + i * opponentFieldHeight + opponentFieldHeight/2);
+							g2.drawString(value+"", opponentBoardX + j * opponentFieldWidth + opponentFieldWidth/2 - fontWidth/2, opponentBoardY + i * opponentFieldHeight + opponentFieldHeight/2 + fontHeight/3);
 						}
 					}
 				}

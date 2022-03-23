@@ -138,11 +138,12 @@ public class UITester extends ComponentTestFixture {
 			}
 			sleep(3500);
 			clickButton("Exit");
+			sleep(500);
 			checkPanelActive(MainScreen.class);
 		}
 		else {
 			checkPanelActive(MultiplayerView.class);
-			sleep(500);
+			sleep(2000);
 			checkPanelActive(MainScreen.class);
 		}
 	}
