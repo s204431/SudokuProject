@@ -27,6 +27,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 	protected JPanel buttonPanel;
 	protected JButton saveButton;
 	protected JButton loadButton;
+    protected JButton notesButton;
 	protected JButton exitButton;
     private JButton hintButton;
     private JButton solveButton;
@@ -34,6 +35,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 	public JTextField textField;
 	protected JLabel timerLabel;
 	protected boolean inFocus = true;
+    protected boolean notesOn = false;
     private boolean infoButtonClicked = false;
     private int savedDifficulty;
 
@@ -122,25 +124,31 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                 g2.setColor(black);
                 g2.drawRect(boardX + j * fieldWidth, boardY + i * fieldHeight, fieldWidth, fieldHeight);
 
-                // Calculate font size
                 int value = model.board[i][j].value;
-                int valueDigits = String.valueOf(value).length();
-                int scaling = (valueDigits + 1) * 3;
-                g2.setFont(new Font("Courier", Font.BOLD, (40 - scaling) * fieldWidth / Field.DEFAULT_WIDTH));
-
-                // Calculate text placement
-                String text = "" + value;
-                int fontHeight = g2.getFontMetrics().getHeight();
-                int fontWidth = g2.getFontMetrics().stringWidth(text);
                 if (value > 0 && value <= model.innerSquareSize*model.innerSquareSize) {
+                    int valueDigits = String.valueOf(value).length();
+                    int scaling = (valueDigits + 1) * 3;
+                    g2.setFont(new Font("Courier", Font.BOLD, (40 - scaling) * fieldWidth / Field.DEFAULT_WIDTH));
+
+                    String text = "" + value;
+                    int fontHeight = g2.getFontMetrics().getHeight();
+                    int fontWidth = g2.getFontMetrics().stringWidth(text);
                     if(!Model.canBePlaced(model.board, model.innerSquareSize, i, j, value)) {
                         g2.setColor(red);
                         g2.drawString(text, boardX + j * fieldWidth + fieldWidth/2 - fontWidth/2, boardY + i * fieldHeight + fieldHeight/2 + fontHeight/3);
                     } else {
                         g2.drawString(text, boardX + j * fieldWidth + fieldWidth/2 - fontWidth/2, boardY + i * fieldHeight + fieldHeight/2 + fontHeight/3);
                     }
+                } else if (value == 0) {
+                    g2.setFont(new Font("Courier", Font.BOLD, 15 * fieldWidth / Field.DEFAULT_WIDTH));
+                    for (int k = 0; k < 9; k++) {
+                        int note = model.board[i][j].notes[k];
+                        String text = note == 0 ? "" : "" + note;
+                        int fontHeight = g2.getFontMetrics().getHeight();
+                        int fontWidth = g2.getFontMetrics().stringWidth(text);
+                        g2.drawString(text, boardX + j * fieldWidth + fieldWidth/3 * ((note-1) % 3) + fontWidth, boardY + i * fieldHeight - fontHeight/3 + fieldHeight/3 * ((note-1)/3 + 1));
+                    }
                 }
-
             }
         }
 
@@ -174,6 +182,21 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     
 
     public void addComponentsToButtonPanel(Mode mode) {
+        notesButton = new JButton("Notes off");
+        notesButton.setBounds(50, 400, 100, 25);
+        notesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (notesOn) {
+                    notesButton.setText("Notes off");
+                    notesOn = false;
+                } else {
+                    notesButton.setText("Notes on");
+                    notesOn = true;
+                }
+            }
+        });
+        buttonPanel.add(notesButton);
         exitButton = new JButton("Exit");
         exitButton.setBounds(50, 450, 100, 25);
         exitButton.addActionListener(new ActionListener() {

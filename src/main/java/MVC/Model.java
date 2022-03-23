@@ -62,7 +62,13 @@ public class Model {
 	}
 	
 	public void setField(int x, int y, int value) {
-		board[x][y].value = value;
+		if (!view.notesOn) {
+			board[x][y].value = value;
+		} else {
+			if (value <= 9 && value > 0) {
+				board[x][y].notes[value - 1] = board[x][y].notes[value - 1] == value ? 0 : value;
+			}
+		}
 		if (sudokuSolved(board, innerSquareSize)) {
 			System.out.println("Solved! 2");
 			MVC.View.winPopup();
