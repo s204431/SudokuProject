@@ -30,9 +30,9 @@ public class EfficientSolver extends SudokuSolver {
 	public List<int[][]> solve(int maxSolutions) {
 		reset();
 		solveRecursive(board, initializePossibleValues(), maxSolutions);
-		if (recursiveCalls > 500000) {
+		/*if (recursiveCalls > 500000) {
 			System.out.println("Solver took too long to find solutions.");
-		}
+		}*/
 		if (solutions.size() == 0) {
 			difficulty = 0;
 		}

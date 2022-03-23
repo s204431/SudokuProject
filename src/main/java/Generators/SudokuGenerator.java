@@ -3,9 +3,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-
+import testers.GeneratorTester.*;
 import solvers.*;
 
+import static testers.GeneratorTester.toSeconds;
 
 public class SudokuGenerator {
 	private int currentMissingFields = 0;
@@ -13,7 +14,6 @@ public class SudokuGenerator {
 	
 	public int[][] generateSudoku(int innerSquareSize, int numInnerSquares, int minDifficulty, int maxDifficulty, int minMissingFields) {
 		int[][] matrix = new int[innerSquareSize*numInnerSquares][innerSquareSize*numInnerSquares];
-		
 		int[][] solvedMatrix = new RandomEfficientSolver(matrix, innerSquareSize).solve(1).get(0);
 		int[][] result = generateRecursive(solvedMatrix, innerSquareSize, minDifficulty, maxDifficulty, minMissingFields);
 		while (result == null) {

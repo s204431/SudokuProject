@@ -12,6 +12,7 @@ public class GeneratorTester {
 	public void test(Model model) {
 		long start = new Date().getTime();
 		System.out.println("Testing generator...");
+
 		GeneratorTestCase[] testCases = new GeneratorTestCase[] {new GeneratorTestCase(50, "Easy", 3, 3),
 																 new GeneratorTestCase(5, "Medium", 3, 3),
 																 new GeneratorTestCase(5, "Hard", 3, 3),
@@ -26,47 +27,46 @@ public class GeneratorTester {
 																 new GeneratorTestCase(1, "Hard", 5, 5),
 																 new GeneratorTestCase(1, "Extreme", 5, 5),
 																 new GeneratorTestCase(1, 3, 3, 3, 3)};
+
+
+
 		int totalGenerated = 0;
 		boolean passed = true;
-		for (int i = 0; i < testCases.length; i++) {
+		for (GeneratorTestCase testCase : testCases) {
 			long timeStart = new Date().getTime();
-			totalGenerated += testCases[i].amount;
+			totalGenerated += testCase.amount;
 			SudokuGenerator generator = new SudokuGenerator();
 			boolean passedTestCase = true;
-			for (int j = 0; j < testCases[i].amount; j++) {
+			for (int j = 0; j < testCase.amount; j++) {
 				int[][] result;
-				if (testCases[i].difficulty.equals("")) {
-					result = generator.generateSudoku(testCases[i].innerSquareSize, testCases[i].numInnerSquares, testCases[i].minDifficulty, testCases[i].maxDifficulty, 0);
+				if (testCase.difficulty.equals("")) {
+					result = generator.generateSudoku(testCase.innerSquareSize, testCase.numInnerSquares, testCase.minDifficulty, testCase.maxDifficulty, 0);
+				} else {
+					int[] range = SudokuSolver.getDifficultyRange(testCase.difficulty);
+					result = generator.generateSudoku(testCase.innerSquareSize, testCase.numInnerSquares, range[0], range[1], 0);
 				}
-				else {
-					int[] range = SudokuSolver.getDifficultyRange(testCases[i].difficulty);
-					result = generator.generateSudoku(testCases[i].innerSquareSize, testCases[i].numInnerSquares, range[0], range[1], 0);
-				}
-				SudokuSolver solver = new EfficientSolver(result, testCases[i].innerSquareSize);
-				int[] range = testCases[i].difficulty.equals("") ? new int[] {testCases[i].minDifficulty, testCases[i].maxDifficulty} : SudokuSolver.getDifficultyRange(testCases[i].difficulty);
+				SudokuSolver solver = new EfficientSolver(result, testCase.innerSquareSize);
+				int[] range = testCase.difficulty.equals("") ? new int[]{testCase.minDifficulty, testCase.maxDifficulty} : SudokuSolver.getDifficultyRange(testCase.difficulty);
 				if (solver.solve(2).size() != 1 || !(solver.difficulty >= range[0] && solver.difficulty <= range[1])) {
 					passedTestCase = false;
 					break;
 				}
 			}
 			long time = new Date().getTime() - timeStart;
-			int size = (testCases[i].innerSquareSize*testCases[i].numInnerSquares);
+			int size = (testCase.innerSquareSize * testCase.numInnerSquares);
 			if (passedTestCase) {
-				int averageTime = (int)(time/testCases[i].amount);
-				if (testCases[i].difficulty.equals("")) {
-					System.out.println("Generator passed "+testCases[i].amount+" "+size+"x"+size+" sudokus of difficulty "+testCases[i].minDifficulty+" to "+testCases[i].maxDifficulty+" in "+time+" ms. Average time: "+averageTime+" ms per sudoku.");
+				int averageTime = (int) (time / testCase.amount);
+				if (testCase.difficulty.equals("")) {
+					System.out.println("Generator passed " + testCase.amount + " " + size + "x" + size + " sudokus of difficulty " + testCase.minDifficulty + " to " + testCase.maxDifficulty + " in " + time + " ms. Average time: " + averageTime + " ms per sudoku.");
+				} else {
+					System.out.println("Generator passed " + testCase.amount + " " + size + "x" + size + " sudokus of difficulty " + testCase.difficulty + " in " + time + " ms. Average time: " + averageTime + " ms per sudoku.");
 				}
-				else {
-					System.out.println("Generator passed "+testCases[i].amount+" "+size+"x"+size+" sudokus of difficulty "+testCases[i].difficulty+" in "+time+" ms. Average time: "+averageTime+" ms per sudoku.");
-				}
-			}
-			else {
+			} else {
 				passed = false;
-				if (testCases[i].difficulty.equals("")) {
-					System.out.println("Generator failed "+testCases[i].amount+" "+size+"x"+size+" sudokus of difficulty "+testCases[i].minDifficulty+" to "+testCases[i].maxDifficulty+".");
-				}
-				else {
-					System.out.println("Generator failed "+testCases[i].amount+" "+size+"x"+size+" sudokus of difficulty "+testCases[i].difficulty+".");
+				if (testCase.difficulty.equals("")) {
+					System.out.println("Generator failed " + testCase.amount + " " + size + "x" + size + " sudokus of difficulty " + testCase.minDifficulty + " to " + testCase.maxDifficulty + ".");
+				} else {
+					System.out.println("Generator failed " + testCase.amount + " " + size + "x" + size + " sudokus of difficulty " + testCase.difficulty + ".");
 				}
 			}
 		}
@@ -103,5 +103,7 @@ public class GeneratorTester {
 			this.numInnerSquares = numInnerSquares;
 		}
 	}
-
+	public static float toSeconds(long nanoSecs){
+		return (float)nanoSecs/1000000000;
+	}
 }

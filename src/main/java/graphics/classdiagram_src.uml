@@ -1,0 +1,890 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>C:/Users/giddi/IdeaProjects/SudokuProject/src</OriginalElement>
+  <nodes>
+    <node x="754.0760613207549" y="1071.0">solvers.SudokuSolver</node>
+    <node x="723.4510613207549" y="1267.0">sudoku.Screens.LoadGameScreen</node>
+    <node x="1281.9990566037695" y="257.0">multiplayer.MultiplayerView</node>
+    <node x="882.0479952830146" y="91.0">solvers.EfficientSolver</node>
+    <node x="250.9999999999999" y="1174.0">solvers.BacktrackingSolver</node>
+    <node x="1095.826061320755" y="423.0">MVC.Controller</node>
+    <node x="2004.1729952830146" y="340.0">multiplayer.MultiplayerModel</node>
+    <node x="1525.0479952830146" y="0.0">sudoku.Field</node>
+    <node x="1054.076061320755" y="340.0">testers.SolverTester</node>
+    <node x="1676.576061320755" y="423.0">sudoku.Screens.SudokuSolverScreen</node>
+    <node x="713.9510613207549" y="1174.0">sudoku.LoadListRenderer</node>
+    <node x="877.0760613207549" y="340.0">testers.GeneratorTester</node>
+    <node x="1806.082389937103" y="629.0">sudoku.Screens.MainScreen</node>
+    <node x="1487.576061320755" y="423.0">sudoku.Screens.MultiplayerScreen</node>
+    <node x="729.6851218553456" y="257.0">Generators.SudokuGenerator</node>
+    <node x="456.9999999999999" y="174.0">solvers.RandomEfficientSolver</node>
+    <node x="1253.8749999999998" y="815.0">MVC.View</node>
+    <node x="327.9999999999999" y="91.0">sudoku.LoadListElement</node>
+    <node x="1078.951061320755" y="1348.0">testers.UITester</node>
+    <node x="1680.582389937103" y="722.0">sudoku.Main</node>
+    <node x="0.0" y="1267.0">solvers.RandomBacktrackingSolver</node>
+    <node x="1694.0222680817574" y="536.0">sudoku.Screens.MenuScreen</node>
+    <node x="1949.9093946540881" y="423.0">sudoku.Screens.NewGameScreen</node>
+    <node x="2134.909394654088" y="423.0">sudoku.Screens.CreateSudokuScreen</node>
+    <node x="1475.582389937103" y="1174.0">sudoku.Screens.GenerateNewSudokuScreen</node>
+    <node x="1222.7218946540884" y="968.0">MVC.Model</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="sudoku.Screens.GenerateNewSudokuScreen" target="MVC.Model" relationship="DEPENDENCY">
+      <point x="-59.0" y="-14.5" />
+      <point x="1534.582389937103" y="1152.0" />
+      <point x="1274.4718946540884" y="1152.0" />
+      <point x="1274.4718946540884" y="1049.0" />
+      <point x="1269.2218946540884" y="1049.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="solvers.RandomBacktrackingSolver" target="sudoku.Field" relationship="DEPENDENCY">
+      <point x="-57.5" y="-14.5" />
+      <point x="57.5" y="70.0" />
+      <point x="270.5688286163479" y="70.0" />
+      <point x="270.5688286163479" y="50.0" />
+      <point x="1538.7146619496814" y="50.0" />
+      <point x="-27.33333333333337" y="14.5" />
+    </edge>
+    <edge source="MVC.Controller" target="testers.SolverTester" relationship="CREATE">
+      <point x="0.0" y="-14.5" />
+      <point x="1153.826061320755" y="401.0" />
+      <point x="1152.326061320755" y="401.0" />
+      <point x="32.75" y="14.5" />
+    </edge>
+    <edge source="sudoku.Screens.MenuScreen" target="MVC.Model" relationship="CREATE">
+      <point x="-44.33333333333337" y="14.5" />
+      <point x="1716.188934748424" y="597.0" />
+      <point x="1626.7843946540881" y="597.0" />
+      <point x="1626.7843946540881" y="607.0" />
+      <point x="1632.0343946540881" y="607.0" />
+      <point x="1632.0343946540881" y="896.0" />
+      <point x="1274.2218946540884" y="896.0" />
+      <point x="1274.2218946540884" y="946.0" />
+      <point x="1280.8468946540884" y="946.0" />
+      <point x="11.625" y="-14.5" />
+    </edge>
+    <edge source="Generators.SudokuGenerator" target="solvers.RandomEfficientSolver" relationship="CREATE">
+      <point x="0.0" y="-14.5" />
+      <point x="813.1851218553456" y="230.0" />
+      <point x="556.4999999999999" y="230.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="solvers.BacktrackingSolver" target="solvers.SudokuSolver" relationship="GENERALIZATION">
+      <point x="43.5" y="-14.5" />
+      <point x="381.4999999999999" y="1152.0" />
+      <point x="789.3260613207549" y="1152.0" />
+      <point x="-35.25" y="14.5" />
+    </edge>
+    <edge source="testers.SolverTester" target="MVC.Model" relationship="DEPENDENCY">
+      <point x="-32.75" y="14.5" />
+      <point x="1086.826061320755" y="391.0" />
+      <point x="1035.826061320755" y="391.0" />
+      <point x="1035.826061320755" y="886.0" />
+      <point x="996.8677279874216" y="886.0" />
+      <point x="996.8677279874216" y="946.0" />
+      <point x="1234.3468946540884" y="946.0" />
+      <point x="-34.875" y="-14.5" />
+    </edge>
+    <edge source="sudoku.Screens.LoadGameScreen" target="sudoku.Screens.MenuScreen" relationship="GENERALIZATION">
+      <point x="55.33333333333334" y="-14.5" />
+      <point x="861.7843946540883" y="1245.0" />
+      <point x="1784.582389937103" y="1245.0" />
+      <point x="1784.582389937103" y="607.0" />
+      <point x="1779.332389937103" y="607.0" />
+      <point x="1779.332389937103" y="597.0" />
+      <point x="1760.5222680817574" y="597.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="sudoku.Screens.MenuScreen" target="multiplayer.MultiplayerModel" relationship="CREATE">
+      <point x="-33.25" y="-14.5" />
+      <point x="1727.2722680817574" y="514.0" />
+      <point x="1755.5222680817574" y="514.0" />
+      <point x="1755.5222680817574" y="484.0" />
+      <point x="1939.4093946540881" y="484.0" />
+      <point x="1939.4093946540881" y="401.0" />
+      <point x="2057.875" y="401.0" />
+      <point x="2057.875" y="391.0" />
+      <point x="2088.1729952830146" y="391.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="sudoku.Screens.GenerateNewSudokuScreen" target="solvers.SudokuSolver" relationship="DEPENDENCY">
+      <point x="-59.0" y="-14.5" />
+      <point x="1534.582389937103" y="1152.0" />
+      <point x="1274.4718946540884" y="1152.0" />
+      <point x="1274.4718946540884" y="1132.0" />
+      <point x="848.2010613207549" y="1132.0" />
+      <point x="848.2010613207549" y="1122.0" />
+      <point x="859.8260613207549" y="1122.0" />
+      <point x="35.25" y="14.5" />
+    </edge>
+    <edge source="sudoku.Screens.MainScreen" target="sudoku.Screens.MenuScreen" relationship="GENERALIZATION">
+      <point x="-42.66666666666663" y="-14.5" />
+      <point x="1827.4157232704363" y="607.0" />
+      <point x="1779.332389937103" y="607.0" />
+      <point x="1779.332389937103" y="597.0" />
+      <point x="1760.5222680817574" y="597.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="sudoku.Screens.LoadGameScreen" target="sudoku.LoadListRenderer" relationship="CREATE">
+      <point x="-55.33333333333334" y="-14.5" />
+      <point x="751.1177279874216" y="1245.0" />
+      <point x="796.4510613207549" y="1245.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="sudoku.Screens.SudokuSolverScreen" target="sudoku.Screens.MenuScreen" relationship="GENERALIZATION">
+      <point x="0.0" y="14.5" />
+      <point x="1769.576061320755" y="474.0" />
+      <point x="1824.0222680817574" y="474.0" />
+      <point x="1824.0222680817574" y="514.0" />
+      <point x="1793.7722680817574" y="514.0" />
+      <point x="33.25" y="-14.5" />
+    </edge>
+    <edge source="sudoku.LoadListElement" target="sudoku.Field" relationship="TO_ONE">
+      <point x="39.5" y="-14.5" />
+      <point x="446.4999999999999" y="60.0" />
+      <point x="1566.0479952830146" y="60.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="multiplayer.MultiplayerModel" target="MVC.Model" relationship="GENERALIZATION">
+      <point x="56.0" y="14.5" />
+      <point x="2144.1729952830146" y="401.0" />
+      <point x="2333.409394654088" y="401.0" />
+      <point x="2333.409394654088" y="946.0" />
+      <point x="1304.0968946540884" y="946.0" />
+      <point x="34.875" y="-14.5" />
+    </edge>
+    <edge source="testers.UITester" target="sudoku.Screens.NewGameScreen" relationship="DEPENDENCY">
+      <point x="26.25" y="-14.5" />
+      <point x="1157.701061320755" y="1327.0" />
+      <point x="1498.1593946540881" y="1327.0" />
+      <point x="1498.1593946540881" y="1317.0" />
+      <point x="2041.9093946540881" y="1317.0" />
+      <point x="2041.9093946540881" y="514.0" />
+      <point x="2086.576061320755" y="514.0" />
+      <point x="54.66666666666663" y="14.5" />
+    </edge>
+    <edge source="sudoku.Screens.MenuScreen" target="MVC.Controller" relationship="CREATE">
+      <point x="-33.25" y="-14.5" />
+      <point x="1727.2722680817574" y="514.0" />
+      <point x="1755.5222680817574" y="514.0" />
+      <point x="1755.5222680817574" y="484.0" />
+      <point x="1192.4927279874214" y="484.0" />
+      <point x="38.66666666666663" y="14.5" />
+    </edge>
+    <edge source="multiplayer.MultiplayerView" target="sudoku.Field" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.5" />
+      <point x="1360.4990566037695" y="70.0" />
+      <point x="270.5688286163478" y="70.0" />
+      <point x="270.5688286163479" y="50.0" />
+      <point x="1538.7146619496814" y="50.0" />
+      <point x="-27.33333333333337" y="14.5" />
+    </edge>
+    <edge source="sudoku.Screens.MenuScreen" target="sudoku.Screens.CreateSudokuScreen" relationship="CREATE">
+      <point x="-33.25" y="-14.5" />
+      <point x="1727.2722680817574" y="514.0" />
+      <point x="1755.5222680817574" y="514.0" />
+      <point x="1755.5222680817574" y="484.0" />
+      <point x="2166.2427279874214" y="484.0" />
+      <point x="-62.66666666666663" y="14.5" />
+    </edge>
+    <edge source="Generators.SudokuGenerator" target="solvers.EfficientSolver" relationship="CREATE">
+      <point x="0.0" y="-14.5" />
+      <point x="813.1851218553456" y="152.0" />
+      <point x="953.5479952830146" y="152.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="sudoku.Screens.MenuScreen" target="MVC.View" relationship="CREATE">
+      <point x="-44.33333333333337" y="14.5" />
+      <point x="1716.188934748424" y="597.0" />
+      <point x="1626.7843946540881" y="597.0" />
+      <point x="1626.7843946540881" y="607.0" />
+      <point x="1621.5343946540881" y="607.0" />
+      <point x="1621.5343946540881" y="783.0" />
+      <point x="1325.6249999999998" y="783.0" />
+      <point x="30.75" y="-14.5" />
+    </edge>
+    <edge source="MVC.Controller" target="sudoku.Main" relationship="DEPENDENCY">
+      <point x="0.0" y="14.5" />
+      <point x="1153.826061320755" y="504.0" />
+      <point x="1145.2427279874216" y="504.0" />
+      <point x="1145.2427279874216" y="514.0" />
+      <point x="1173.5" y="514.0" />
+      <point x="1173.5" y="680.0" />
+      <point x="1701.332389937103" y="680.0" />
+      <point x="-20.75" y="-14.5" />
+    </edge>
+    <edge source="MVC.View" target="sudoku.Main" relationship="DEPENDENCY">
+      <point x="10.25" y="-14.5" />
+      <point x="1305.1249999999998" y="793.0" />
+      <point x="1722.082389937103" y="793.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="sudoku.LoadListElement" target="sudoku.Field" relationship="DEPENDENCY">
+      <point x="-39.5" y="-14.5" />
+      <point x="367.4999999999999" y="70.0" />
+      <point x="270.5688286163479" y="70.0" />
+      <point x="270.5688286163479" y="50.0" />
+      <point x="1538.7146619496814" y="50.0" />
+      <point x="-27.33333333333337" y="14.5" />
+    </edge>
+    <edge source="MVC.View" target="MVC.Model" relationship="DEPENDENCY">
+      <point x="-20.5" y="14.5" />
+      <point x="1274.3749999999998" y="866.0" />
+      <point x="1173.6875" y="866.0" />
+      <point x="1173.6875" y="936.0" />
+      <point x="996.8677279874216" y="936.0" />
+      <point x="996.8677279874216" y="946.0" />
+      <point x="1234.3468946540884" y="946.0" />
+      <point x="-34.875" y="-14.5" />
+    </edge>
+    <edge source="MVC.Model" target="MVC.View" relationship="DEPENDENCY">
+      <point x="-34.875" y="-14.5" />
+      <point x="1234.3468946540884" y="946.0" />
+      <point x="996.8677279874216" y="946.0" />
+      <point x="996.8677279874216" y="936.0" />
+      <point x="1173.6875" y="936.0" />
+      <point x="1173.6875" y="866.0" />
+      <point x="1274.3749999999998" y="866.0" />
+      <point x="-20.5" y="14.5" />
+    </edge>
+    <edge source="sudoku.Main" target="sudoku.Screens.MainScreen" relationship="CREATE">
+      <point x="20.75" y="-14.5" />
+      <point x="1742.832389937103" y="700.0" />
+      <point x="1902.082389937103" y="700.0" />
+      <point x="32.0" y="14.5" />
+    </edge>
+    <edge source="MVC.Model" target="Generators.SudokuGenerator" relationship="CREATE">
+      <point x="11.625" y="-14.5" />
+      <point x="1280.8468946540884" y="946.0" />
+      <point x="1274.2218946540884" y="946.0" />
+      <point x="1274.2218946540884" y="896.0" />
+      <point x="858.9999999999999" y="896.0" />
+      <point x="858.9999999999999" y="308.0" />
+      <point x="854.9351218553456" y="308.0" />
+      <point x="41.75" y="14.5" />
+    </edge>
+    <edge source="testers.UITester" target="sudoku.Main" relationship="DEPENDENCY">
+      <point x="26.25" y="-14.5" />
+      <point x="1157.701061320755" y="1327.0" />
+      <point x="1498.1593946540881" y="1327.0" />
+      <point x="1498.1593946540881" y="1317.0" />
+      <point x="1722.082389937103" y="1317.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="Generators.SudokuGenerator" target="solvers.SudokuSolver" relationship="DEPENDENCY">
+      <point x="-41.75" y="14.5" />
+      <point x="771.4351218553456" y="318.0" />
+      <point x="807.6851218553456" y="318.0" />
+      <point x="807.6851218553456" y="1019.0" />
+      <point x="824.5760613207549" y="1019.0" />
+      <point x="-5.6843418860808015E-14" y="-14.5" />
+    </edge>
+    <edge source="sudoku.Screens.MultiplayerScreen" target="multiplayer.MultiplayerModel" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.5" />
+      <point x="1572.076061320755" y="401.0" />
+      <point x="1549.2499999999998" y="401.0" />
+      <point x="1549.2499999999998" y="391.0" />
+      <point x="2032.1729952830146" y="391.0" />
+      <point x="-56.0" y="14.5" />
+    </edge>
+    <edge source="testers.SolverTester" target="solvers.EfficientSolver" relationship="CREATE">
+      <point x="0.0" y="-14.5" />
+      <point x="1119.576061320755" y="152.0" />
+      <point x="953.5479952830146" y="152.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="MVC.Model" target="solvers.SudokuSolver" relationship="DEPENDENCY">
+      <point x="0.0" y="14.5" />
+      <point x="1269.2218946540884" y="1029.0" />
+      <point x="824.5760613207549" y="1029.0" />
+      <point x="-5.6843418860808015E-14" y="-14.5" />
+    </edge>
+    <edge source="solvers.SudokuSolver" target="MVC.Model" relationship="DEPENDENCY">
+      <point x="-2.8421709430404007E-14" y="-14.5" />
+      <point x="824.5760613207549" y="1029.0" />
+      <point x="1269.2218946540884" y="1029.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="solvers.RandomBacktrackingSolver" target="solvers.BacktrackingSolver" relationship="GENERALIZATION">
+      <point x="57.5" y="-14.5" />
+      <point x="172.5" y="1245.0" />
+      <point x="337.9999999999999" y="1245.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="sudoku.Screens.LoadGameScreen" target="sudoku.LoadListElement" relationship="CREATE">
+      <point x="-55.33333333333334" y="-14.5" />
+      <point x="751.1177279874216" y="1245.0" />
+      <point x="796.4510613207549" y="1245.0" />
+      <point x="796.4510613207549" y="1235.0" />
+      <point x="435.4999999999999" y="1235.0" />
+      <point x="435.4999999999999" y="152.0" />
+      <point x="367.4999999999999" y="152.0" />
+      <point x="-39.5" y="14.5" />
+    </edge>
+    <edge source="sudoku.Screens.MenuScreen" target="sudoku.Screens.SudokuSolverScreen" relationship="CREATE">
+      <point x="-33.25" y="-14.5" />
+      <point x="1727.2722680817574" y="514.0" />
+      <point x="1755.5222680817574" y="514.0" />
+      <point x="1755.5222680817574" y="484.0" />
+      <point x="1707.576061320755" y="484.0" />
+      <point x="-62.0" y="14.5" />
+    </edge>
+    <edge source="MVC.Model" target="sudoku.Field" relationship="CREATE">
+      <point x="11.625" y="-14.5" />
+      <point x="1280.8468946540884" y="946.0" />
+      <point x="1274.2218946540884" y="946.0" />
+      <point x="1274.2218946540884" y="896.0" />
+      <point x="2358.1593946540884" y="896.0" />
+      <point x="2358.159394654088" y="70.0" />
+      <point x="2291.625" y="70.0" />
+      <point x="2291.625" y="50.0" />
+      <point x="1593.3813286163481" y="50.0" />
+      <point x="27.33333333333337" y="14.5" />
+    </edge>
+    <edge source="solvers.EfficientSolver" target="MVC.Model" relationship="DEPENDENCY">
+      <point x="47.66666666666666" y="14.5" />
+      <point x="1001.2146619496813" y="142.0" />
+      <point x="1233.326061320755" y="142.0" />
+      <point x="1233.326061320755" y="886.0" />
+      <point x="996.8677279874216" y="886.0" />
+      <point x="996.8677279874216" y="946.0" />
+      <point x="1234.3468946540884" y="946.0" />
+      <point x="-34.875" y="-14.5" />
+    </edge>
+    <edge source="testers.GeneratorTester" target="MVC.Model" relationship="DEPENDENCY">
+      <point x="-39.25" y="14.5" />
+      <point x="916.3260613207549" y="401.0" />
+      <point x="937.5479952830146" y="401.0" />
+      <point x="937.5479952830146" y="886.0" />
+      <point x="996.8677279874216" y="886.0" />
+      <point x="996.8677279874216" y="946.0" />
+      <point x="1234.3468946540884" y="946.0" />
+      <point x="-34.875" y="-14.5" />
+    </edge>
+    <edge source="sudoku.LoadListRenderer" target="sudoku.LoadListElement" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.5" />
+      <point x="796.4510613207549" y="1142.0" />
+      <point x="446.4999999999999" y="1142.0" />
+      <point x="39.5" y="14.5" />
+    </edge>
+    <edge source="testers.UITester" target="solvers.EfficientSolver" relationship="CREATE">
+      <point x="-26.25" y="-14.5" />
+      <point x="1105.201061320755" y="1327.0" />
+      <point x="677.4999999999999" y="1327.0" />
+      <point x="677.4999999999999" y="152.0" />
+      <point x="953.5479952830146" y="152.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="MVC.Controller" target="MVC.Model" relationship="DEPENDENCY">
+      <point x="0.0" y="14.5" />
+      <point x="1153.826061320755" y="504.0" />
+      <point x="1145.2427279874216" y="504.0" />
+      <point x="1145.2427279874216" y="886.0" />
+      <point x="996.8677279874216" y="886.0" />
+      <point x="996.8677279874216" y="946.0" />
+      <point x="1234.3468946540884" y="946.0" />
+      <point x="-34.875" y="-14.5" />
+    </edge>
+    <edge source="testers.UITester" target="sudoku.Screens.MultiplayerScreen" relationship="DEPENDENCY">
+      <point x="26.25" y="-14.5" />
+      <point x="1157.701061320755" y="1327.0" />
+      <point x="1498.1593946540881" y="1327.0" />
+      <point x="1498.1593946540881" y="1317.0" />
+      <point x="1465.082389937103" y="1317.0" />
+      <point x="1465.082389937103" y="514.0" />
+      <point x="1515.7427279874214" y="514.0" />
+      <point x="-56.33333333333337" y="14.5" />
+    </edge>
+    <edge source="multiplayer.MultiplayerModel" target="sudoku.Field" relationship="TO_ONE">
+      <point x="0.0" y="-14.5" />
+      <point x="2088.1729952830146" y="318.0" />
+      <point x="2110.6729952830146" y="318.0" />
+      <point x="2110.6729952830146" y="60.0" />
+      <point x="1566.0479952830146" y="60.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="multiplayer.MultiplayerView" target="sudoku.Main" relationship="DEPENDENCY">
+      <point x="0.0" y="14.5" />
+      <point x="1360.4990566037695" y="308.0" />
+      <point x="1351.4229952830146" y="308.0" />
+      <point x="1351.4229952830146" y="318.0" />
+      <point x="1320.2499999999998" y="318.0" />
+      <point x="1320.2499999999998" y="680.0" />
+      <point x="1701.332389937103" y="680.0" />
+      <point x="-20.75" y="-14.5" />
+    </edge>
+    <edge source="testers.SolverTester" target="solvers.SudokuSolver" relationship="DEPENDENCY">
+      <point x="-32.75" y="14.5" />
+      <point x="1086.826061320755" y="391.0" />
+      <point x="1035.826061320755" y="391.0" />
+      <point x="1035.826061320755" y="916.0" />
+      <point x="824.5760613207549" y="916.0" />
+      <point x="-5.6843418860808015E-14" y="-14.5" />
+    </edge>
+    <edge source="solvers.EfficientSolver" target="sudoku.Field" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.5" />
+      <point x="953.5479952830146" y="70.0" />
+      <point x="270.5688286163479" y="70.0" />
+      <point x="270.5688286163479" y="50.0" />
+      <point x="1538.7146619496814" y="50.0" />
+      <point x="-27.33333333333337" y="14.5" />
+    </edge>
+    <edge source="MVC.View" target="MVC.Controller" relationship="TO_ONE">
+      <point x="-30.75" y="-14.5" />
+      <point x="1264.1249999999998" y="793.0" />
+      <point x="1123.2907232704363" y="793.0" />
+      <point x="1123.2907232704363" y="514.0" />
+      <point x="1117.5479952830146" y="514.0" />
+      <point x="1117.5479952830146" y="504.0" />
+      <point x="1115.1593946540884" y="504.0" />
+      <point x="-38.66666666666666" y="14.5" />
+    </edge>
+    <edge source="MVC.Controller" target="MVC.View" relationship="TO_ONE">
+      <point x="-38.66666666666666" y="14.5" />
+      <point x="1115.1593946540884" y="504.0" />
+      <point x="1117.5479952830146" y="504.0" />
+      <point x="1117.5479952830146" y="514.0" />
+      <point x="1123.2907232704363" y="514.0" />
+      <point x="1123.2907232704363" y="793.0" />
+      <point x="1264.1249999999998" y="793.0" />
+      <point x="-30.75" y="-14.5" />
+    </edge>
+    <edge source="testers.UITester" target="MVC.Model" relationship="DEPENDENCY">
+      <point x="26.25" y="-14.5" />
+      <point x="1157.701061320755" y="1327.0" />
+      <point x="1498.1593946540881" y="1327.0" />
+      <point x="1498.1593946540881" y="1317.0" />
+      <point x="1263.9718946540884" y="1317.0" />
+      <point x="1263.9718946540884" y="1049.0" />
+      <point x="1269.2218946540884" y="1049.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="sudoku.Screens.MenuScreen" target="sudoku.Screens.MultiplayerScreen" relationship="CREATE">
+      <point x="-33.25" y="-14.5" />
+      <point x="1727.2722680817574" y="514.0" />
+      <point x="1755.5222680817574" y="514.0" />
+      <point x="1755.5222680817574" y="484.0" />
+      <point x="1572.076061320755" y="484.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="MVC.View" target="sudoku.Field" relationship="DEPENDENCY">
+      <point x="10.25" y="-14.5" />
+      <point x="1305.1249999999998" y="773.0" />
+      <point x="1258.701061320755" y="773.0" />
+      <point x="1258.701061320755" y="70.0" />
+      <point x="270.5688286163479" y="70.0" />
+      <point x="270.5688286163479" y="50.0" />
+      <point x="1538.7146619496814" y="50.0" />
+      <point x="-27.33333333333337" y="14.5" />
+    </edge>
+    <edge source="testers.UITester" target="MVC.View" relationship="DEPENDENCY">
+      <point x="26.25" y="-14.5" />
+      <point x="1157.701061320755" y="1327.0" />
+      <point x="1498.1593946540881" y="1327.0" />
+      <point x="1498.1593946540881" y="1317.0" />
+      <point x="1173.6875" y="1317.0" />
+      <point x="1173.6875" y="866.0" />
+      <point x="1274.3749999999998" y="866.0" />
+      <point x="-20.5" y="14.5" />
+    </edge>
+    <edge source="testers.UITester" target="sudoku.Screens.CreateSudokuScreen" relationship="DEPENDENCY">
+      <point x="26.25" y="-14.5" />
+      <point x="1157.701061320755" y="1327.0" />
+      <point x="1498.1593946540881" y="1327.0" />
+      <point x="1498.1593946540881" y="1317.0" />
+      <point x="2240.458333333333" y="1317.0" />
+      <point x="2240.458333333333" y="514.0" />
+      <point x="2291.576061320755" y="514.0" />
+      <point x="62.66666666666674" y="14.5" />
+    </edge>
+    <edge source="solvers.BacktrackingSolver" target="sudoku.Field" relationship="DEPENDENCY">
+      <point x="-43.5" y="-14.5" />
+      <point x="294.4999999999999" y="1152.0" />
+      <point x="306.9999999999999" y="1152.0" />
+      <point x="306.9999999999999" y="70.0" />
+      <point x="270.5688286163479" y="70.0" />
+      <point x="270.5688286163479" y="50.0" />
+      <point x="1538.7146619496814" y="50.0" />
+      <point x="-27.33333333333337" y="14.5" />
+    </edge>
+    <edge source="sudoku.Screens.LoadGameScreen" target="sudoku.Field" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.5" />
+      <point x="806.4510613207549" y="1225.0" />
+      <point x="240.49999999999977" y="1225.0" />
+      <point x="240.4999999999999" y="70.0" />
+      <point x="270.5688286163479" y="70.0" />
+      <point x="270.5688286163479" y="50.0" />
+      <point x="1538.7146619496814" y="50.0" />
+      <point x="-27.33333333333337" y="14.5" />
+    </edge>
+    <edge source="sudoku.Screens.GenerateNewSudokuScreen" target="sudoku.Screens.MenuScreen" relationship="GENERALIZATION">
+      <point x="59.0" y="-14.5" />
+      <point x="1652.582389937103" y="1152.0" />
+      <point x="1774.082389937103" y="1152.0" />
+      <point x="1774.082389937103" y="607.0" />
+      <point x="1779.332389937103" y="607.0" />
+      <point x="1779.332389937103" y="597.0" />
+      <point x="1760.5222680817574" y="597.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="MVC.Controller" target="testers.GeneratorTester" relationship="CREATE">
+      <point x="0.0" y="-14.5" />
+      <point x="1153.826061320755" y="401.0" />
+      <point x="994.8260613207549" y="401.0" />
+      <point x="39.25" y="14.5" />
+    </edge>
+    <edge source="sudoku.Screens.MainScreen" target="multiplayer.MultiplayerModel" relationship="CREATE">
+      <point x="42.66666666666663" y="-14.5" />
+      <point x="1912.7490566037695" y="607.0" />
+      <point x="2124.409394654088" y="607.0" />
+      <point x="2124.409394654088" y="401.0" />
+      <point x="2057.875" y="401.0" />
+      <point x="2057.875" y="391.0" />
+      <point x="2088.1729952830146" y="391.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="MVC.Controller" target="MVC.View" relationship="DEPENDENCY">
+      <point x="0.0" y="14.5" />
+      <point x="1153.826061320755" y="504.0" />
+      <point x="1145.2427279874216" y="504.0" />
+      <point x="1145.2427279874216" y="773.0" />
+      <point x="1305.1249999999998" y="773.0" />
+      <point x="10.25" y="-14.5" />
+    </edge>
+    <edge source="MVC.View" target="MVC.Controller" relationship="DEPENDENCY">
+      <point x="10.25" y="-14.5" />
+      <point x="1305.1249999999998" y="773.0" />
+      <point x="1145.2427279874216" y="773.0" />
+      <point x="1145.2427279874216" y="504.0" />
+      <point x="1153.826061320755" y="504.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="sudoku.Screens.LoadGameScreen" target="MVC.Model" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.5" />
+      <point x="806.4510613207549" y="1225.0" />
+      <point x="1263.9718946540884" y="1225.0" />
+      <point x="1263.9718946540884" y="1049.0" />
+      <point x="1269.2218946540884" y="1049.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="multiplayer.MultiplayerView" target="multiplayer.MultiplayerModel" relationship="DEPENDENCY">
+      <point x="0.0" y="14.5" />
+      <point x="1360.4990566037695" y="308.0" />
+      <point x="1351.4229952830146" y="308.0" />
+      <point x="1351.4229952830146" y="318.0" />
+      <point x="2032.1729952830146" y="318.0" />
+      <point x="-56.0" y="-14.5" />
+    </edge>
+    <edge source="MVC.Controller" target="MVC.Model" relationship="TO_ONE">
+      <point x="-38.66666666666666" y="14.5" />
+      <point x="1115.1593946540884" y="504.0" />
+      <point x="1117.5479952830146" y="504.0" />
+      <point x="1117.5479952830146" y="514.0" />
+      <point x="1112.7907232704363" y="514.0" />
+      <point x="1112.7907232704363" y="876.0" />
+      <point x="1264.2218946540884" y="876.0" />
+      <point x="1264.2218946540884" y="946.0" />
+      <point x="1257.5968946540884" y="946.0" />
+      <point x="-11.625" y="-14.5" />
+    </edge>
+    <edge source="multiplayer.MultiplayerModel" target="multiplayer.MultiplayerView" relationship="DEPENDENCY">
+      <point x="-56.0" y="-14.5" />
+      <point x="2032.1729952830146" y="318.0" />
+      <point x="1351.4229952830146" y="318.0" />
+      <point x="1351.4229952830146" y="308.0" />
+      <point x="1360.4990566037695" y="308.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="testers.UITester" target="solvers.SudokuSolver" relationship="DEPENDENCY">
+      <point x="26.25" y="-14.5" />
+      <point x="1157.701061320755" y="1327.0" />
+      <point x="1498.1593946540881" y="1327.0" />
+      <point x="1498.1593946540881" y="1317.0" />
+      <point x="899.9510613207549" y="1317.0" />
+      <point x="899.9510613207549" y="1142.0" />
+      <point x="848.2010613207549" y="1142.0" />
+      <point x="848.2010613207549" y="1122.0" />
+      <point x="859.8260613207549" y="1122.0" />
+      <point x="35.25" y="14.5" />
+    </edge>
+    <edge source="MVC.View" target="MVC.Model" relationship="TO_ONE">
+      <point x="20.5" y="14.5" />
+      <point x="1315.3749999999998" y="876.0" />
+      <point x="1264.2218946540884" y="876.0" />
+      <point x="1264.2218946540884" y="946.0" />
+      <point x="1257.5968946540884" y="946.0" />
+      <point x="-11.625" y="-14.5" />
+    </edge>
+    <edge source="MVC.Model" target="MVC.View" relationship="TO_ONE">
+      <point x="-11.625" y="-14.5" />
+      <point x="1257.5968946540884" y="946.0" />
+      <point x="1264.2218946540884" y="946.0" />
+      <point x="1264.2218946540884" y="876.0" />
+      <point x="1315.3749999999998" y="876.0" />
+      <point x="20.5" y="14.5" />
+    </edge>
+    <edge source="MVC.Model" target="solvers.EfficientSolver" relationship="CREATE">
+      <point x="11.625" y="-14.5" />
+      <point x="1280.8468946540884" y="946.0" />
+      <point x="1274.2218946540884" y="946.0" />
+      <point x="1274.2218946540884" y="896.0" />
+      <point x="1222.326061320755" y="896.0" />
+      <point x="1222.326061320755" y="152.0" />
+      <point x="953.5479952830146" y="152.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="multiplayer.MultiplayerView" target="MVC.View" relationship="GENERALIZATION">
+      <point x="-52.33333333333334" y="14.5" />
+      <point x="1308.1657232704363" y="308.0" />
+      <point x="1294.1249999999998" y="308.0" />
+      <point x="1294.1249999999998" y="793.0" />
+      <point x="1284.6249999999998" y="793.0" />
+      <point x="-10.25" y="-14.5" />
+    </edge>
+    <edge source="solvers.RandomEfficientSolver" target="solvers.EfficientSolver" relationship="GENERALIZATION">
+      <point x="49.75" y="-14.5" />
+      <point x="606.2499999999999" y="152.0" />
+      <point x="662.3260613207549" y="152.0" />
+      <point x="662.3260613207549" y="142.0" />
+      <point x="905.8813286163479" y="142.0" />
+      <point x="-47.666666666666664" y="14.5" />
+    </edge>
+    <edge source="sudoku.Screens.NewGameScreen" target="sudoku.Screens.MenuScreen" relationship="GENERALIZATION">
+      <point x="0.0" y="14.5" />
+      <point x="2031.9093946540881" y="474.0" />
+      <point x="1824.0222680817574" y="474.0" />
+      <point x="1824.0222680817574" y="514.0" />
+      <point x="1793.7722680817574" y="514.0" />
+      <point x="33.25" y="-14.5" />
+    </edge>
+    <edge source="sudoku.LoadListRenderer" target="solvers.SudokuSolver" relationship="DEPENDENCY">
+      <point x="0.0" y="-14.5" />
+      <point x="796.4510613207549" y="1152.0" />
+      <point x="848.2010613207549" y="1152.0" />
+      <point x="848.2010613207549" y="1122.0" />
+      <point x="859.8260613207549" y="1122.0" />
+      <point x="35.25" y="14.5" />
+    </edge>
+    <edge source="sudoku.Screens.MenuScreen" target="sudoku.Screens.MainScreen" relationship="DEPENDENCY">
+      <point x="44.33333333333337" y="14.5" />
+      <point x="1804.8556014150906" y="587.0" />
+      <point x="1801.6593946540881" y="587.0" />
+      <point x="1801.6593946540881" y="597.0" />
+      <point x="1870.082389937103" y="597.0" />
+      <point x="0.0" y="-14.5" />
+    </edge>
+    <edge source="MVC.Model" target="sudoku.Field" relationship="TO_ONE">
+      <point x="-11.625" y="-14.5" />
+      <point x="1257.5968946540884" y="946.0" />
+      <point x="1264.2218946540884" y="946.0" />
+      <point x="1264.2218946540884" y="876.0" />
+      <point x="1365.2499999999998" y="876.0" />
+      <point x="1365.2499999999998" y="494.0" />
+      <point x="1452.326061320755" y="494.0" />
+      <point x="1452.326061320755" y="60.0" />
+      <point x="1566.0479952830146" y="60.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="multiplayer.MultiplayerModel" target="MVC.View" relationship="DEPENDENCY">
+      <point x="-56.0" y="14.5" />
+      <point x="2032.1729952830146" y="391.0" />
+      <point x="1549.2499999999998" y="391.0" />
+      <point x="1549.2499999999998" y="401.0" />
+      <point x="1477.076061320755" y="401.0" />
+      <point x="1477.076061320755" y="504.0" />
+      <point x="1417.0601218553456" y="504.0" />
+      <point x="1417.0601218553456" y="773.0" />
+      <point x="1305.1249999999998" y="773.0" />
+      <point x="10.25" y="-14.5" />
+    </edge>
+    <edge source="testers.UITester" target="sudoku.Screens.GenerateNewSudokuScreen" relationship="DEPENDENCY">
+      <point x="26.25" y="-14.5" />
+      <point x="1157.701061320755" y="1327.0" />
+      <point x="1498.1593946540881" y="1327.0" />
+      <point x="1498.1593946540881" y="1317.0" />
+      <point x="1593.582389937103" y="1317.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="MVC.Controller" target="solvers.SudokuSolver" relationship="DEPENDENCY">
+      <point x="0.0" y="14.5" />
+      <point x="1153.826061320755" y="504.0" />
+      <point x="1145.2427279874216" y="504.0" />
+      <point x="1145.2427279874216" y="514.0" />
+      <point x="1134.2907232704363" y="514.0" />
+      <point x="1134.2907232704363" y="926.0" />
+      <point x="874.9510613207549" y="926.0" />
+      <point x="874.9510613207549" y="1019.0" />
+      <point x="824.5760613207549" y="1019.0" />
+      <point x="-5.6843418860808015E-14" y="-14.5" />
+    </edge>
+    <edge source="testers.UITester" target="sudoku.Field" relationship="DEPENDENCY">
+      <point x="26.25" y="-14.5" />
+      <point x="1157.701061320755" y="1327.0" />
+      <point x="1498.1593946540881" y="1327.0" />
+      <point x="1498.1593946540881" y="1317.0" />
+      <point x="240.5" y="1317.0" />
+      <point x="240.4999999999999" y="70.0" />
+      <point x="270.5688286163479" y="70.0" />
+      <point x="270.5688286163479" y="50.0" />
+      <point x="1538.7146619496814" y="50.0" />
+      <point x="-27.33333333333337" y="14.5" />
+    </edge>
+    <edge source="testers.UITester" target="sudoku.Screens.MainScreen" relationship="DEPENDENCY">
+      <point x="26.25" y="-14.5" />
+      <point x="1157.701061320755" y="1327.0" />
+      <point x="1498.1593946540881" y="1327.0" />
+      <point x="1498.1593946540881" y="1317.0" />
+      <point x="1838.082389937103" y="1317.0" />
+      <point x="-32.0" y="14.5" />
+    </edge>
+    <edge source="sudoku.Screens.CreateSudokuScreen" target="sudoku.Screens.MenuScreen" relationship="GENERALIZATION">
+      <point x="0.0" y="14.5" />
+      <point x="2228.909394654088" y="474.0" />
+      <point x="1824.0222680817574" y="474.0" />
+      <point x="1824.0222680817574" y="514.0" />
+      <point x="1793.7722680817574" y="514.0" />
+      <point x="33.25" y="-14.5" />
+    </edge>
+    <edge source="testers.GeneratorTester" target="Generators.SudokuGenerator" relationship="CREATE">
+      <point x="0.0" y="-14.5" />
+      <point x="955.5760613207549" y="318.0" />
+      <point x="858.9999999999999" y="318.0" />
+      <point x="858.9999999999999" y="308.0" />
+      <point x="854.9351218553456" y="308.0" />
+      <point x="41.75" y="14.5" />
+    </edge>
+    <edge source="testers.UITester" target="sudoku.Screens.LoadGameScreen" relationship="DEPENDENCY">
+      <point x="26.25" y="-14.5" />
+      <point x="1157.701061320755" y="1327.0" />
+      <point x="1498.1593946540881" y="1327.0" />
+      <point x="1498.1593946540881" y="1317.0" />
+      <point x="806.4510613207549" y="1317.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="sudoku.Screens.MultiplayerScreen" target="sudoku.Screens.MenuScreen" relationship="GENERALIZATION">
+      <point x="56.33333333333337" y="14.5" />
+      <point x="1628.4093946540881" y="474.0" />
+      <point x="1824.0222680817574" y="474.0" />
+      <point x="1824.0222680817574" y="514.0" />
+      <point x="1793.7722680817574" y="514.0" />
+      <point x="33.25" y="-14.5" />
+    </edge>
+    <edge source="multiplayer.MultiplayerModel" target="sudoku.Field" relationship="CREATE">
+      <point x="56.0" y="-14.5" />
+      <point x="2144.1729952830146" y="318.0" />
+      <point x="2121.6729952830146" y="318.0" />
+      <point x="2121.6729952830146" y="70.0" />
+      <point x="2291.625" y="70.0" />
+      <point x="2291.625" y="50.0" />
+      <point x="1593.3813286163481" y="50.0" />
+      <point x="27.33333333333337" y="14.5" />
+    </edge>
+    <edge source="testers.GeneratorTester" target="solvers.EfficientSolver" relationship="CREATE">
+      <point x="0.0" y="-14.5" />
+      <point x="955.5760613207549" y="152.0" />
+      <point x="953.5479952830146" y="152.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="solvers.RandomEfficientSolver" target="sudoku.Field" relationship="DEPENDENCY">
+      <point x="-49.75" y="-14.5" />
+      <point x="506.7499999999999" y="142.0" />
+      <point x="317.4999999999999" y="142.0" />
+      <point x="317.4999999999999" y="70.0" />
+      <point x="270.5688286163479" y="70.0" />
+      <point x="270.5688286163479" y="50.0" />
+      <point x="1538.7146619496814" y="50.0" />
+      <point x="-27.33333333333337" y="14.5" />
+    </edge>
+    <edge source="testers.UITester" target="sudoku.Screens.SudokuSolverScreen" relationship="DEPENDENCY">
+      <point x="26.25" y="-14.5" />
+      <point x="1157.701061320755" y="1327.0" />
+      <point x="1498.1593946540881" y="1327.0" />
+      <point x="1498.1593946540881" y="1317.0" />
+      <point x="1983.7684551886787" y="1317.0" />
+      <point x="1983.7684551886787" y="514.0" />
+      <point x="1831.576061320755" y="514.0" />
+      <point x="62.0" y="14.5" />
+    </edge>
+    <edge source="sudoku.Screens.MenuScreen" target="multiplayer.MultiplayerView" relationship="CREATE">
+      <point x="-33.25" y="-14.5" />
+      <point x="1727.2722680817574" y="514.0" />
+      <point x="1755.5222680817574" y="514.0" />
+      <point x="1755.5222680817574" y="484.0" />
+      <point x="1419.4166666666665" y="484.0" />
+      <point x="1419.4166666666665" y="308.0" />
+      <point x="1412.832389937103" y="308.0" />
+      <point x="52.33333333333337" y="14.5" />
+    </edge>
+    <edge source="sudoku.Screens.MenuScreen" target="sudoku.Screens.NewGameScreen" relationship="CREATE">
+      <point x="-33.25" y="-14.5" />
+      <point x="1727.2722680817574" y="514.0" />
+      <point x="1755.5222680817574" y="514.0" />
+      <point x="1755.5222680817574" y="484.0" />
+      <point x="1977.2427279874214" y="484.0" />
+      <point x="-54.66666666666663" y="14.5" />
+    </edge>
+    <edge source="sudoku.Screens.MenuScreen" target="sudoku.Main" relationship="DEPENDENCY">
+      <point x="44.33333333333337" y="14.5" />
+      <point x="1804.8556014150906" y="587.0" />
+      <point x="1801.6593946540881" y="587.0" />
+      <point x="1801.6593946540881" y="597.0" />
+      <point x="1795.582389937103" y="597.0" />
+      <point x="1795.582389937103" y="680.0" />
+      <point x="1701.332389937103" y="680.0" />
+      <point x="-20.75" y="-14.5" />
+    </edge>
+    <edge source="solvers.SudokuSolver" target="sudoku.Field" relationship="CREATE">
+      <point x="46.99999999999997" y="-14.5" />
+      <point x="871.5760613207549" y="1039.0" />
+      <point x="2358.159394654088" y="1039.0" />
+      <point x="2358.159394654088" y="70.0" />
+      <point x="2291.625" y="70.0" />
+      <point x="2291.625" y="50.0" />
+      <point x="1593.3813286163481" y="50.0" />
+      <point x="27.33333333333337" y="14.5" />
+    </edge>
+    <edge source="MVC.View" target="multiplayer.MultiplayerView" relationship="DEPENDENCY">
+      <point x="10.25" y="-14.5" />
+      <point x="1305.1249999999998" y="318.0" />
+      <point x="1351.4229952830146" y="318.0" />
+      <point x="1351.4229952830146" y="308.0" />
+      <point x="1360.4990566037695" y="308.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="solvers.EfficientSolver" target="solvers.SudokuSolver" relationship="GENERALIZATION">
+      <point x="-47.666666666666686" y="14.5" />
+      <point x="905.8813286163479" y="142.0" />
+      <point x="662.3260613207549" y="142.0" />
+      <point x="662.3260613207549" y="152.0" />
+      <point x="666.4999999999999" y="152.0" />
+      <point x="666.4999999999999" y="1049.0" />
+      <point x="777.5760613207549" y="1049.0" />
+      <point x="-47.00000000000006" y="-14.5" />
+    </edge>
+    <edge source="sudoku.Screens.MainScreen" target="sudoku.Main" relationship="DEPENDENCY">
+      <point x="-32.0" y="14.5" />
+      <point x="1838.082389937103" y="690.0" />
+      <point x="1701.332389937103" y="690.0" />
+      <point x="-20.75" y="-14.5" />
+    </edge>
+    <edge source="testers.GeneratorTester" target="solvers.SudokuSolver" relationship="DEPENDENCY">
+      <point x="-39.25" y="14.5" />
+      <point x="916.3260613207549" y="401.0" />
+      <point x="937.5479952830146" y="401.0" />
+      <point x="937.5479952830146" y="906.0" />
+      <point x="810.2010613207549" y="906.0" />
+      <point x="810.2010613207549" y="1019.0" />
+      <point x="824.5760613207549" y="1019.0" />
+      <point x="-5.6843418860808015E-14" y="-14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.36363636363636365" showDependencies="true" x="1179.5" y="688.5" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>packageLocal</VISIBILITY>
+</Diagram>
+
