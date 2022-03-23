@@ -14,14 +14,14 @@ import java.awt.event.*;
 public class View extends JPanel implements MouseListener, KeyListener, MouseWheelListener {
 	
 	private static final long serialVersionUID = 1L;
-	protected Model model;
+	public Model model;
 	protected Controller controller;
 	public int boardX = 0; //x coordinate for top left corner.
 	public int boardY = 0; //y coordinate for top left corner.
 	protected boolean dragging = false;
 	protected int[] mouseBoardVector = new int[] {0, 0};
-	protected int fieldWidth = Field.DEFAULT_WIDTH;
-	protected int fieldHeight = Field.DEFAULT_HEIGHT;
+	public int fieldWidth = Field.DEFAULT_WIDTH;
+	public int fieldHeight = Field.DEFAULT_HEIGHT;
 	protected boolean close = false;
 	protected JFrame frame;
 	protected JPanel buttonPanel;
