@@ -12,7 +12,6 @@ public class GeneratorTester {
 	public void test(Model model) {
 		long start = new Date().getTime();
 		System.out.println("Testing generator...");
-
 		GeneratorTestCase[] testCases = new GeneratorTestCase[] {new GeneratorTestCase(50, "Easy", 3, 3),
 																 new GeneratorTestCase(5, "Medium", 3, 3),
 																 new GeneratorTestCase(5, "Hard", 3, 3),
@@ -27,9 +26,6 @@ public class GeneratorTester {
 																 new GeneratorTestCase(1, "Hard", 5, 5),
 																 new GeneratorTestCase(1, "Extreme", 5, 5),
 																 new GeneratorTestCase(1, 3, 3, 3, 3)};
-
-
-
 		int totalGenerated = 0;
 		boolean passed = true;
 		for (GeneratorTestCase testCase : testCases) {
