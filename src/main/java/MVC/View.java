@@ -396,12 +396,18 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		
+		if (e.getKeyCode() == KeyEvent.VK_ALT) {
+            notesButton.setText("Notes on");
+            notesOn = true;
+        }
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		
+        if (e.getKeyCode() == KeyEvent.VK_ALT) {
+            notesButton.setText("Notes off");
+            notesOn = false;
+        }
 	}
 
 	@Override
