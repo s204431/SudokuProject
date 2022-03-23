@@ -2,16 +2,13 @@ package testers;
 
 import java.awt.Component;
 import java.awt.Dialog;
-import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.plaf.metal.MetalComboBoxButton;
 
 import abbot.finder.ComponentNotFoundException;
 import abbot.finder.Matcher;
@@ -19,8 +16,8 @@ import abbot.finder.MultipleComponentsFoundException;
 import abbot.finder.matchers.ClassMatcher;
 import abbot.tester.JButtonTester;
 import abbot.tester.JComponentTester;
+import abbot.tester.JTextFieldTester;
 import abbot.tester.JComboBoxTester;
-import abbot.tester.DialogTester;
 import junit.extensions.abbot.ComponentTestFixture;
 import multiplayer.MultiplayerView;
 import multiplayer.MultiplayerModel;
@@ -117,6 +114,8 @@ public class UITester extends ComponentTestFixture {
 	public void testMultiplayerMode() {
 		Main.restart();
 		clickButton("Multiplayer");
+		JTextFieldTester tester = new JTextFieldTester();
+		tester.actionEnterText(getTextField(MultiplayerModel.getIP()), otherTesterIP);
 		clickButton("Join");
 		sleep(3000);
 		boolean isHost = false;
