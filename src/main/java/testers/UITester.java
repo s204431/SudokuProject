@@ -1,6 +1,7 @@
 package testers;
 
 import java.awt.Component;
+import java.awt.Dialog;
 import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import java.util.List;
@@ -19,7 +20,10 @@ import abbot.finder.matchers.ClassMatcher;
 import abbot.tester.JButtonTester;
 import abbot.tester.JComponentTester;
 import abbot.tester.JComboBoxTester;
+import abbot.tester.DialogTester;
 import junit.extensions.abbot.ComponentTestFixture;
+import multiplayer.MultiplayerView;
+import multiplayer.MultiplayerModel;
 import solvers.EfficientSolver;
 import solvers.SudokuSolver;
 import sudoku.Field;
@@ -28,8 +32,17 @@ import sudoku.Screens.*;
 import MVC.*;
 
 public class UITester extends ComponentTestFixture {
+	
+	private boolean testMainMenu = false;
+	private boolean testPlayMode = false;
+	private boolean testCreateMode = false;
+	private boolean testSolverMode = false;
+	private String otherTesterIP = "10.209.128.1";
 
 	public void testMainMenu() {
+		if (!testMainMenu) {
+			return;
+		}
 		try {
 			Main.restart();
 			checkPanelActive(MainScreen.class);
@@ -52,6 +65,9 @@ public class UITester extends ComponentTestFixture {
 	}
 	
 	public void testPlayMode() {
+		if (!testPlayMode) {
+			return;
+		}
 		try {
 			Main.restart();
 			for (String difficulty : SudokuSolver.getDifficultyStrings()) {
@@ -67,6 +83,9 @@ public class UITester extends ComponentTestFixture {
 	}
 	
 	public void testCreateMode() {
+		if (!testCreateMode) {
+			return;
+		}
 		try {
 			Main.restart();
 			checkDifficulty("Easy", "Create Sudoku", true, "Empty", "Easy", "Medium", "Hard", "Extreme");
@@ -80,6 +99,9 @@ public class UITester extends ComponentTestFixture {
 	}
 	
 	public void testSolverMode() {
+		if (!testSolverMode) {
+			return;
+		}
 		try {
 			Main.restart();
 			checkDifficulty("Easy", "Sudoku Solver", true, "Easy", "Medium", "Hard", "Extreme");
@@ -89,6 +111,40 @@ public class UITester extends ComponentTestFixture {
 		} catch (AssertionError e) {
 			sleep(2000);
 			throw e;
+		}
+	}
+	
+	public void testMultiplayerMode() {
+		Main.restart();
+		clickButton("Multiplayer");
+		clickButton("Join");
+		sleep(3000);
+		boolean isHost = false;
+		try {
+			checkPanelActive(MainScreen.class);
+			isHost = true;
+		} catch (AssertionError e) {
+		}
+		if (isHost) {
+			clickButton("OK");
+			clickButton("Multiplayer");
+			clickButton("Host New Sudoku");
+			clickButton("Generate Sudoku");
+			sleep(200);
+			checkPanelActive(MultiplayerView.class);
+			MultiplayerView view = (MultiplayerView)getPanel(MultiplayerView.class);
+			sleep(1000);
+			while (!((MultiplayerModel)view.model).started) {
+				sleep(100);
+			}
+			sleep(3500);
+			clickButton("Exit");
+			checkPanelActive(MainScreen.class);
+		}
+		else {
+			checkPanelActive(MultiplayerView.class);
+			sleep(500);
+			checkPanelActive(MainScreen.class);
 		}
 	}
 	
@@ -192,6 +248,17 @@ public class UITester extends ComponentTestFixture {
 		tester.actionSelectIndex(dropdown, index);
 	}
 	
+	private Dialog getDialog() {
+		try {
+			return (Dialog)getFinder().find(new ClassMatcher(Dialog.class));
+		} catch (ComponentNotFoundException e) {
+			e.printStackTrace();
+		} catch (MultipleComponentsFoundException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	private JComboBox getDropdown() {
 		try {
 			return (JComboBox)getFinder().find(new ClassMatcher(JComboBox.class));
@@ -254,7 +321,6 @@ public class UITester extends ComponentTestFixture {
 	    try {
 			JTextField tf = (JTextField)getFinder().find(new Matcher() {
 			    public boolean matches(Component c) {
-			        // Add as much information as needed to distinguish the component
 			        return c instanceof JTextField && ((JTextField)c).getText().equals(text);
 			    }
 			});

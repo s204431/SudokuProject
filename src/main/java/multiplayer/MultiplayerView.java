@@ -73,7 +73,6 @@ public class MultiplayerView extends View {
 		updateBoardPosition();
 	}
     
-	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		super.mouseWheelMoved(e);
 		updateBoardPosition();
