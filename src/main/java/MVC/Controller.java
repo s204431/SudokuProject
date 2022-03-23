@@ -36,7 +36,7 @@ public class Controller {
 			Model.Stopwatch();
 		}
 		else if (e.getKeyChar() == 'm' && Main.DEBUG_MODE) {//SKAL SLETTES!!!!
-			MVC.View.winPopup();
+			view.winPopup(model.difficulty);
 		}
 		else if (e.getKeyChar() == 'a' && Main.DEBUG_MODE) {
 			System.out.println(Model.elapsedTime());

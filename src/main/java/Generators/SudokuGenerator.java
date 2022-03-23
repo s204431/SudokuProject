@@ -6,11 +6,11 @@ import java.util.Random;
 import testers.GeneratorTester.*;
 import solvers.*;
 
-import static testers.GeneratorTester.toSeconds;
 
 public class SudokuGenerator {
 	private int currentMissingFields = 0;
 	private int recursiveCalls = 0;
+	public int difficulty = 0;
 	
 	public int[][] generateSudoku(int innerSquareSize, int numInnerSquares, int minDifficulty, int maxDifficulty, int minMissingFields) {
 		int[][] matrix = new int[innerSquareSize*numInnerSquares][innerSquareSize*numInnerSquares];
@@ -33,7 +33,9 @@ public class SudokuGenerator {
 		if (!solver.hasUniqueSolution() || solver.difficulty > maxDifficulty) {
 			return null;
 		}
-		if (solver.difficulty >= minDifficulty && currentMissingFields >= minMissingFields) {
+
+		if (solver.difficulty >= minDifficulty && solver.difficulty <= maxDifficulty && currentMissingFields >= minMissingFields) {
+			difficulty = solver.difficulty;
 			return board; //Sudoku found.
 		}
 		List<Integer[]> coordinates = new ArrayList();

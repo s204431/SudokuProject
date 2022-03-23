@@ -467,13 +467,33 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 		}
 	}
 	
-	public static void winPopup() {
-		final JFrame winPop = new JFrame();
+	public void winPopup(int difficulty) {
+		String diff = SudokuSolver.getDifficultyString(difficulty);	
+		switch (diff) {
+		case "Easy":
+			difficulty = 0;
+			break;
+		
+		case "Medium":
+			difficulty = 1;
+			break;
 
-		int hour = Model.elapsedTime() / 3600;
-		int minute = Model.elapsedTime() / 60 % 60;
-		int second = Model.elapsedTime() % 60;
-		JOptionPane.showMessageDialog(winPop, "Sudoku solved! your time was: " + hour + ":" + minute + ":" + second);
+		case "Hard":
+			difficulty = 2;
+			break;
+			
+		case "Extreme":
+			difficulty = 3;
+			break;
+		}	
+		
+		int time = Model.elapsedTime();
+		
+		Model.saveStat(Model.elapsedTime(),difficulty);
+		int hour = time / 3600;
+		int minute = time / 60 % 60;
+		int second = time % 60;
+		JOptionPane.showMessageDialog(frame, "Sudoku solved! your time was: " + hour + ":" + minute + ":" + second);
 		//return to menu, save time
 		
 	}

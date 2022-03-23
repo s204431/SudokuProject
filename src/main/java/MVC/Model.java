@@ -26,6 +26,7 @@ public class Model {
 	public Mode mode = Mode.play;
 	public String fileName = "";
 	public boolean assistMode = false;
+	protected int difficulty;
 
 	public Model(int numInnerSquares, int innerSquareSize, Mode mode) {
 		this.mode = mode;
@@ -56,8 +57,7 @@ public class Model {
 	public void setField(int x, int y, Field field) {
 		board[x][y] = field;
 		if (sudokuSolved(board, innerSquareSize)) {
-			System.out.println("Solved! 1 ");
-			MVC.View.winPopup();
+			view.winPopup(difficulty);
 		}
 		view.repaint();
 	}
@@ -71,8 +71,7 @@ public class Model {
 			}
 		}
 		if (sudokuSolved(board, innerSquareSize)) {
-			System.out.println("Solved! 2");
-			MVC.View.winPopup();
+			view.winPopup(difficulty);
 		}
 		view.repaint();
 	}
@@ -85,6 +84,7 @@ public class Model {
 				toBeSolved[i][j] = new Field(board[i][j], true);
 			}
 		}
+		
 		return sudokuSolved(toBeSolved, innerSquareSize);
 	}
 	
@@ -131,6 +131,7 @@ public class Model {
 		}
 		if (sudokuSolved(board, innerSquareSize)) {
 			System.out.println("Solved!");
+			view.winPopup(difficulty);
 		}
 		view.repaint();
 	}
@@ -234,7 +235,9 @@ public class Model {
 	public void generateSudoku(int minDifficulty, int maxDifficulty, double minMissingFieldsPercent, int innerSquareSize, int numInnerSquares) {
 		this.innerSquareSize = innerSquareSize;
 		this.numInnerSquares = numInnerSquares;
-		int[][] matrix = new SudokuGenerator().generateSudoku(innerSquareSize, numInnerSquares, minDifficulty, maxDifficulty, (int)(getBoardSize()*getBoardSize()*minMissingFieldsPercent));
+		SudokuGenerator generator = new SudokuGenerator();
+		int[][] matrix = generator.generateSudoku(innerSquareSize, numInnerSquares, minDifficulty, maxDifficulty, (int)(getBoardSize()*getBoardSize()*minMissingFieldsPercent));
+		difficulty = generator.difficulty;
 		board = new Field[getBoardSize()][getBoardSize()];
 		for(int i = 0; i < getBoardSize(); i++) {
 			for(int j = 0; j < getBoardSize(); j++){
@@ -309,5 +312,58 @@ public class Model {
     	return innerSquareSize*innerSquareSize;
     }
 	
+    
+    public static int[] loadStat() {
+    	File file = new File("savedsudokus/Stats.txt");
+    	if(!file.exists()) {
+    		try {
+        		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+        		for(int i = 0; i < 7; i++) {
+        			writer.write("0 ");
+        		}
+        		writer.write("0");
+        		writer.close();
+        		
+        	}catch (IOException e) {
+        		e.printStackTrace();
+        	}
+    	}
+    	
+    	int[] stats = new int[8];
+    	Scanner scanner = null;
+    	try {
+    		scanner = new Scanner(file);
+    	} catch (FileNotFoundException e) {
+    		e.printStackTrace();
+    	}
+    	
+    	for(int i = 0; i < 8; i++) {
+    		stats[i] = scanner.nextInt();
+    	}
+    	return stats;
+    	
+    	
+    }
+    
+    public static void saveStat(int time, int difficulty) {
+    	int[] Stats = loadStat();
+    	File file = new File("savedsudokus/Stats.txt");
+    	if(time < Stats[difficulty]) {//change index for stats for correct difficulty (0-3) or (1-4)
+    		Stats[difficulty] = time;
+    	}
+    	Stats[difficulty + 4]++;
+    	try {
+    		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+    		for(int i = 0; i < 8; i++) {
+    			writer.write(Stats[i] + " ");
+    		}
+    		writer.close();
+    		
+    	}catch (IOException e) {
+    		e.printStackTrace();
+    	}
+    }
+    
+    
 }
 

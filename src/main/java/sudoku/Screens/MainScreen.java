@@ -67,7 +67,7 @@ public class MainScreen extends MenuScreen {
         newGameBtn.addActionListener(new newGameAction());
         createBtn.addActionListener(new createSudokuAction());
         solverBtn.addActionListener(new sudokuSolverAction());
-        highScoreBtn.addActionListener(null);
+        highScoreBtn.addActionListener(new statsAction());
     }
 
     private void startGame() {
@@ -129,5 +129,12 @@ public class MainScreen extends MenuScreen {
             changePanel();
             new SudokuSolverScreen(frame);
         }
+    }
+    
+    private class statsAction implements ActionListener {
+    	public void actionPerformed(ActionEvent e) {
+    		changePanel();
+    		new StatsScreen(frame);
+    	}
     }
 }
