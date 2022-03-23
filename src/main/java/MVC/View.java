@@ -129,7 +129,6 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                     int valueDigits = String.valueOf(value).length();
                     int scaling = (valueDigits + 1) * 3;
                     g2.setFont(new Font("Courier", Font.BOLD, (40 - scaling) * fieldWidth / Field.DEFAULT_WIDTH));
-
                     String text = "" + value;
                     int fontHeight = g2.getFontMetrics().getHeight();
                     int fontWidth = g2.getFontMetrics().stringWidth(text);
