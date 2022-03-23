@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -203,6 +204,7 @@ public class Model {
 		board = (Field[][]) result[0];
 		innerSquareSize = (int) result[1];
 		numInnerSquares = (int) result[2];
+		generateNotes();
 		view.clickedPosition = new int[] {0, 0};
 		view.resetBoardPosition();
 		view.repaint();
@@ -240,8 +242,45 @@ public class Model {
 				board[i][j] = new Field(matrix[i][j], interactable);
 			}
 		}
+		generateNotes();
 		view.resetBoardPosition();
 		view.repaint();
+	}
+
+	// Adds notes of all number that are not on vertical, horizontal lines or in innersquares
+	public void generateNotes() {
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				for (int k = 1; k <= 9; k++) {
+					board[i][j].notes[k-1] = k;
+				}
+			}
+		}
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				if (board[i][j].value > 0) {
+					add(i, j, board[i][j].value);
+				}
+			}
+		}
+	}
+
+	public void add(int x, int y, int value) {
+		for (int i = 0; i < board.length; i++) {
+			if (i != y && value <= 9 && value >= 1) {
+				board[x][i].notes[value-1] = 0;
+			}
+			if (i != x && value <= 9 && value >= 1) {
+				board[i][y].notes[value-1] = 0;
+			}
+		}
+		for (int i = x/innerSquareSize*innerSquareSize; i < x/innerSquareSize*innerSquareSize+innerSquareSize; i++) {
+			for (int j = y/innerSquareSize*innerSquareSize; j < y/innerSquareSize*innerSquareSize+innerSquareSize; j++) {
+				if ((i != x || j != y) & value <= 9 && value >= 1) {
+					board[i][j].notes[value-1] = 0;
+				}
+			}
+		}
 	}
 	
 	public void giveHint() {
