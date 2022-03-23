@@ -140,19 +140,6 @@ public class GenerateNewSudokuScreen extends MenuScreen {
     class backAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             changePanel();
-            /*switch(mode) {
-                case Mode.play:
-                    new NewGameScreen(frame);
-                    break;
-                case Mode.create:
-                    new CreateSudokuScreen(frame);
-                    break;
-                case Mode.multiplayer:
-                    new MultiplayerScreen(frame);
-                    break;
-                default:
-                    new SudokuSolverScreen(frame);
-            }*/
             backAction();
         }
     }
