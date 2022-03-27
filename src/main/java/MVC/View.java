@@ -473,15 +473,12 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 		case "Easy":
 			difficulty = 0;
 			break;
-		
 		case "Medium":
 			difficulty = 1;
 			break;
-
 		case "Hard":
 			difficulty = 2;
 			break;
-			
 		case "Extreme":
 			difficulty = 3;
 			break;

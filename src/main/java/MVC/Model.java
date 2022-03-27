@@ -102,12 +102,13 @@ public class Model {
 					return false;
 				}
 				else {
-					if (foundRow[i][board[i][j].value-1] || foundColumn[j][board[i][j].value-1] || foundInnerSquare[(i/innerSquareSize)*numInnerSquares+(j/innerSquareSize)][board[i][j].value-1]) {
+					int innerIndex = (i / innerSquareSize) * numInnerSquares + (j / innerSquareSize);
+					if (foundRow[i][board[i][j].value-1] || foundColumn[j][board[i][j].value-1] || foundInnerSquare[innerIndex][board[i][j].value-1]) {
 						return false;
 					}
 					foundRow[i][board[i][j].value-1] = true;
 					foundColumn[j][board[i][j].value-1] = true;
-					foundInnerSquare[(i/innerSquareSize)*numInnerSquares+(j/innerSquareSize)][board[i][j].value-1] = true;
+					foundInnerSquare[innerIndex][board[i][j].value-1] = true;
 				}
 			}
 		}
@@ -252,10 +253,10 @@ public class Model {
 
 	// Adds notes of all number that are not on vertical, horizontal lines or in innersquares
 	public void generateNotes() {
-		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board[i].length; j++) {
+		for (Field[] fields : board) {
+			for (Field field : fields) {
 				for (int k = 1; k <= 9; k++) {
-					board[i][j].notes[k-1] = k;
+					field.notes[k - 1] = k;
 				}
 			}
 		}

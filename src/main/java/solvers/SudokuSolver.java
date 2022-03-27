@@ -87,9 +87,9 @@ public abstract class SudokuSolver {
 	}
 	
 	protected void print(int[][] board) {
-		for (int i = 0; i < board.length; i++) {
+		for (int[] ints : board) {
 			for (int j = 0; j < board.length; j++) {
-				System.out.print(board[i][j]+" ");
+				System.out.print(ints[j] + " ");
 			}
 			System.out.println();
 		}
@@ -99,9 +99,7 @@ public abstract class SudokuSolver {
 	protected int[][] copyOf(int[][] array) {
 		int[][] result = new int[array.length][array[0].length];
 		for (int i = 0; i < array.length; i++) {
-			for (int j = 0; j < array[0].length; j++) {
-				result[i][j] = array[i][j];
-			}
+			System.arraycopy(array[i], 0, result[i], 0, array[0].length);
 		}
 		return result;
 	}
@@ -152,19 +150,20 @@ public abstract class SudokuSolver {
 	}
 	
 	public static String getDifficultyString(int difficulty) {
+
 		if (difficulty <= 0) {
 			return "Unsolvable";
 		}
-		else if (difficulty >= 1 && difficulty <= 2) {
+		else if (difficulty <= 2) {
 			return "Easy";
 		}
-		else if (difficulty >= 3 && difficulty <= 4) {
+		else if (difficulty <= 4) {
 			return "Medium";
 		}
-		else if (difficulty >= 5 && difficulty <= 7) {
+		else if (difficulty <= 7) {
 			return "Hard";
 		}
-		else if (difficulty >= 8 && difficulty <= 9) {
+		else if (difficulty <= 9) {
 			return "Extreme";
 		}
 		return "";
