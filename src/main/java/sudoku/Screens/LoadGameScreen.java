@@ -45,11 +45,11 @@ public class LoadGameScreen extends MenuScreen {
         // Title
         titleString = new JLabel("Load Game");
         setTitle(titleString);
-
+        // Buttons
         loadGameBtn = new JButton("Load Game");
         backBtn = new JButton("Back");
         setButtons(new JButton[]{loadGameBtn, backBtn});
-
+        // Action listeners
         setActionListeners();
     }
 

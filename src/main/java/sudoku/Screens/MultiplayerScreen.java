@@ -20,18 +20,21 @@ public class MultiplayerScreen extends MenuScreen{
         super(frame);
     }
     public void addComponents(){
+        // Title
         titleLabel = new JLabel("Multiplayer");
+        setTitle(titleLabel);
+        // First 2 buttons
         hostBtn = new JButton("Host New Sudoku");
         loadBtn = new JButton("Host Old Sudoku");
+        setButtons(new JButton[]{hostBtn, loadBtn});
+        // IP text field
+        ip_address = new JTextField(MultiplayerModel.getIP());
+        setTextFields(new JTextField[]{ip_address});
+        // Last 2 buttons
         joinBtn = new JButton("Join");
         backBtn = new JButton("Back");
-        ip_address = new JTextField(MultiplayerModel.getIP());
-
-        setTitle(titleLabel);
-        setButtons(new JButton[]{hostBtn, loadBtn});
-        setTextFields(new JTextField[]{ip_address});
         setButtons(new JButton[]{joinBtn, backBtn});
-
+        // Action listeners
         setActionListeners();
     }
 

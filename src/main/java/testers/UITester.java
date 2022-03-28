@@ -122,7 +122,7 @@ public class UITester extends ComponentTestFixture {
 		try {
 			checkPanelActive(MainScreen.class);
 			isHost = true;
-		} catch (AssertionError e) {
+		} catch (AssertionError ignored) {
 		}
 		if (isHost) {
 			clickButton("OK");
@@ -251,9 +251,7 @@ public class UITester extends ComponentTestFixture {
 	private Dialog getDialog() {
 		try {
 			return (Dialog)getFinder().find(new ClassMatcher(Dialog.class));
-		} catch (ComponentNotFoundException e) {
-			e.printStackTrace();
-		} catch (MultipleComponentsFoundException e) {
+		} catch (ComponentNotFoundException | MultipleComponentsFoundException e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -262,9 +260,7 @@ public class UITester extends ComponentTestFixture {
 	private JComboBox getDropdown() {
 		try {
 			return (JComboBox)getFinder().find(new ClassMatcher(JComboBox.class));
-		} catch (ComponentNotFoundException e) {
-			e.printStackTrace();
-		} catch (MultipleComponentsFoundException e) {
+		} catch (ComponentNotFoundException | MultipleComponentsFoundException e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -302,8 +298,7 @@ public class UITester extends ComponentTestFixture {
 			JButtonTester tester = new JButtonTester();
 			tester.click(button);
 			return;
-		} catch (ComponentNotFoundException e) {
-		} catch (MultipleComponentsFoundException e) {
+		} catch (ComponentNotFoundException | MultipleComponentsFoundException ignored) {
 		}
 		assertTrue("Button "+buttonText+" does not exist.", false);
 	}
@@ -311,8 +306,7 @@ public class UITester extends ComponentTestFixture {
 	private JPanel getPanel(Class<?> panelClass) {
 		try {
 			return (JPanel)getFinder().find(new ClassMatcher(panelClass));
-		} catch (ComponentNotFoundException e) {
-		} catch (MultipleComponentsFoundException e) {
+		} catch (ComponentNotFoundException | MultipleComponentsFoundException ignored) {
 		}
 		return null;
 	}
@@ -325,8 +319,7 @@ public class UITester extends ComponentTestFixture {
 			    }
 			});
 			return tf;
-		} catch (ComponentNotFoundException e) {
-		} catch (MultipleComponentsFoundException e) {
+		} catch (ComponentNotFoundException | MultipleComponentsFoundException ignored) {
 		}
 		return null;
 	}

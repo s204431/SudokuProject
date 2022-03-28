@@ -28,7 +28,7 @@ public class SudokuSolverScreen extends MenuScreen {
         loadBtn = new JButton("Load Existing Sudoku");
         backBtn = new JButton("Back");
         setButtons(new JButton[]{generateBtn, loadBtn, backBtn});
-
+        // Action listeners
         setActionListeners();
     }
 

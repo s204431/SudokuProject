@@ -128,7 +128,7 @@ public abstract class MenuScreen extends JPanel {
         frame.remove(this);
     }
 
-    protected class exitAction implements ActionListener {
+    protected static class exitAction implements ActionListener {
         public void actionPerformed (ActionEvent e){
             System.exit(0);
         }
@@ -207,7 +207,7 @@ public abstract class MenuScreen extends JPanel {
         menuBar.add(file);
         JMenuItem exit = new JMenuItem("Exit");
         file.add(exit);
-        exit.addActionListener(new MainScreen.exitAction());
+        exit.addActionListener(new exitAction());
 
         JMenu difficulty = new JMenu("Difficulty");
         menuBar.add(difficulty);

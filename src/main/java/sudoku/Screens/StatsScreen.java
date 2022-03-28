@@ -69,8 +69,6 @@ public class StatsScreen extends MenuScreen {
 			hours = String.valueOf(stats[i - 1] / 3600);
 			time[i] = new JLabel (hours + ":" + minutes + ":" + seconds);
 			attempts[i] = new JLabel (String.valueOf(stats[i + 3]));
-			
-
 		}
 		
 		for(int i = 0; i < 5; i++) {
@@ -84,14 +82,10 @@ public class StatsScreen extends MenuScreen {
 			rightPanel.add(attempts[i]);
 			rightPanel.add(Box.createRigidArea(new Dimension(0, spacing)));
 		}
-		
 		setPanel(PANEL, new JComponent[] {leftPanel,middlePanel,rightPanel});
-		
         backBtn = new JButton("Back");
         setButtons(new JButton[]{backBtn});
-		
 		setActionListeners();
-		
 	}
 	
 	private void setLabelFont(JLabel label) {

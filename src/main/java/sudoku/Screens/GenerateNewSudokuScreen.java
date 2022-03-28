@@ -1,15 +1,12 @@
 package sudoku.Screens;
 
-import MVC.Controller;
 import MVC.Model;
 import MVC.Model.Mode;
-import MVC.View;
 import solvers.SudokuSolver;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -43,11 +40,10 @@ public class GenerateNewSudokuScreen extends MenuScreen {
         // Title
         titleLabel = new JLabel("Choose size and Difficulty");
         setTitle(titleLabel);
-
+        // Label
         boardSizeLabel = new JLabel("Size of board");
         setLabels(new JLabel[]{boardSizeLabel});
-
-        addLabels();
+        makeSliders();
 
         generateBtn = new JButton("Generate Sudoku");
         backBtn = new JButton("Back");
@@ -56,7 +52,7 @@ public class GenerateNewSudokuScreen extends MenuScreen {
         setActionListeners();
     }
 
-    private void addLabels() {
+    private void makeSliders() {
         //Adding elements to sliders
         nLabel = new JLabel("3");
         kLabel = new JLabel("3");
@@ -83,9 +79,7 @@ public class GenerateNewSudokuScreen extends MenuScreen {
         	String[] difficulties = SudokuSolver.getDifficultyStrings();
         	String[] choices = new String[difficulties.length+1];
         	choices[0] = "Empty";
-        	for (int i = 0; i < difficulties.length; i++) {
-        		choices[i+1] = difficulties[i];
-        	}
+            System.arraycopy(difficulties, 0, choices, 1, difficulties.length);
             difficultyBox = new JComboBox(choices);
         }
         else {
@@ -132,7 +126,6 @@ public class GenerateNewSudokuScreen extends MenuScreen {
             int[] range = SudokuSolver.getDifficultyRange(difficulty);
             if (range != null) {
                 model.generateSudoku(range[0], range[1], difficulty.equals("Easy") ? 0.50 : 0);
-
             }
         }
     }

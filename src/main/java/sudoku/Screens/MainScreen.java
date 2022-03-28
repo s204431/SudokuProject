@@ -48,14 +48,14 @@ public class MainScreen extends MenuScreen {
             setPanel(new JPanel(), new JComponent[]{nLabel, nText, kLabel, kText});	
         }
 
-        //The rest of the buttons
+        // The rest of the buttons
         newGameBtn = new JButton("New Game");
         MPBtn = new JButton("Multiplayer");
         createBtn = new JButton("Create Sudoku");
         solverBtn = new JButton("Sudoku Solver");
         highScoreBtn = new JButton("Stats");
         setButtons(new JButton[]{newGameBtn, MPBtn, createBtn, solverBtn, highScoreBtn});
-
+        // Action listeners
         setActionListeners();
     }
 

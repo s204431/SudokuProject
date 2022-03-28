@@ -35,6 +35,7 @@ public class NewGameScreen extends MenuScreen {
         backBtn = new JButton("Back");
         setButtons(new JButton[]{generateBtn, loadBtn, backBtn});
 
+        // Action listeners
         setActionListeners();
     }
 
