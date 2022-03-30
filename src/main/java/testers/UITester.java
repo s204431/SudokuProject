@@ -1,9 +1,11 @@
 package testers;
 
-import java.awt.Component;
-import java.awt.Dialog;
+import java.awt.*;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -34,7 +36,9 @@ public class UITester extends ComponentTestFixture {
 	private boolean testPlayMode = false;
 	private boolean testCreateMode = false;
 	private boolean testSolverMode = false;
-	private String otherTesterIP = "10.209.128.1";
+	private boolean testMultiplayerMode = false;
+	private boolean monkeyTest = true;
+	private String otherTesterIP = "10.209.227.126";
 
 	public void testMainMenu() {
 		if (!testMainMenu) {
@@ -43,6 +47,7 @@ public class UITester extends ComponentTestFixture {
 		try {
 			Main.restart();
 			checkPanelActive(MainScreen.class);
+
 			//Test new game button.
 			performButtonClickSequence(new String[] {"New Game", "Back", "New Game", "Generate New Sudoku", "Back", "Load Existing Sudoku", "Back", "Back"},
 									   new Class<?>[] {NewGameScreen.class, MainScreen.class, NewGameScreen.class, GenerateNewSudokuScreen.class, NewGameScreen.class, LoadGameScreen.class, NewGameScreen.class, MainScreen.class});
@@ -54,7 +59,7 @@ public class UITester extends ComponentTestFixture {
 									   new Class<?>[] {CreateSudokuScreen.class, MainScreen.class, CreateSudokuScreen.class, GenerateNewSudokuScreen.class, CreateSudokuScreen.class, LoadGameScreen.class, CreateSudokuScreen.class, MainScreen.class});
 			//Test sudoku solver button.
 			performButtonClickSequence(new String[] {"Sudoku Solver", "Back", "Sudoku Solver", "Generate New Sudoku", "Back", "Load Existing Sudoku", "Back", "Back"},
-									   new Class<?>[] {SudokuSolverScreen.class, MainScreen.class, SudokuSolverScreen.class, GenerateNewSudokuScreen.class, SudokuSolverScreen.class, LoadGameScreen.class, SudokuSolverScreen.class, MainScreen.class});	
+									   new Class<?>[] {SudokuSolverScreen.class, MainScreen.class, SudokuSolverScreen.class, GenerateNewSudokuScreen.class, SudokuSolverScreen.class, LoadGameScreen.class, SudokuSolverScreen.class, MainScreen.class});
 		} catch (AssertionError e) {
 			sleep(2000);
 			throw e;
@@ -110,8 +115,11 @@ public class UITester extends ComponentTestFixture {
 			throw e;
 		}
 	}
-	
+
 	public void testMultiplayerMode() {
+		if (!testMultiplayerMode) {
+			return;
+		}
 		Main.restart();
 		clickButton("Multiplayer");
 		JTextFieldTester tester = new JTextFieldTester();
@@ -145,6 +153,31 @@ public class UITester extends ComponentTestFixture {
 			checkPanelActive(MultiplayerView.class);
 			sleep(2000);
 			checkPanelActive(MainScreen.class);
+		}
+	}
+
+	public void testMonkey() {
+		if (!monkeyTest) {
+			return;
+		}
+		Main.restart();
+		try {
+			//Monkey test
+			Robot robot = new Robot();
+			int centerX = Main.screenSize.width/2;
+			int centerY = Main.screenSize.height/2;
+			for (int i = 0; i < 200; i++) {
+				int randomX = ThreadLocalRandom.current().nextInt(centerX - Main.SCREEN_WIDTH/3, centerX + Main.SCREEN_WIDTH/3);
+				int randomY = ThreadLocalRandom.current().nextInt(centerY - Main.SCREEN_HEIGHT/3, centerY + Main.SCREEN_HEIGHT/3);
+				int mask = InputEvent.getMaskForButton(1);
+				robot.mouseMove(randomX, randomY);
+				robot.delay(20);
+				robot.mousePress(mask);
+				robot.delay(20);
+				robot.mouseRelease(mask);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
