@@ -15,6 +15,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+/*
+The abstract class MenuScreen is a screen that all the other Screens inherit from. It has built-in functions
+that almost every other Screen calls, this is done to reduce redundancy. It sets the bounds and limits for
+all classes and minimizes errors.
+*/
+
+
 public abstract class MenuScreen extends JPanel {
     protected Font titleFont = new Font(Font.SERIF, Font.BOLD,50);
     protected int textSize = 50;
@@ -27,7 +34,7 @@ public abstract class MenuScreen extends JPanel {
     protected Font textFont = new Font("Serif", Font.BOLD,20);
     protected Font labelFont = new Font("Serif", Font.BOLD,30);
     protected Dimension panelDimension = new Dimension(400,60);
-    protected Dimension buttonDimension = new Dimension(200,50);
+    protected Dimension buttonDimension = new Dimension(btnWidth, btnHeight);
     protected Dimension textDimension = new Dimension(textSize, textSize);
     protected Mode mode;
 
@@ -50,10 +57,15 @@ public abstract class MenuScreen extends JPanel {
 
     public abstract void addComponents();
 
+    // All 'set...' methods creates a generic:
+    // set element -> add space -> repeat...
+
     protected void setButtons(JButton[] buttons){
         for (JButton button : buttons) {
             button.setAlignmentX(Component.CENTER_ALIGNMENT);
             button.setMaximumSize(buttonDimension);
+            button.setMinimumSize(buttonDimension);
+            button.setPreferredSize(buttonDimension);
             add(button);
             add(Box.createRigidArea(new Dimension(0, spacing)));
         }

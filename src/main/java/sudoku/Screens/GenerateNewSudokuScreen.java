@@ -63,8 +63,8 @@ public class GenerateNewSudokuScreen extends MenuScreen {
         DefaultBoundedRangeModel model1 = new DefaultBoundedRangeModel(3, 0, 2, 10);
         DefaultBoundedRangeModel model2 = new DefaultBoundedRangeModel(3, 0, 2, 10);
 
-        nSlider = new JSlider(model1);
-        kSlider = new JSlider(model2);
+        nSlider = new JSlider(model1); // Can't have same model, since they
+        kSlider = new JSlider(model2); // have to have 2 different values.
 
         //Setting up the sliders
         setSliders(new JLabel[]{nLabel, kLabel},
@@ -72,12 +72,10 @@ public class GenerateNewSudokuScreen extends MenuScreen {
                 new JSlider[]{nSlider, kSlider},
                 new String[]{"n", "k"});
 
-
         difficultyLabel = new JLabel("Difficulty: ");
-
-        if (mode == Mode.create) {
-        	String[] difficulties = SudokuSolver.getDifficultyStrings();
-        	String[] choices = new String[difficulties.length+1];
+        if (mode == Mode.create) {                                       // Adds the choice 'Empty' when the mode
+        	String[] difficulties = SudokuSolver.getDifficultyStrings(); // is 'create' to give the opportunity
+        	String[] choices = new String[difficulties.length + 1];      // to create your own sudoku.
         	choices[0] = "Empty";
             System.arraycopy(difficulties, 0, choices, 1, difficulties.length);
             difficultyBox = new JComboBox(choices);
@@ -85,7 +83,6 @@ public class GenerateNewSudokuScreen extends MenuScreen {
         else {
             difficultyBox = new JComboBox(SudokuSolver.getDifficultyStrings());
         }
-
         setPanel(new JPanel(), new JComponent[]{difficultyLabel, difficultyBox});
     }
 
@@ -113,12 +110,12 @@ public class GenerateNewSudokuScreen extends MenuScreen {
             Model model;
             if (kSlider.getValue() > nSlider.getValue()) {
                 return;
-            }
-            frame.dispose();
-            if (mode == Mode.multiplayer) {
-                k = kSlider.getValue();
-                n = nSlider.getValue();
-                model = setMultiplayerInstance(true,"");
+            }                                                                    // Initializes game.
+            frame.dispose();                                                     // Depending on multiplayer
+            if (mode == Mode.multiplayer) {                                      // or single player this
+                k = kSlider.getValue();                                          // creates a game instance.
+                n = nSlider.getValue();                                          // It also finds the difficulty
+                model = setMultiplayerInstance(true,"");            // chosen and uses this.
             } else {
                 model = startGame(kSlider.getValue(), nSlider.getValue(), mode);
             }

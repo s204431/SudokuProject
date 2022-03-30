@@ -31,23 +31,22 @@ public class MainScreen extends MenuScreen {
     }
 
     public void addComponents() {
-        //Title
+        // Title
         titleString = new JLabel("Main Menu");
         setTitle(titleString);
-
+        // Enables fast of code when DEBUG_MODE is activated.
+        // (When not these elements will be found in GenerateNewSudokuScreen.java)
         if (Main.DEBUG_MODE) {
             //Play button
             playBtn = new JButton("Play Game");
             setButtons(new JButton[]{playBtn});
-
-            //k and n text fields
+            // k- and n text fields
             JLabel nLabel = new JLabel("N:");
             nText = new JTextField();
             JLabel kLabel = new JLabel("K:");
             kText = new JTextField();
             setPanel(new JPanel(), new JComponent[]{nLabel, nText, kLabel, kText});	
         }
-
         // The rest of the buttons
         newGameBtn = new JButton("New Game");
         MPBtn = new JButton("Multiplayer");
@@ -71,6 +70,9 @@ public class MainScreen extends MenuScreen {
     }
 
     private void startGame() {
+        // Game is initialized.
+        // If k == 3 you are the host,
+        // otherwise you join.
     	MultiplayerModel model;
     	if (k == 3) {
         	model = new MultiplayerModel(k, n);
@@ -89,6 +91,7 @@ public class MainScreen extends MenuScreen {
 
     class playAction implements ActionListener {
         public void actionPerformed (ActionEvent e){
+            // Initializes the game with the values inserted.
             try {
                 n = Integer.parseInt(nText.getText());
                 k = Integer.parseInt(kText.getText());
@@ -98,10 +101,13 @@ public class MainScreen extends MenuScreen {
                 frame.dispose();
                 startGame();
             } catch (NumberFormatException ignored) {
-
             }
         }
     }
+    // These private classes changes the frame
+    // depending on what button is pressed.
+    // They are found in every java class
+    // under the 'Screens' folder.
 
     private class newGameAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {

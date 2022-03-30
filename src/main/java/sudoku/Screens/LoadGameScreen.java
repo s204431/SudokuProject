@@ -40,19 +40,27 @@ public class LoadGameScreen extends MenuScreen {
     }
 
     public void addComponents() {
-        addLists();
-
         // Title
         titleString = new JLabel("Load Game");
         setTitle(titleString);
+
+        // Box of loadable sudoku's.
+        addLists();
+
         // Buttons
         loadGameBtn = new JButton("Load Game");
         backBtn = new JButton("Back");
         setButtons(new JButton[]{loadGameBtn, backBtn});
+
         // Action listeners
         setActionListeners();
     }
 
+    /*
+    addLists() takes the ".su" files from the savedsudokus folder, and creates small viewable images
+    inside a box of them. These sudoku files can then be accessed from this frame and are continuable
+    if desired.
+     */
     private void addLists() {
         File folder = new File("savedsudokus");
         File[] matchingFiles = folder.listFiles(new FilenameFilter() {
@@ -70,14 +78,14 @@ public class LoadGameScreen extends MenuScreen {
         }
         
         loadList = new JList<LoadListElement>(savedSudokus);
-        loadList.setCellRenderer(new LoadListRenderer(btnWidth*2));
+        loadList.setCellRenderer(new LoadListRenderer(btnWidth * 2));
         
         // Add scroll function
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setViewportView(loadList);
         loadList.setLayoutOrientation(JList.VERTICAL);
         scrollPane.setAlignmentX(Component.CENTER_ALIGNMENT);
-        scrollPane.setMaximumSize(new Dimension(btnWidth*2,300));
+        scrollPane.setMaximumSize(new Dimension(btnWidth * 2,300));
         add(scrollPane);
         add(Box.createRigidArea(new Dimension(0, spacing)));
     }

@@ -82,6 +82,7 @@ public class StatsScreen extends MenuScreen {
 			rightPanel.add(Box.createRigidArea(new Dimension(0, spacing)));
 		}
 		setPanel(PANEL, new JComponent[] {leftPanel,middlePanel,rightPanel});
+		System.out.println(PANEL.getHeight());
         backBtn = new JButton("Back");
         setButtons(new JButton[]{backBtn});
 		setActionListeners();
