@@ -141,19 +141,23 @@ public class MultiplayerModel extends Model implements Runnable {
 	
 	public void setField(int x, int y, Field field) {
 		super.setField(x, y, field);
-		try {
-			toOpponent.put(x, y, field.value);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		if (!view.notesOn) {
+			try {
+				toOpponent.put(x, y, field.value);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
 	public void setField(int x, int y, int value) {
 		super.setField(x, y, value);
-		try {
-			toOpponent.put(x, y, value);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		if (!view.notesOn) {
+			try {
+				toOpponent.put(x, y, value);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	

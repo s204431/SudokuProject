@@ -37,7 +37,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 	public JTextField textField;
 	protected JLabel timerLabel;
 	protected boolean inFocus = true;
-    protected boolean notesOn = false;
+    public boolean notesOn = false;
     private boolean infoButtonClicked = false;
     private int savedDifficulty;
 
