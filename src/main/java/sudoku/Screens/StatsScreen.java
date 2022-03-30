@@ -70,7 +70,6 @@ public class StatsScreen extends MenuScreen {
 			time[i] = new JLabel (hours + ":" + minutes + ":" + seconds);
 			attempts[i] = new JLabel (String.valueOf(stats[i + 3]));
 		}
-		
 		for(int i = 0; i < 5; i++) {
 			setLabelFont(name[i]);
 			setLabelFont(attempts[i]);

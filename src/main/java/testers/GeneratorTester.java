@@ -1,7 +1,6 @@
 package testers;
 
 import java.util.Date;
-
 import Generators.SudokuGenerator;
 import MVC.Model;
 import solvers.EfficientSolver;
