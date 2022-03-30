@@ -68,8 +68,8 @@ public class MultiplayerView extends View {
     }
 
 	public void resetBoardPosition() {
-		fieldWidth = (int)(Field.DEFAULT_WIDTH / 1.5);
-		fieldHeight = (int)(Field.DEFAULT_HEIGHT / 1.5);
+    	fieldWidth = (int)((Field.DEFAULT_WIDTH*windowWidth/1170.0)/1.5);
+    	fieldHeight = fieldWidth;
 		boardX = (getPreferredSize().width - 200) / 4 - fieldWidth * model.board.length / 2;
 		boardY = getPreferredSize().height / 2 - fieldHeight * model.board.length / 2;
 		updateBoardPosition();
