@@ -20,6 +20,8 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 	public int boardY = 0; //y coordinate for top left corner.
 	protected boolean dragging = false;
 	protected int[] mouseBoardVector = new int[] {0, 0};
+	public int windowWidth;
+	public int windowHeight;
 	public int fieldWidth = Field.DEFAULT_WIDTH;
 	public int fieldHeight = Field.DEFAULT_HEIGHT;
 	protected boolean close = false;
@@ -49,7 +51,9 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     public View(Model model) {
     	this.model = model;
     	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    	setPreferredSize(new Dimension(screenSize.width-screenSize.width/10, screenSize.height-screenSize.height/10));
+    	windowWidth = screenSize.width-screenSize.width/10;
+    	windowHeight = screenSize.height-screenSize.height/10;
+    	setPreferredSize(new Dimension(windowWidth, windowHeight));
         boardX = getPreferredSize().width/2-model.getBoardSize()*fieldWidth/2;
         setBounds(0, 0, getPreferredSize().width, getPreferredSize().height);
         // Create frame
