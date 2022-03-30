@@ -38,7 +38,7 @@ public class UITester extends ComponentTestFixture {
 	private boolean testSolverMode = false;
 	private boolean testMultiplayerMode = false;
 	private boolean monkeyTest = true;
-	private String otherTesterIP = "10.209.227.126";
+	private String otherTesterIP = "10.209.128.1";
 
 	public void testMainMenu() {
 		if (!testMainMenu) {
@@ -208,6 +208,8 @@ public class UITester extends ComponentTestFixture {
 	private void checkSudokuActions(View view, Model model, boolean allowRemovingInitialValues) {
 		int initialBoardX = view.boardX;
 		int initialBoardY = view.boardY;
+		int initialFieldWidth = view.fieldWidth;
+		int initialFieldHeight = view.fieldHeight;
 		int x = -1;
 		int y = -1;
 		for (int i = 0; i < model.board.length; i++) {
@@ -267,7 +269,7 @@ public class UITester extends ComponentTestFixture {
 			assertTrue("Wrong value in field.", model.board[x][y].value > 0);
 		}
 		tester.key(KeyEvent.VK_SPACE);
-		assertTrue("Wrong board position.", view.fieldWidth == Field.DEFAULT_WIDTH && view.fieldHeight == Field.DEFAULT_HEIGHT && view.boardX == initialBoardX && view.boardY == initialBoardY);
+		assertTrue("Wrong board position.", view.fieldWidth == initialFieldWidth && view.fieldHeight == initialFieldHeight && view.boardX == initialBoardX && view.boardY == initialBoardY);
 	}
 	
 	private void selectDropdownValue(JComboBox dropdown, String value) {
