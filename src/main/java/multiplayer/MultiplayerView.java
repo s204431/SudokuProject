@@ -21,6 +21,8 @@ import javax.swing.*;
 
 public class MultiplayerView extends View {
 	private JPanel opponentPanel;
+	protected int opponentWindowWidth;
+	protected int opponentWindowHeight;
 
 	public MultiplayerView(MultiplayerModel model) {
 		super(model);
@@ -127,8 +129,9 @@ public class MultiplayerView extends View {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			int opponentBoardX = (int) tuple[1];
-			int opponentBoardY = (int) tuple[2];
+			int[] opponentBoardPosition = convertCoordinate((int) tuple[1], (int) tuple[2]);
+			int opponentBoardX = opponentBoardPosition[0];
+			int opponentBoardY = opponentBoardPosition[1];
 			int opponentFieldWidth = (int) tuple[3];
 			int opponentFieldHeight = (int) tuple[4];
 
@@ -182,6 +185,16 @@ public class MultiplayerView extends View {
 			// Draw components
 			//buttonPanel.repaint();
 			//setVisible(true);
+		}
+		
+		//Converts from coordinate in opponent window to coordinate in this window.
+		private int[] convertCoordinate(int x, int y) {
+			double px = ((double)windowWidth)/opponentWindowWidth;
+			double py = ((double)windowHeight)/opponentWindowHeight;
+			return new int[] {(int)(px*x), (int)(py*y)};
+			//double px = ((double)x)/opponentWindowWidth;
+			//double py = ((double)y)/opponentWindowHeight;
+			//return new int[] {(int)(px*windowWidth), (int)(py*windowHeight)};
 		}
 	}
 

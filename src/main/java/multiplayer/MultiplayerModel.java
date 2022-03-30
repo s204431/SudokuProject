@@ -42,17 +42,14 @@ public class MultiplayerModel extends Model implements Runnable {
 	
 	public void start() {
 		new Thread(new DisconnectedReader()).start();
-		/*
-		new Thread(() -> {
-			System.out.println("Hey");
-			//Do stuff
-		}).start();*/
 
 		if (isServer) {
 			//Wait for other player to join.
 			try {
-				fromOpponent.get(new ActualField("joined"));
-				toOpponent.put("ok");
+				Object[] tuple = fromOpponent.get(new ActualField("joined"), new FormalField(Integer.class), new FormalField(Integer.class));
+				toOpponent.put("ok", view.windowWidth, view.windowHeight);
+				((MultiplayerView) view).opponentWindowWidth = (int) tuple[1];
+				((MultiplayerView) view).opponentWindowHeight = (int) tuple[2];
 				if (close) {
 					return;
 				}
@@ -66,14 +63,16 @@ public class MultiplayerModel extends Model implements Runnable {
 		else {
 			//Inform host that this client has joined.
 			try {
-				toOpponent.put("joined");
+				toOpponent.put("joined", view.windowWidth, view.windowHeight);
 				//Wait For response from server.
-				Object[] response = fromOpponent.get(new FormalField(String.class));
+				Object[] response = fromOpponent.get(new FormalField(String.class), new FormalField(Integer.class), new FormalField(Integer.class));
 				if (response[0].equals("full")) { //Server is full. Disconnect.
 					System.out.println("Server full!");
 					view.quitToMenu("Server is full");
 					return;
 				}
+				((MultiplayerView) view).opponentWindowWidth = (int) response[1];
+				((MultiplayerView) view).opponentWindowHeight = (int) response[2];
 				//Joined successfully.
 				System.out.println("Successfully joined server!");
 				Object[] tuple = fromOpponent.get(new FormalField(Field[][].class), new FormalField(Integer.class), new FormalField(Integer.class));
@@ -114,7 +113,7 @@ public class MultiplayerModel extends Model implements Runnable {
 	public void disconnect() {
 		close = true;
 		try {
-			fromOpponent.put("joined");
+			fromOpponent.put("joined", 0, 0);
 			fromOpponent.put("disconnected");
 			fromOpponent.put(0, 0, 0);
 			toOpponent.put("disconnected");
@@ -188,8 +187,8 @@ public class MultiplayerModel extends Model implements Runnable {
 		public void run() {
 			while (!close) {
 				try {
-					fromOpponent.get(new ActualField("joined"));
-					toOpponent.put("full");
+					fromOpponent.get(new ActualField("joined"), new FormalField(Integer.class), new FormalField(Integer.class));
+					toOpponent.put("full", 0, 0);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
