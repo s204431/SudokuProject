@@ -345,8 +345,8 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     }
     
     public void resetBoardPosition() {
-		fieldWidth = Field.DEFAULT_WIDTH;
-		fieldHeight = Field.DEFAULT_HEIGHT;
+    	fieldWidth = (int)(Field.DEFAULT_WIDTH/((double)windowWidth)*1120);
+    	fieldHeight = fieldWidth;
 		boardX = getPreferredSize().width/2-model.getBoardSize()*fieldWidth/2;
 		boardY = 0;
     }
