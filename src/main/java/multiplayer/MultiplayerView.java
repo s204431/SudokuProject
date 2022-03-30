@@ -189,9 +189,12 @@ public class MultiplayerView extends View {
 		
 		//Converts from coordinate in opponent window to coordinate in this window.
 		private int[] convertCoordinate(int x, int y) {
-			double px = ((double)x)/opponentWindowWidth;
-			double py = ((double)y)/opponentWindowHeight;
-			return new int[] {(int)(px*windowWidth), (int)(py*windowHeight)};
+			double px = ((double)windowWidth)/opponentWindowWidth;
+			double py = ((double)windowHeight)/opponentWindowHeight;
+			return new int[] {(int)(px*x), (int)(py*y)};
+			//double px = ((double)x)/opponentWindowWidth;
+			//double py = ((double)y)/opponentWindowHeight;
+			//return new int[] {(int)(px*windowWidth), (int)(py*windowHeight)};
 		}
 	}
 
