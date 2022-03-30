@@ -1,5 +1,11 @@
 package sudoku;
 
+/*
+    Field.java is a field in the sudoku board. Every field has a value that is decided when the sudoku board
+    is initialized. Fields that are placed by the game and not by a player is not interactable, since the
+    initial sudoku shouldn't be edited.
+*/
+
 public class Field {
 	public static final int DEFAULT_WIDTH = 70;
 	public static final int DEFAULT_HEIGHT = 70;

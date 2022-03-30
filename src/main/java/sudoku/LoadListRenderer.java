@@ -19,7 +19,9 @@ import javax.swing.ListCellRenderer;
 
 import MVC.Model;
 import solvers.SudokuSolver;
-
+/*
+   This class renders elements
+*/
 public class LoadListRenderer extends JPanel implements ListCellRenderer<LoadListElement> {
  
 	private JPanel panel = new JPanel(null);
@@ -31,11 +33,11 @@ public class LoadListRenderer extends JPanel implements ListCellRenderer<LoadLis
     public LoadListRenderer(int width) {
     	setLayout(new BorderLayout(5, 5));
     	 
-        panel.setPreferredSize(new Dimension(width-20, 100));
-        nameLabel.setBounds(0, 0, width/2, 20);
-        difficultyLabel.setBounds(0, 50, width/3, 20);
-        sizeLabel.setBounds(width/3, 50, width/3, 20);
-        previewPanel.setBounds(width-115, 5, 90, 90);
+        panel.setPreferredSize(new Dimension(width - 20, 100));
+        nameLabel.setBounds(0, 0, width / 2, 20);
+        difficultyLabel.setBounds(0, 50, width / 3, 20);
+        sizeLabel.setBounds(width / 3, 50, width / 3, 20);
+        previewPanel.setBounds(width - 115, 5, 90, 90);
         
         nameLabel.setFont(new Font(nameLabel.getFont().getFontName(), Font.BOLD, 15));
         difficultyLabel.setForeground(Color.GRAY);
@@ -47,8 +49,8 @@ public class LoadListRenderer extends JPanel implements ListCellRenderer<LoadLis
         add(panel, BorderLayout.CENTER);
     }
  
-    public Component getListCellRendererComponent(JList<? extends LoadListElement> list, LoadListElement element, int index, boolean isSelected, boolean cellHasFocus) {
- 
+    public Component getListCellRendererComponent(JList<? extends LoadListElement> list, LoadListElement element,
+												  int index, boolean isSelected, boolean cellHasFocus) {
     	nameLabel.setText(element.name);
     	if (element.difficulty >= 0) {
         	difficultyLabel.setText("Difficulty: "+SudokuSolver.getDifficultyString(element.difficulty));
@@ -109,7 +111,7 @@ public class LoadListRenderer extends JPanel implements ListCellRenderer<LoadLis
 	                g2.fillRect(j * fieldWidth, i * fieldHeight, fieldWidth, fieldHeight);
 	                g2.setColor(black);
 	                g2.drawRect(j * fieldWidth, i * fieldHeight, fieldWidth, fieldHeight);
-	                g2.setFont(new Font("TimesRoman", Font.BOLD, (int) (0.86*fieldWidth)));
+	                g2.setFont(new Font("TimesRoman", Font.BOLD, (int) (0.86 * fieldWidth)));
 	                int value = element.board[i][j].value;
 	                if (value > 0 && value <= element.innerSquareSize*element.innerSquareSize) {
 	                	g2.drawString("" + value, j * fieldWidth + fieldWidth/2, i * fieldHeight + fieldHeight/2+3);
@@ -117,8 +119,6 @@ public class LoadListRenderer extends JPanel implements ListCellRenderer<LoadLis
 
 	            }
 	        }
-
-
 	        // Draw thick lines
 	        Stroke oldStroke = g2.getStroke();
 	        for (int i = 0; i < element.numInnerSquares; i++) {

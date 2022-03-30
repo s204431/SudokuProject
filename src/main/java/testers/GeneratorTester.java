@@ -6,7 +6,7 @@ import MVC.Model;
 import solvers.EfficientSolver;
 import solvers.SudokuSolver;
 /*
-This class tests different generated sudokus
+This class tests different generated sudoku's
 and how much time it takes to be generated.
  */
 public class GeneratorTester {

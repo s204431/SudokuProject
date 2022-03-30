@@ -57,7 +57,7 @@ public abstract class MenuScreen extends JPanel {
 
     public abstract void addComponents();
 
-    // All 'set...' methods creates a generic:
+    // All 'set...' JComponent methods creates a generic:
     // set element -> add space -> repeat...
 
     protected void setButtons(JButton[] buttons){
@@ -140,14 +140,10 @@ public abstract class MenuScreen extends JPanel {
         frame.remove(this);
     }
 
-    protected static class exitAction implements ActionListener {
-        public void actionPerformed (ActionEvent e){
-            System.exit(0);
-        }
-    }
-    protected Model setMultiplayerInstance(boolean isHost, String address){
-        MultiplayerModel model;
-        if (isHost) {
+
+    protected Model setMultiplayerInstance(boolean isHost, String address){     // This method checks if the player
+        MultiplayerModel model;                                                 // is the host or not and decides how
+        if (isHost) {                                                           // to start the game depending on that.
             model = new MultiplayerModel(k, n);
         }
         else {
@@ -169,35 +165,8 @@ public abstract class MenuScreen extends JPanel {
         controller.setModel(model);
         controller.setView(view);
         view.setController(controller);
-        //Creates thread to wait for opponent
-        new Thread(model).start();
-    }
 
-    protected Model getModel(int k, int n, Mode mode) {
-        Model model = new Model(k, n, mode);
-        View view = new View(model);
-        Controller controller = new Controller();
-        model.setView(view);
-        controller.setModel(model);
-        controller.setView(view);
-        view.setController(controller);
-        return model;
-    }
-    protected void backAction(){
-        changePanel();
-        switch (mode){
-            case play:
-                new NewGameScreen(frame);
-                break;
-            case create:
-                new CreateSudokuScreen(frame);
-                break;
-            case multiplayer:
-                new MultiplayerScreen(frame);
-                break;
-            default:
-                new SudokuSolverScreen(frame);
-        }
+        new Thread(model).start(); //Creates thread to wait for opponent
     }
 
     protected Model getModel(int k, int n, Mode mode, boolean assistMode) {
@@ -231,5 +200,28 @@ public abstract class MenuScreen extends JPanel {
         menuBar.add(restart);
         restart.add(new JMenuItem("Same Sudoku"));
         restart.add(new JMenuItem("New Sudoku"));
+    }
+
+    protected void backAction(){
+        changePanel();
+        switch (mode){
+            case play:
+                new NewGameScreen(frame);
+                break;
+            case create:
+                new CreateSudokuScreen(frame);
+                break;
+            case multiplayer:
+                new MultiplayerScreen(frame);
+                break;
+            default:
+                new SudokuSolverScreen(frame);
+        }
+    }
+
+    protected static class exitAction implements ActionListener {
+        public void actionPerformed (ActionEvent e){
+            System.exit(0);
+        }
     }
 }

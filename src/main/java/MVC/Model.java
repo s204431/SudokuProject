@@ -349,7 +349,7 @@ public class Model {
     public static void saveStat(int time, int difficulty) {
     	int[] Stats = loadStat();
     	File file = new File("savedsudokus/Stats.txt");
-    	if(time < Stats[difficulty]) {//change index for stats for correct difficulty (0-3) or (1-4)
+    	if(time < Stats[difficulty] || Stats[difficulty] == 0) {//change index for stats for correct difficulty (0-3) or (1-4)
     		Stats[difficulty] = time;
     	}
     	Stats[difficulty + 4]++;

@@ -7,7 +7,10 @@ import Generators.SudokuGenerator;
 import MVC.Model;
 import solvers.EfficientSolver;
 import solvers.SudokuSolver;
-
+/*
+This class tests different solved sudoku's
+and how much time it takes to be solved.
+ */
 public class SolverTester {
 	
 	private boolean includeRandom = true;

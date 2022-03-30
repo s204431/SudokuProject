@@ -27,14 +27,15 @@ public class StatsScreen extends MenuScreen {
 	}
 	
 	public void addComponents() {
+		// Title
 		titleString = new JLabel ("Statistics");
 		setTitle(titleString);
-		
+		// 3 JPanels in one 'PANEL'
 		JPanel PANEL = new JPanel();
 		JPanel leftPanel = new JPanel();
 		JPanel middlePanel = new JPanel();
 		JPanel rightPanel = new JPanel();
-		
+
 		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.PAGE_AXIS));
 		middlePanel.setLayout(new BoxLayout(middlePanel, BoxLayout.PAGE_AXIS));
 		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.PAGE_AXIS));
@@ -45,7 +46,8 @@ public class StatsScreen extends MenuScreen {
 		middlePanel.setPreferredSize(new Dimension(110, 500));
 		rightPanel.setPreferredSize(new Dimension(110, 500));
 		
-	
+		// Sets up elements in the different 3 panels.
+
 		attempts = new JLabel[5];
 		time = new JLabel[5];
 		name = new JLabel[5];
@@ -81,8 +83,7 @@ public class StatsScreen extends MenuScreen {
 			rightPanel.add(attempts[i]);
 			rightPanel.add(Box.createRigidArea(new Dimension(0, spacing)));
 		}
-		setPanel(PANEL, new JComponent[] {leftPanel,middlePanel,rightPanel});
-		System.out.println(PANEL.getHeight());
+		setPanel(PANEL, new JComponent[] {leftPanel, middlePanel, rightPanel});
         backBtn = new JButton("Back");
         setButtons(new JButton[]{backBtn});
 		setActionListeners();
