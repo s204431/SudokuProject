@@ -9,7 +9,9 @@ public class Field {
 	public boolean clicked;
 	public boolean highlighted;
 	
-	public Field() {}
+	public Field() {
+		this.notes = new int[9];
+	}
 	
 	public Field(int value, boolean interactable) {
 		this.value = value;
