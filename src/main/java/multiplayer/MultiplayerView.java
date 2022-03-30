@@ -129,11 +129,12 @@ public class MultiplayerView extends View {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			int[] opponentBoardPosition = convertCoordinate((int) tuple[1], (int) tuple[2]);
+			int[] opponentBoardPosition = convertCoordinate((int) tuple[1], (int) tuple[2], (int) tuple[3]);
 			int opponentBoardX = opponentBoardPosition[0];
 			int opponentBoardY = opponentBoardPosition[1];
-			int opponentFieldWidth = (int) tuple[3];
-			int opponentFieldHeight = (int) tuple[4];
+			
+			int opponentFieldWidth = opponentBoardPosition[2];
+			int opponentFieldHeight = opponentFieldWidth;
 
 			// Draw fields and numbers
 			Color red = new Color(175, 4, 4);
@@ -188,10 +189,10 @@ public class MultiplayerView extends View {
 		}
 		
 		//Converts from coordinate in opponent window to coordinate in this window.
-		private int[] convertCoordinate(int x, int y) {
+		private int[] convertCoordinate(int x, int y, int fieldWidth) {
 			double px = ((double)windowWidth)/opponentWindowWidth;
 			double py = ((double)windowHeight)/opponentWindowHeight;
-			return new int[] {(int)(px*x), (int)(py*y)};
+			return new int[] {(int)(px*x), (int)(py*y), (int)(px*fieldWidth)};
 			//double px = ((double)x)/opponentWindowWidth;
 			//double py = ((double)y)/opponentWindowHeight;
 			//return new int[] {(int)(px*windowWidth), (int)(py*windowHeight)};
