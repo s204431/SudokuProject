@@ -14,8 +14,8 @@ public class GenerateNewSudokuScreen extends MenuScreen {
     private JLabel titleLabel;
     private JLabel boardSizeLabel;
     private JLabel difficultyLabel;
-    private JButton generateBtn;
     private JButton backBtn;
+    private JButton generateBtn;
     private JComboBox difficultyBox;
     private JSlider nSlider;
     private JSlider kSlider;
