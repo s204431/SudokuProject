@@ -78,6 +78,7 @@ public class EfficientSolver extends SudokuSolver {
 		//Do nothing.
 	}
 	
+	//Find one move for solving the sudoku.
 	public List<Integer>[] makeMove(int[][] board, List<Integer>[][] possibleValues) {
 		if (detectUnsolvable && detectUnsolvable(board, possibleValues)) {
 			return null;
