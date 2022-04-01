@@ -33,7 +33,7 @@ public class Controller {
 		else if (e.getKeyChar() == 'n' && Main.DEBUG_MODE) {
 			int[] range = SudokuSolver.getDifficultyRange();
 			model.generateSudoku(range[0], range[1], 0.62);
-			Model.Stopwatch();
+			Model.resetTimer();
 		}
 		else if (e.getKeyChar() == 'm' && Main.DEBUG_MODE) {//SKAL SLETTES!!!!
 			view.winPopup(model.difficulty);

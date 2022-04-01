@@ -18,6 +18,7 @@ import Generators.*;
 
 
 public class Model {
+	private static long start;
 	protected View view;
 	public Field[][] board;
 	public int innerSquareSize; //Width/height an inner square (n).
@@ -28,6 +29,7 @@ public class Model {
 	public boolean assistMode = false;
 	protected int difficulty;
 
+	//Constructor taking number of inner squares, inner square size and mode.
 	public Model(int numInnerSquares, int innerSquareSize, Mode mode) {
 		this.mode = mode;
 		this.innerSquareSize = innerSquareSize;
@@ -38,22 +40,26 @@ public class Model {
 				board[i][j] = new Field();
 			}
 		}
-		Stopwatch();
+		resetTimer();
 	}
 
+	//Constructor that allows setting assist mode.
 	public Model(int numInnerSquares, int innerSquareSize, Mode mode, boolean assistMode) {
 		this(numInnerSquares, innerSquareSize, mode);
 		this.assistMode = assistMode;
 	}
 	
+	//Sets the reference to the view.
 	public void setView(View view) {
 		this.view = view;
 	}
 	
+	//Returns the size of one side of the sudoku.
 	public int getBoardSize() {
 		return innerSquareSize*numInnerSquares;
 	}
 	
+	//Set the field at position (x,y).
 	public void setField(int x, int y, Field field) {
 		board[x][y] = field;
 		if (sudokuSolved(board, innerSquareSize)) {
@@ -62,6 +68,7 @@ public class Model {
 		view.repaint();
 	}
 	
+	//Change the value of field at position (x,y).
 	public void setField(int x, int y, int value) {
 		if (!view.notesOn) {
 			board[x][y].value = value;
@@ -115,10 +122,12 @@ public class Model {
 		return true;
 	}
 	
+	//Find all solutions for the current sudoku.
 	public void solve() {
 		solve(Integer.MAX_VALUE);
 	}
 	
+	//Find max solutions for the current sudoku. Update current sudoku to first solution found.
 	public void solve(int maxSolutions) {
 		SudokuSolver solver = new EfficientSolver(board, innerSquareSize);
 		List<int[][]> results = solver.solve(maxSolutions);
@@ -137,10 +146,12 @@ public class Model {
 		view.repaint();
 	}
 	
+	//Save current sudoku to file with specific file name without saving the difficulty.
 	public void save(String fileName) {
 		save(fileName, -1);
 	}
 	
+	//Save current sudoku to file with specific file name and save the give difficulty.
 	public void save(String fileName, int difficulty) {
 		File file = new File("savedsudokus/"+fileName+".su");
 		try {
@@ -201,6 +212,7 @@ public class Model {
 		return null;
 	}
 	
+	//Loads a sudoku from a file and updates the current sudoku to the loaded sudoku.
 	public void loadAndUpdate(String fileName) {
 		Object[] result = load(fileName, mode);
 		board = (Field[][]) result[0];
@@ -213,6 +225,7 @@ public class Model {
 		this.fileName = fileName;
 	}
 	
+	//Checks if a value can be placed at a position in a sudoku (value is not blocked by same number on row, column or box).
 	public static boolean canBePlaced(Field[][] board, int innerSquareSize, int x, int y, int value) {
 		for (int i = 0; i < board.length; i++) {
 			if ((i != y && board[x][i].value == value) || (i != x && board[i][y].value == value)) {
@@ -229,10 +242,12 @@ public class Model {
 		return true;
 	}
 	
+	//Generates a sudoku (same size as current sudoku) with specified minimum difficulty, maximum difficulty and minimum percentage of missing fields.
 	public void generateSudoku(int minDifficulty, int maxDifficulty, double minMissingFieldsPercent) {
 		generateSudoku(minDifficulty, maxDifficulty, minMissingFieldsPercent, innerSquareSize, numInnerSquares);
 	}
 
+	//Generates a sudoku with specified size, minimum difficulty, maximum difficulty and minimum percentage of missing fields.
 	public void generateSudoku(int minDifficulty, int maxDifficulty, double minMissingFieldsPercent, int innerSquareSize, int numInnerSquares) {
 		this.innerSquareSize = innerSquareSize;
 		this.numInnerSquares = numInnerSquares;
@@ -251,7 +266,7 @@ public class Model {
 		view.repaint();
 	}
 
-	// Adds notes of all number that are not on vertical, horizontal lines or in innersquares
+	// Adds notes of all number that are not on vertical, horizontal lines or in innersquares.
 	public void generateNotes() {
 		for (Field[] fields : board) {
 			for (Field field : fields) {
@@ -268,7 +283,7 @@ public class Model {
 			}
 		}
 	}
-
+	
 	public void add(int x, int y, int value) {
 		for (int i = 0; i < board.length; i++) {
 			if (i != y && value <= 9 && value >= 1) {
@@ -287,6 +302,7 @@ public class Model {
 		}
 	}
 	
+	//Gives a hint by giving the correct value for one of the empty fields.
 	public void giveHint() {
 		int[] move = new EfficientSolver(board, innerSquareSize).makeOneMove();
 		if (move != null) {
@@ -294,26 +310,28 @@ public class Model {
 		}
 	}
 	
+	//Returns the sudoku board.
 	public Field[][] getBoard() {
 		return board;
 	}
 	
-	private static long start;
-	
-	public static void Stopwatch() {
+	//Resets the timer.
+	public static void resetTimer() {
 		start = System.currentTimeMillis();
 	}
 	
+	//Returns the current time on the timer.
     public static int elapsedTime() {
         long now = System.currentTimeMillis();
 		return (int) ((now - start) / 1000.0);
     }
     
+    //Returns the maximum number a field is allowed to have in the current sudoku.
     public int getMaxNumber() {
     	return innerSquareSize*innerSquareSize;
     }
 	
-    
+    //Loads the stats from and returns it as an array of 8 integers.
     public static int[] loadStat() {
     	File file = new File("savedsudokus/Stats.txt");
     	if(!file.exists()) {
@@ -346,6 +364,7 @@ public class Model {
     	
     }
     
+    //Overrides stats file with a new time (if time beats best time) and number of solved sudoku for a difficulty.
     public static void saveStat(int time, int difficulty) {
     	int[] Stats = loadStat();
     	File file = new File("savedsudokus/Stats.txt");
