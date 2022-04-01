@@ -21,7 +21,6 @@ public class GenerateNewSudokuScreen extends MenuScreen {
     private JSlider kSlider;
     private JLabel nLabel;
     private JLabel kLabel;
-    private JPanel sliderPanel;
     private ChangeListener nListener;
     private ChangeListener kListener;
     private boolean assistMode;

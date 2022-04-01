@@ -1,10 +1,5 @@
 package sudoku.Screens;
 
-import MVC.Model.Mode;
-import sudoku.Screens.NewGameScreen.backAction;
-import sudoku.Screens.NewGameScreen.generateNewAction;
-import sudoku.Screens.NewGameScreen.loadGameAction;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,9 +12,6 @@ public class StatsScreen extends MenuScreen {
 	private JLabel[] attempts;
 	private JLabel[] time;
 	private JLabel[] name;
-	private JLabel completeString;
-	private JLabel timeString;
-	private JLabel difficultyString;
 	private JButton backBtn;
 	
 	public StatsScreen(JFrame frame) {
