@@ -25,6 +25,7 @@ public class Field {
 		this.notes = new int[9];
 	}
 
+	//Returns the value of this field.
 	public int getValue() {
 		return value;
 	}
