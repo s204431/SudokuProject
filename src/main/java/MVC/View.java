@@ -47,7 +47,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 	public int currentMinute;
 	public int currentHour;
     
-    
+    //Constructor taking a references to the model.
     public View(Model model) {
     	this.model = model;
     	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -84,10 +84,12 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         (new Thread(new TimerUpdater())).start();
     }
     
+    //Sets the reference to the controller.
     public void setController(Controller controller) {
     	this.controller = controller;
     }
     
+    //Clears everything drawn on the screen.
     protected void clearPaint(Graphics g) {
     	super.paint(g);
     }
@@ -184,7 +186,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         }
     }
     
-
+    //Add all components to the button panel (buttons etc.).
     public void addComponentsToButtonPanel(Mode mode) {
         notesButton = new JButton("Notes off");
         notesButton.setBounds(50, 400, 100, 25);
@@ -286,6 +288,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         }
     }
 
+    //Shows the popup menu for saving a sudoku.
     public void showSavePopup() {
         JPanel panel = new JPanel(null);
         panel.setPreferredSize(new Dimension(350, 100));
@@ -306,6 +309,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         difficultyLabel.setBounds(100, 70, 200, 20);
         infoButton.setBounds(25, 40, 250, 30);
         infoButton.addActionListener(new ActionListener() {
+        	//Handles clicking the "Show additional information" button.
             @Override
             public void actionPerformed(ActionEvent e) {
                 infoButtonClicked = true;
@@ -334,16 +338,19 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         }
     }
     
+    //Quits to the menu without showing any message.
     public void quitToMenu() {
     	quitToMenu("");
     }
     
+    //Quits to the menu and shows a popup message on the screen.
     public void quitToMenu(String message) {
     	close = true;
         frame.dispose();
         Main.restart(message);
     }
     
+    //Resets the position and size of the sudoku to the default position and size.
     public void resetBoardPosition() {
     	fieldWidth = (int)(Field.DEFAULT_WIDTH*windowWidth/1170.0);
     	fieldHeight = fieldWidth;
@@ -351,6 +358,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 		boardY = 0;
     }
 
+    //Handles mouse clicks from the user.
     @Override
     public void mouseClicked(MouseEvent e) {
     	inFocus = true;
@@ -360,6 +368,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     	}
     }
 
+    //Handles mouse presses from the user (for dragging).
     @Override
     public void mousePressed(MouseEvent e) {
     	inFocus = true;
@@ -370,21 +379,25 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     	}
     }
 
+    //Stops the dragging when user releases mouse.
     @Override
     public void mouseReleased(MouseEvent e) {
     	dragging = false;
     }
 
+    //Does nothing, but required by implemented interface.
     @Override
     public void mouseEntered(MouseEvent e) {
 
     }
 
+    //Stops dragging when user moves mouse out of the screen.
     @Override
     public void mouseExited(MouseEvent e) {
     	dragging = false;
     }
 
+    //Handles a key typed by the user.
 	@Override
 	public void keyTyped(KeyEvent e) {
 		if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
@@ -395,10 +408,11 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 			repaint();
 		}
 		else {
-			controller.keyTyped(e, clickedPosition);	
+			controller.keyTyped(e, clickedPosition); //Let controller handle the key typed.
 		}
 	}
 
+	//Turns notes on when pressing alt.
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_ALT) {
@@ -407,6 +421,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         }
 	}
 
+	//Turns notes off when releasing alt.
 	@Override
 	public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ALT) {
@@ -415,6 +430,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         }
 	}
 
+	//Zooms in/out when scrolling.
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		if (e.getWheelRotation() < 0 || (fieldWidth > 20 && fieldHeight > 20)) {
@@ -430,6 +446,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 		}
 	}
 	
+	//Used to update the timer.
 	private class TimerUpdater implements Runnable {
 		@Override
 		public void run() {
@@ -450,6 +467,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 			}
 		}
 	}
+	
 	//Concurrent thread that moves the board when dragging.
 	protected class BoardDragger implements Runnable {
 		@Override
@@ -472,6 +490,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 		}
 	}
 	
+	//Shows the win popup when sudoku is solved.
 	public void winPopup(int difficulty) {
 		String diff = SudokuSolver.getDifficultyString(difficulty);	
 		switch (diff) {

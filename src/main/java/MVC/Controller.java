@@ -12,14 +12,17 @@ public class Controller {
 	private Model model;
 	private View view;
 	
+	//Sets the reference to the model.
 	public void setModel(Model model) {
 		this.model = model;
 	}
 	
+	//Sets the reference to the view.
 	public void setView(View view) {
 		this.view = view;
 	}
 	
+	//Handles a key typed by the user.
 	public void keyTyped(KeyEvent e, int[] selectedFieldPosition) {
 		if (e.getKeyChar() == 's' && Main.DEBUG_MODE) {
 			model.solve(1);
@@ -35,7 +38,7 @@ public class Controller {
 			model.generateSudoku(range[0], range[1], 0.62);
 			Model.resetTimer();
 		}
-		else if (e.getKeyChar() == 'm' && Main.DEBUG_MODE) {//SKAL SLETTES!!!!
+		else if (e.getKeyChar() == 'm' && Main.DEBUG_MODE) {
 			view.winPopup(model.difficulty);
 		}
 		else if (e.getKeyChar() == 'a' && Main.DEBUG_MODE) {
