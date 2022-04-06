@@ -23,6 +23,7 @@ public class MultiplayerView extends View {
 	private JPanel opponentPanel;
 	protected int opponentWindowWidth;
 	protected int opponentWindowHeight;
+	private boolean updateAllowed = true;
 
 	public MultiplayerView(MultiplayerModel model) {
 		super(model);
@@ -34,6 +35,7 @@ public class MultiplayerView extends View {
 			e.printStackTrace();
 		}
 		new Thread(new BoardDragger()).start();
+		new Thread(new UpdateTimer()).start();
 	}
 
 	public void addOpponentBoard() {
@@ -82,12 +84,37 @@ public class MultiplayerView extends View {
 	
 	private void updateBoardPosition() {
 		try {
-			((MultiplayerModel) model).toOpponent.get(new ActualField("lock"), new ActualField("dragging"));
-			((MultiplayerModel) model).toOpponent.get(new ActualField("boardposition"), new FormalField(Integer.class), new FormalField(Integer.class), new FormalField(Integer.class), new FormalField(Integer.class));
-			((MultiplayerModel) model).toOpponent.put("boardposition", (int)boardX, (int)boardY, (int)fieldWidth, (int)fieldHeight);
-			((MultiplayerModel) model).toOpponent.put("lock", "dragging");
+			if (updateAllowed) {
+				((MultiplayerModel) model).toOpponent.get(new ActualField("lock"), new ActualField("dragging"));
+				((MultiplayerModel) model).toOpponent.get(new ActualField("boardposition"), new FormalField(Integer.class), new FormalField(Integer.class), new FormalField(Integer.class), new FormalField(Integer.class));
+				((MultiplayerModel) model).toOpponent.put("boardposition", (int)boardX, (int)boardY, (int)fieldWidth, (int)fieldHeight);
+				((MultiplayerModel) model).toOpponent.put("lock", "dragging");
+				updateAllowed = false;
+			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	private class UpdateTimer implements Runnable {
+		public void run() {
+			while (!close) {
+				if (!updateAllowed) {
+					try {
+						Thread.sleep(10);
+						updateAllowed = true;
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				else {
+					try {
+						Thread.sleep(5);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
 		}
 	}
     
