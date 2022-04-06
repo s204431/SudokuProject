@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Main {
-	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	public static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	public static final int SCREEN_HEIGHT = screenSize.height-screenSize.height/9;
 	public static final int SCREEN_WIDTH = screenSize.width-screenSize.width/2;
 	public static final boolean DEBUG_MODE = true;

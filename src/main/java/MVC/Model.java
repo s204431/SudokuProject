@@ -312,6 +312,12 @@ public class Model {
 	
 	//Returns the sudoku board.
 	public Field[][] getBoard() {
+		Field[][] newBoard = new Field[board.length][board.length];
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board.length; j++) {
+				newBoard[i][j] = new Field(board[i][j].value, board[i][j].interactable);
+			}
+		}
 		return board;
 	}
 	

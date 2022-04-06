@@ -162,7 +162,7 @@ public class EfficientSolver extends SudokuSolver {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
 				if (possibleValues[i][j].size() == 1) {
-					return toMove(i, j, (ArrayList)possibleValues[i][j]);
+					return toMove(i, j, (ArrayList<Integer>)possibleValues[i][j]);
 				}
 			}
 		}
@@ -733,7 +733,7 @@ public class EfficientSolver extends SudokuSolver {
 		if (lowestX < 0 || lowestY < 0) {
 			return null;
 		}
-		return toMove(lowestX, lowestY, (ArrayList)possibleValues[lowestX][lowestY]);
+		return toMove(lowestX, lowestY, (ArrayList<Integer>)possibleValues[lowestX][lowestY]);
 	}
 	
 	private List<Integer>[] toMove(int x, int y, int value) {
@@ -742,7 +742,7 @@ public class EfficientSolver extends SudokuSolver {
 		return toMove(x, y, lv);
 	}
 	
-	private List<Integer>[] toMove(int x, int y, ArrayList<Integer> values) {
+	private ArrayList<Integer>[] toMove(int x, int y, ArrayList<Integer> values) {
 		ArrayList<Integer> pos = new ArrayList<>();
 		pos.add(x);
 		pos.add(y);
@@ -802,7 +802,7 @@ public class EfficientSolver extends SudokuSolver {
 	}
 	
 	private List<Integer>[][] initializePossibleValues() {
-		List<Integer>[][] possibleValues = new ArrayList[board.length][board[0].length];
+		ArrayList<Integer>[][] possibleValues = new ArrayList[board.length][board[0].length];
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
 				possibleValues[i][j] = new ArrayList<Integer>();
@@ -842,7 +842,7 @@ public class EfficientSolver extends SudokuSolver {
 	}
 	
 	private List<Integer>[][] copyOf(List<Integer>[][] possibleValues) {
-		List<Integer>[][] newPossibleValues = new ArrayList[possibleValues.length][possibleValues[0].length];
+		ArrayList<Integer>[][] newPossibleValues = new ArrayList[possibleValues.length][possibleValues[0].length];
 		for (int i = 0; i < possibleValues.length; i++) {
 			for (int j = 0; j < possibleValues[i].length; j++) {
 				newPossibleValues[i][j] = new ArrayList<Integer>();
