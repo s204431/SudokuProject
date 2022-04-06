@@ -29,7 +29,7 @@ public class MultiplayerView extends View {
 
 		try {
 			((MultiplayerModel) model).toOpponent.put("lock", "dragging");
-			((MultiplayerModel) model).toOpponent.put("boardposition", boardX, boardY, fieldWidth, fieldHeight);
+			((MultiplayerModel) model).toOpponent.put("boardposition", (int)boardX, (int)boardY, (int)fieldWidth, (int)fieldHeight);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
