@@ -318,7 +318,7 @@ public class Model {
 				newBoard[i][j] = new Field(board[i][j].value, board[i][j].interactable);
 			}
 		}
-		return board;
+		return newBoard;
 	}
 	
 	//Resets the timer.

@@ -162,7 +162,7 @@ public class EfficientSolver extends SudokuSolver {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
 				if (possibleValues[i][j].size() == 1) {
-					return toMove(i, j, (ArrayList<Integer>)possibleValues[i][j]);
+					return toMove(i, j, possibleValues[i][j]);
 				}
 			}
 		}
@@ -733,7 +733,7 @@ public class EfficientSolver extends SudokuSolver {
 		if (lowestX < 0 || lowestY < 0) {
 			return null;
 		}
-		return toMove(lowestX, lowestY, (ArrayList<Integer>)possibleValues[lowestX][lowestY]);
+		return toMove(lowestX, lowestY, possibleValues[lowestX][lowestY]);
 	}
 	
 	private List<Integer>[] toMove(int x, int y, int value) {
@@ -742,11 +742,11 @@ public class EfficientSolver extends SudokuSolver {
 		return toMove(x, y, lv);
 	}
 	
-	private ArrayList<Integer>[] toMove(int x, int y, ArrayList<Integer> values) {
-		ArrayList<Integer> pos = new ArrayList<>();
+	private List<Integer>[] toMove(int x, int y, List<Integer> values) {
+		List<Integer> pos = new ArrayList<>();
 		pos.add(x);
 		pos.add(y);
-		return new ArrayList[] {pos, values};
+		return new List[] {pos, values};
 	}
 	
 	private boolean detectUnsolvable(int[][] board, List<Integer>[][] possibleValues) {
