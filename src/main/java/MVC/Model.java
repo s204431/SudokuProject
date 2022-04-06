@@ -339,7 +339,7 @@ public class Model {
 	
     //Loads the stats from and returns it as an array of 8 integers.
     public static int[] loadStat() {
-    	File file = new File("savedsudokus/Stats.txt");
+    	File file = new File("savedsudokus/Stats.st");
     	if(!file.exists()) {
     		try {
         		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
@@ -373,7 +373,7 @@ public class Model {
     //Overrides stats file with a new time (if time beats best time) and number of solved sudoku for a difficulty.
     public static void saveStat(int time, int difficulty) {
     	int[] Stats = loadStat();
-    	File file = new File("savedsudokus/Stats.txt");
+    	File file = new File("savedsudokus/Stats.st");
     	if(time < Stats[difficulty] || Stats[difficulty] == 0) {//change index for stats for correct difficulty (0-3) or (1-4)
     		Stats[difficulty] = time;
     	}
