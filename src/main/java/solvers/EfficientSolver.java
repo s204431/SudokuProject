@@ -665,9 +665,6 @@ public class EfficientSolver extends SudokuSolver {
 							if (a[0] == a2[0] && a[1] == a2[1] && a[2] == a2[2]) {
 								return toMove(a[0], a[1], a[2]);
 							}
-							if (a.equals(a2)) {
-								return toMove(a[0], a[1], a[2]);
-							}
 						}
 					}
 				}
