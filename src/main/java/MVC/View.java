@@ -452,14 +452,14 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 	//Zooms in/out when scrolling.
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		if (e.getWheelRotation() < 0 || (fieldWidth > 20 && fieldHeight > 20)) {
+		if (e.getPreciseWheelRotation() < 0.0 || (fieldWidth > 20.0 && fieldHeight > 20.0)) {
 			System.out.println(boardX+" "+boardY+" "+fieldWidth+" "+fieldHeight);
-			double fieldWidthDist = (e.getX()-boardX)/(double)fieldWidth;
-			double fieldHeightDist = (e.getY()-boardY)/(double)fieldHeight;
-			double w = e.getWheelRotation()*fieldWidth/20;
-			double h = e.getWheelRotation()*fieldHeight/20;
-			fieldWidth -= w == 0.0 ? e.getWheelRotation() : w;
-			fieldHeight -= h == 0.0 ? e.getWheelRotation() : h;
+			double fieldWidthDist = (e.getX()-boardX)/fieldWidth;
+			double fieldHeightDist = (e.getY()-boardY)/fieldHeight;
+			double w = e.getPreciseWheelRotation()*fieldWidth/25.0;
+			double h = e.getPreciseWheelRotation()*fieldHeight/25.0;
+			fieldWidth -= w == 0.0 ? e.getPreciseWheelRotation() : w;
+			fieldHeight -= h == 0.0 ? e.getPreciseWheelRotation() : h;
 			boardX -= (fieldWidthDist-(e.getX()-boardX)/fieldWidth)*fieldWidth;
 			boardY -= (fieldHeightDist-(e.getY()-boardY)/fieldHeight)*fieldHeight;
 			repaint();
