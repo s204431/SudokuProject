@@ -56,7 +56,7 @@ public class Model {
 	
 	//Returns the size of one side of the sudoku.
 	public int getBoardSize() {
-		return innerSquareSize*numInnerSquares;
+		return innerSquareSize * numInnerSquares;
 	}
 	
 	//Set the field at position (x,y).
@@ -98,11 +98,11 @@ public class Model {
 	//Checks if the current sudoku is solved. Takes a 2D field array.
 	public static boolean sudokuSolved(Field[][] board, int innerSquareSize) {
 		int boardSize = board.length;
-		int numInnerSquares = boardSize/innerSquareSize;
-		int maxValue = innerSquareSize*innerSquareSize;
+		int numInnerSquares = boardSize / innerSquareSize;
+		int maxValue = innerSquareSize * innerSquareSize;
 		boolean[][] foundColumn = new boolean[boardSize][maxValue];
 		boolean[][] foundRow = new boolean[boardSize][maxValue];
-		boolean[][] foundInnerSquare = new boolean[numInnerSquares*numInnerSquares][maxValue];
+		boolean[][] foundInnerSquare = new boolean[numInnerSquares * numInnerSquares][maxValue];
 		for (int i = 0; i < boardSize; i++) {
 			for (int j = 0; j < boardSize; j++) {
 				if (board[i][j].value < 1 || board[i][j].value > maxValue) {
@@ -110,12 +110,12 @@ public class Model {
 				}
 				else {
 					int innerIndex = (i / innerSquareSize) * numInnerSquares + (j / innerSquareSize);
-					if (foundRow[i][board[i][j].value-1] || foundColumn[j][board[i][j].value-1] || foundInnerSquare[innerIndex][board[i][j].value-1]) {
+					if (foundRow[i][board[i][j].value - 1] || foundColumn[j][board[i][j].value - 1] || foundInnerSquare[innerIndex][board[i][j].value - 1]) {
 						return false;
 					}
-					foundRow[i][board[i][j].value-1] = true;
-					foundColumn[j][board[i][j].value-1] = true;
-					foundInnerSquare[innerIndex][board[i][j].value-1] = true;
+					foundRow[i][board[i][j].value - 1] = true;
+					foundColumn[j][board[i][j].value - 1] = true;
+					foundInnerSquare[innerIndex][board[i][j].value - 1] = true;
 				}
 			}
 		}
@@ -131,7 +131,7 @@ public class Model {
 	public void solve(int maxSolutions) {
 		SudokuSolver solver = new EfficientSolver(board, innerSquareSize);
 		List<int[][]> results = solver.solve(maxSolutions);
-		System.out.println("Found "+results.size()+" solutions. Took "+solver.recursiveCalls+" recursive calls and "+solver.guesses+" guesses. Difficulty: "+solver.difficulty+".");
+		System.out.println("Found " + results.size() + " solutions. Took " + solver.recursiveCalls + " recursive calls and " + solver.guesses + " guesses. Difficulty: " + solver.difficulty + ".");
 		if (results.size() > 0) {
 			for (int i = 0; i < board.length; i++) {
 				for (int j = 0; j < board[0].length; j++) {
@@ -163,9 +163,9 @@ public class Model {
 						writer.write(".");
 					}
 					else {
-						writer.write(""+board[i][j].value);
+						writer.write("" + board[i][j].value);
 					}
-					if (j < getBoardSize()-1) {
+					if (j < getBoardSize() - 1) {
 						writer.write(";");
 					}
 				}
@@ -174,7 +174,7 @@ public class Model {
 				}
 			}
 			if (difficulty >= 0) {
-				writer.write("\n"+difficulty);
+				writer.write("\n" + difficulty);
 			}
 			writer.close();
 		} catch (IOException e) {
@@ -184,7 +184,7 @@ public class Model {
 	
 	//Loads without updating the current sudoku. Returns loaded sudoku, innerSquareSize, numInnerSquares and difficulty (difficulty = -1 if it is not saved in the file).
 	public static Object[] load(String fileName, Mode mode) {
-		File file = new File("savedsudokus/"+fileName+".su");
+		File file = new File("savedsudokus/" + fileName+".su");
 		try {
 			Scanner scanner = new Scanner(file);
 			scanner.useDelimiter(Pattern.compile("[\\r\\n;]+"));
@@ -232,8 +232,8 @@ public class Model {
 				return false;
 			}
 		}
-		for (int i = x/innerSquareSize*innerSquareSize; i < x/innerSquareSize*innerSquareSize+innerSquareSize; i++) {
-			for (int j = y/innerSquareSize*innerSquareSize; j < y/innerSquareSize*innerSquareSize+innerSquareSize; j++) {
+		for (int i = x / innerSquareSize * innerSquareSize; i < x / innerSquareSize * innerSquareSize + innerSquareSize; i++) {
+			for (int j = y / innerSquareSize * innerSquareSize; j < y / innerSquareSize * innerSquareSize + innerSquareSize; j++) {
 				if ((i != x || j != y) && board[i][j].value == value) {
 					return false;
 				}
@@ -252,7 +252,7 @@ public class Model {
 		this.innerSquareSize = innerSquareSize;
 		this.numInnerSquares = numInnerSquares;
 		SudokuGenerator generator = new SudokuGenerator();
-		int[][] matrix = generator.generateSudoku(innerSquareSize, numInnerSquares, minDifficulty, maxDifficulty, (int)(getBoardSize()*getBoardSize()*minMissingFieldsPercent));
+		int[][] matrix = generator.generateSudoku(innerSquareSize, numInnerSquares, minDifficulty, maxDifficulty, (int)(getBoardSize() * getBoardSize() * minMissingFieldsPercent));
 		difficulty = generator.difficulty;
 		board = new Field[getBoardSize()][getBoardSize()];
 		for(int i = 0; i < getBoardSize(); i++) {
@@ -287,16 +287,16 @@ public class Model {
 	public void add(int x, int y, int value) {
 		for (int i = 0; i < board.length; i++) {
 			if (i != y && value <= 9 && value >= 1) {
-				board[x][i].notes[value-1] = 0;
+				board[x][i].notes[value - 1] = 0;
 			}
 			if (i != x && value <= 9 && value >= 1) {
-				board[i][y].notes[value-1] = 0;
+				board[i][y].notes[value - 1] = 0;
 			}
 		}
-		for (int i = x/innerSquareSize*innerSquareSize; i < x/innerSquareSize*innerSquareSize+innerSquareSize; i++) {
-			for (int j = y/innerSquareSize*innerSquareSize; j < y/innerSquareSize*innerSquareSize+innerSquareSize; j++) {
+		for (int i = x / innerSquareSize * innerSquareSize; i < x / innerSquareSize * innerSquareSize + innerSquareSize; i++) {
+			for (int j = y / innerSquareSize * innerSquareSize; j < y / innerSquareSize * innerSquareSize + innerSquareSize; j++) {
 				if ((i != x || j != y) & value <= 9 && value >= 1) {
-					board[i][j].notes[value-1] = 0;
+					board[i][j].notes[value - 1] = 0;
 				}
 			}
 		}
@@ -328,7 +328,7 @@ public class Model {
     
     //Returns the maximum number a field is allowed to have in the current sudoku.
     public int getMaxNumber() {
-    	return innerSquareSize*innerSquareSize;
+    	return innerSquareSize * innerSquareSize;
     }
 	
     //Loads the stats from and returns it as an array of 8 integers.

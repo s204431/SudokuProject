@@ -86,7 +86,7 @@ public class LoadListRenderer extends JPanel implements ListCellRenderer<LoadLis
         return this;
     }
     
-    private class PreviewPanel extends JPanel {
+    private static class PreviewPanel extends JPanel {
     	
     	private LoadListElement element;
     	

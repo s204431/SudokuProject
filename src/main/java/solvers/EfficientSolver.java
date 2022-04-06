@@ -184,10 +184,11 @@ public class EfficientSolver extends SudokuSolver {
 							found2 = true;
 						}
 					}
-					for (int k = i/innerSquareSize*innerSquareSize; k < i/innerSquareSize*innerSquareSize+innerSquareSize; k++) {
-						for (int l = j/innerSquareSize*innerSquareSize; l < j/innerSquareSize*innerSquareSize+innerSquareSize; l++) {
+					for (int k = i / innerSquareSize * innerSquareSize; k < i / innerSquareSize * innerSquareSize + innerSquareSize; k++) {
+						for (int l = j / innerSquareSize * innerSquareSize; l < j / innerSquareSize * innerSquareSize + innerSquareSize; l++) {
 							if ((k != i || l != j) && possibleValues[k][l].contains(v)) {
 								found3 = true;
+								break;
 							}
 						}
 					}
@@ -207,8 +208,8 @@ public class EfficientSolver extends SudokuSolver {
 				for (int v = 1; v <= board.length; v++) {
 					int foundInRow = -1;
 					int foundInColumn = -1;
-					for (int k = i*innerSquareSize; k < i*innerSquareSize+innerSquareSize; k++) {
-						for (int l = j*innerSquareSize; l < j*innerSquareSize+innerSquareSize; l++) {
+					for (int k = i * innerSquareSize; k < i * innerSquareSize + innerSquareSize; k++) {
+						for (int l = j * innerSquareSize; l < j*innerSquareSize + innerSquareSize; l++) {
 							if (possibleValues[k][l].contains(v)) {
 								if (foundInRow == -1 || k == foundInRow) {
 									foundInRow = k;
@@ -227,7 +228,7 @@ public class EfficientSolver extends SudokuSolver {
 					}
 					if (foundInRow >= 0 && foundInColumn < 0) {
 						for (int l = 0; l < board.length; l++) {
-							if (l < j*innerSquareSize || l >= j*innerSquareSize+innerSquareSize) {
+							if (l < j * innerSquareSize || l >= j * innerSquareSize + innerSquareSize) {
 								if (possibleValues[foundInRow][l].contains(v)) {
 									possibleValues[foundInRow][l].remove((Integer) v);
 									updated = true;
@@ -237,7 +238,7 @@ public class EfficientSolver extends SudokuSolver {
 					}
 					else if (foundInRow < 0 && foundInColumn >= 0) {
 						for (int k = 0; k < board.length; k++) {
-							if (k < i*innerSquareSize || k >= i*innerSquareSize+innerSquareSize) {
+							if (k < i * innerSquareSize || k >= i * innerSquareSize + innerSquareSize) {
 								if (possibleValues[k][foundInColumn].contains(v)) {
 									possibleValues[k][foundInColumn].remove((Integer) v);
 									updated = true;
@@ -525,7 +526,7 @@ public class EfficientSolver extends SudokuSolver {
 		}
 		return updated;
 	}
-	
+
 	private boolean swordfish(int[][] board, List<Integer>[][] possibleValues) {
 		boolean updated = false;
 		for (int v = 1; v <= board.length; v++) {

@@ -54,17 +54,17 @@ public class BacktrackingSolver extends SudokuSolver {
 	}
 
 	private void iterate(int x, int y, int maxSolutions) {
-		if (x == board.length-1 && y == board.length-1) {
+		if (x == board.length - 1 && y == board.length - 1) {
 			if (sudokuSolved()) {
 				solutions.add(copyOf(board));
 				solutionsFound++;
 			}
 		}
 		else if (y == board.length-1) {
-			solveRecursive(x+1, 0, maxSolutions);
+			solveRecursive(x + 1, 0, maxSolutions);
 		}
 		else {
-			solveRecursive(x, y+1, maxSolutions);
+			solveRecursive(x, y + 1, maxSolutions);
 		}
 	}
 

@@ -65,7 +65,7 @@ public class Controller {
 		else {
 			char key = e.getKeyChar();
 			if (Character.isDigit(key)) {
-				int newValue = Integer.parseInt(model.board[selectedFieldPosition[0]][selectedFieldPosition[1]].value+""+key);
+				int newValue = Integer.parseInt(model.board[selectedFieldPosition[0]][selectedFieldPosition[1]].value + "" + key);
 				if (newValue > 0 && newValue <= model.innerSquareSize*model.innerSquareSize) {
 					model.setField(selectedFieldPosition[0], selectedFieldPosition[1], newValue);
 				}

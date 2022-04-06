@@ -111,7 +111,7 @@ public class LoadGameScreen extends MenuScreen {
         }
     }
 
-    class backAction implements ActionListener {
+    private class backAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             backAction();
         }

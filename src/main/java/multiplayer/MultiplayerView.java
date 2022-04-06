@@ -160,7 +160,7 @@ public class MultiplayerView extends View {
 					int fontWidth = g2.getFontMetrics().stringWidth(text);
 					if (value > 0 && value <= model.innerSquareSize * model.innerSquareSize) {
 						int x = opponentBoardX + j * opponentFieldWidth + opponentFieldWidth / 2 - fontWidth / 2;
-						int y = opponentBoardY + i * opponentFieldHeight + opponentFieldHeight/2 + fontHeight/3;
+						int y = opponentBoardY + i * opponentFieldHeight + opponentFieldHeight / 2 + fontHeight / 3;
 						if (model.board[i][j].interactable) {
 							g2.drawString("?", x, y);
 						}
@@ -178,7 +178,7 @@ public class MultiplayerView extends View {
 					//g2.setColor(model.sudokuSolved(model.board, model.innerSquareSize) ? new Color(0, 200, 0) : black);
 					g2.setColor(black);
 					g2.setStroke(new BasicStroke(3));
-					g2.drawRect(opponentBoardX + j * opponentFieldWidth * iss, opponentBoardY + i * opponentFieldHeight * iss, opponentFieldWidth*iss, opponentFieldHeight*iss);
+					g2.drawRect(opponentBoardX + j * opponentFieldWidth * iss, opponentBoardY + i * opponentFieldHeight * iss, opponentFieldWidth * iss, opponentFieldHeight * iss);
 				}
 			}
 			g2.setStroke(oldStroke);
@@ -192,11 +192,10 @@ public class MultiplayerView extends View {
 		private int[] convertCoordinate(int x, int y, int fieldWidth) {
 			double px = ((double)windowWidth)/opponentWindowWidth;
 			double py = ((double)windowHeight)/opponentWindowHeight;
-			return new int[] {(int)(px*x), (int)(py*y), (int)(px*fieldWidth)};
+			return new int[] {(int)(px * x), (int)(py * y), (int)(px * fieldWidth)};
 			//double px = ((double)x)/opponentWindowWidth;
 			//double py = ((double)y)/opponentWindowHeight;
 			//return new int[] {(int)(px*windowWidth), (int)(py*windowHeight)};
 		}
 	}
-
 }

@@ -124,7 +124,7 @@ public class SolverTester {
 		}
 	}
 	
-	private class SolverTestCase {
+	private static class SolverTestCase {
 		public String fileName;
 		public boolean solvable;
 		
