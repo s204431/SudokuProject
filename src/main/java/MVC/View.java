@@ -16,14 +16,14 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 	private static final long serialVersionUID = 1L;
 	public Model model;
 	protected Controller controller;
-	public int boardX = 0; //x coordinate for top left corner.
-	public int boardY = 0; //y coordinate for top left corner.
+	public double boardX = 0.0; //x coordinate for top left corner.
+	public double boardY = 0.0; //y coordinate for top left corner.
 	protected boolean dragging = false;
 	protected int[] mouseBoardVector = new int[] {0, 0};
 	public int windowWidth;
 	public int windowHeight;
-	public int fieldWidth = Field.DEFAULT_WIDTH;
-	public int fieldHeight = Field.DEFAULT_HEIGHT;
+	public double fieldWidth = Field.DEFAULT_WIDTH;
+	public double fieldHeight = Field.DEFAULT_HEIGHT;
 	protected boolean close = false;
 	protected JFrame frame;
 	protected JPanel buttonPanel;
@@ -127,32 +127,32 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                         && !(clickedPosition[0] == i && clickedPosition[1] == j)) {
                     g2.setColor(gray);
                 }
-                g2.fillRect(boardX + j * fieldWidth, boardY + i * fieldHeight, fieldWidth, fieldHeight);
+                g2.fillRect((int)(boardX + j * (int)fieldWidth), (int)(boardY + i * (int)fieldHeight), (int)fieldWidth, (int)fieldHeight);
                 g2.setColor(black);
-                g2.drawRect(boardX + j * fieldWidth, boardY + i * fieldHeight, fieldWidth, fieldHeight);
+                g2.drawRect((int)(boardX + j * (int)fieldWidth), (int)(boardY + i * (int)fieldHeight), (int)fieldWidth, (int)fieldHeight);
 
                 int value = model.board[i][j].value;
                 if (value > 0 && value <= model.innerSquareSize*model.innerSquareSize) {
                     int valueDigits = String.valueOf(value).length();
                     int scaling = (valueDigits + 1) * 3;
-                    g2.setFont(new Font("Courier", Font.BOLD, (40 - scaling) * fieldWidth / Field.DEFAULT_WIDTH));
+                    g2.setFont(new Font("Courier", Font.BOLD, (int)((40 - scaling) * (int)fieldWidth / (int)Field.DEFAULT_WIDTH)));
                     String text = "" + value;
                     int fontHeight = g2.getFontMetrics().getHeight();
                     int fontWidth = g2.getFontMetrics().stringWidth(text);
                     if(!Model.canBePlaced(model.board, model.innerSquareSize, i, j, value)) {
                         g2.setColor(red);
-                        g2.drawString(text, boardX + j * fieldWidth + fieldWidth/2 - fontWidth/2, boardY + i * fieldHeight + fieldHeight/2 + fontHeight/3);
+                        g2.drawString(text, (int)(boardX + j * (int)fieldWidth + (int)fieldWidth/2 - fontWidth/2), (int)(boardY + i * (int)fieldHeight + (int)fieldHeight/2 + fontHeight/3));
                     } else {
-                        g2.drawString(text, boardX + j * fieldWidth + fieldWidth/2 - fontWidth/2, boardY + i * fieldHeight + fieldHeight/2 + fontHeight/3);
+                        g2.drawString(text, (int)(boardX + j * (int)fieldWidth + (int)fieldWidth/2 - fontWidth/2), (int)(boardY + i * (int)fieldHeight + (int)fieldHeight/2 + fontHeight/3));
                     }
                 } else if (value == 0) {
-                    g2.setFont(new Font("Courier", Font.BOLD, 15 * fieldWidth / Field.DEFAULT_WIDTH));
+                    g2.setFont(new Font("Courier", Font.BOLD, (int)(15 * (int)fieldWidth / (int)Field.DEFAULT_WIDTH)));
                     for (int k = 0; k < 9; k++) {
                         int note = model.board[i][j].notes[k];
                         String text = note == 0 ? "" : "" + note;
                         int fontHeight = g2.getFontMetrics().getHeight();
                         int fontWidth = g2.getFontMetrics().stringWidth(text);
-                        g2.drawString(text, boardX + j * fieldWidth + fieldWidth/3 * ((note-1) % 3) + fontWidth, boardY + i * fieldHeight - fontHeight/3 + fieldHeight/3 * ((note-1)/3 + 1));
+                        g2.drawString(text, (int)(boardX + j * (int)fieldWidth + (int)fieldWidth/3 * ((note-1) % 3) + fontWidth), (int)(boardY + i * (int)fieldHeight - fontHeight/3 + (int)fieldHeight/3 * ((note-1)/3 + 1)));
                     }
                 }
             }
@@ -166,7 +166,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                 //g2.setColor(model.sudokuSolved(model.board, model.innerSquareSize) ? new Color(0, 200, 0) : black);
             	g2.setColor(black);
                 g2.setStroke(new BasicStroke(3));
-                g2.drawRect(boardX + j * fieldWidth * iss, boardY + i * fieldHeight * iss, fieldWidth*iss, fieldHeight*iss);
+                g2.drawRect((int)(boardX + j * (int)fieldWidth * iss), (int)(boardY + i * (int)fieldHeight * iss), (int)fieldWidth*iss, (int)fieldHeight*iss);
             }
         }
         g2.setStroke(oldStroke);
@@ -268,7 +268,6 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     model.giveHint();
-                    // TODO: model.solveStep();
                 }
             });
             buttonPanel.add(solveButton);
@@ -352,7 +351,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     
     //Resets the position and size of the sudoku to the default position and size.
     public void resetBoardPosition() {
-    	fieldWidth = (int)(Field.DEFAULT_WIDTH*windowWidth/1170.0);
+    	fieldWidth = Field.DEFAULT_WIDTH*windowWidth/1170.0;
     	fieldHeight = fieldWidth;
 		boardX = getPreferredSize().width/2-model.getBoardSize()*fieldWidth/2;
 		boardY = 0;
@@ -363,7 +362,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     public void mouseClicked(MouseEvent e) {
     	inFocus = true;
     	if (e.getButton() == MouseEvent.BUTTON1 && e.getX() >= boardX && e.getY() >= boardY && e.getX() <= boardX+model.getBoardSize()*fieldWidth && e.getY() <= boardY+model.getBoardSize()*fieldHeight) {
-            clickedPosition = new int[]{(e.getY()-boardY)/fieldHeight, (e.getX()-boardX)/fieldWidth};
+            clickedPosition = new int[]{(int)((e.getY()-boardY)/fieldHeight), (int)((e.getX()-boardX)/fieldWidth)};
             repaint();
     	}
     }
@@ -374,7 +373,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     	inFocus = true;
     	Point mousePos = getMousePosition();
     	if (mousePos != null) {
-        	mouseBoardVector = new int[] {boardX-mousePos.x, boardY-mousePos.y};
+        	mouseBoardVector = new int[] {(int)(boardX-mousePos.x), (int)(boardY-mousePos.y)};
         	dragging = true;
     	}
     }
@@ -434,14 +433,15 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		if (e.getWheelRotation() < 0 || (fieldWidth > 20 && fieldHeight > 20)) {
+			System.out.println(boardX+" "+boardY+" "+fieldWidth+" "+fieldHeight);
 			double fieldWidthDist = (e.getX()-boardX)/(double)fieldWidth;
 			double fieldHeightDist = (e.getY()-boardY)/(double)fieldHeight;
-			int w = e.getWheelRotation()*fieldWidth/20;
-			int h = e.getWheelRotation()*fieldHeight/20;
-			fieldWidth -= w == 0 ? e.getWheelRotation() : w;
-			fieldHeight -= h == 0 ? e.getWheelRotation() : h;
-			boardX -= (fieldWidthDist-(e.getX()-boardX)/(double)fieldWidth)*fieldWidth;
-			boardY -= (fieldHeightDist-(e.getY()-boardY)/(double)fieldHeight)*fieldHeight;
+			double w = e.getWheelRotation()*fieldWidth/20;
+			double h = e.getWheelRotation()*fieldHeight/20;
+			fieldWidth -= w == 0.0 ? e.getWheelRotation() : w;
+			fieldHeight -= h == 0.0 ? e.getWheelRotation() : h;
+			boardX -= (fieldWidthDist-(e.getX()-boardX)/fieldWidth)*fieldWidth;
+			boardY -= (fieldHeightDist-(e.getY()-boardY)/fieldHeight)*fieldHeight;
 			repaint();
 		}
 	}
@@ -508,9 +508,9 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 			break;
 		}	
 		
-		int time = Model.elapsedTime();
+		int time = model.elapsedTime();
 		
-		Model.saveStat(Model.elapsedTime(),difficulty);
+		Model.saveStat(model.elapsedTime(),difficulty);
 		int hour = time / 3600;
 		int minute = time / 60 % 60;
 		int second = time % 60;

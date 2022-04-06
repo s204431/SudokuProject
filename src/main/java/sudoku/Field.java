@@ -7,8 +7,8 @@ package sudoku;
 */
 
 public class Field {
-	public static final int DEFAULT_WIDTH = 70;
-	public static final int DEFAULT_HEIGHT = 70;
+	public static final double DEFAULT_WIDTH = 70.0;
+	public static final double DEFAULT_HEIGHT = 70.0;
 	public int value = 0;
 	public int[] notes;
 	public boolean interactable = true;

@@ -84,7 +84,7 @@ public class MultiplayerView extends View {
 		try {
 			((MultiplayerModel) model).toOpponent.get(new ActualField("lock"), new ActualField("dragging"));
 			((MultiplayerModel) model).toOpponent.get(new ActualField("boardposition"), new FormalField(Integer.class), new FormalField(Integer.class), new FormalField(Integer.class), new FormalField(Integer.class));
-			((MultiplayerModel) model).toOpponent.put("boardposition", boardX, boardY, fieldWidth, fieldHeight);
+			((MultiplayerModel) model).toOpponent.put("boardposition", (int)boardX, (int)boardY, (int)fieldWidth, (int)fieldHeight);
 			((MultiplayerModel) model).toOpponent.put("lock", "dragging");
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -154,7 +154,7 @@ public class MultiplayerView extends View {
 					int value = ((MultiplayerModel) model).opponentBoard[i][j].value;
 					int valueDigits = String.valueOf(value).length();
 					int scaling = (valueDigits + 1) * 3;
-					g2.setFont(new Font("Courier", Font.BOLD, (40 - scaling) * opponentFieldWidth / Field.DEFAULT_WIDTH));
+					g2.setFont(new Font("Courier", Font.BOLD, (int)((40 - scaling) * opponentFieldWidth / Field.DEFAULT_WIDTH)));
 					String text = "" + value;
 					int fontHeight = g2.getFontMetrics().getHeight();
 					int fontWidth = g2.getFontMetrics().stringWidth(text);

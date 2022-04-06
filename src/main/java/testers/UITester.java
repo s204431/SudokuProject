@@ -206,10 +206,10 @@ public class UITester extends ComponentTestFixture {
 	}
 	
 	private void checkSudokuActions(View view, Model model, boolean allowRemovingInitialValues) {
-		int initialBoardX = view.boardX;
-		int initialBoardY = view.boardY;
-		int initialFieldWidth = view.fieldWidth;
-		int initialFieldHeight = view.fieldHeight;
+		double initialBoardX = view.boardX;
+		double initialBoardY = view.boardY;
+		double initialFieldWidth = view.fieldWidth;
+		double initialFieldHeight = view.fieldHeight;
 		int x = -1;
 		int y = -1;
 		for (int i = 0; i < model.board.length; i++) {
@@ -227,15 +227,15 @@ public class UITester extends ComponentTestFixture {
 			}
 		}
 		JComponentTester tester = new JComponentTester();
-		tester.click(view, view.boardX+y*view.fieldWidth+view.fieldWidth/2, view.boardY+x*view.fieldHeight+view.fieldHeight/2);
+		tester.click(view, (int)(view.boardX+y*view.fieldWidth+view.fieldWidth/2), (int)(view.boardY+x*view.fieldHeight+view.fieldHeight/2));
 		assertEquals("Clicked x position incorrect.", x, view.clickedPosition[0]);
 		assertEquals("Clicked y position incorrect.", y, view.clickedPosition[1]);
 		tester.key('1');
 		assertEquals("Wrong value in field.", 1, model.board[x][y].value);
 		tester.key(KeyEvent.VK_BACK_SPACE);
 		assertEquals("Wrong value in field.", 0, model.board[x][y].value);
-		int boardX = view.boardX;
-		int boardY = view.boardY;
+		double boardX = view.boardX;
+		double boardY = view.boardY;
 		tester.drag(view, 50, 50);
 		tester.mouseRelease();
 		assertTrue("Wrong board x position.", view.boardX != boardX);
@@ -256,7 +256,7 @@ public class UITester extends ComponentTestFixture {
 				break;
 			}
 		}
-		tester.click(view, view.boardX+y*view.fieldWidth+view.fieldWidth/2, view.boardY+x*view.fieldHeight+view.fieldHeight/2);
+		tester.click(view, (int)(view.boardX+y*view.fieldWidth+view.fieldWidth/2), (int)(view.boardY+x*view.fieldHeight+view.fieldHeight/2));
 		assertEquals("Clicked x position incorrect.", x, view.clickedPosition[0]);
 		assertEquals("Clicked y position incorrect.", y, view.clickedPosition[1]);
 		tester.key('1');

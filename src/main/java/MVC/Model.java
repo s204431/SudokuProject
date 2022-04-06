@@ -18,7 +18,7 @@ import Generators.*;
 
 
 public class Model {
-	private static long start;
+	private long start;
 	protected View view;
 	public Field[][] board;
 	public int innerSquareSize; //Width/height an inner square (n).
@@ -322,12 +322,12 @@ public class Model {
 	}
 	
 	//Resets the timer.
-	public static void resetTimer() {
+	public void resetTimer() {
 		start = System.currentTimeMillis();
 	}
 	
 	//Returns the current time on the timer.
-    public static int elapsedTime() {
+    public int elapsedTime() {
         long now = System.currentTimeMillis();
 		return (int) ((now - start) / 1000.0);
     }

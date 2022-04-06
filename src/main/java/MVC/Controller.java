@@ -36,13 +36,13 @@ public class Controller {
 		else if (e.getKeyChar() == 'n' && Main.DEBUG_MODE) {
 			int[] range = SudokuSolver.getDifficultyRange();
 			model.generateSudoku(range[0], range[1], 0.62);
-			Model.resetTimer();
+			model.resetTimer();
 		}
 		else if (e.getKeyChar() == 'm' && Main.DEBUG_MODE) {
 			view.winPopup(model.difficulty);
 		}
 		else if (e.getKeyChar() == 'a' && Main.DEBUG_MODE) {
-			System.out.println(Model.elapsedTime());
+			System.out.println(model.elapsedTime());
 		}
 		else if (e.getKeyChar() == 't' && Main.DEBUG_MODE) {
 			new SolverTester().testAll(model);
