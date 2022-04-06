@@ -32,10 +32,10 @@ import MVC.*;
 
 public class UITester extends ComponentTestFixture {
 	
-	private boolean testMainMenu = false;
-	private boolean testPlayMode = false;
-	private boolean testCreateMode = false;
-	private boolean testSolverMode = false;
+	private boolean testMainMenu = true;
+	private boolean testPlayMode = true;
+	private boolean testCreateMode = true;
+	private boolean testSolverMode = true;
 	private boolean testMultiplayerMode = false;
 	private boolean monkeyTest = true;
 	private String otherTesterIP = "10.209.128.1";
@@ -195,6 +195,7 @@ public class UITester extends ComponentTestFixture {
 		checkDifficultyDropdown(expectedChoices);
 		selectDropdownValue(getDropdown(), difficulty);
 		clickButton("Generate Sudoku");
+		sleep(500);
 		checkPanelActive(View.class);
 		View view = (View) getPanel(View.class);
 		Model model = view.model;
