@@ -402,7 +402,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 		if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
 			quitToMenu();
 		}
-		if (e.getKeyChar() == KeyEvent.VK_SPACE) {
+		else if (e.getKeyChar() == KeyEvent.VK_SPACE) {
 			resetBoardPosition();
 			repaint();
 		}
@@ -417,6 +417,26 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 		if (e.getKeyCode() == KeyEvent.VK_ALT) {
             notesButton.setText("Notes on");
             notesOn = true;
+        }
+        else if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_KP_UP) {
+            if (clickedPosition[0] > 0) {
+                clickedPosition[0]--;
+            }
+        }
+        else if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_KP_DOWN) {
+            if (clickedPosition[0] < model.getBoardSize() - 1) {
+                clickedPosition[0]++;
+            }
+        }
+        else if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_KP_LEFT) {
+            if (clickedPosition[1] > 0) {
+                clickedPosition[1]--;
+            }
+        }
+        else if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_KP_RIGHT) {
+            if (clickedPosition[1] < model.getBoardSize() - 1) {
+                clickedPosition[1]++;
+            }
         }
 	}
 
