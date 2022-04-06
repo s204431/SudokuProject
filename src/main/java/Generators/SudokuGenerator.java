@@ -57,11 +57,7 @@ public class SudokuGenerator {
 			board[coord[0]][coord[1]] = 0;
 			currentMissingFields++;
 			int[][] result = generateRecursive(board, innerSquareSize, minDifficulty, maxDifficulty, minMissingFields);
-			if (result == null) {
-				board[coord[0]][coord[1]] = num;
-				currentMissingFields--;
-			}
-			else if (result.length == 1 && result[0] == null) {
+			if (result == null || (result.length == 1 && result[0] == null)) {
 				board[coord[0]][coord[1]] = num;
 				currentMissingFields--;
 			}

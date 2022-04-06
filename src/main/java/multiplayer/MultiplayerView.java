@@ -57,7 +57,7 @@ public class MultiplayerView extends View {
         Graphics2D g2 = (Graphics2D) g;
     	if (!((MultiplayerModel) model).started) {
         	g2.setFont(new Font("TimesRoman", Font.BOLD, 50));
-        	g2.drawString("Waiting for opponent...", getPreferredSize().width/2-getPreferredSize().height/4, getPreferredSize().height/2-getPreferredSize().height/10);
+        	g2.drawString("Waiting for opponent...", getPreferredSize().width / 2 - getPreferredSize().height / 4, getPreferredSize().height / 2 - getPreferredSize().height / 10);
         	buttonPanel.repaint();
         	return;
     	}
@@ -68,7 +68,7 @@ public class MultiplayerView extends View {
     }
 
 	public void resetBoardPosition() {
-    	fieldWidth = (int)((Field.DEFAULT_WIDTH*windowWidth/1170.0)/1.5);
+    	fieldWidth = (int)((Field.DEFAULT_WIDTH*windowWidth / 1170.0) / 1.5);
     	fieldHeight = fieldWidth;
 		boardX = (getPreferredSize().width - 200) / 4 - fieldWidth * model.board.length / 2;
 		boardY = getPreferredSize().height / 2 - fieldHeight * model.board.length / 2;

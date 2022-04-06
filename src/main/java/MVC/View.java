@@ -385,10 +385,10 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     	dragging = false;
     }
 
-    //Does nothing, but required by implemented interface.
+
     @Override
     public void mouseEntered(MouseEvent e) {
-
+        //Does nothing, but required by implemented interface.
     }
 
     //Stops dragging when user moves mouse out of the screen.
