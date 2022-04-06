@@ -18,7 +18,7 @@ import Generators.*;
 
 
 public class Model {
-	private static long start;
+	private long start;
 	protected View view;
 	public Field[][] board;
 	public int innerSquareSize; //Width/height an inner square (n).
@@ -312,16 +312,22 @@ public class Model {
 	
 	//Returns the sudoku board.
 	public Field[][] getBoard() {
-		return board;
+		Field[][] newBoard = new Field[board.length][board.length];
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board.length; j++) {
+				newBoard[i][j] = new Field(board[i][j].value, board[i][j].interactable);
+			}
+		}
+		return newBoard;
 	}
 	
 	//Resets the timer.
-	public static void resetTimer() {
+	public void resetTimer() {
 		start = System.currentTimeMillis();
 	}
 	
 	//Returns the current time on the timer.
-    public static int elapsedTime() {
+    public int elapsedTime() {
         long now = System.currentTimeMillis();
 		return (int) ((now - start) / 1000.0);
     }
@@ -333,7 +339,7 @@ public class Model {
 	
     //Loads the stats from and returns it as an array of 8 integers.
     public static int[] loadStat() {
-    	File file = new File("savedsudokus/Stats.txt");
+    	File file = new File("savedsudokus/Stats.st");
     	if(!file.exists()) {
     		try {
         		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
@@ -367,7 +373,7 @@ public class Model {
     //Overrides stats file with a new time (if time beats best time) and number of solved sudoku for a difficulty.
     public static void saveStat(int time, int difficulty) {
     	int[] Stats = loadStat();
-    	File file = new File("savedsudokus/Stats.txt");
+    	File file = new File("savedsudokus/Stats.st");
     	if(time < Stats[difficulty] || Stats[difficulty] == 0) {//change index for stats for correct difficulty (0-3) or (1-4)
     		Stats[difficulty] = time;
     	}
