@@ -2,7 +2,9 @@ package MVC;
 
 import java.awt.event.KeyEvent;
 
+import Generators.SudokuGenerator;
 import MVC.Model.Mode;
+import solvers.EfficientSolver;
 import solvers.SudokuSolver;
 import sudoku.Main;
 import testers.GeneratorTester;
@@ -52,6 +54,18 @@ public class Controller {
 		}
 		else if (e.getKeyChar() == 'h' && Main.DEBUG_MODE) {
 			model.giveHint();
+		}
+		else if (e.getKeyChar() == 'g' && Main.DEBUG_MODE) {
+			int max = 0;
+			while (max <= 33) {
+				model.generateSudoku(9, 9, 0.0, 3, 3);
+				SudokuSolver solver = new EfficientSolver(model.board, 3);
+				solver.solve(1);
+				if (solver.guesses > max) {
+					max = solver.guesses;
+				}
+				System.out.println(solver.guesses+" Max: "+max);
+			}
 		}
 		else if (!model.board[selectedFieldPosition[0]][selectedFieldPosition[1]].interactable) {
 			return;
