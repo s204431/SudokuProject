@@ -204,7 +204,7 @@ public class EfficientSolver extends SudokuSolver {
 		boolean updated = false;
 		for (int i = 0; i < getNumInnerSquares(); i++) {
 			for (int j = 0; j < getNumInnerSquares(); j++) {
-				for (int v = 1; v <= board.length; v++) {
+				for (int v = 1; v <= getMaxValue(); v++) {
 					int foundInRow = -1;
 					int foundInColumn = -1;
 					for (int k = i*innerSquareSize; k < i*innerSquareSize+innerSquareSize; k++) {
@@ -481,7 +481,7 @@ public class EfficientSolver extends SudokuSolver {
 	
 	private boolean xWing(int[][] board, List<Integer>[][] possibleValues) {
 		boolean updated = false;
-		for (int v = 1; v <= board.length; v++) {
+		for (int v = 1; v <= getMaxValue(); v++) {
 			for (int i = 0; i < board.length; i++) {
 				int[] cs = exactlyTwo(possibleValues, i, v, true);
 				if (cs[1] >= 0) {
@@ -528,7 +528,7 @@ public class EfficientSolver extends SudokuSolver {
 	
 	private boolean swordfish(int[][] board, List<Integer>[][] possibleValues) {
 		boolean updated = false;
-		for (int v = 1; v <= board.length; v++) {
+		for (int v = 1; v <= getMaxValue(); v++) {
 			for (int i = 0; i < board.length; i++) {
 				int[] cs = exactlyTwo(possibleValues, i, v, true);
 				if (cs[1] >= 0) {

@@ -3,8 +3,9 @@ package testers;
 import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javax.swing.JButton;
@@ -25,7 +26,6 @@ import multiplayer.MultiplayerView;
 import multiplayer.MultiplayerModel;
 import solvers.EfficientSolver;
 import solvers.SudokuSolver;
-import sudoku.Field;
 import sudoku.Main;
 import sudoku.Screens.*;
 import MVC.*;
@@ -164,20 +164,52 @@ public class UITester extends ComponentTestFixture {
 		try {
 			//Monkey test
 			Robot robot = new Robot();
+			JButtonTester buttonTester = new JButtonTester();
 			int centerX = Main.screenSize.width/2;
 			int centerY = Main.screenSize.height/2;
 			for (int i = 0; i < 200; i++) {
-				int randomX = ThreadLocalRandom.current().nextInt(centerX - Main.SCREEN_WIDTH/3, centerX + Main.SCREEN_WIDTH/3);
-				int randomY = ThreadLocalRandom.current().nextInt(centerY - Main.SCREEN_HEIGHT/3, centerY + Main.SCREEN_HEIGHT/3);
-				int mask = InputEvent.getMaskForButton(1);
-				robot.mouseMove(randomX, randomY);
-				robot.delay(20);
-				robot.mousePress(mask);
-				robot.delay(20);
-				robot.mouseRelease(mask);
+				int num = new Random().nextInt(10);
+				if (num > 3) {
+					int randomX = ThreadLocalRandom.current().nextInt(centerX - Main.SCREEN_WIDTH/3, centerX + Main.SCREEN_WIDTH/3);
+					int randomY = ThreadLocalRandom.current().nextInt(centerY - Main.SCREEN_HEIGHT/3, centerY + Main.SCREEN_HEIGHT/3);
+					int mask = InputEvent.getMaskForButton(1);
+					robot.mouseMove(randomX, randomY);
+					robot.delay(20);
+					robot.mousePress(mask);
+					robot.delay(20);
+					robot.mouseRelease(mask);
+				}
+				else if (num > 0) {
+					int keyCode = new Random().nextInt(10)+48;
+					robot.keyPress(keyCode);
+					robot.delay(20);
+					robot.keyRelease(keyCode);
+				}
+				else {
+					List<JButton> buttons = new ArrayList<>();
+					while (true) {
+					    try {
+					    	buttons.add((JButton)getFinder().find(new Matcher() {
+							    public boolean matches(Component c) {
+							        return c instanceof JButton && !buttons.contains(c);
+							    }
+							}));
+						} catch (ComponentNotFoundException | MultipleComponentsFoundException e1) {
+							break;
+						}
+					}
+					if (buttons.size() > 0) {
+						JButton button = buttons.get(new Random().nextInt(buttons.size()));
+						try {
+							buttonTester.click(button);
+						} catch (Exception e2) {}
+					}
+					robot.delay(20);
+				}
 			}
-		} catch(Exception e) {
-			e.printStackTrace();
+		} catch(Exception e3) {
+			sleep(5000);
+			e3.printStackTrace();
 		}
 	}
 	
@@ -334,7 +366,7 @@ public class UITester extends ComponentTestFixture {
 			JButtonTester tester = new JButtonTester();
 			tester.click(button);
 			return;
-		} catch (ComponentNotFoundException | MultipleComponentsFoundException ignored) {
+		} catch (ComponentNotFoundException | MultipleComponentsFoundException e) {
 		}
 		assertTrue("Button "+buttonText+" does not exist.", false);
 	}
@@ -342,7 +374,7 @@ public class UITester extends ComponentTestFixture {
 	private JPanel getPanel(Class<?> panelClass) {
 		try {
 			return (JPanel)getFinder().find(new ClassMatcher(panelClass));
-		} catch (ComponentNotFoundException | MultipleComponentsFoundException ignored) {
+		} catch (ComponentNotFoundException | MultipleComponentsFoundException e) {
 		}
 		return null;
 	}
@@ -355,7 +387,7 @@ public class UITester extends ComponentTestFixture {
 			    }
 			});
 			return tf;
-		} catch (ComponentNotFoundException | MultipleComponentsFoundException ignored) {
+		} catch (ComponentNotFoundException | MultipleComponentsFoundException e) {
 		}
 		return null;
 	}

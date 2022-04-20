@@ -101,6 +101,9 @@ public class LoadGameScreen extends MenuScreen {
 
     class loadAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+        	if (loadList.getSelectedValue() == null) {
+        		return;
+        	}
             frame.dispose();
             //startGame(1, 1, mode).load(loadList.getSelectedValue());
             if (isHost) {

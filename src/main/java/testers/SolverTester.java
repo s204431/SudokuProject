@@ -34,6 +34,7 @@ public class SolverTester {
 											   new SolverTestCase("extreme2", true),
 											   new SolverTestCase("extreme3", true),
 											   new SolverTestCase("extreme4", true),
+											   new SolverTestCase("extreme5", true),
 											   new SolverTestCase("hard16", true),
 											   new SolverTestCase("sixbysix1", true),
 											   new SolverTestCase("difficulty3", true),
