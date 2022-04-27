@@ -79,9 +79,11 @@ public class Controller {
 		else {
 			char key = e.getKeyChar();
 			if (Character.isDigit(key)) {
-				int newValue = Integer.parseInt(model.board[selectedFieldPosition[0]][selectedFieldPosition[1]].value + "" + key);
-				if (newValue > 0 && newValue <= model.innerSquareSize*model.innerSquareSize) {
+				int newValue = Integer.parseInt(model.board[selectedFieldPosition[0]][selectedFieldPosition[1]].value+""+key);
+				if (!view.notesOn && newValue > 0 && newValue <= model.innerSquareSize*model.innerSquareSize) {
 					model.setField(selectedFieldPosition[0], selectedFieldPosition[1], newValue);
+				} else if (view.notesOn && newValue > 0 && newValue <= 9) {
+					model.setNote(selectedFieldPosition[0], selectedFieldPosition[1], newValue);
 				}
 			}
 		}

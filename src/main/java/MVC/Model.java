@@ -70,16 +70,15 @@ public class Model {
 	
 	//Change the value of field at position (x,y).
 	public void setField(int x, int y, int value) {
-		if (!view.notesOn) {
-			board[x][y].value = value;
-		} else {
-			if (value <= 9 && value > 0) {
-				board[x][y].notes[value - 1] = board[x][y].notes[value - 1] == value ? 0 : value;
-			}
-		}
+		board[x][y].value = value;
 		if (sudokuSolved(board, innerSquareSize)) {
 			view.winPopup(difficulty);
 		}
+		view.repaint();
+	}
+
+	public void setNote(int x, int y, int value) {
+		board[x][y].notes[value - 1] = (board[x][y].notes[value - 1] == value) ? 0 : value;
 		view.repaint();
 	}
 	
