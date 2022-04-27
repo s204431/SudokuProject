@@ -453,7 +453,6 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		if (e.getPreciseWheelRotation() < 0.0 || (fieldWidth > 20.0 && fieldHeight > 20.0)) {
-			System.out.println(boardX+" "+boardY+" "+fieldWidth+" "+fieldHeight);
 			double fieldWidthDist = (e.getX()-boardX)/fieldWidth;
 			double fieldHeightDist = (e.getY()-boardY)/fieldHeight;
 			double w = e.getPreciseWheelRotation()*fieldWidth/25.0;
