@@ -76,7 +76,9 @@ public class Model {
 	
 	//Change the value of field at position (x,y).
 	public void setField(int x, int y, int value) {
-		setField(x, y, new Field(value, board[x][y].interactable));
+		Field field = new Field(value, board[x][y].interactable);
+		field.notes = board[x][y].notes;
+		setField(x, y, field);
 	}
 
 	public void setNote(int x, int y, int value) {
