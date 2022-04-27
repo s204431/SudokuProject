@@ -167,8 +167,9 @@ public class UITester extends ComponentTestFixture {
 			JButtonTester buttonTester = new JButtonTester();
 			int centerX = Main.screenSize.width/2;
 			int centerY = Main.screenSize.height/2;
+			Random r = new Random();
 			for (int i = 0; i < 200; i++) {
-				int num = new Random().nextInt(10);
+				int num = r.nextInt(10);
 				if (num > 3) {
 					int randomX = ThreadLocalRandom.current().nextInt(centerX - Main.SCREEN_WIDTH/3, centerX + Main.SCREEN_WIDTH/3);
 					int randomY = ThreadLocalRandom.current().nextInt(centerY - Main.SCREEN_HEIGHT/3, centerY + Main.SCREEN_HEIGHT/3);
@@ -180,7 +181,7 @@ public class UITester extends ComponentTestFixture {
 					robot.mouseRelease(mask);
 				}
 				else if (num > 0) {
-					int keyCode = new Random().nextInt(10)+48;
+					int keyCode = r.nextInt(10)+48;
 					robot.keyPress(keyCode);
 					robot.delay(20);
 					robot.keyRelease(keyCode);
@@ -199,7 +200,7 @@ public class UITester extends ComponentTestFixture {
 						}
 					}
 					if (buttons.size() > 0) {
-						JButton button = buttons.get(new Random().nextInt(buttons.size()));
+						JButton button = buttons.get(r.nextInt(buttons.size()));
 						try {
 							buttonTester.click(button);
 						} catch (Exception e2) {}
