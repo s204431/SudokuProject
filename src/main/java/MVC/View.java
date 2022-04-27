@@ -550,6 +550,9 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             JOptionPane.showMessageDialog(frame,
                     "Enter a digit in the empty fields" +
                             "\nHold 'shift' to set notes." +
+                            "\nUse arrow keys to navigate." +
+                            "\n'backspace' deletes the chosen field if interactable." +
+                            "\nUse your mouse to either scroll or drag the board." +
                             "\n's' solves the sudoku." +
                             "\n'enter' saves sudoku to a specific file." +
                             "\n'l' loads that specific file." +
@@ -557,9 +560,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                             "\n'm' pops up your score as if solved." +
                             "\n't' solves different sudokus and prints the time." +
                             "\n'y' generates different sudokus and prints the time." +
-                            "\n'h' gives a hint if assist mode is active." +
-                            "\n'backspace' deletes the chosen field if interactable." +
-                            "\nUse arrow keys to navigate.",
+                            "\n'h' gives a hint if assist mode is active.",
                     "Help",
                     JOptionPane.INFORMATION_MESSAGE);
         } else {
@@ -567,7 +568,8 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                     "Enter a digit in the empty fields" +
                             "\nHold 'shift' to set notes." +
                             "\nUse arrow keys to navigate." +
-                            "\n'backspace' deletes the chosen field if interactable.",
+                            "\n'backspace' deletes the chosen field if interactable." +
+                            "\nUse your mouse to either scroll or drag the board.",
                     "Help",
                     JOptionPane.INFORMATION_MESSAGE);
         }

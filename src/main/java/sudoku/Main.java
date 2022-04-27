@@ -18,7 +18,7 @@ public class Main {
 	 * this instance initializes a JFrame by creating
 	 * an instance of the Object MainScreen.
 	 * This MainScreen object is the base of
-	 * our programs logic and visualization
+	 * our programs input logic and visualization
 	 */
 
 	public static void main(String[] args) {
