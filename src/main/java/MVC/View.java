@@ -34,6 +34,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     private JButton hintButton;
     private JButton solveButton;
     private JButton stepSolveButton;
+    private JButton helpButton;
 	public JTextField textField;
 	protected JLabel timerLabel;
 	protected boolean inFocus = true;
@@ -188,6 +189,15 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     
     //Add all components to the button panel (buttons etc.).
     public void addComponentsToButtonPanel(Mode mode) {
+        helpButton = new JButton("Help");
+        helpButton.setBounds(50, 350,100,25);
+        helpButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                HelpPopup();
+            }
+        });
+        buttonPanel.add(helpButton);
         notesButton = new JButton("Notes off");
         notesButton.setBounds(50, 400, 100, 25);
         notesButton.addActionListener(new ActionListener() {
@@ -212,7 +222,6 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             }
         });
         buttonPanel.add(exitButton);
-
         if (mode == Mode.play) {
             if (Main.DEBUG_MODE) {
                 textField = new JTextField();
@@ -536,7 +545,33 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 		int second = time % 60;
 		JOptionPane.showMessageDialog(frame, "Sudoku solved! your time was: " + hour + ":" + minute + ":" + second);
 		//return to menu, save time
-		
 	}
+    public void HelpPopup(){
+        if (Main.DEBUG_MODE){
+            JOptionPane.showMessageDialog(frame,
+                    "Enter a digit in the empty fields" +
+                            "\nHold 'shift' to set notes." +
+                            "\n's' solves the sudoku." +
+                            "\n'enter' saves sudoku to a specific file." +
+                            "\n'l' loads that specific file." +
+                            "\n'n' generates a new sudoku with the same difficulty." +
+                            "\n'm' pops up your score as if solved." +
+                            "\n't' solves different sudokus and prints the time." +
+                            "\n'y' generates different sudokus and prints the time." +
+                            "\n'h' gives a hint if assist mode is active." +
+                            "\n'backspace' deletes the chosen field if interactable." +
+                            "\nUse arrow keys to navigate.",
+                    "Help",
+                    JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(frame,
+                    "Enter a digit in the empty fields" +
+                            "\nHold 'shift' to set notes." +
+                            "\nUse arrow keys to navigate." +
+                            "\n'backspace' deletes the chosen field if interactable.",
+                    "Help",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
 	
 }

@@ -45,9 +45,6 @@ public class Controller {
 		else if (e.getKeyCode() == KeyEvent.VK_M && Main.DEBUG_MODE) {
 			view.winPopup(model.difficulty);
 		}
-		else if (e.getKeyCode() == KeyEvent.VK_A && Main.DEBUG_MODE) {
-			System.out.println(model.elapsedTime());
-		}
 		else if (e.getKeyCode() == KeyEvent.VK_T && Main.DEBUG_MODE) {
 			new SolverTester().testAll(model);
 		}
