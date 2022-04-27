@@ -165,7 +165,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             for (int j = 0; j < model.numInnerSquares; j++) {
                 //g2.setColor(model.sudokuSolved(model.board, model.innerSquareSize) ? new Color(0, 200, 0) : black);
             	g2.setColor(black);
-                g2.setStroke(new BasicStroke(3));
+                g2.setStroke(new BasicStroke((int) (2+fieldWidth/30)));
                 g2.drawRect((int)(boardX + j * (int)fieldWidth * iss), (int)(boardY + i * (int)fieldHeight * iss), (int)fieldWidth*iss, (int)fieldHeight*iss);
             }
         }
@@ -399,22 +399,19 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     //Handles a key typed by the user.
 	@Override
 	public void keyTyped(KeyEvent e) {
-		if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
-			quitToMenu();
-		}
-		else if (e.getKeyChar() == KeyEvent.VK_SPACE) {
-			resetBoardPosition();
-			repaint();
-		}
-		else {
-			controller.keyTyped(e, clickedPosition); //Let controller handle the key typed.
-		}
 	}
 
-	//Turns notes on when pressing alt.
+	//Turns notes on when pressing shift.
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_ALT) {
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            quitToMenu();
+        }
+        else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+            resetBoardPosition();
+            repaint();
+        }
+        else if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
             notesButton.setText("Notes on");
             notesOn = true;
         }
@@ -438,12 +435,15 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                 clickedPosition[1]++;
             }
         }
+        else {
+            controller.keyTyped(e, clickedPosition); //Let controller handle the key typed.
+        }
 	}
 
-	//Turns notes off when releasing alt.
+	//Turns notes off when releasing shift.
 	@Override
 	public void keyReleased(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ALT) {
+        if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
             notesButton.setText("Notes off");
             notesOn = false;
         }
