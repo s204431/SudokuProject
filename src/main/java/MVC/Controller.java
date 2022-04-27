@@ -27,6 +27,7 @@ public class Controller {
 	//Handles a key typed by the user.
 	public void keyTyped(KeyEvent e, int[] selectedFieldPosition) {
 		if (e.getKeyChar() == 's' && Main.DEBUG_MODE) {
+			Main.usedSolver = true;
 			model.solve(1);
 		}
 		else if (e.getKeyChar() == KeyEvent.VK_ENTER && Main.DEBUG_MODE) {

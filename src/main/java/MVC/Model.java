@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import solvers.*;
 import sudoku.Field;
 import Generators.*;
+import sudoku.Main;
 
 
 public class Model {
@@ -28,6 +29,7 @@ public class Model {
 	public String fileName = "";
 	public boolean assistMode = false;
 	protected int difficulty;
+	private boolean solved = false;
 
 	//Constructor taking number of inner squares, inner square size and mode.
 	public Model(int numInnerSquares, int innerSquareSize, Mode mode) {
@@ -61,20 +63,20 @@ public class Model {
 	
 	//Set the field at position (x,y).
 	public void setField(int x, int y, Field field) {
+		if (solved) {
+			return;
+		}
 		board[x][y] = field;
 		if (sudokuSolved(board, innerSquareSize)) {
 			view.winPopup(difficulty);
+			solved = true;
 		}
 		view.repaint();
 	}
 	
 	//Change the value of field at position (x,y).
 	public void setField(int x, int y, int value) {
-		board[x][y].value = value;
-		if (sudokuSolved(board, innerSquareSize)) {
-			view.winPopup(difficulty);
-		}
-		view.repaint();
+		setField(x, y, new Field(value, board[x][y].interactable));
 	}
 
 	public void setNote(int x, int y, int value) {
@@ -128,6 +130,7 @@ public class Model {
 	
 	//Find max solutions for the current sudoku. Update current sudoku to first solution found.
 	public void solve(int maxSolutions) {
+		if (solved) return;
 		SudokuSolver solver = new EfficientSolver(board, innerSquareSize);
 		List<int[][]> results = solver.solve(maxSolutions);
 		System.out.println("Found " + results.size() + " solutions. Took " + solver.recursiveCalls + " recursive calls and " + solver.guesses + " guesses. Difficulty: " + solver.difficulty + ".");
@@ -140,6 +143,7 @@ public class Model {
 		}
 		if (sudokuSolved(board, innerSquareSize)) {
 			System.out.println("Solved!");
+			solved = true;
 			view.winPopup(difficulty);
 		}
 		view.repaint();
@@ -371,22 +375,24 @@ public class Model {
     
     //Overrides stats file with a new time (if time beats best time) and number of solved sudoku for a difficulty.
     public static void saveStat(int time, int difficulty) {
-    	int[] Stats = loadStat();
-    	File file = new File("savedsudokus/Stats.st");
-    	if(time < Stats[difficulty] || Stats[difficulty] == 0) {//change index for stats for correct difficulty (0-3) or (1-4)
-    		Stats[difficulty] = time;
-    	}
-    	Stats[difficulty + 4]++;
-    	try {
-    		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-    		for(int i = 0; i < 8; i++) {
-    			writer.write(Stats[i] + " ");
-    		}
-    		writer.close();
-    		
-    	}catch (IOException e) {
-    		e.printStackTrace();
-    	}
+		if (!Main.usedSolver) {
+			int[] Stats = loadStat();
+			File file = new File("savedsudokus/Stats.st");
+			if(time < Stats[difficulty] || Stats[difficulty] == 0) {//change index for stats for correct difficulty (0-3) or (1-4)
+				Stats[difficulty] = time;
+			}
+			Stats[difficulty + 4]++;
+			try {
+				BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+				for(int i = 0; i < 8; i++) {
+					writer.write(Stats[i] + " ");
+				}
+				writer.close();
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
     }
 }
 
