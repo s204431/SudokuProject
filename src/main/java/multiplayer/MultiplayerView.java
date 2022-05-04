@@ -66,8 +66,20 @@ public class MultiplayerView extends View {
 		opponentPanel.repaint();
         super.paint(g);
 
+		// Text clarifying which board is which
+		g2.setFont(new Font("Serif", Font.BOLD, 50 * (int)fieldWidth / (int)Field.DEFAULT_WIDTH));
+		String text = "You: " + model.computeFilledInFields(model.board) + "/" + (model.board.length * model.board[0].length);
+		int textWidth = (windowWidth-buttonPanel.getWidth()) / 4 - g2.getFontMetrics().stringWidth(text) / 2;
+		int textHeight = g2.getFontMetrics().getHeight();
+		int offSet = 10;
+		g2.setColor(buttonPanel.getBackground());
+		g2.fillRect(0, 0, windowWidth, textHeight + offSet);
+		g2.setColor(Color.BLACK);
+		g2.drawString(text, textWidth, textHeight - offSet);
+
+		// Line seperating the two boards
 		g2.drawLine((getPreferredSize().width - 200) / 2 - 1, 0, (getPreferredSize().width - 200) / 2 - 1, getPreferredSize().height);
-    }
+	}
 
 	public void resetBoardPosition() {
     	fieldWidth = (int)((Field.DEFAULT_WIDTH*windowWidth / 1170.0) / 1.5);
@@ -209,6 +221,17 @@ public class MultiplayerView extends View {
 				}
 			}
 			g2.setStroke(oldStroke);
+
+			// Text clarifying which board is which
+			g2.setFont(new Font("Serif", Font.BOLD, 50 * (int)opponentFieldWidth / (int)Field.DEFAULT_WIDTH));
+			String text = "Opponent: " + model.computeFilledInFields(((MultiplayerModel) model).opponentBoard) + "/" + (model.board.length * model.board[0].length);
+			int textWidth = (windowWidth-buttonPanel.getWidth()) / 4 - g2.getFontMetrics().stringWidth(text) / 2;
+			int textHeight = g2.getFontMetrics().getHeight();
+			int offSet = 10;
+			g2.setColor(buttonPanel.getBackground());
+			g2.fillRect(0, 0, windowWidth, textHeight + offSet);
+			g2.setColor(Color.BLACK);
+			g2.drawString(text, textWidth, textHeight - offSet);
 
 			// Draw components
 			//buttonPanel.repaint();
