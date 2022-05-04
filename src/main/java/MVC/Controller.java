@@ -26,7 +26,6 @@ public class Controller {
 	
 	//Handles a key typed by the user.
 	public void keyTyped(KeyEvent e, int[] selectedFieldPosition) {
-
 		if (e.getKeyCode() == KeyEvent.VK_S && Main.DEBUG_MODE) {
 			Main.usedSolver = true;
 			model.solve(1);
@@ -63,7 +62,7 @@ public class Controller {
 				if (solver.guesses > max) {
 					max = solver.guesses;
 				}
-				System.out.println(solver.guesses+" Max: "+max);
+				System.out.println(solver.guesses + " Max: "+max);
 			}
 		}
 		else if (!model.board[selectedFieldPosition[0]][selectedFieldPosition[1]].interactable) {

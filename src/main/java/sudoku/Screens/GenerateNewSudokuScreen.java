@@ -2,6 +2,7 @@ package sudoku.Screens;
 
 import MVC.Model;
 import MVC.Model.Mode;
+import MVC.View;
 import solvers.SudokuSolver;
 
 import javax.swing.*;

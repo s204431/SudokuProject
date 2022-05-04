@@ -7,9 +7,13 @@ import sudoku.Main;
 import MVC.Model.Mode;
 import multiplayer.MultiplayerView;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class View extends JPanel implements MouseListener, KeyListener, MouseWheelListener {
 	
@@ -41,15 +45,29 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     public boolean notesOn = false;
     private boolean infoButtonClicked = false;
     private int savedDifficulty;
+    public static JProgressBar progressBar;
+    public static int progress;
+    private JPanel gifPanel;
+    private BufferedImage bImg;
+    private Icon gif;
+
 
     public int[] clickedPosition = new int[] {0, 0};
 	
 	public int currentSecond;
 	public int currentMinute;
 	public int currentHour;
-    
+
     //Constructor taking a references to the model.
     public View(Model model) {
+        gif = new ImageIcon(this.getClass().getResource("/snail.gif"));
+        /*try {
+            bImg = ImageIO.read(getClass().getClassLoader().getResource("snail.gif"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+        JLabel label = new JLabel(gif);
+        label.setBounds(0,0,340,340);
     	this.model = model;
     	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     	windowWidth = screenSize.width-screenSize.width/10;
@@ -58,17 +76,19 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         boardX = getPreferredSize().width/2-model.getBoardSize()*fieldWidth/2;
         setBounds(0, 0, getPreferredSize().width, getPreferredSize().height);
         // Create frame
-        frame = new JFrame("Sudoku");
+        frame = new JFrame("Sudoku2");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setPreferredSize(getPreferredSize());
         frame.setLayout(null);
-        
+
+        frame.add(label, BorderLayout.CENTER);
+
         buttonPanel = new JPanel(null);
         buttonPanel.setFocusable(true);
-        buttonPanel.setBounds(getPreferredSize().width-200, -1, 200, getPreferredSize().height);
+        buttonPanel.setBounds(getPreferredSize().width - 200, - 1, 200, getPreferredSize().height);
         buttonPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         addComponentsToButtonPanel(model.mode);
-        
+
         frame.add(buttonPanel);
         frame.add(this);
         frame.pack();
@@ -83,6 +103,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         addMouseWheelListener(this);
         (new Thread(new BoardDragger())).start();
         (new Thread(new TimerUpdater())).start();
+
     }
     
     //Sets the reference to the controller.
@@ -173,7 +194,6 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         g2.setStroke(oldStroke);
 
         // Draw components
-
         buttonPanel.repaint();
         setVisible(true);
         if (timerLabel != null && !model.isSolved()) {
@@ -183,15 +203,18 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             requestFocus();
         }
         else {
-        	textField.requestFocus();
+            textField.requestFocus();
         }
+
+
+        g2.drawImage(bImg,0,0,800,500,null);
     }
     
     //Add all components to the button panel (buttons etc.).
     public void addComponentsToButtonPanel(Mode mode) {
         helpButton = new JButton("Help");
         helpButton.setBounds(50, 350,100,25);
-        helpButton.addActionListener(new ActionListener() {
+        helpButton.addActionListener(   new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 HelpPopup();
@@ -517,7 +540,8 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 			}
 		}
 	}
-	
+
+
 	//Shows the win popup when sudoku is solved.
 	public void winPopup(int difficulty) {
 		String diff = SudokuSolver.getDifficultyString(difficulty);	
