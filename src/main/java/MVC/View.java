@@ -393,7 +393,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     @Override
     public void mouseClicked(MouseEvent e) {
     	inFocus = true;
-    	if (e.getButton() == MouseEvent.BUTTON1 && e.getX() >= boardX && e.getY() >= boardY && e.getX() <= boardX+model.getBoardSize()*fieldWidth && e.getY() <= boardY+model.getBoardSize()*fieldHeight) {
+    	if (e.getButton() == MouseEvent.BUTTON1 && e.getX() > boardX && e.getY() > boardY && e.getX() < boardX+model.getBoardSize()*fieldWidth && e.getY() < boardY+model.getBoardSize()*fieldHeight) {
             clickedPosition = new int[]{(int)((e.getY()-boardY)/fieldHeight), (int)((e.getX()-boardX)/fieldWidth)};
             repaint();
     	}
