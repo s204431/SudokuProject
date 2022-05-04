@@ -67,7 +67,7 @@ public class MultiplayerView extends View {
         super.paint(g);
 
 		// Text clarifying which board is which
-		g2.setFont(new Font("Serif", Font.BOLD, 50 * (int)fieldWidth / (int)Field.DEFAULT_WIDTH));
+		g2.setFont(new Font("Serif", Font.BOLD, windowWidth / 40));
 		String text = "You: " + model.computeFilledInFields(model.board) + "/" + (model.board.length * model.board[0].length);
 		int textWidth = (windowWidth-buttonPanel.getWidth()) / 4 - g2.getFontMetrics().stringWidth(text) / 2;
 		int textHeight = g2.getFontMetrics().getHeight();
@@ -223,7 +223,7 @@ public class MultiplayerView extends View {
 			g2.setStroke(oldStroke);
 
 			// Text clarifying which board is which
-			g2.setFont(new Font("Serif", Font.BOLD, 50 * (int)opponentFieldWidth / (int)Field.DEFAULT_WIDTH));
+			g2.setFont(new Font("Serif", Font.BOLD, windowWidth/40));
 			String text = "Opponent: " + model.computeFilledInFields(((MultiplayerModel) model).opponentBoard) + "/" + (model.board.length * model.board[0].length);
 			int textWidth = (windowWidth-buttonPanel.getWidth()) / 4 - g2.getFontMetrics().stringWidth(text) / 2;
 			int textHeight = g2.getFontMetrics().getHeight();
