@@ -60,14 +60,14 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 
     //Constructor taking a references to the model.
     public View(Model model) {
-        gif = new ImageIcon(this.getClass().getResource("/snail.gif"));
+        //gif = new ImageIcon(this.getClass().getResource("/snail.gif"));
         /*try {
             bImg = ImageIO.read(getClass().getClassLoader().getResource("snail.gif"));
         } catch (IOException e) {
             e.printStackTrace();
         }*/
-        JLabel label = new JLabel(gif);
-        label.setBounds(0,0,340,340);
+        //JLabel label = new JLabel(gif);
+        //label.setBounds(0,0,340,340);
     	this.model = model;
     	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     	windowWidth = screenSize.width-screenSize.width/10;
@@ -81,7 +81,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         frame.setPreferredSize(getPreferredSize());
         frame.setLayout(null);
 
-        frame.add(label, BorderLayout.CENTER);
+        //frame.add(label, BorderLayout.CENTER);
 
         buttonPanel = new JPanel(null);
         buttonPanel.setFocusable(true);
