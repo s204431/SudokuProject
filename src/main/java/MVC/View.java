@@ -545,6 +545,11 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 		JOptionPane.showMessageDialog(frame, "Sudoku solved! your time was: " + hour + ":" + minute + ":" + second);
 		//return to menu, save time
 	}
+
+    public void unsolvablePopup() {
+        JOptionPane.showMessageDialog(frame, "The current sudoku is unsolvable.");
+    }
+
     public void HelpPopup(){
         if (Main.DEBUG_MODE){
             JOptionPane.showMessageDialog(frame,

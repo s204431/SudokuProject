@@ -147,6 +147,8 @@ public class Model {
 			System.out.println("Solved!");
 			solved = true;
 			view.winPopup(difficulty);
+		} else if (results.size() == 0) {
+			view.unsolvablePopup();
 		}
 		view.repaint();
 	}
