@@ -152,6 +152,10 @@ public class Model {
 		}
 		view.repaint();
 	}
+
+	public boolean isSolved() {
+		return solved;
+	}
 	
 	//Save current sudoku to file with specific file name without saving the difficulty.
 	public void save(String fileName) {

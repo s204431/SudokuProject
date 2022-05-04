@@ -176,8 +176,8 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 
         buttonPanel.repaint();
         setVisible(true);
-        if (timerLabel != null) {
-        	timerLabel.setText(currentHour + ":"+ (currentMinute < 10 ? "0" : "") + currentMinute + ":"+ (currentSecond < 10 ? "0" : "") + currentSecond);
+        if (timerLabel != null && !model.isSolved()) {
+        	timerLabel.setText(currentHour + ":" + (currentMinute < 10 ? "0" : "") + currentMinute + ":" + (currentSecond < 10 ? "0" : "") + currentSecond);
         }
         if (inFocus) {
             requestFocus();
