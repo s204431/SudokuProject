@@ -187,9 +187,7 @@ public class Model {
 		}
 	}
 	
-	//Loads without updating the current sudoku. Returns loaded sudoku, innerSquareSize, numInnerSquares and difficulty (difficulty = -1 if it is not saved in the file).
-	public static Object[] load(String fileName, Mode mode) {
-		File file = new File("savedsudokus/" + fileName+".su");
+	public static Object[] load(File file, Mode mode) {
 		try {
 			Scanner scanner = new Scanner(file);
 			scanner.useDelimiter(Pattern.compile("[\\r\\n;]+"));
@@ -215,6 +213,11 @@ public class Model {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	//Loads without updating the current sudoku. Returns loaded sudoku as Field[][], innerSquareSize, numInnerSquares and difficulty (difficulty = -1 if it is not saved in the file).
+	public static Object[] load(String fileName, Mode mode) {
+		return load(new File("savedsudokus/"+fileName+".su"), mode);
 	}
 	
 	//Loads a sudoku from a file and updates the current sudoku to the loaded sudoku.

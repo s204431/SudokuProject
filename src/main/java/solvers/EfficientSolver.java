@@ -411,7 +411,7 @@ public class EfficientSolver extends SudokuSolver {
 					for (int r = 0; r < board.length; r++) {
 						if (!foundPositions.contains(r)) {
 							int sizeBefore = possibleValues[r][j].size();
-							possibleValues[r][j].removeAll(possibleValues[i][j]);
+							possibleValues[r][j].removeAll(distinctValues);
 							if (sizeBefore != possibleValues[r][j].size()) {
 								updated = true;
 							}
@@ -468,7 +468,7 @@ public class EfficientSolver extends SudokuSolver {
 					for (int c = 0; c < board.length; c++) {
 						if (!foundPositions.contains(c)) {
 							int sizeBefore = possibleValues[i][c].size();
-							possibleValues[i][c].removeAll(possibleValues[i][j]);
+							possibleValues[i][c].removeAll(distinctValues);
 							if (sizeBefore != possibleValues[i][c].size()) {
 								updated = true;
 							}
