@@ -19,6 +19,7 @@ import sudoku.Main;
 
 
 public class Model {
+	public boolean usedSolver = false;
 	private long start;
 	protected View view;
 	public Field[][] board;
@@ -385,8 +386,8 @@ public class Model {
     }
     
     //Overrides stats file with a new time (if time beats best time) and number of solved sudoku for a difficulty.
-    public static void saveStat(int time, int difficulty) {
-		if (!Main.usedSolver) {
+    public void saveStat(int time, int difficulty) {
+		if (!usedSolver && !assistMode) {
 			int[] Stats = loadStat();
 			File file = new File("savedsudokus/Stats.st");
 			if(time < Stats[difficulty] || Stats[difficulty] == 0) {//change index for stats for correct difficulty (0-3) or (1-4)

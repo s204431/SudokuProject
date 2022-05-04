@@ -538,7 +538,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 		
 		int time = model.elapsedTime();
 		
-		Model.saveStat(model.elapsedTime(),difficulty);
+		model.saveStat(model.elapsedTime(),difficulty);
 		int hour = time / 3600;
 		int minute = time / 60 % 60;
 		int second = time % 60;

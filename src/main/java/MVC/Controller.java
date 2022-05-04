@@ -28,7 +28,7 @@ public class Controller {
 	public void keyTyped(KeyEvent e, int[] selectedFieldPosition) {
 
 		if (e.getKeyCode() == KeyEvent.VK_S && Main.DEBUG_MODE) {
-			Main.usedSolver = true;
+			model.usedSolver = true;
 			model.solve(1);
 		}
 		else if (e.getKeyCode() == KeyEvent.VK_ENTER && Main.DEBUG_MODE) {
