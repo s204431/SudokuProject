@@ -229,10 +229,7 @@ public class MultiplayerView extends View {
 			g2.fillRect(0, 0, windowWidth, textHeight + offSet);
 			g2.setColor(Color.BLACK);
 			g2.drawString("Opponent", textWidth, textHeight - offSet);
-
-			//g2.setFont(new Font("Serif", Font.BOLD, 50));
-			//g2.drawString("Opponent", (windowWidth-buttonPanel.getWidth()) / 4 - g2.getFontMetrics().stringWidth("Opponent") / 2, g2.getFontMetrics().getHeight());
-
+			
 			// Draw components
 			//buttonPanel.repaint();
 			//setVisible(true);
