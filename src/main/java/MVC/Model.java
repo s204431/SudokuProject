@@ -154,8 +154,21 @@ public class Model {
 		view.repaint();
 	}
 
+	// Returns the boolean which determines wether the sudoku is solved or not
 	public boolean isSolved() {
 		return solved;
+	}
+
+	public int computeFilledInFields(Field[][] board) {
+		int count = 0;
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[0].length; j++) {
+				if (board[i][j].value != 0) {
+					count++;
+				}
+			}
+		}
+		return count;
 	}
 	
 	//Save current sudoku to file with specific file name without saving the difficulty.
