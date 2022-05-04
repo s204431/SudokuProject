@@ -284,7 +284,7 @@ public class Model {
 	public void generateNotes() {
 		for (Field[] fields : board) {
 			for (Field field : fields) {
-				for (int k = 1; k <= 9; k++) {
+				for (int k = 1; k <= getMaxNumber(); k++) {
 					field.notes[k - 1] = k;
 				}
 			}
