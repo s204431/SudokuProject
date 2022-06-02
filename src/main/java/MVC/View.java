@@ -51,8 +51,8 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     private BufferedImage bImg;
     private Icon gif;
 
-
     public int[] clickedPosition = new int[] {0, 0};
+    public int[] marked;
 	
 	public int currentSecond;
 	public int currentMinute;
@@ -129,6 +129,8 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         Color red = new Color(175, 4, 4);
         Color black = Color.BLACK;
         Color white = Color.WHITE;
+        Color yellow = Color.YELLOW;
+        Color darkYellow = new Color(120, 120, 0);
         Color lightGray = new Color(200, 200, 200);
         Color gray = new Color(130, 130, 130);
         Color darkGray = new Color(85, 85, 85);
@@ -148,6 +150,10 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                         && model.getBoard()[i][j].getValue() != 0                               //as gray color
                         && !(clickedPosition[0] == i && clickedPosition[1] == j)) {
                     g2.setColor(gray);
+                } else if (marked != null && model.board[i][j].value == 0 && marked[0] == i && marked[1] == j && clickedPosition[0] == i && clickedPosition[1] == j) {
+                    g2.setColor(darkYellow);
+                } else if (marked != null && model.board[i][j].value == 0 && marked[0] == i && marked[1] == j) {
+                    g2.setColor(yellow);
                 }
                 g2.fillRect((int)(boardX + j * (int)fieldWidth), (int)(boardY + i * (int)fieldHeight), (int)fieldWidth, (int)fieldHeight);
                 g2.setColor(black);

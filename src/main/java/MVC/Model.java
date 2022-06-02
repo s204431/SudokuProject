@@ -334,7 +334,7 @@ public class Model {
 	public void giveHint() {
 		int[] move = new EfficientSolver(board, innerSquareSize).makeOneMove();
 		if (move != null) {
-			setField(move[0], move[1], move[2]);	
+			view.marked = new int[] {move[0], move[1]};
 		}
 	}
 	
