@@ -296,9 +296,11 @@ public class Model {
 
 	// Adds notes of all number that are not on vertical, horizontal lines or in innersquares.
 	public void generateNotes() {
+		int maxNotes = getMaxNumber();
+		maxNotes = maxNotes > 9 ? 9 : maxNotes;
 		for (Field[] fields : board) {
 			for (Field field : fields) {
-				for (int k = 1; k <= getMaxNumber(); k++) {
+				for (int k = 1; k <= maxNotes; k++) {
 					field.notes[k - 1] = k;
 				}
 			}
