@@ -137,9 +137,9 @@ public abstract class SudokuSolver {
 			case "Medium":
 				return new int[] {3, 4};
 			case "Hard":
-				return new int[] {5, 6};
+				return new int[] {5, 7};
 			case "Extreme":
-				return new int[] {7, 8};
+				return new int[] {8, 8};
 			default:
 				return null;
 		}
@@ -160,7 +160,7 @@ public abstract class SudokuSolver {
 		else if (difficulty <= 4) {
 			return "Medium";
 		}
-		else if (difficulty <= 6) {
+		else if (difficulty <= 7) {
 			return "Hard";
 		}
 		else if (difficulty <= 8) {
