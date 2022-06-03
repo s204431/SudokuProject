@@ -119,8 +119,8 @@ public class EfficientSolver extends SudokuSolver {
 				return makeMove(board, possibleValues);
 			}
 		}
-		if (useNakedPairs) {
-			boolean updated = nakedPairs(board, possibleValues);
+		if (useXWing && kEqualsN()) {
+			boolean updated = xWing(board, possibleValues);
 			if (updated) {
 				if (difficulty < 5) {
 					difficulty = 5;	
@@ -128,8 +128,8 @@ public class EfficientSolver extends SudokuSolver {
 				return makeMove(board, possibleValues);
 			}
 		}
-		if (useXWing && kEqualsN()) {
-			boolean updated = xWing(board, possibleValues);
+		if (useSwordfish && kEqualsN()) {
+			boolean updated = swordfish(board, possibleValues);
 			if (updated) {
 				if (difficulty < 6) {
 					difficulty = 6;	
@@ -137,20 +137,11 @@ public class EfficientSolver extends SudokuSolver {
 				return makeMove(board, possibleValues);
 			}
 		}
-		if (useSwordfish && kEqualsN()) {
-			boolean updated = swordfish(board, possibleValues);
-			if (updated) {
-				if (difficulty < 7) {
-					difficulty = 7;	
-				}
-				return makeMove(board, possibleValues);
-			}
-		}
 		if (useForcingChains) {
 			List<Integer>[] result = forcingChains(board, possibleValues);
 			if (result != null) {
-				if (difficulty < 8) {
-					difficulty = 8;	
+				if (difficulty < 7) {
+					difficulty = 7;	
 				}
 				return result;
 			}
@@ -727,7 +718,7 @@ public class EfficientSolver extends SudokuSolver {
 				}
 			}
 		}
-		difficulty = 9;
+		difficulty = 8;
 		if (lowestX < 0 || lowestY < 0) {
 			return null;
 		}

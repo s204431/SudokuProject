@@ -125,7 +125,7 @@ public abstract class SudokuSolver {
 	}
 	
 	public static int[] getDifficultyRange() {
-		return new int[] {1, 9};
+		return new int[] {1, 8};
 	}
 	
 	public static int[] getDifficultyRange(String difficulty) {
@@ -137,9 +137,9 @@ public abstract class SudokuSolver {
 			case "Medium":
 				return new int[] {3, 4};
 			case "Hard":
-				return new int[] {5, 7};
+				return new int[] {5, 6};
 			case "Extreme":
-				return new int[] {8, 9};
+				return new int[] {7, 8};
 			default:
 				return null;
 		}
@@ -160,10 +160,10 @@ public abstract class SudokuSolver {
 		else if (difficulty <= 4) {
 			return "Medium";
 		}
-		else if (difficulty <= 7) {
+		else if (difficulty <= 6) {
 			return "Hard";
 		}
-		else if (difficulty <= 9) {
+		else if (difficulty <= 8) {
 			return "Extreme";
 		}
 		return "";
