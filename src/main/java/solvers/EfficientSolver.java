@@ -14,7 +14,6 @@ public class EfficientSolver extends SudokuSolver {
 	private boolean useSinglePosition = true;
 	private boolean useCandidateLines = true;
 	private boolean useMultipleLines = true;
-	private boolean useNakedPairs = true;
 	private boolean useXWing = true;
 	private boolean useSwordfish = true;
 	private boolean useForcingChains = true;
@@ -348,6 +347,7 @@ public class EfficientSolver extends SudokuSolver {
 		return updated;
 	}
 	
+	//Not used due to running time being slow.
 	private boolean nakedPairs(int[][] board, List<Integer>[][] possibleValues) {
 		boolean updated = false;
 		for (int i = 0; i < board.length; i++) {
