@@ -31,6 +31,8 @@ public class Model {
 	public boolean assistMode = false;
 	protected int difficulty;
 	private boolean solved = false;
+	public boolean generatingSudokuDone = true;
+	private int[][] matrix;
 
 	//Constructor taking number of inner squares, inner square size and mode.
 	public Model(int numInnerSquares, int innerSquareSize, Mode mode) {
@@ -279,19 +281,8 @@ public class Model {
 	public void generateSudoku(int minDifficulty, int maxDifficulty, double minMissingFieldsPercent, int innerSquareSize, int numInnerSquares) {
 		this.innerSquareSize = innerSquareSize;
 		this.numInnerSquares = numInnerSquares;
-		SudokuGenerator generator = new SudokuGenerator();
-		int[][] matrix = generator.generateSudoku(innerSquareSize, numInnerSquares, minDifficulty, maxDifficulty, (int)(getBoardSize() * getBoardSize() * minMissingFieldsPercent));
-		difficulty = generator.difficulty;
-		board = new Field[getBoardSize()][getBoardSize()];
-		for(int i = 0; i < getBoardSize(); i++) {
-			for(int j = 0; j < getBoardSize(); j++){
-				boolean interactable = matrix[i][j] <= 0 || (mode != Mode.play && mode != Mode.multiplayer);
-				board[i][j] = new Field(matrix[i][j], interactable);
-			}
-		}
-		generateNotes();
-		view.resetBoardPosition();
-		view.repaint();
+		generatingSudokuDone = false;
+		(new Thread(new GenerateSudokuThread(minDifficulty, maxDifficulty, minMissingFieldsPercent, innerSquareSize, numInnerSquares))).start();
 	}
 
 	// Adds notes of all number that are not on vertical, horizontal lines or in innersquares.
@@ -421,5 +412,45 @@ public class Model {
 			}
 		}
     }
+
+	public class GenerateSudokuThread implements Runnable {
+		private int minDifficulty;
+		private int maxDifficulty;
+		private double minMissingFieldsPercent;
+		private int innerSquareSize;
+		private int numInnerSquares;
+
+		public GenerateSudokuThread(int minDifficulty, int maxDifficulty, double minMissingFieldsPercent, int innerSquareSize, int numInnerSquares) {
+			this.minDifficulty = minDifficulty;
+			this.maxDifficulty = maxDifficulty;
+			this.minMissingFieldsPercent = minMissingFieldsPercent;
+			this.innerSquareSize = innerSquareSize;
+			this.numInnerSquares = numInnerSquares;
+		}
+
+		public GenerateSudokuThread(int minDifficulty, int maxDifficulty, double minMissingFieldsPercent) {
+			this.minDifficulty = minDifficulty;
+			this.maxDifficulty = maxDifficulty;
+			this.minMissingFieldsPercent = minMissingFieldsPercent;
+		}
+
+		@Override
+		public void run() {
+			SudokuGenerator generator = new SudokuGenerator();
+			matrix = generator.generateSudoku(innerSquareSize, numInnerSquares, minDifficulty, maxDifficulty, (int)(getBoardSize() * getBoardSize() * minMissingFieldsPercent));
+			difficulty = generator.difficulty;
+			board = new Field[getBoardSize()][getBoardSize()];
+			for(int i = 0; i < getBoardSize(); i++) {
+				for(int j = 0; j < getBoardSize(); j++){
+					boolean interactable = matrix[i][j] <= 0 || (mode != Mode.play && mode != Mode.multiplayer);
+					board[i][j] = new Field(matrix[i][j], interactable);
+				}
+			}
+			generateNotes();
+			generatingSudokuDone = true;
+			view.resetBoardPosition();
+			view.repaint();
+		}
+	}
 }
 
