@@ -39,6 +39,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     private JButton solveButton;
     private JButton stepSolveButton;
     private JButton helpButton;
+    private JButton cancelButton;
 	public JTextField textField;
 	protected JLabel timerLabel;
 	protected boolean inFocus = true;
@@ -75,6 +76,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     	setPreferredSize(new Dimension(windowWidth, windowHeight));
         boardX = getPreferredSize().width/2-model.getBoardSize()*fieldWidth/2;
         setBounds(0, 0, getPreferredSize().width, getPreferredSize().height);
+
         // Create frame
         frame = new JFrame("Sudoku2");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -83,11 +85,15 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 
         //frame.add(label, BorderLayout.CENTER);
 
+        // Create button panel
         buttonPanel = new JPanel(null);
         buttonPanel.setFocusable(true);
         buttonPanel.setBounds(getPreferredSize().width - 200, - 1, 200, getPreferredSize().height);
         buttonPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         addComponentsToButtonPanel(model.mode);
+
+        this.setLayout(null);
+        addCancelButtonToView();
 
         frame.add(buttonPanel);
         frame.add(this);
@@ -125,95 +131,122 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 
         Graphics2D g2 = (Graphics2D) g;
 
-        // Draw fields and numbers
-        Color red = new Color(175, 4, 4);
-        Color black = Color.BLACK;
-        Color white = Color.WHITE;
-        Color yellow = Color.YELLOW;
-        Color darkYellow = new Color(120, 120, 0);
-        Color lightGray = new Color(200, 200, 200);
-        Color gray = new Color(130, 130, 130);
-        Color darkGray = new Color(85, 85, 85);
-        int iss = model.innerSquareSize;
-        for (int i = 0; i < model.getBoardSize(); i++) {
-            for (int j = 0; j < model.getBoardSize(); j++) {
-                if (clickedPosition[0] == i && clickedPosition[1] == j) {
-                    g2.setColor(darkGray);
-                } else if (clickedPosition[0] == i || clickedPosition[1] == j ||
-                        (clickedPosition[0]/iss == i/iss && clickedPosition[1]/iss == j/iss)) {
-                    g2.setColor(lightGray);
-                } else {
-                    g2.setColor(white);
-                }
-                if (model.board[i][j].value ==                                               //marks other fields
-                        model.getBoard()[clickedPosition[0]][clickedPosition[1]].getValue()     //with same value
-                        && model.getBoard()[i][j].getValue() != 0                               //as gray color
-                        && !(clickedPosition[0] == i && clickedPosition[1] == j)) {
-                    g2.setColor(gray);
-                } else if (marked != null && model.board[i][j].value == 0 && marked[0] == i && marked[1] == j && clickedPosition[0] == i && clickedPosition[1] == j) {
-                    g2.setColor(darkYellow);
-                } else if (marked != null && model.board[i][j].value == 0 && marked[0] == i && marked[1] == j) {
-                    g2.setColor(yellow);
-                }
-                g2.fillRect((int)(boardX + j * (int)fieldWidth), (int)(boardY + i * (int)fieldHeight), (int)fieldWidth, (int)fieldHeight);
-                g2.setColor(black);
-                g2.drawRect((int)(boardX + j * (int)fieldWidth), (int)(boardY + i * (int)fieldHeight), (int)fieldWidth, (int)fieldHeight);
-
-                int value = model.board[i][j].value;
-                if (value > 0 && value <= model.innerSquareSize*model.innerSquareSize) {
-                    int valueDigits = String.valueOf(value).length();
-                    int scaling = (valueDigits + 1) * 3;
-                    g2.setFont(new Font("Courier", Font.BOLD, (int)((40 - scaling) * (int)fieldWidth / (int)Field.DEFAULT_WIDTH)));
-                    String text = "" + value;
-                    int fontHeight = g2.getFontMetrics().getHeight();
-                    int fontWidth = g2.getFontMetrics().stringWidth(text);
-                    if(!Model.canBePlaced(model.board, model.innerSquareSize, i, j, value)) {
-                        g2.setColor(red);
-                        g2.drawString(text, (int)(boardX + j * (int)fieldWidth + (int)fieldWidth/2 - fontWidth/2), (int)(boardY + i * (int)fieldHeight + (int)fieldHeight/2 + fontHeight/3));
+        if (!model.generatingSudokuDone) {
+            g2.setColor(Color.BLACK);
+            g2.setFont(new Font("Courier", Font.BOLD, 100));
+            String text = "Generating Sudoku";
+            int fontHeight = g2.getFontMetrics().getHeight();
+            int fontWidth = g2.getFontMetrics().stringWidth(text);
+            g2.drawString(text, windowWidth/2 - fontWidth/2, windowHeight/2 - fontHeight/2);
+            buttonPanel.setVisible(false);
+            cancelButton.setVisible(true);
+            setVisible(true);
+        } else {
+            // Draw fields and numbers
+            Color red = new Color(175, 4, 4);
+            Color black = Color.BLACK;
+            Color white = Color.WHITE;
+            Color yellow = Color.YELLOW;
+            Color darkYellow = new Color(120, 120, 0);
+            Color lightGray = new Color(200, 200, 200);
+            Color gray = new Color(130, 130, 130);
+            Color darkGray = new Color(85, 85, 85);
+            int iss = model.innerSquareSize;
+            for (int i = 0; i < model.getBoardSize(); i++) {
+                for (int j = 0; j < model.getBoardSize(); j++) {
+                    if (clickedPosition[0] == i && clickedPosition[1] == j) {
+                        g2.setColor(darkGray);
+                    } else if (clickedPosition[0] == i || clickedPosition[1] == j ||
+                            (clickedPosition[0] / iss == i / iss && clickedPosition[1] / iss == j / iss)) {
+                        g2.setColor(lightGray);
                     } else {
-                        g2.drawString(text, (int)(boardX + j * (int)fieldWidth + (int)fieldWidth/2 - fontWidth/2), (int)(boardY + i * (int)fieldHeight + (int)fieldHeight/2 + fontHeight/3));
+                        g2.setColor(white);
                     }
-                } else if (value == 0) {
-                    g2.setFont(new Font("Courier", Font.BOLD, (int)(15 * (int)fieldWidth / (int)Field.DEFAULT_WIDTH)));
-                    for (int k = 0; k < 9; k++) {
-                        int note = model.board[i][j].notes[k];
-                        String text = note == 0 ? "" : "" + note;
+                    if (model.board[i][j].value ==                                               //marks other fields
+                            model.getBoard()[clickedPosition[0]][clickedPosition[1]].getValue()     //with same value
+                            && model.getBoard()[i][j].getValue() != 0                               //as gray color
+                            && !(clickedPosition[0] == i && clickedPosition[1] == j)) {
+                        g2.setColor(gray);
+                    } else if (marked != null && model.board[i][j].value == 0 && marked[0] == i && marked[1] == j && clickedPosition[0] == i && clickedPosition[1] == j) {
+                        g2.setColor(darkYellow);
+                    } else if (marked != null && model.board[i][j].value == 0 && marked[0] == i && marked[1] == j) {
+                        g2.setColor(yellow);
+                    }
+                    g2.fillRect((int) (boardX + j * (int) fieldWidth), (int) (boardY + i * (int) fieldHeight), (int) fieldWidth, (int) fieldHeight);
+                    g2.setColor(black);
+                    g2.drawRect((int) (boardX + j * (int) fieldWidth), (int) (boardY + i * (int) fieldHeight), (int) fieldWidth, (int) fieldHeight);
+
+                    int value = model.board[i][j].value;
+                    if (value > 0 && value <= model.innerSquareSize * model.innerSquareSize) {
+                        int valueDigits = String.valueOf(value).length();
+                        int scaling = (valueDigits + 1) * 3;
+                        g2.setFont(new Font("Courier", Font.BOLD, (int) ((40 - scaling) * (int) fieldWidth / (int) Field.DEFAULT_WIDTH)));
+                        String text = "" + value;
                         int fontHeight = g2.getFontMetrics().getHeight();
                         int fontWidth = g2.getFontMetrics().stringWidth(text);
-                        g2.drawString(text, (int)(boardX + j * (int)fieldWidth + (int)fieldWidth/3 * ((note-1) % 3) + fontWidth), (int)(boardY + i * (int)fieldHeight - fontHeight/3 + (int)fieldHeight/3 * ((note-1)/3 + 1)));
+                        if (!Model.canBePlaced(model.board, model.innerSquareSize, i, j, value)) {
+                            g2.setColor(red);
+                            g2.drawString(text, (int) (boardX + j * (int) fieldWidth + (int) fieldWidth / 2 - fontWidth / 2), (int) (boardY + i * (int) fieldHeight + (int) fieldHeight / 2 + fontHeight / 3));
+                        } else {
+                            g2.drawString(text, (int) (boardX + j * (int) fieldWidth + (int) fieldWidth / 2 - fontWidth / 2), (int) (boardY + i * (int) fieldHeight + (int) fieldHeight / 2 + fontHeight / 3));
+                        }
+                    } else if (value == 0) {
+                        g2.setFont(new Font("Courier", Font.BOLD, (int) (15 * (int) fieldWidth / (int) Field.DEFAULT_WIDTH)));
+                        for (int k = 0; k < 9; k++) {
+                            int note = model.board[i][j].notes[k];
+                            String text = note == 0 ? "" : "" + note;
+                            int fontHeight = g2.getFontMetrics().getHeight();
+                            int fontWidth = g2.getFontMetrics().stringWidth(text);
+                            g2.drawString(text, (int) (boardX + j * (int) fieldWidth + (int) fieldWidth / 3 * ((note - 1) % 3) + fontWidth), (int) (boardY + i * (int) fieldHeight - fontHeight / 3 + (int) fieldHeight / 3 * ((note - 1) / 3 + 1)));
+                        }
                     }
                 }
             }
-        }
 
 
-        // Draw thick lines
-        Stroke oldStroke = g2.getStroke();
-        for (int i = 0; i < model.numInnerSquares; i++) {
-            for (int j = 0; j < model.numInnerSquares; j++) {
-                //g2.setColor(model.sudokuSolved(model.board, model.innerSquareSize) ? new Color(0, 200, 0) : black);
-            	g2.setColor(black);
-                g2.setStroke(new BasicStroke((int) (2+fieldWidth/30)));
-                g2.drawRect((int)(boardX + j * (int)fieldWidth * iss), (int)(boardY + i * (int)fieldHeight * iss), (int)fieldWidth*iss, (int)fieldHeight*iss);
+            // Draw thick lines
+            Stroke oldStroke = g2.getStroke();
+            for (int i = 0; i < model.numInnerSquares; i++) {
+                for (int j = 0; j < model.numInnerSquares; j++) {
+                    //g2.setColor(model.sudokuSolved(model.board, model.innerSquareSize) ? new Color(0, 200, 0) : black);
+                    g2.setColor(black);
+                    g2.setStroke(new BasicStroke((int) (2 + fieldWidth / 30)));
+                    g2.drawRect((int) (boardX + j * (int) fieldWidth * iss), (int) (boardY + i * (int) fieldHeight * iss), (int) fieldWidth * iss, (int) fieldHeight * iss);
+                }
+            }
+            g2.setStroke(oldStroke);
+
+            // Draw components
+            buttonPanel.repaint();
+            buttonPanel.setVisible(true);
+            cancelButton.setVisible(false);
+
+            // Draw timer
+            if (timerLabel != null && !model.isSolved()) {
+                timerLabel.setText(currentHour + ":" + (currentMinute < 10 ? "0" : "") + currentMinute + ":" + (currentSecond < 10 ? "0" : "") + currentSecond);
+            }
+
+            // Set focus
+            setVisible(true);
+            if (inFocus) {
+                requestFocus();
+            } else {
+                textField.requestFocus();
             }
         }
-        g2.setStroke(oldStroke);
+    }
 
-        // Draw components
-        buttonPanel.repaint();
-        setVisible(true);
-        if (timerLabel != null && !model.isSolved()) {
-        	timerLabel.setText(currentHour + ":" + (currentMinute < 10 ? "0" : "") + currentMinute + ":" + (currentSecond < 10 ? "0" : "") + currentSecond);
-        }
-        if (inFocus) {
-            requestFocus();
-        }
-        else {
-            textField.requestFocus();
-        }
-
-
-        g2.drawImage(bImg,0,0,800,500,null);
+    //Add cancel button to view (visible when generating sudoku)
+    public void addCancelButtonToView() {
+        cancelButton = new JButton("Cancel");
+        cancelButton.setBounds(windowWidth/2 - 150, windowHeight - 200,300,75);
+        cancelButton.addActionListener(   new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                quitToMenu();
+            }
+        });
+        add(cancelButton);
     }
     
     //Add all components to the button panel (buttons etc.).
