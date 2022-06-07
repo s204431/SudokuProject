@@ -46,7 +46,6 @@ public class Controller {
 		else if (e.getKeyCode() == KeyEvent.VK_N && Main.DEBUG_MODE) {
 			int[] range = SudokuSolver.getDifficultyRange();
 			model.generateSudoku(range[0], range[1], 0.62);
-			model.resetTimer();
 		}//Pops up your score as if solved when 'm' is pressed.
 		else if (e.getKeyCode() == KeyEvent.VK_M && Main.DEBUG_MODE) {
 			view.winPopup(model.difficulty);

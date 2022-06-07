@@ -456,6 +456,7 @@ public class Model {
 					}
 				}
 				generateNotes();
+				resetTimer();
 				generatingSudokuDone = true;
 				view.resetBoardPosition();
 				view.repaint();
