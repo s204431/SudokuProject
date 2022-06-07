@@ -412,6 +412,7 @@ public class Model {
 		}
     }
 
+	// Used to generate a sudoku
 	public class GenerateSudokuThread implements Runnable {
 		private int minDifficulty;
 		private int maxDifficulty;
@@ -455,6 +456,7 @@ public class Model {
 		}
 	}
 
+	// Used to cancel GenerateSudokuThread
 	public void cancelGenerator() {
 		generator.cancelGenerator = true;
 	}
