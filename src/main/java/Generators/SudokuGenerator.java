@@ -16,13 +16,19 @@ public class SudokuGenerator {
 	private int currentMissingFields = 0;
 	private int recursiveCalls = 0;
 	public int difficulty = 0;
-	public static boolean cancelGeneration = false;
+	public boolean cancelGenerator = false;
 	
 	public int[][] generateSudoku(int innerSquareSize, int numInnerSquares, int minDifficulty, int maxDifficulty, int minMissingFields) {
 		int[][] matrix = new int[innerSquareSize * numInnerSquares][innerSquareSize * numInnerSquares];
-		int[][] solvedMatrix = new RandomEfficientSolver(matrix, innerSquareSize).solve(1).get(0);
+		RandomEfficientSolver randomEfficientSolver = new RandomEfficientSolver(matrix, innerSquareSize);
+		(new Thread(new CancelSolverChecker(randomEfficientSolver))).start();
+		List<int[][]> solutions = randomEfficientSolver.solve(1);
+		if (solutions.isEmpty()) {
+			return null;
+		}
+		int[][] solvedMatrix = solutions.get(0);
 		int[][] result = generateRecursive(solvedMatrix, innerSquareSize, minDifficulty, maxDifficulty, minMissingFields);
-		while (result == null && !cancelGeneration) {
+		while (result == null && !cancelGenerator) {
 			recursiveCalls = 0;
 			solvedMatrix = new RandomEfficientSolver(matrix, innerSquareSize).solve(1).get(0);
 			result = generateRecursive(solvedMatrix, innerSquareSize, minDifficulty, maxDifficulty, minMissingFields);
@@ -31,9 +37,8 @@ public class SudokuGenerator {
 	}
 	
 	private int[][] generateRecursive(int[][] board, int innerSquareSize, int minDifficulty, int maxDifficulty, int minMissingFields) {
-		System.out.println("Recursive call");
 		recursiveCalls++;
-		if (recursiveCalls > 2 * (board.length * board.length) || cancelGeneration) {
+		if (recursiveCalls > 2 * (board.length * board.length) || cancelGenerator) {
 			return null;
 		}
 		SudokuSolver solver = new EfficientSolver(board, innerSquareSize);
@@ -73,5 +78,28 @@ public class SudokuGenerator {
 	public int randomNumber(int min, int max) {
 		Random r = new Random();
 		return r.nextInt((max - min) + 1) + min;
+	}
+
+	public class CancelSolverChecker implements Runnable {
+		RandomEfficientSolver randomEfficientSolver;
+
+		public CancelSolverChecker(RandomEfficientSolver randomEfficientSolver) {
+			this.randomEfficientSolver = randomEfficientSolver;
+		}
+
+		@Override
+		public void run() {
+			while(true) {
+				if (cancelGenerator) {
+					randomEfficientSolver.cancel = true;
+					break;
+				}
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 }

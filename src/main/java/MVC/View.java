@@ -245,7 +245,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             @Override
             public void actionPerformed(ActionEvent e) {
                 quitToMenu();
-                SudokuGenerator.cancelGeneration = true;
+                model.cancelGenerator();
             }
         });
         add(cancelButton);

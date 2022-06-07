@@ -17,6 +17,7 @@ public class EfficientSolver extends SudokuSolver {
 	private boolean useXWing = true;
 	private boolean useSwordfish = true;
 	private boolean useForcingChains = true;
+	public boolean cancel = false;
 	
 	public EfficientSolver(Field[][] board, int innerSquareSize) {
 		super(board, innerSquareSize);
@@ -45,7 +46,7 @@ public class EfficientSolver extends SudokuSolver {
 	private void solveRecursive(int[][] board, List<Integer>[][] possibleValues, int maxSolutions) {
 		recursiveCalls++;
 		guesses++;
-		if (recursiveCalls > 500000) {
+		if (recursiveCalls > 500000 || cancel) {
 			return;
 		}
 		List<Integer>[] move = makeMove(board, possibleValues);

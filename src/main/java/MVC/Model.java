@@ -30,6 +30,7 @@ public class Model {
 	public boolean assistMode = false;
 	protected int difficulty;
 	private boolean solved = false;
+	public SudokuGenerator generator;
 	public boolean generatingSudokuDone = true;
 
 	//Constructor taking number of inner squares, inner square size and mode.
@@ -434,10 +435,9 @@ public class Model {
 
 		@Override
 		public void run() {
-			SudokuGenerator generator = new SudokuGenerator();
+			generator = new SudokuGenerator();
 			int[][] matrix = generator.generateSudoku(innerSquareSize, numInnerSquares, minDifficulty, maxDifficulty, (int)(getBoardSize() * getBoardSize() * minMissingFieldsPercent));
 			if (matrix != null) {
-				System.out.println("Matrix isn't null");
 				difficulty = generator.difficulty;
 				board = new Field[getBoardSize()][getBoardSize()];
 				for (int i = 0; i < getBoardSize(); i++) {
@@ -450,11 +450,13 @@ public class Model {
 				generatingSudokuDone = true;
 				view.resetBoardPosition();
 				view.repaint();
-			} else {
-				System.out.println("Matrix is null");
 			}
-			SudokuGenerator.cancelGeneration = false;
+			generator.cancelGenerator = false;
 		}
+	}
+
+	public void cancelGenerator() {
+		generator.cancelGenerator = true;
 	}
 }
 
