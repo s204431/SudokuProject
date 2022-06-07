@@ -835,7 +835,7 @@ public class EfficientSolver extends SudokuSolver {
 		return false;
 	}
 
-	//
+	//Counts the possible values that can be placed in a field
 	private List<Integer>[][] initializePossibleValues() {
 		ArrayList[][] possibleValues = new ArrayList[board.length][board[0].length];
 		for (int i = 0; i < board.length; i++) {
@@ -867,15 +867,16 @@ public class EfficientSolver extends SudokuSolver {
 				possibleValues[i][y].remove((Integer)value);
 			}
 		}
-		for (int i = x/innerSquareSize*innerSquareSize; i < x/innerSquareSize*innerSquareSize+innerSquareSize; i++) {
-			for (int j = y/innerSquareSize*innerSquareSize; j < y/innerSquareSize*innerSquareSize+innerSquareSize; j++) {
+		for (int i = x / innerSquareSize * innerSquareSize; i < x / innerSquareSize * innerSquareSize + innerSquareSize; i++) {
+			for (int j = y / innerSquareSize * innerSquareSize; j < y / innerSquareSize * innerSquareSize + innerSquareSize; j++) {
 				if ((i != x || j != y)) {
 					possibleValues[i][j].remove((Integer)value);
 				}
 			}
 		}
 	}
-	
+
+	//Copies the all the possible values that a field has.
 	private List<Integer>[][] copyOf(List<Integer>[][] possibleValues) {
 		ArrayList<Integer>[][] newPossibleValues = new ArrayList[possibleValues.length][possibleValues[0].length];
 		for (int i = 0; i < possibleValues.length; i++) {
@@ -888,7 +889,8 @@ public class EfficientSolver extends SudokuSolver {
 		}
 		return newPossibleValues;
 	}
-	
+
+	//Makes only one move if a solution exists.
 	public int[] makeOneMove() {
 		List<int[][]> solvedSudoku = solve(1);
 		if (solvedSudoku.size() > 0) {
