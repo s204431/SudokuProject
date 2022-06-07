@@ -1,5 +1,6 @@
 package MVC;
 
+import Generators.SudokuGenerator;
 import solvers.EfficientSolver;
 import solvers.SudokuSolver;
 import sudoku.Field;
@@ -78,8 +79,8 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         setBounds(0, 0, getPreferredSize().width, getPreferredSize().height);
 
         // Create frame
-        frame = new JFrame("Sudoku2");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame = new JFrame("Sudoku");
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setPreferredSize(getPreferredSize());
         frame.setLayout(null);
 
@@ -245,6 +246,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             @Override
             public void actionPerformed(ActionEvent e) {
                 quitToMenu();
+                model.cancelGenerator();
             }
         });
         add(cancelButton);
