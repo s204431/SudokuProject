@@ -7,6 +7,11 @@ import java.util.Collections;
 import sudoku.Field;
 import MVC.Model;
 
+/*
+	This is the BackTracking Solver class that uses the SudokuSolver's
+	functionality
+*/
+
 public class BacktrackingSolver extends SudokuSolver {
 	
 	public BacktrackingSolver(Field[][] board, int innerSquareSize) {
@@ -27,7 +32,7 @@ public class BacktrackingSolver extends SudokuSolver {
 		}
 		return solutions;
 	}
-	
+	//Recursively solves the sudoku
 	private void solveRecursive(int x, int y, int maxSolutions) {
 		if (solutionsFound >= maxSolutions) {
 			return;
@@ -52,7 +57,8 @@ public class BacktrackingSolver extends SudokuSolver {
 		}
 		board[x][y] = 0;
 	}
-
+	//Iterates the index of the current field's value if not solve
+	//otherwise updates number of solutions found and saves that solution.
 	private void iterate(int x, int y, int maxSolutions) {
 		if (x == board.length - 1 && y == board.length - 1) {
 			if (sudokuSolved()) {
@@ -67,7 +73,7 @@ public class BacktrackingSolver extends SudokuSolver {
 			solveRecursive(x, y + 1, maxSolutions);
 		}
 	}
-
+	//Creates a list with numbers going from 1 to n^2
 	protected List<Integer> generateOrder() {
 		List<Integer> order = new ArrayList<>();
 		for (int i = 1; i <= getMaxValue(); i++) {

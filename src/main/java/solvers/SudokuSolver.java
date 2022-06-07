@@ -121,7 +121,7 @@ public abstract class SudokuSolver {
 	}
 	
 	protected int getMaxValue() {
-		return innerSquareSize*innerSquareSize;
+		return innerSquareSize * innerSquareSize;
 	}
 	
 	public static int[] getDifficultyRange() {
