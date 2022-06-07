@@ -103,7 +103,7 @@ public abstract class SudokuSolver {
 		}
 		return result;
 	}
-	
+	//This resets values for when starting over a recursively solving instance
 	protected void reset() {
 		solutions = new ArrayList<>();
 		solutionsFound = 0;

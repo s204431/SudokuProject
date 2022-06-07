@@ -38,6 +38,7 @@ public class BacktrackingSolver extends SudokuSolver {
 			return;
 		}
 		recursiveCalls++;
+		//Makes it stop at some point if it solves endlessly.
 		if (recursiveCalls > 500000) {
 			return;
 		}
@@ -46,6 +47,7 @@ public class BacktrackingSolver extends SudokuSolver {
 			return;
 		}
 		List<Integer> order = generateOrder();
+		//Checks if done or inserts a valid field value.
 		for (Integer integer : order) {
 			if (solutionsFound >= maxSolutions) {
 				return;
@@ -55,6 +57,7 @@ public class BacktrackingSolver extends SudokuSolver {
 				iterate(x, y, maxSolutions);
 			}
 		}
+		//Ends up placing nothing in field.
 		board[x][y] = 0;
 	}
 	//Iterates the index of the current field's value if not solve

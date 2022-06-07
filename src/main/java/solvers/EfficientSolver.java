@@ -7,6 +7,13 @@ import java.util.List;
 import MVC.Model;
 import sudoku.Field;
 
+/*
+	The EfficientSolver is an extension of the SudokuSolver
+	using the most optimized algorithm for solving a sudoku
+	this is used when solving a sudoku.
+*/
+
+
 public class EfficientSolver extends SudokuSolver {
 	
 	private boolean detectUnsolvable = true;
@@ -18,15 +25,19 @@ public class EfficientSolver extends SudokuSolver {
 	private boolean useSwordfish = true;
 	private boolean useForcingChains = true;
 	public boolean cancel = false;
-	
+
+	//Constructor used for MVC and solvers
 	public EfficientSolver(Field[][] board, int innerSquareSize) {
 		super(board, innerSquareSize);
 	}
-	
+
+	//Constructor used for generator (backtracking)
 	public EfficientSolver(int[][] board, int innerSquareSize) {
 		super(board, innerSquareSize);
 	}
-	
+
+	//Solves the sudoku and returns the amount of solutions
+	//and decrements the amount of guesses.
 	public List<int[][]> solve(int maxSolutions) {
 		reset();
 		solveRecursive(board, initializePossibleValues(), maxSolutions);
@@ -42,7 +53,8 @@ public class EfficientSolver extends SudokuSolver {
 		guesses--;
 		return solutions;
 	}
-	
+
+	//Recursively
 	private void solveRecursive(int[][] board, List<Integer>[][] possibleValues, int maxSolutions) {
 		recursiveCalls++;
 		guesses++;
@@ -61,6 +73,8 @@ public class EfficientSolver extends SudokuSolver {
 			guesses--;
 		}
 		generateOrder(move[1]);
+		//Creates a copy of the original board and inserts new values
+		//depending on the moves obtained by the makeMove() method
 		for (int i = 0; i < move[1].size(); i++) {
 			int[][] newBoard = copyOf(board);
 			newBoard[move[0].get(0)][move[0].get(1)] = move[1].get(i);
@@ -83,6 +97,10 @@ public class EfficientSolver extends SudokuSolver {
 		if (detectUnsolvable && detectUnsolvable(board, possibleValues)) {
 			return null;
 		}
+		//Uses the different solving techniques explained in
+		//the Algorithm section in the report. It solves in
+		//a difficulty order where first is the easiest and
+		//last is the most difficult, ordered by top to bottom.
 		if (useSingleCandidate) {
 			List<Integer>[] result = singleCandidate(board, possibleValues);
 			if (result != null) {
@@ -146,9 +164,10 @@ public class EfficientSolver extends SudokuSolver {
 				return result;
 			}
 		}
+		//Otherwise, make a guess (this is also a solving method).
 		return makeGuess(board, possibleValues);
 	}
-	
+	//Algorithm for singleCandidate.
 	private List<Integer>[] singleCandidate(int[][] board, List<Integer>[][] possibleValues) {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
@@ -159,7 +178,7 @@ public class EfficientSolver extends SudokuSolver {
 		}
 		return null;
 	}
-	
+	//Algorithm for singlePosition.
 	private List<Integer>[] singlePosition(int[][] board, List<Integer>[][] possibleValues) {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board.length; j++) {
@@ -191,7 +210,8 @@ public class EfficientSolver extends SudokuSolver {
 		}
 		return null;
 	}
-	
+
+	//Algorithm for candidateLines.
 	private boolean candidateLines(int[][] board, List<Integer>[][] possibleValues) {
 		boolean updated = false;
 		for (int i = 0; i < getNumInnerSquares(); i++) {
@@ -242,7 +262,8 @@ public class EfficientSolver extends SudokuSolver {
 		}
 		return updated;
 	}
-	
+
+	//Algorithm for multipleLines.
 	private boolean multipleLines(int[][] board, List<Integer>[][] possibleValues) {
 		boolean updated = false;
 		for (int i = 0; i < getNumInnerSquares(); i++) {
@@ -347,7 +368,8 @@ public class EfficientSolver extends SudokuSolver {
 		}
 		return updated;
 	}
-	
+
+	//Algorithm for nakedPairs.
 	//Not used due to running time being slow.
 	private boolean nakedPairs(int[][] board, List<Integer>[][] possibleValues) {
 		boolean updated = false;
@@ -471,7 +493,8 @@ public class EfficientSolver extends SudokuSolver {
 		}
 		return updated;
 	}
-	
+
+	//Algorithm for xWing.
 	private boolean xWing(int[][] board, List<Integer>[][] possibleValues) {
 		boolean updated = false;
 		for (int v = 1; v <= getMaxValue(); v++) {
@@ -519,6 +542,7 @@ public class EfficientSolver extends SudokuSolver {
 		return updated;
 	}
 
+	//Algorithm for xWing.
 	private boolean swordfish(int[][] board, List<Integer>[][] possibleValues) {
 		boolean updated = false;
 		for (int v = 1; v <= getMaxValue(); v++) {
@@ -619,7 +643,7 @@ public class EfficientSolver extends SudokuSolver {
 		}
 		return updated;
 	}
-	
+	//Algorithm for exactlyTwo.
 	//Used for X-Wing and Swordfish to check if a row or column contains a specific possible value in exactly two fields.
 	private int[] exactlyTwo(List<Integer>[][] possibleValues, int k, int v, boolean row) {
 		int cr1 = -1;
@@ -639,7 +663,8 @@ public class EfficientSolver extends SudokuSolver {
 		}
 		return new int[] {cr1, cr2};
 	}
-	
+
+	//Algorithm for forcingChains.
 	private List<Integer>[] forcingChains(int[][] board, List<Integer>[][] possibleValues) {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board.length; j++) {
@@ -665,7 +690,8 @@ public class EfficientSolver extends SudokuSolver {
 		}
 		return null;
 	}
-	
+
+	//Algorithm for forcingChainsRecursive.
 	private void forcingChainsRecursive(int[][] board, List<Integer>[][] possibleValues, List<int[]> forces, int x, int y) {
 		for (int i = 0; i < board.length; i++) {
 			if (i != x) { //Look through column
@@ -704,9 +730,10 @@ public class EfficientSolver extends SudokuSolver {
 			}
 		}
 	}
-	
+
+	//Algorithm for makeGuess.
 	private List<Integer>[] makeGuess(int[][] board, List<Integer>[][] possibleValues) {
-		//Choose field with least possible values.
+		//Choose field with the least possible values.
 		int lowestPossibleValues = Integer.MAX_VALUE;
 		int lowestX = -1;
 		int lowestY = -1;
@@ -725,20 +752,23 @@ public class EfficientSolver extends SudokuSolver {
 		}
 		return toMove(lowestX, lowestY, possibleValues[lowestX][lowestY]);
 	}
-	
-	private List<Integer>[] toMove(int x, int y, int value) {
-		ArrayList<Integer> lv = new ArrayList<>();
-		lv.add(value);
-		return toMove(x, y, lv);
-	}
-	
+
+	//Uses the two lowest possible values
 	private List<Integer>[] toMove(int x, int y, List<Integer> values) {
 		List<Integer> pos = new ArrayList<>();
 		pos.add(x);
 		pos.add(y);
 		return new List[] {pos, values};
 	}
-	
+
+	//Converts the value to an arraylist and uses the
+	//same toMove() method seen above.
+	private List<Integer>[] toMove(int x, int y, int value) {
+		ArrayList<Integer> lv = new ArrayList<>();
+		lv.add(value);
+		return toMove(x, y, lv);
+	}
+
 	private boolean detectUnsolvable(int[][] board, List<Integer>[][] possibleValues) {
 		boolean[][] foundColumn = new boolean[board.length][getMaxValue()];
 		boolean[][] foundRow = new boolean[board.length][getMaxValue()];
