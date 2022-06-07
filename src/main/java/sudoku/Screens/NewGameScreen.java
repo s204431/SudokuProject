@@ -52,7 +52,7 @@ public class NewGameScreen extends MenuScreen {
     class loadGameAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             changePanel();
-            new LoadGameScreen(frame, Mode.play);
+            new LoadGameScreen(frame, Mode.play,false, assistModeCheck.isSelected());
         }
     }
 

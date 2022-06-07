@@ -333,6 +333,18 @@ public class Model {
 		int[] move = new EfficientSolver(board, innerSquareSize).makeOneMove();
 		if (move != null) {
 			view.marked = new int[] {move[0], move[1]};
+		} else {
+			view.unsolvablePopup();
+		}
+	}
+
+	//Makes a single move in progression of solving the sudoku
+	public void stepSolve() {
+		int[] move = new EfficientSolver(board, innerSquareSize).makeOneMove();
+		if (move != null) {
+			setField(move[0], move[1], move[2]);
+		} else {
+			view.unsolvablePopup();
 		}
 	}
 	
@@ -418,6 +430,7 @@ public class Model {
 		}
     }
 
+	// Used to generate a sudoku
 	public class GenerateSudokuThread implements Runnable {
 		private int minDifficulty;
 		private int maxDifficulty;
@@ -453,6 +466,7 @@ public class Model {
 					}
 				}
 				generateNotes();
+				resetTimer();
 				generatingSudokuDone = true;
 				view.resetBoardPosition();
 				view.repaint();
@@ -461,6 +475,7 @@ public class Model {
 		}
 	}
 
+	// Used to cancel GenerateSudokuThread
 	public void cancelGenerator() {
 		generator.cancelGenerator = true;
 	}

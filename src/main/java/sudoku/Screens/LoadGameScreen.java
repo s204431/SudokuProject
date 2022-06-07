@@ -35,7 +35,7 @@ public class LoadGameScreen extends MenuScreen {
 
     public LoadGameScreen(JFrame frame, Mode mode, boolean isHost, boolean assistMode) {
         super(frame, mode);
-        this.isHost = false;
+        this.isHost = isHost;
         this.assistMode = assistMode;
     }
 
