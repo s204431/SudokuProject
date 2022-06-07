@@ -329,6 +329,14 @@ public class Model {
 			view.marked = new int[] {move[0], move[1]};
 		}
 	}
+
+	//Makes a single move in progression of solving the sudoku
+	public void stepSolve() {
+		int[] move = new EfficientSolver(board, innerSquareSize).makeOneMove();
+		if (move != null) {
+			setField(move[0], move[1], move[2]);
+		}
+	}
 	
 	//Returns the sudoku board.
 	public Field[][] getBoard() {

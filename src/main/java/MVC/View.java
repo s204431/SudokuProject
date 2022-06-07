@@ -102,7 +102,6 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         addMouseWheelListener(this);
         (new Thread(new BoardDragger())).start();
         (new Thread(new TimerUpdater())).start();
-
     }
     
     //Sets the reference to the controller.
@@ -333,7 +332,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             stepSolveButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    model.giveHint();
+                    model.stepSolve();
                 }
             });
             buttonPanel.add(solveButton);
