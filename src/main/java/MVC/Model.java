@@ -17,7 +17,6 @@ import sudoku.Field;
 import Generators.*;
 import sudoku.Main;
 
-
 public class Model {
 	public boolean usedSolver = false;
 	private long start;
@@ -32,7 +31,6 @@ public class Model {
 	protected int difficulty;
 	private boolean solved = false;
 	public boolean generatingSudokuDone = true;
-	private int[][] matrix;
 
 	//Constructor taking number of inner squares, inner square size and mode.
 	public Model(int numInnerSquares, int innerSquareSize, Mode mode) {
@@ -437,19 +435,25 @@ public class Model {
 		@Override
 		public void run() {
 			SudokuGenerator generator = new SudokuGenerator();
-			matrix = generator.generateSudoku(innerSquareSize, numInnerSquares, minDifficulty, maxDifficulty, (int)(getBoardSize() * getBoardSize() * minMissingFieldsPercent));
-			difficulty = generator.difficulty;
-			board = new Field[getBoardSize()][getBoardSize()];
-			for(int i = 0; i < getBoardSize(); i++) {
-				for(int j = 0; j < getBoardSize(); j++){
-					boolean interactable = matrix[i][j] <= 0 || (mode != Mode.play && mode != Mode.multiplayer);
-					board[i][j] = new Field(matrix[i][j], interactable);
+			int[][] matrix = generator.generateSudoku(innerSquareSize, numInnerSquares, minDifficulty, maxDifficulty, (int)(getBoardSize() * getBoardSize() * minMissingFieldsPercent));
+			if (matrix != null) {
+				System.out.println("Matrix isn't null");
+				difficulty = generator.difficulty;
+				board = new Field[getBoardSize()][getBoardSize()];
+				for (int i = 0; i < getBoardSize(); i++) {
+					for (int j = 0; j < getBoardSize(); j++) {
+						boolean interactable = matrix[i][j] <= 0 || (mode != Mode.play && mode != Mode.multiplayer);
+						board[i][j] = new Field(matrix[i][j], interactable);
+					}
 				}
+				generateNotes();
+				generatingSudokuDone = true;
+				view.resetBoardPosition();
+				view.repaint();
+			} else {
+				System.out.println("Matrix is null");
 			}
-			generateNotes();
-			generatingSudokuDone = true;
-			view.resetBoardPosition();
-			view.repaint();
+			SudokuGenerator.cancelGeneration = false;
 		}
 	}
 }

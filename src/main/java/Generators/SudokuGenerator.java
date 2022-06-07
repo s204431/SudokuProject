@@ -16,12 +16,13 @@ public class SudokuGenerator {
 	private int currentMissingFields = 0;
 	private int recursiveCalls = 0;
 	public int difficulty = 0;
+	public static boolean cancelGeneration = false;
 	
 	public int[][] generateSudoku(int innerSquareSize, int numInnerSquares, int minDifficulty, int maxDifficulty, int minMissingFields) {
 		int[][] matrix = new int[innerSquareSize * numInnerSquares][innerSquareSize * numInnerSquares];
 		int[][] solvedMatrix = new RandomEfficientSolver(matrix, innerSquareSize).solve(1).get(0);
 		int[][] result = generateRecursive(solvedMatrix, innerSquareSize, minDifficulty, maxDifficulty, minMissingFields);
-		while (result == null) {
+		while (result == null && !cancelGeneration) {
 			recursiveCalls = 0;
 			solvedMatrix = new RandomEfficientSolver(matrix, innerSquareSize).solve(1).get(0);
 			result = generateRecursive(solvedMatrix, innerSquareSize, minDifficulty, maxDifficulty, minMissingFields);
@@ -30,8 +31,9 @@ public class SudokuGenerator {
 	}
 	
 	private int[][] generateRecursive(int[][] board, int innerSquareSize, int minDifficulty, int maxDifficulty, int minMissingFields) {
+		System.out.println("Recursive call");
 		recursiveCalls++;
-		if (recursiveCalls > 2 * (board.length * board.length)) {
+		if (recursiveCalls > 2 * (board.length * board.length) || cancelGeneration) {
 			return null;
 		}
 		SudokuSolver solver = new EfficientSolver(board, innerSquareSize);

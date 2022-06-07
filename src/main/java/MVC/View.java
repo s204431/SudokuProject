@@ -1,5 +1,6 @@
 package MVC;
 
+import Generators.SudokuGenerator;
 import solvers.EfficientSolver;
 import solvers.SudokuSolver;
 import sudoku.Field;
@@ -244,6 +245,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             @Override
             public void actionPerformed(ActionEvent e) {
                 quitToMenu();
+                SudokuGenerator.cancelGeneration = true;
             }
         });
         add(cancelButton);
