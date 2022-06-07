@@ -117,7 +117,7 @@ public abstract class SudokuSolver {
 	}
 	
 	protected int getNumInnerSquares() {
-		return board.length/innerSquareSize;
+		return board.length / innerSquareSize;
 	}
 	
 	protected int getMaxValue() {

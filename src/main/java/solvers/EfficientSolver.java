@@ -768,12 +768,18 @@ public class EfficientSolver extends SudokuSolver {
 		lv.add(value);
 		return toMove(x, y, lv);
 	}
-
+	//This method whether the sudoku can be solved or not
+	//by
 	private boolean detectUnsolvable(int[][] board, List<Integer>[][] possibleValues) {
+		//Initializes new 2d boolean arrays that will find hold the result
+		//of the board having a possibility of a value being contained
+		//in a specific coordinate.
 		boolean[][] foundColumn = new boolean[board.length][getMaxValue()];
 		boolean[][] foundRow = new boolean[board.length][getMaxValue()];
-		boolean[][] foundInnerSquare = new boolean[getNumInnerSquares()*getNumInnerSquares()][getMaxValue()];
+		boolean[][] foundInnerSquare = new boolean[getNumInnerSquares() * getNumInnerSquares()][getMaxValue()];
 		boolean foundPossibleMove = false;
+		//Checks all fields and updates the arrays
+		//depending on the possible values
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board.length; j++) {
 				if (possibleValues[i][j].size() > 0) {
@@ -781,36 +787,44 @@ public class EfficientSolver extends SudokuSolver {
 				}
 				if (board[i][j] < 1) {
 					for (int v : possibleValues[i][j]) {
-						foundRow[i][v-1] = true;
-						foundColumn[j][v-1] = true;
-						foundInnerSquare[(i/innerSquareSize)*getNumInnerSquares()+(j/innerSquareSize)][v-1] = true;
+						foundRow[i][v - 1] = true;
+						foundColumn[j][v - 1] = true;
+						foundInnerSquare[(i / innerSquareSize) * getNumInnerSquares() + (j / innerSquareSize)][v - 1] = true;
 					}
 				}
 				else {
-					foundRow[i][board[i][j]-1] = true;
-					foundColumn[j][board[i][j]-1] = true;
-					foundInnerSquare[(i/innerSquareSize)*getNumInnerSquares()+(j/innerSquareSize)][board[i][j]-1] = true;
+					foundRow[i][board[i][j] - 1] = true;
+					foundColumn[j][board[i][j] - 1] = true;
+					foundInnerSquare[(i / innerSquareSize) * getNumInnerSquares() + (j / innerSquareSize)][board[i][j] - 1] = true;
 				}
 			}
 		}
 		if (!foundPossibleMove) {
 			return true;
 		}
+		//TODO I don't know if this is true.
+		//Checks all indexes in the board to see if the amount
+		//of values in a row or col that can be placed is
+		//greater than the size of the board itself. Meaning
+		//that there are less values that can be inserted than what
+		//needs to be inserted and the sudoku is therefore incomplete.
 		for (int i = 0; i < board.length; i++) {
-			int n1 = 0;
-			int n2 = 0;
+			int rowCount = 0;
+			int colCount = 0;
 			for (int j = 0; j < getMaxValue(); j++) {
 				if (foundRow[i][j]) {
-					n1++;
+					rowCount++;
 				}
 				if (foundColumn[i][j]) {
-					n2++;
+					colCount++;
 				}
 			}
-			if (n1 < board.length || n2 < board.length) {
+			if (rowCount < board.length || colCount < board.length) {
 				return true;
 			}
 		}
+		//If there is a place in the foundInnerSquare that is false
+		//the sudoku must be incomplete and therefore unsolvable.
 		for (boolean[] ba : foundInnerSquare) {
 			for (boolean b : ba) {
 				if (!b) {
@@ -820,9 +834,10 @@ public class EfficientSolver extends SudokuSolver {
 		}
 		return false;
 	}
-	
+
+	//
 	private List<Integer>[][] initializePossibleValues() {
-		ArrayList<Integer>[][] possibleValues = new ArrayList[board.length][board[0].length];
+		ArrayList[][] possibleValues = new ArrayList[board.length][board[0].length];
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
 				possibleValues[i][j] = new ArrayList<Integer>();
