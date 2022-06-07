@@ -31,7 +31,6 @@ import sudoku.Screens.*;
 import MVC.*;
 
 public class UITester extends ComponentTestFixture {
-	
 	private boolean testMainMenu = true;
 	private boolean testPlayMode = true;
 	private boolean testCreateMode = true;

@@ -10,6 +10,12 @@ import sudoku.Main;
 import testers.GeneratorTester;
 import testers.SolverTester;
 
+/*
+	The controller of our MVC-module contains the control logic.
+	This class requests data from the MVC.Model and sends this
+	data to Model.View.
+*/
+
 public class Controller {
 	private Model model;
 	private View view;
@@ -26,30 +32,31 @@ public class Controller {
 	
 	//Handles a key typed by the user.
 	public void keyTyped(KeyEvent e, int[] selectedFieldPosition) {
+		//Solves sudoku when 's' is pressed.
 		if (e.getKeyCode() == KeyEvent.VK_S && Main.DEBUG_MODE) {
 			model.usedSolver = true;
 			model.solve(1);
-		}
+		}//Saves the sudoku when 'enter' is pressed.
 		else if (e.getKeyCode() == KeyEvent.VK_ENTER && Main.DEBUG_MODE) {
 			model.save(view.textField.getText());
-		}
+		}//Loads sudoku file typed in the small text field when 'l' is pressed.
 		else if (e.getKeyCode() == KeyEvent.VK_L && Main.DEBUG_MODE) {
 			model.loadAndUpdate(view.textField.getText());
-		}
+		}//Generates a new sudoku with the same difficulty when 'n' is pressed.
 		else if (e.getKeyCode() == KeyEvent.VK_N && Main.DEBUG_MODE) {
 			int[] range = SudokuSolver.getDifficultyRange();
 			model.generateSudoku(range[0], range[1], 0.62);
 			model.resetTimer();
-		}
+		}//Pops up your score as if solved when 'm' is pressed.
 		else if (e.getKeyCode() == KeyEvent.VK_M && Main.DEBUG_MODE) {
 			view.winPopup(model.difficulty);
-		}
+		}//Solves different sudokus and prints the time when 't' is pressed.
 		else if (e.getKeyCode() == KeyEvent.VK_T && Main.DEBUG_MODE) {
 			new SolverTester().testAll(model);
-		}
+		}//Generates different sudokus and prints the time when 'y' is pressed.
 		else if (e.getKeyCode() == KeyEvent.VK_Y && Main.DEBUG_MODE) {
 			new GeneratorTester().test(model);
-		}
+		}//Gives a hint when 'h' is pressed.
 		else if (e.getKeyCode() == KeyEvent.VK_H && Main.DEBUG_MODE) {
 			model.giveHint();
 		}

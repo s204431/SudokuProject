@@ -19,6 +19,12 @@ import sudoku.Main;
 
 import javax.swing.*;
 
+/*
+	Just like the MultiplayerModel class this class inherits from
+	the standard MVC-classes and uses the same properties that
+	these have.
+*/
+
 public class MultiplayerView extends View {
 	private JPanel opponentPanel;
 	protected int opponentWindowWidth;
@@ -27,7 +33,6 @@ public class MultiplayerView extends View {
 
 	public MultiplayerView(MultiplayerModel model) {
 		super(model);
-
 		try {
 			((MultiplayerModel) model).toOpponent.put("lock", "dragging");
 			((MultiplayerModel) model).toOpponent.put("boardposition", (int)boardX, (int)boardY, (int)fieldWidth, (int)fieldHeight);
@@ -40,7 +45,7 @@ public class MultiplayerView extends View {
 
 	public void addOpponentBoard() {
 		opponentPanel = new OpponentBoard();
-		opponentPanel.setBounds((getPreferredSize().width-200) / 2, 0, (getPreferredSize().width-200) / 2, getPreferredSize().height);
+		opponentPanel.setBounds((getPreferredSize().width - 200) / 2, 0, (getPreferredSize().width - 200) / 2, getPreferredSize().height);
 		opponentPanel.setFocusable(false);
 		frame.remove(this);
 		frame.add(opponentPanel);
@@ -151,14 +156,18 @@ public class MultiplayerView extends View {
   			}
   		}
   	}
-
+	/*
+		OpponentBoard is a class that lets the opponent have their own
+		board by seeing the both boards just like the host, however this
+		class will not show any of the interactable fields to the player.
+		These inputs will be shown as ? for the other player so that none
+		of the players cheats.
+	*/
     private class OpponentBoard extends JPanel {
 		@Override
 		public void paint(Graphics g) {
 			Graphics2D g2 = (Graphics2D) g;
-
 			super.paint(g);
-
 			//setVisible(true);
 			Object[] tuple = null;
 			try {
@@ -173,7 +182,6 @@ public class MultiplayerView extends View {
 			int opponentBoardY = opponentBoardPosition[1];
 			
 			int opponentFieldWidth = opponentBoardPosition[2];
-			int opponentFieldHeight = opponentFieldWidth;
 
 			// Draw fields and numbers
 			Color red = new Color(175, 4, 4);
@@ -186,9 +194,9 @@ public class MultiplayerView extends View {
 			for (int i = 0; i < model.getBoardSize(); i++) {
 				for (int j = 0; j < model.getBoardSize(); j++) {
 					g2.setColor(white);
-					g2.fillRect(opponentBoardX + j * opponentFieldWidth, opponentBoardY + i * opponentFieldHeight, opponentFieldWidth, opponentFieldHeight);
+					g2.fillRect(opponentBoardX + j * opponentFieldWidth, opponentBoardY + i * opponentFieldWidth, opponentFieldWidth, opponentFieldWidth);
 					g2.setColor(black);
-					g2.drawRect(opponentBoardX + j * opponentFieldWidth, opponentBoardY + i * opponentFieldHeight, opponentFieldWidth, opponentFieldHeight);
+					g2.drawRect(opponentBoardX + j * opponentFieldWidth, opponentBoardY + i * opponentFieldWidth, opponentFieldWidth, opponentFieldWidth);
 
 					int value = ((MultiplayerModel) model).opponentBoard[i][j].value;
 					int valueDigits = String.valueOf(value).length();
@@ -199,7 +207,7 @@ public class MultiplayerView extends View {
 					int fontWidth = g2.getFontMetrics().stringWidth(text);
 					if (value > 0 && value <= model.innerSquareSize * model.innerSquareSize) {
 						int x = opponentBoardX + j * opponentFieldWidth + opponentFieldWidth / 2 - fontWidth / 2;
-						int y = opponentBoardY + i * opponentFieldHeight + opponentFieldHeight / 2 + fontHeight / 3;
+						int y = opponentBoardY + i * opponentFieldWidth + opponentFieldWidth / 2 + fontHeight / 3;
 						if (model.board[i][j].interactable) {
 							g2.drawString("?", x, y);
 						}
@@ -217,7 +225,7 @@ public class MultiplayerView extends View {
 					//g2.setColor(model.sudokuSolved(model.board, model.innerSquareSize) ? new Color(0, 200, 0) : black);
 					g2.setColor(black);
 					g2.setStroke(new BasicStroke(3));
-					g2.drawRect(opponentBoardX + j * opponentFieldWidth * iss, opponentBoardY + i * opponentFieldHeight * iss, opponentFieldWidth * iss, opponentFieldHeight * iss);
+					g2.drawRect(opponentBoardX + j * opponentFieldWidth * iss, opponentBoardY + i * opponentFieldWidth * iss, opponentFieldWidth * iss, opponentFieldWidth * iss);
 				}
 			}
 			g2.setStroke(oldStroke);

@@ -14,18 +14,23 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+
+/*
+    The View of our MVC-module defines the UI display.
+    This class gets data from the MVC.Controller and
+    uses this data change the UI for the user depending
+    on that data.
+*/
 
 public class View extends JPanel implements MouseListener, KeyListener, MouseWheelListener {
-	
 	private static final long serialVersionUID = 1L;
 	public Model model;
 	protected Controller controller;
-	public double boardX = 0.0; //x coordinate for top left corner.
-	public double boardY = 0.0; //y coordinate for top left corner.
+	public double boardX, boardY = 0.0; //x- and y coordinate for top left corner.
 	protected boolean dragging = false;
 	protected int[] mouseBoardVector = new int[] {0, 0};
-	public int windowWidth;
-	public int windowHeight;
+	public int windowWidth, windowHeight;
 	public double fieldWidth = Field.DEFAULT_WIDTH;
 	public double fieldHeight = Field.DEFAULT_HEIGHT;
 	protected boolean close = false;
@@ -132,6 +137,9 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         Graphics2D g2 = (Graphics2D) g;
 
         if (!model.generatingSudokuDone) {
+
+            //this.add(new JLabel(new ImageIcon("src/main/resources/snail.gif")));
+
             g2.setColor(Color.BLACK);
             g2.setFont(new Font("Courier", Font.BOLD, 100));
             String text = "Generating Sudoku";
@@ -202,7 +210,6 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                     }
                 }
             }
-
 
             // Draw thick lines
             Stroke oldStroke = g2.getStroke();
@@ -559,15 +566,15 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 	}
 	
 	//Concurrent thread that moves the board when dragging.
-	protected class BoardDragger implements Runnable {
+	private class BoardDragger implements Runnable {
 		@Override
 		public void run() {
 			while (!close) {
 				if (dragging) {
 					Point mousePos = getMousePosition();
 					if (mousePos != null) {
-						boardX = mousePos.x+mouseBoardVector[0];
-						boardY = mousePos.y+mouseBoardVector[1];
+						boardX = mousePos.x + mouseBoardVector[0];
+						boardY = mousePos.y + mouseBoardVector[1];
 					}
 					repaint();
 				}

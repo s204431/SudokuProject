@@ -16,14 +16,19 @@ import MVC.Model.Mode;
 import sudoku.Field;
 import sudoku.Main;
 
+/*
+	The MultiplayerModel extends the Model as it inherits the same
+	attributes only to differ from the original by having another
+	user play against another.
+*/
+
+
 public class MultiplayerModel extends Model implements Runnable {
 	
-	public boolean isServer = false;
-	public boolean started = false;
+	public boolean isServer, started = false;
 	private boolean close = false;
 	private SpaceRepository repository;
-	public Space toOpponent;
-	public Space fromOpponent;
+	public Space toOpponent, fromOpponent;
 	public Field[][] opponentBoard;
 	
 	//Constructor for host of the game.
@@ -160,7 +165,7 @@ public class MultiplayerModel extends Model implements Runnable {
 			}
 		}
 	}
-	
+	//Sets the join IP-address option to the users own IP, otherwise localhost
 	public static String getIP(){
 		String address = "localhost";
 		try {
@@ -168,7 +173,6 @@ public class MultiplayerModel extends Model implements Runnable {
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
-
 		return address;
 	}
 	

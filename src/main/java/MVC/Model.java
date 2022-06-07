@@ -17,6 +17,12 @@ import sudoku.Field;
 import Generators.*;
 import sudoku.Main;
 
+/*
+	The model of our MVC-module defines the data structure and
+	updates it. Requests from MVC.Controller makes the Model
+	manipulate data and sends it back to the Controller.
+*/
+
 
 public class Model {
 	public boolean usedSolver = false;
