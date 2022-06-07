@@ -60,27 +60,15 @@ public class Controller {
 		else if (e.getKeyCode() == KeyEvent.VK_H && Main.DEBUG_MODE) {
 			model.giveHint();
 		}
-		else if (e.getKeyCode() == KeyEvent.VK_G && Main.DEBUG_MODE) {
-			int max = 0;
-			while (max <= 33) {
-				model.generateSudoku(9, 9, 0.0, 3, 3);
-				SudokuSolver solver = new EfficientSolver(model.board, 3);
-				solver.solve(1);
-				if (solver.guesses > max) {
-					max = solver.guesses;
-				}
-				System.out.println(solver.guesses + " Max: "+max);
-			}
-		}
 		else if (!model.board[selectedFieldPosition[0]][selectedFieldPosition[1]].interactable) {
 			return;
-		}
+		}//Deletes interactable fields value when 'backspace' is pressed.
 		else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
 			int value = model.board[selectedFieldPosition[0]][selectedFieldPosition[1]].value;
 			if (value > 0) {
 				model.setField(selectedFieldPosition[0], selectedFieldPosition[1], value/10);
 			}
-		}
+		}//Inserts the value to the field if the value is a digit.
 		else {
 			char key = (char)e.getKeyCode();
 			if (Character.isDigit(key)) {

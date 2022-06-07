@@ -51,11 +51,6 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     public boolean notesOn = false;
     private boolean infoButtonClicked = false;
     private int savedDifficulty;
-    public static JProgressBar progressBar;
-    public static int progress;
-    private JPanel gifPanel;
-    private BufferedImage bImg;
-    private Icon gif;
 
     public int[] clickedPosition = new int[] {0, 0};
     public int[] marked;
@@ -73,13 +68,13 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             e.printStackTrace();
         }*/
         //JLabel label = new JLabel(gif);
-        //label.setBounds(0,0,340,340);
+        //label.setBounds(0, 0, 340, 340);
     	this.model = model;
     	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    	windowWidth = screenSize.width-screenSize.width/10;
-    	windowHeight = screenSize.height-screenSize.height/10;
+    	windowWidth = screenSize.width-screenSize.width / 10;
+    	windowHeight = screenSize.height-screenSize.height / 10;
     	setPreferredSize(new Dimension(windowWidth, windowHeight));
-        boardX = getPreferredSize().width/2-model.getBoardSize()*fieldWidth/2;
+        boardX = getPreferredSize().width / 2 - model.getBoardSize() * fieldWidth / 2;
         setBounds(0, 0, getPreferredSize().width, getPreferredSize().height);
 
         // Create frame
@@ -232,7 +227,6 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             if (timerLabel != null && !model.isSolved()) {
                 timerLabel.setText(currentHour + ":" + (currentMinute < 10 ? "0" : "") + currentMinute + ":" + (currentSecond < 10 ? "0" : "") + currentSecond);
             }
-
             // Set focus
             setVisible(true);
             if (inFocus) {
@@ -246,7 +240,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     //Add cancel button to view (visible when generating sudoku)
     public void addCancelButtonToView() {
         cancelButton = new JButton("Cancel");
-        cancelButton.setBounds(windowWidth/2 - 150, windowHeight - 200,300,75);
+        cancelButton.setBounds(windowWidth / 2 - 150, windowHeight - 200,300,75);
         cancelButton.addActionListener(   new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -429,9 +423,9 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     
     //Resets the position and size of the sudoku to the default position and size.
     public void resetBoardPosition() {
-    	fieldWidth = Field.DEFAULT_WIDTH*windowWidth/1170.0;
+    	fieldWidth = Field.DEFAULT_WIDTH * windowWidth / 1170.0;
     	fieldHeight = fieldWidth;
-		boardX = getPreferredSize().width/2-model.getBoardSize()*fieldWidth/2;
+		boardX = getPreferredSize().width / 2 - model.getBoardSize() * fieldWidth / 2;
 		boardY = 0;
     }
 
@@ -461,7 +455,6 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     public void mouseReleased(MouseEvent e) {
     	dragging = false;
     }
-
 
     @Override
     public void mouseEntered(MouseEvent e) {
@@ -620,6 +613,8 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         JOptionPane.showMessageDialog(frame, "The current sudoku is unsolvable.");
     }
 
+    //Inserts a button that has an
+    //explanation of every command.
     public void HelpPopup(){
         if (Main.DEBUG_MODE){
             JOptionPane.showMessageDialog(frame,
@@ -649,5 +644,4 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                     JOptionPane.INFORMATION_MESSAGE);
         }
     }
-	
 }

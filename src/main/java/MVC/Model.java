@@ -23,7 +23,6 @@ import sudoku.Main;
 	manipulate data and sends it back to the Controller.
 */
 
-
 public class Model {
 	public boolean usedSolver = false;
 	private long start;
@@ -103,7 +102,6 @@ public class Model {
 				toBeSolved[i][j] = new Field(board[i][j], true);
 			}
 		}
-		
 		return sudokuSolved(toBeSolved, innerSquareSize);
 	}
 	
@@ -162,16 +160,16 @@ public class Model {
 		view.repaint();
 	}
 
-	// Returns the boolean which determines wether the sudoku is solved or not
+	// Returns the boolean which determines whether the sudoku is solved or not
 	public boolean isSolved() {
 		return solved;
 	}
-
+	//Counts the number of non-empty fields.
 	public int computeFilledInFields(Field[][] board) {
 		int count = 0;
-		for (int i = 0; i < board.length; i++) {
+		for (Field[] fields : board) {
 			for (int j = 0; j < board[0].length; j++) {
-				if (board[i][j].value != 0) {
+				if (fields[j].value != 0) {
 					count++;
 				}
 			}
@@ -214,7 +212,7 @@ public class Model {
 			e.printStackTrace();
 		}
 	}
-	
+	//Loads the file specified
 	public static Object[] load(File file, Mode mode) {
 		try {
 			Scanner scanner = new Scanner(file);
@@ -245,7 +243,7 @@ public class Model {
 	
 	//Loads without updating the current sudoku. Returns loaded sudoku as Field[][], innerSquareSize, numInnerSquares and difficulty (difficulty = -1 if it is not saved in the file).
 	public static Object[] load(String fileName, Mode mode) {
-		return load(new File("savedsudokus/"+fileName+".su"), mode);
+		return load(new File("savedsudokus/" + fileName + ".su"), mode);
 	}
 	
 	//Loads a sudoku from a file and updates the current sudoku to the loaded sudoku.
@@ -310,7 +308,7 @@ public class Model {
 			}
 		}
 	}
-	
+	//Helper-method for the generateNotes method above.
 	public void add(int x, int y, int value) {
 		for (int i = 0; i < board.length; i++) {
 			if (i != y && value <= 9 && value >= 1) {
