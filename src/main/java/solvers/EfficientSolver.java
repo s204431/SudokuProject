@@ -546,6 +546,7 @@ public class EfficientSolver extends SudokuSolver {
 					for (int k = i+1; k < board.length; k++) {
 						int[] cs2 = exactlyTwo(possibleValues, k, v, true);
 						if (cs[0] == cs2[0] && cs[1] == cs2[1]) {
+							boolean updated2 = false;
 							for (int r = 0; r < board.length; r++) {
 								if (r != i && r != k) {
 									int size1 = possibleValues[r][cs[0]].size();
@@ -554,9 +555,13 @@ public class EfficientSolver extends SudokuSolver {
 									possibleValues[r][cs[1]].remove((Integer)v);
 									if (size1 != possibleValues[r][cs[0]].size() || size2 != possibleValues[r][cs[1]].size()) {
 										updated = true;
+										updated2 = true;
 									}
 								}	
-							}			
+							}
+							if (updated2) {
+								addHint("X-Wing", new int[][] {{i, cs[0]}, {i, cs[1]}, {k, cs[0]}, {k, cs[1]}}, new int[] {i, k}, null, null);
+							}
 						}
 					}
 				}
@@ -565,6 +570,7 @@ public class EfficientSolver extends SudokuSolver {
 					for (int k = i+1; k < board.length; k++) {
 						int[] rs2 = exactlyTwo(possibleValues, k, v, false);
 						if (rs[0] == rs2[0] && rs[1] == rs2[1]) {
+							boolean updated2 = false;
 							for (int c = 0; c < board.length; c++) {
 								if (c != i && c != k) {
 									int size1 = possibleValues[rs[0]][c].size();
@@ -573,9 +579,13 @@ public class EfficientSolver extends SudokuSolver {
 									possibleValues[rs[1]][c].remove((Integer)v);
 									if (size1 != possibleValues[rs[0]][c].size() || size2 != possibleValues[rs[1]][c].size()) {
 										updated = true;
+										updated2 = true;
 									}
 								}	
-							}			
+							}
+							if (updated2) {
+								addHint("X-Wing", new int[][] {{rs[0], i}, {rs[1], i}, {rs[0], k}, {rs[1], k}}, null, new int[] {i, k}, null);
+							}
 						}
 					}
 				}
