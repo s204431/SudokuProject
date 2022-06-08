@@ -191,7 +191,7 @@ public class UITester extends ComponentTestFixture {
 					    try {
 					    	buttons.add((JButton)getFinder().find(new Matcher() {
 							    public boolean matches(Component c) {
-							        return c instanceof JButton && !buttons.contains(c) && ((JButton) c).isVisible();
+							        return c instanceof JButton && !buttons.contains(c) && c.isVisible();
 							    }
 							}));
 						} catch (ComponentNotFoundException | MultipleComponentsFoundException e1) {
