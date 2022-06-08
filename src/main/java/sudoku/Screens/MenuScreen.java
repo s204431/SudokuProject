@@ -28,8 +28,8 @@ all classes and minimizes errors.
 
 public abstract class MenuScreen extends JPanel {
     protected Font titleFont = new Font(Font.SERIF, Font.BOLD,50);
-    protected int textSize = 50;
-    protected int spacing = 30;
+    protected int textSize = Main.SCREEN_HEIGHT/20;
+    protected int spacing = Main.SCREEN_HEIGHT/30;
     protected int btnHeight = Main.SCREEN_HEIGHT/20;
     protected int btnWidth = Main.SCREEN_WIDTH/3;
     protected int k;
