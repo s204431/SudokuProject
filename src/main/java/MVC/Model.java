@@ -351,7 +351,7 @@ public class Model {
 			view.marked1 = new ArrayList<int[]>();
 			view.marked2 = new ArrayList<int[]>();
 			for (int[] pos : solver.positionHints.get(hintNumber)) {
-				view.marked1.add(pos);
+				view.marked2.add(pos);
 			}
 			for (int i : solver.rowHints.get(hintNumber)) {
 				for (int j = 0; j < board.length; j++) {
