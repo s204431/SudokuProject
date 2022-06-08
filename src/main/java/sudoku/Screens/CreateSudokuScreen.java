@@ -22,7 +22,7 @@ public class CreateSudokuScreen extends MenuScreen {
         titleString = new JLabel("Create Sudoku");
         setTitle(titleString);
         //Buttons
-        generateBtn = new JButton("Generate Empty Sudoku");
+        generateBtn = new JButton("Generate New Sudoku");
         loadBtn = new JButton("Load Existing Sudoku");
         backBtn = new JButton("Back");
         setButtons(new JButton[]{generateBtn, loadBtn, backBtn});

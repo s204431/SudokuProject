@@ -191,7 +191,7 @@ public class UITester extends ComponentTestFixture {
 					    try {
 					    	buttons.add((JButton)getFinder().find(new Matcher() {
 							    public boolean matches(Component c) {
-							        return c instanceof JButton && !buttons.contains(c);
+							        return c instanceof JButton && !buttons.contains(c) && ((JButton) c).isVisible();
 							    }
 							}));
 						} catch (ComponentNotFoundException | MultipleComponentsFoundException e1) {
@@ -231,6 +231,9 @@ public class UITester extends ComponentTestFixture {
 		checkPanelActive(View.class);
 		View view = (View) getPanel(View.class);
 		Model model = view.model;
+		while (!model.generatingSudokuDone) {
+			sleep(100);
+		}
 		SudokuSolver solver = new EfficientSolver(model.board, model.innerSquareSize);
 		List<int[][]> solutions = solver.solve(1);
 		assertEquals("Wrong number of solutions to sudoku.", 1, solutions.size());
