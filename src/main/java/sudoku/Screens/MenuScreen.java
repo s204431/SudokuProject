@@ -30,8 +30,8 @@ public abstract class MenuScreen extends JPanel {
     protected Font titleFont = new Font(Font.SERIF, Font.BOLD,50);
     protected int textSize = 50;
     protected int spacing = 30;
-    protected int btnHeight = 50;
-    protected int btnWidth = 300;
+    protected int btnHeight = Main.SCREEN_HEIGHT/20;
+    protected int btnWidth = Main.SCREEN_WIDTH/3;
     protected int k;
     protected int n;
     protected JFrame frame;
