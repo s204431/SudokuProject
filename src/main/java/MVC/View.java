@@ -362,6 +362,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         if (model.assistMode) {
             hintText = new JLabel();
             hintText.setFont(new Font("Serif", Font.BOLD, 15));
+            hintText.setFocusable(false);
             hintText.setBounds(25, 250, 150, 25);
             buttonPanel.add(hintText);
 
