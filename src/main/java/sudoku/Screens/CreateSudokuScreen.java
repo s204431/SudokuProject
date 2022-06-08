@@ -17,7 +17,7 @@ public class CreateSudokuScreen extends MenuScreen {
         super(frame);
     }
 
-    public void addComponents() {
+    public void addComponents() { //init 3 buttons and a title
         //Title
         titleString = new JLabel("Create Sudoku");
         setTitle(titleString);
@@ -29,28 +29,28 @@ public class CreateSudokuScreen extends MenuScreen {
         //Buttons action listeners
         setActionListeners();
     }
-    private void setActionListeners(){
+    private void setActionListeners(){//makes 3 buttons pressable
         generateBtn.addActionListener(new generateNewAction());
         loadBtn.addActionListener(new loadGameAction());
         backBtn.addActionListener(new backAction());
     }
 
 
-    class generateNewAction implements ActionListener {
+    class generateNewAction implements ActionListener {//sets "Generate Empty Sudoku" to go to GenerateNewSudokuScreen
         public void actionPerformed(ActionEvent e) {
             changePanel();
             new GenerateNewSudokuScreen(frame, Mode.create);
         }
     }
 
-    class loadGameAction implements ActionListener {
+    class loadGameAction implements ActionListener {//sets "Load Existing Sudoku" to go to LoadGameScreen
         public void actionPerformed(ActionEvent e) {
             changePanel();
             new LoadGameScreen(frame, Mode.create);
         }
     }
 
-    class backAction implements ActionListener {
+    class backAction implements ActionListener {//sets "back", to go to main menu
         public void actionPerformed(ActionEvent e) {
             changePanel();
             new MainScreen(frame);

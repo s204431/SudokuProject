@@ -19,7 +19,7 @@ public class MultiplayerScreen extends MenuScreen{
     public MultiplayerScreen(JFrame frame) {
         super(frame);
     }
-    public void addComponents(){
+    public void addComponents(){//title and buttons
         // Title
         titleLabel = new JLabel("Multiplayer");
         setTitle(titleLabel);
@@ -38,33 +38,33 @@ public class MultiplayerScreen extends MenuScreen{
         setActionListeners();
     }
 
-    private void setActionListeners() {
+    private void setActionListeners() {//makes buttons pressable
         hostBtn.addActionListener(new hostAction());
         loadBtn.addActionListener(new loadAction());
         joinBtn.addActionListener(new joinAction());
         backBtn.addActionListener(new backAction());
     }
 
-    class hostAction implements ActionListener  {
+    class hostAction implements ActionListener  {//sets "Host new Sudoku" to GenerateNewSudokuScreen
         public void actionPerformed(ActionEvent e) {
             changePanel();
             new GenerateNewSudokuScreen(frame, Model.Mode.multiplayer);
         }
     }
-    class loadAction implements ActionListener  {
+    class loadAction implements ActionListener  {//sets "Host Old Sudoku" to LoadGameScreen
         public void actionPerformed(ActionEvent e) {
             changePanel();
             new LoadGameScreen(frame, Model.Mode.multiplayer, true);
         }
     }
-    class joinAction implements ActionListener  {
+    class joinAction implements ActionListener  {//sets "Join" connect to the written Ip in textfield
         public void actionPerformed(ActionEvent e) {
             String address = ip_address.getText();
             frame.dispose();
             setMultiplayerInstance(false, address);
         }
     }
-    class backAction implements ActionListener  {
+    class backAction implements ActionListener  {//sets "Back" go to mainscreen
         public void actionPerformed(ActionEvent e) {
             changePanel();
             new MainScreen(frame);

@@ -33,17 +33,17 @@ public class StatsScreen extends MenuScreen {
 		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.PAGE_AXIS));
 		
 		PANEL.setPreferredSize(new Dimension(300, 800));
-	
+		//sets size
 		leftPanel.setPreferredSize(new Dimension(110, 500));
 		middlePanel.setPreferredSize(new Dimension(110, 500));
 		rightPanel.setPreferredSize(new Dimension(110, 500));
 		
 		// Sets up elements in the different 3 panels.
 
-		attempts = new JLabel[5];
-		time = new JLabel[5];
-		name = new JLabel[5];
-		stats = MVC.Model.loadStat();
+		attempts = new JLabel[5];//number of times completed
+		time = new JLabel[5];//fastest time
+		name = new JLabel[5];//difficulty
+		stats = MVC.Model.loadStat();//loads from txt file
 		
 		String hours;
 		String minutes;
@@ -57,14 +57,14 @@ public class StatsScreen extends MenuScreen {
 		
 		time[0] = new JLabel("Records:");
 		attempts[0] = new JLabel("Completed:");
-		for(int i = 1; i < 5; i++) {
+		for(int i = 1; i < 5; i++) {//convertes seconds to hour/minute/second
 			seconds = String.valueOf(stats[i - 1] % 60);
 			minutes = String.valueOf(stats[i - 1] / 60 % 60);
 			hours = String.valueOf(stats[i - 1] / 3600);
 			time[i] = new JLabel (hours + ":" + minutes + ":" + seconds);
 			attempts[i] = new JLabel (String.valueOf(stats[i + 3]));
 		}
-		for(int i = 0; i < 5; i++) {
+		for(int i = 0; i < 5; i++) {//writes the labels
 			setLabelFont(name[i]);
 			setLabelFont(attempts[i]);
 			setLabelFont(time[i]);
@@ -85,11 +85,11 @@ public class StatsScreen extends MenuScreen {
 		label.setFont(new Font("Serif", Font.BOLD, 20));
 	}
 	
-    private void setActionListeners(){
+    private void setActionListeners(){//makes button pressable
         backBtn.addActionListener(new backAction());
     }
 	
-    class backAction implements ActionListener {
+    class backAction implements ActionListener {//sets "Back" to go to Mainscreen
         public void actionPerformed(ActionEvent e) {
             changePanel();
             new MainScreen(frame);

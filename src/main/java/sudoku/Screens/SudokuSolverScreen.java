@@ -17,7 +17,7 @@ public class SudokuSolverScreen extends MenuScreen {
         super(frame);
     }
 
-    public void addComponents() {
+    public void addComponents() {//init title and buttons
         // Title
         titleString = new JLabel("Sudoku Solver");
         setTitle(titleString);
@@ -30,27 +30,27 @@ public class SudokuSolverScreen extends MenuScreen {
         setActionListeners();
     }
 
-    private void setActionListeners(){
+    private void setActionListeners(){//makes buttons pressable
         generateBtn.addActionListener(new generateNewAction());
         loadBtn.addActionListener(new loadGameAction());
         backBtn.addActionListener(new backAction());
     }
 
-    class generateNewAction implements ActionListener {
+    class generateNewAction implements ActionListener {//sets "Generate New Sudoku" to GenerateNewSudokuScreen
         public void actionPerformed(ActionEvent e) {
             changePanel();
             new GenerateNewSudokuScreen(frame, Mode.solver);
         }
     }
 
-    class loadGameAction implements ActionListener {
+    class loadGameAction implements ActionListener {//sets "Load Existing Sudoku" to LoadGameScreen
         public void actionPerformed(ActionEvent e) {
             changePanel();
             new LoadGameScreen(frame, Mode.solver);
         }
     }
 
-    class backAction implements ActionListener {
+    class backAction implements ActionListener {//sets "Back" to MainScreen
         public void actionPerformed(ActionEvent e) {
             changePanel();
             new MainScreen(frame);

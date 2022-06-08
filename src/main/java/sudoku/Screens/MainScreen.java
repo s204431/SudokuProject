@@ -30,7 +30,7 @@ public class MainScreen extends MenuScreen {
         JOptionPane.showMessageDialog(frame, message);
     }
 
-    public void addComponents() {
+    public void addComponents() {//inits title, 6 buttons and 2 textfields with labels
         // Title
         titleString = new JLabel("Main Menu");
         setTitle(titleString);
@@ -58,7 +58,7 @@ public class MainScreen extends MenuScreen {
         setActionListeners();
     }
 
-    private void setActionListeners(){
+    private void setActionListeners(){//makes the buttons pressable
     	if (Main.DEBUG_MODE) {
             playBtn.addActionListener(new playAction());	
     	}
@@ -89,7 +89,7 @@ public class MainScreen extends MenuScreen {
         startThread(model);
     }
 
-    class playAction implements ActionListener {
+    class playAction implements ActionListener {//goes to play game based on the 2 text field
         public void actionPerformed (ActionEvent e){
             // Initializes the game with the values inserted.
             try {
@@ -109,35 +109,35 @@ public class MainScreen extends MenuScreen {
     // They are found in every java class
     // under the 'Screens' folder.
 
-    private class newGameAction implements ActionListener {
+    private class newGameAction implements ActionListener {//sets "New Game" go to newgamescreen
         public void actionPerformed(ActionEvent e) {
             changePanel();
             new NewGameScreen(frame);
         }
     }
 
-    private class MPAction implements ActionListener {
+    private class MPAction implements ActionListener {//sets "multiplayer" go to multiplayerscreen
         public void actionPerformed(ActionEvent e) {
             changePanel();
             new MultiplayerScreen(frame);
         }
     }
     
-    private class createSudokuAction implements ActionListener {
+    private class createSudokuAction implements ActionListener {//setes "create Sudoku" to go to createsudokuscreen
         public void actionPerformed(ActionEvent e) {
             changePanel();
             new CreateSudokuScreen(frame);
         }
     }
 
-    private class sudokuSolverAction implements ActionListener {
+    private class sudokuSolverAction implements ActionListener {//sets "Sudoku solver" to sudokuSolverscreen
         public void actionPerformed(ActionEvent e) {
             changePanel();
             new SudokuSolverScreen(frame);
         }
     }
     
-    private class statsAction implements ActionListener {
+    private class statsAction implements ActionListener {//sets "Stats" to go to Statsscreen
     	public void actionPerformed(ActionEvent e) {
     		changePanel();
     		new StatsScreen(frame);

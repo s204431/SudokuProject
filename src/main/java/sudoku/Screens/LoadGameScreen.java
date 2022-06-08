@@ -39,7 +39,7 @@ public class LoadGameScreen extends MenuScreen {
         this.assistMode = assistMode;
     }
 
-    public void addComponents() {
+    public void addComponents() {//init title, all loadable sudokus and 2 buttons
         // Title
         titleString = new JLabel("Load Game");
         setTitle(titleString);
@@ -61,7 +61,7 @@ public class LoadGameScreen extends MenuScreen {
     inside a box of them. These sudoku files can then be accessed from this frame and are continuable
     if desired.
      */
-    private void addLists() {
+    private void addLists() {//reads the loadable sudokus
         File folder = new File("savedsudokus");
         File[] matchingFiles = folder.listFiles(new FilenameFilter() {
             public boolean accept(File dir, String name) {
@@ -90,7 +90,7 @@ public class LoadGameScreen extends MenuScreen {
         add(Box.createRigidArea(new Dimension(0, spacing)));
     }
 
-    private void setActionListeners(){
+    private void setActionListeners(){//makes buttons pressable
         loadGameBtn.addActionListener(new loadAction());
         backBtn.addActionListener(new backAction());
     }
@@ -99,7 +99,7 @@ public class LoadGameScreen extends MenuScreen {
         return getModel(k, n, mode, assistMode);
     }
 
-    class loadAction implements ActionListener {
+    class loadAction implements ActionListener {//goes to multiplayer load manu, depending on if you are host or not
         public void actionPerformed(ActionEvent e) {
         	if (loadList.getSelectedValue() == null) {
         		return;
@@ -114,7 +114,7 @@ public class LoadGameScreen extends MenuScreen {
         }
     }
 
-    private class backAction implements ActionListener {
+    private class backAction implements ActionListener {//goes back 1 menu
         public void actionPerformed(ActionEvent e) {
             backAction();
         }

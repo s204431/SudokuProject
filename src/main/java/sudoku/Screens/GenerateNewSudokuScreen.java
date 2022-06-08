@@ -36,7 +36,7 @@ public class GenerateNewSudokuScreen extends MenuScreen {
         this.assistMode = assistMode;
     }
 
-    public void addComponents(){
+    public void addComponents(){//init title, sliders, and buttons
         // Title
         titleLabel = new JLabel("Choose size and Difficulty");
         setTitle(titleLabel);
@@ -44,7 +44,6 @@ public class GenerateNewSudokuScreen extends MenuScreen {
         boardSizeLabel = new JLabel("Size of board");
         setLabels(new JLabel[]{boardSizeLabel});
         makeSliders();
-
         generateBtn = new JButton("Generate Sudoku");
         backBtn = new JButton("Back");
         setButtons(new JButton[]{generateBtn, backBtn});
@@ -52,7 +51,7 @@ public class GenerateNewSudokuScreen extends MenuScreen {
         setActionListeners();
     }
 
-    private void makeSliders() {
+    private void makeSliders() {//generates sliders n and k
         //Adding elements to sliders
         nLabel = new JLabel("3");
         kLabel = new JLabel("3");
@@ -86,7 +85,7 @@ public class GenerateNewSudokuScreen extends MenuScreen {
         setPanel(new JPanel(), new JComponent[]{difficultyLabel, difficultyBox});
     }
 
-    private void setActionListeners(){
+    private void setActionListeners(){//makes the buttons pressable
         generateBtn.addActionListener(new startAction());
         backBtn.addActionListener(new backAction());
     }
@@ -127,7 +126,7 @@ public class GenerateNewSudokuScreen extends MenuScreen {
         }
     }
 
-    class backAction implements ActionListener {
+    class backAction implements ActionListener {//goes back a menu
         public void actionPerformed(ActionEvent e) {
             changePanel();
             backAction();
