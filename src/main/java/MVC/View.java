@@ -47,6 +47,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     private JButton stepSolveButton;
     private JButton helpButton;
     private JButton cancelButton;
+    private JLabel hintText;
 	public JTextField textField;
 	protected JLabel timerLabel;
 	protected boolean inFocus = true;
@@ -359,12 +360,18 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         }
 
         if (model.assistMode) {
+            hintText = new JLabel();
+            hintText.setFont(new Font("Serif", Font.BOLD, 15));
+            hintText.setBounds(25, 250, 150, 25);
+            buttonPanel.add(hintText);
+
             hintButton = new JButton("Hint");
             hintButton.setBounds(50, 200, 100, 25);
             hintButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     model.giveHint();
+                    hintText.setText("Use " + hintName);
                 }
             });
             buttonPanel.add(hintButton);
