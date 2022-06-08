@@ -37,7 +37,7 @@ public abstract class MenuScreen extends JPanel {
     protected JFrame frame;
     protected Font buttonFont = new Font("Arial", Font.BOLD, Main.SCREEN_HEIGHT/40);
     protected Font textFont = new Font("Serif", Font.BOLD,Main.SCREEN_HEIGHT/40);
-    protected Font labelFont = new Font("Serif", Font.BOLD,Main.SCREEN_HEIGHT/30);
+    protected Font labelFont = new Font("Serif", Font.BOLD,Main.SCREEN_HEIGHT/50);
     protected Dimension panelDimension = new Dimension(400,60);
     protected Dimension buttonDimension = new Dimension(btnWidth, btnHeight);
     protected Dimension textDimension = new Dimension(textSize, textSize);
@@ -119,6 +119,7 @@ public abstract class MenuScreen extends JPanel {
 
     protected void setSliders(JLabel[] labels, ChangeListener[] listener, JSlider[] sliders, String[] names){
         for (int i = 0; i < labels.length; i++) {
+            labels[i].setFont(labelFont);
             add(labels[i]);
             sliders[i].setPaintTicks(true);
             sliders[i].setMajorTickSpacing(2);
@@ -129,6 +130,7 @@ public abstract class MenuScreen extends JPanel {
             panel.setMaximumSize(new Dimension(200,60));
             panel.add(sliders[i]);
             JLabel name = new JLabel(names[i]);
+            name.setFont(labelFont);
             name.setForeground(Color.BLACK);
             panel.add(name);
             panel.setOpaque(false);
