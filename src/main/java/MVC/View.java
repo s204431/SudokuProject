@@ -16,6 +16,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 
 /*
     The View of our MVC-module defines the UI display.
@@ -54,7 +55,9 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     private int savedDifficulty;
 
     public int[] clickedPosition = new int[] {0, 0};
-    public int[] marked;
+    public ArrayList<int[]> marked1;
+    public ArrayList<int[]> marked2;
+    public String hintName;
 	
 	public int currentSecond;
 	public int currentMinute;
@@ -162,9 +165,9 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                             && model.getBoard()[i][j].getValue() != 0                               //as gray color
                             && !(clickedPosition[0] == i && clickedPosition[1] == j)) {
                         g2.setColor(gray);
-                    } else if (marked != null && model.board[i][j].value == 0 && marked[0] == i && marked[1] == j && clickedPosition[0] == i && clickedPosition[1] == j) {
+                    } else if (marked1 != null && model.board[i][j].value == 0 && containsPosition(marked1, i, j) && clickedPosition[0] == i && clickedPosition[1] == j) {
                         g2.setColor(darkYellow);
-                    } else if (marked != null && model.board[i][j].value == 0 && marked[0] == i && marked[1] == j) {
+                    } else if (marked1 != null && model.board[i][j].value == 0 && containsPosition(marked1, i, j)) {
                         g2.setColor(yellow);
                     }
                     g2.fillRect((int) (boardX + j * (int) fieldWidth), (int) (boardY + i * (int) fieldHeight), (int) fieldWidth, (int) fieldHeight);
@@ -227,6 +230,15 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                 textField.requestFocus();
             }
         }
+    }
+    
+    private boolean containsPosition(ArrayList<int[]> list, int x, int y) {
+    	for (int[] array : list) {
+    		if (array[0] == x && array[1] == y) {
+    			return true;
+    		}
+    	}
+    	return false;
     }
 
     //Add cancel button to view (visible when generating sudoku)

@@ -38,6 +38,7 @@ public class Model {
 	private boolean solved = false;
 	public SudokuGenerator generator;
 	public boolean generatingSudokuDone = true;
+	private int hintNumber = 0;
 
 	//Constructor taking number of inner squares, inner square size and mode.
 	public Model(int numInnerSquares, int innerSquareSize, Mode mode) {
@@ -330,12 +331,50 @@ public class Model {
 	
 	//Gives a hint by giving the correct value for one of the empty fields.
 	public void giveHint() {
-		int[] move = new EfficientSolver(board, innerSquareSize).makeOneMove();
+		/*int[] move = new EfficientSolver(board, innerSquareSize).makeOneMove();
 		if (move != null) {
 			view.marked = new int[] {move[0], move[1]};
 		} else {
 			view.unsolvablePopup();
+		}*/
+		
+		EfficientSolver solver = new EfficientSolver(board, innerSquareSize);
+		int[] move = solver.makeOneMove();
+		if (move == null) {
+			view.unsolvablePopup();
 		}
+		else if (solver.positionHints.size() > 0) {
+			if (hintNumber >= solver.positionHints.size()) {
+				hintNumber = 0;
+			}
+			view.hintName = solver.hintNames.get(hintNumber);
+			view.marked1 = new ArrayList<int[]>();
+			view.marked2 = new ArrayList<int[]>();
+			for (int[] pos : solver.positionHints.get(hintNumber)) {
+				view.marked2.add(pos);
+			}
+			for (int i : solver.rowHints.get(hintNumber)) {
+				for (int j = 0; j < board.length; j++) {
+					view.marked1.add(new int[] {i, j});
+				}
+			}
+			for (int i : solver.columnHints.get(hintNumber)) {
+				for (int j = 0; j < board.length; j++) {
+					view.marked1.add(new int[] {j, i});
+				}
+			}
+			for (int[] boxPos : solver.subBoxHints.get(hintNumber)) {
+				int x = boxPos[0]*innerSquareSize;
+				int y = boxPos[1]*innerSquareSize;
+				for (int i = x / innerSquareSize * innerSquareSize; i < x / innerSquareSize * innerSquareSize + innerSquareSize; i++) {
+					for (int j = y / innerSquareSize * innerSquareSize; j < y / innerSquareSize * innerSquareSize + innerSquareSize; j++) {
+						view.marked1.add(new int[] {i, j});
+					}
+				}
+			}
+			hintNumber++;
+		}
+		
 	}
 
 	//Makes a single move in progression of solving the sudoku

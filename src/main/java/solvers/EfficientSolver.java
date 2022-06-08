@@ -25,6 +25,12 @@ public class EfficientSolver extends SudokuSolver {
 	private boolean useSwordfish = true;
 	private boolean useForcingChains = true;
 	public boolean cancel = false;
+	
+	public List<String> hintNames = new ArrayList<String>();
+	public List<int[][]> positionHints = new ArrayList<int[][]>();
+	public List<int[]> rowHints = new ArrayList<int[]>();
+	public List<int[]> columnHints = new ArrayList<int[]>();
+	public List<int[][]> subBoxHints = new ArrayList<int[][]>();
 
 	//Constructor used for MVC and solvers
 	public EfficientSolver(Field[][] board, int innerSquareSize) {
@@ -172,6 +178,7 @@ public class EfficientSolver extends SudokuSolver {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
 				if (possibleValues[i][j].size() == 1) {
+					addHint("single candidate", new int[][] {{i, j}}, null, null, null);
 					return toMove(i, j, possibleValues[i][j]);
 				}
 			}
@@ -203,6 +210,15 @@ public class EfficientSolver extends SudokuSolver {
 						}
 					}
 					if ((!found1 && kEqualsN()) || (!found2 && kEqualsN()) || !found3) {
+						if (!found1) {
+							addHint("single position", new int[][] {{i, j}}, new int[] {i}, null, null);
+						}
+						else if (!found2) {
+							addHint("single position", new int[][] {{i, j}}, null, new int[] {j}, null);
+						}
+						else {
+							addHint("single position", new int[][] {{i, j}}, null, null, new int[][] {{i/innerSquareSize, j/innerSquareSize}});
+						}
 						return toMove(i, j, v);
 					}
 				}
@@ -238,23 +254,49 @@ public class EfficientSolver extends SudokuSolver {
 						}
 					}
 					if (foundInRow >= 0 && foundInColumn < 0) {
+						boolean updated2 = false;
+						List<int[]> positions = new ArrayList<int[]>();
 						for (int l = 0; l < board.length; l++) {
 							if (l < j * innerSquareSize || l >= j * innerSquareSize + innerSquareSize) {
 								if (possibleValues[foundInRow][l].contains(v)) {
 									possibleValues[foundInRow][l].remove((Integer) v);
 									updated = true;
+									updated2 = true;
 								}
 							}
+							else if (possibleValues[foundInRow][l].contains(v)) {
+								positions.add(new int[] {foundInRow, l});
+							}
+						}
+						if (updated2) {
+							int[][] positionsArray = new int[positions.size()][2];
+							for (int p = 0; p < positions.size(); p++) {
+								positionsArray[p] = positions.get(p);
+							}
+							addHint("candidate lines", positionsArray, new int[] {foundInRow}, null, null);
 						}
 					}
 					else if (foundInRow < 0 && foundInColumn >= 0) {
+						boolean updated2 = false;
+						List<int[]> positions = new ArrayList<int[]>();
 						for (int k = 0; k < board.length; k++) {
 							if (k < i * innerSquareSize || k >= i * innerSquareSize + innerSquareSize) {
 								if (possibleValues[k][foundInColumn].contains(v)) {
 									possibleValues[k][foundInColumn].remove((Integer) v);
 									updated = true;
+									updated2 = true;
 								}
 							}
+							else if (possibleValues[k][foundInColumn].contains(v)) {
+								positions.add(new int[] {k, foundInColumn});
+							}
+						}
+						if (updated2) {
+							int[][] positionsArray = new int[positions.size()][2];
+							for (int p = 0; p < positions.size(); p++) {
+								positionsArray[p] = positions.get(p);
+							}
+							addHint("candidate lines", positionsArray, null, new int[] {foundInColumn}, null);
 						}
 					}
 				}
@@ -893,6 +935,7 @@ public class EfficientSolver extends SudokuSolver {
 	//Makes only one move if a solution exists.
 	public int[] makeOneMove() {
 		List<int[][]> solvedSudoku = solve(1);
+		resetHints();
 		if (solvedSudoku.size() > 0) {
 			reset();
 			List<Integer>[] move = makeMove(board, initializePossibleValues());
@@ -907,6 +950,22 @@ public class EfficientSolver extends SudokuSolver {
 			}
 		}
 		return null;
+	}
+	
+	private void addHint(String name, int[][] positions, int[] rows, int[] columns, int[][] subBoxes) {
+		hintNames.add(name);
+		positionHints.add(positions == null ? new int[0][0] : positions);
+		rowHints.add(rows == null ? new int[0] : rows);
+		columnHints.add(columns == null ? new int[0] : columns);
+		subBoxHints.add(subBoxes == null ? new int[0][0] : subBoxes);
+	}
+	
+	private void resetHints() {
+		hintNames = new ArrayList<String>();
+		positionHints = new ArrayList<int[][]>();
+		rowHints = new ArrayList<int[]>();
+		columnHints = new ArrayList<int[]>();
+		subBoxHints = new ArrayList<int[][]>();
 	}
 	
 }
