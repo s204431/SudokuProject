@@ -26,6 +26,7 @@ public class NewGameScreen extends MenuScreen {
         //Panels
         assistModeString = new JLabel("Assist mode: ");
         assistModeCheck = new JCheckBox();
+        assistModeCheck.setPreferredSize(new Dimension(50, 50));
         setPanel(new JPanel(), new JComponent[]{assistModeString, assistModeCheck});
         //Buttons
         generateBtn = new JButton("Generate New Sudoku");

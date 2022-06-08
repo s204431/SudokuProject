@@ -8,11 +8,15 @@ import multiplayer.MultiplayerModel;
 import multiplayer.MultiplayerView;
 import sudoku.Main;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 /*
@@ -27,32 +31,54 @@ public abstract class MenuScreen extends JPanel {
     protected int textSize = 50;
     protected int spacing = 30;
     protected int btnHeight = 50;
-    protected int btnWidth = 200;
+    protected int btnWidth = 300;
     protected int k;
     protected int n;
     protected JFrame frame;
+    protected Font buttonFont = new Font("Arial", Font.BOLD, 20);
     protected Font textFont = new Font("Serif", Font.BOLD,20);
     protected Font labelFont = new Font("Serif", Font.BOLD,30);
     protected Dimension panelDimension = new Dimension(400,60);
     protected Dimension buttonDimension = new Dimension(btnWidth, btnHeight);
     protected Dimension textDimension = new Dimension(textSize, textSize);
+    protected Color buttonColor = new Color(180, 180, 180);
+    protected Color hoverButtonColor = new Color(120, 120, 120);
     protected Mode mode;
+    protected BufferedImage backgroundImage;
 
 
     public MenuScreen(JFrame frame) {
         this.frame = frame;
         initialize();
     }
+
     public MenuScreen(JFrame frame, Mode mode) {
         this.frame = frame;
         this.mode = mode;
         initialize();
     }
+
     private void initialize() {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        initBackground();
         addComponents();
+        setAlignmentX(Component.CENTER_ALIGNMENT);
         frame.add(this);
         frame.setVisible(true);
+    }
+
+    private void initBackground() {
+        try {
+            backgroundImage = ImageIO.read(getClass().getClassLoader().getResource("Background.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
     }
 
     public abstract void addComponents();
@@ -66,10 +92,31 @@ public abstract class MenuScreen extends JPanel {
             button.setMaximumSize(buttonDimension);
             button.setMinimumSize(buttonDimension);
             button.setPreferredSize(buttonDimension);
+            button.setFocusPainted(false);
+            button.setBorderPainted(false);
+            //button.setContentAreaFilled(false);
+            button.setFocusPainted(false);
+            //button.setOpaque(false);
+            button.setBorderPainted(true);
+            button.setBackground(buttonColor);
+            button.setForeground(Color.BLACK);
+            button.setFont(buttonFont);
+            button.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseEntered(java.awt.event.MouseEvent evt) {
+                    button.setBackground(hoverButtonColor);
+                    button.setForeground(Color.BLACK);
+                }
+
+                public void mouseExited(java.awt.event.MouseEvent evt) {
+                    button.setBackground(buttonColor);
+                    button.setForeground(Color.BLACK);
+                }
+            });
             add(button);
             add(Box.createRigidArea(new Dimension(0, spacing)));
         }
     }
+
     protected void setSliders(JLabel[] labels, ChangeListener[] listener, JSlider[] sliders, String[] names){
         for (int i = 0; i < labels.length; i++) {
             add(labels[i]);
@@ -77,10 +124,14 @@ public abstract class MenuScreen extends JPanel {
             sliders[i].setMajorTickSpacing(2);
             sliders[i].setMinorTickSpacing(1);
             sliders[i].addChangeListener(listener[i]);
+            sliders[i].setOpaque(false);
             JPanel panel = new JPanel();
-            panel.setMaximumSize(new Dimension(200,50));
+            panel.setMaximumSize(new Dimension(200,60));
             panel.add(sliders[i]);
-            panel.add(new JLabel(names[i]));
+            JLabel name = new JLabel(names[i]);
+            name.setForeground(Color.BLACK);
+            panel.add(name);
+            panel.setOpaque(false);
             add(panel);
             add(Box.createRigidArea(new Dimension(0, spacing)));
         }
@@ -88,8 +139,10 @@ public abstract class MenuScreen extends JPanel {
 
     protected void setPanel(JPanel panel, JComponent[] components){
         panel.setMaximumSize(panelDimension);
+        panel.setOpaque(false);
         for (JComponent component : components) {
-            component.setAlignmentX(Component.CENTER_ALIGNMENT);
+            component.setOpaque(false);
+            component.setAlignmentX(0.f);
             if (component instanceof JLabel ||
                     component instanceof JTextField) {
                 component.setFont(textFont);
@@ -102,6 +155,7 @@ public abstract class MenuScreen extends JPanel {
         add(panel);
         add(Box.createRigidArea(new Dimension(0, spacing)));
     }
+
     protected void setTextFields(JTextField[] fields){
         for (JTextField field : fields) {
             field.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -224,4 +278,5 @@ public abstract class MenuScreen extends JPanel {
             System.exit(0);
         }
     }
+
 }

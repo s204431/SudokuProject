@@ -18,7 +18,6 @@ public class MainScreen extends MenuScreen {
     private JButton createBtn;
     private JButton solverBtn;
     private JButton highScoreBtn;
-    Dimension panelSize = new Dimension(400,50);
 
 
     public MainScreen (JFrame frame) {
@@ -45,7 +44,7 @@ public class MainScreen extends MenuScreen {
             nText = new JTextField();
             JLabel kLabel = new JLabel("K:");
             kText = new JTextField();
-            setPanel(new JPanel(), new JComponent[]{nLabel, nText, kLabel, kText});	
+            setPanel(new JPanel(), new JComponent[]{nLabel, nText, kLabel, kText});
         }
         // The rest of the buttons
         newGameBtn = new JButton("New Game");
