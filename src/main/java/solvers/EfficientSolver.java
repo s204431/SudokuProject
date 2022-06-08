@@ -581,7 +581,7 @@ public class EfficientSolver extends SudokuSolver {
 										updated = true;
 										updated2 = true;
 									}
-								}	
+								}
 							}
 							if (updated2) {
 								addHint("X-Wing", new int[][] {{rs[0], i}, {rs[1], i}, {rs[0], k}, {rs[1], k}}, null, new int[] {i, k}, null);
@@ -626,6 +626,7 @@ public class EfficientSolver extends SudokuSolver {
 								for (int l = k+1; l < board.length; l++) {
 									int[] cs3 = exactlyTwo(possibleValues, l, v, true);
 									if (cs3[0] == cs[i1] && cs3[1] == cs2[i2]) {
+										boolean updated2 = false;
 										for (int r = 0; r < board.length; r++) {
 											if (r != i && r != k && r != l) {
 												int size1 = possibleValues[r][cs3[0]].size();
@@ -636,8 +637,12 @@ public class EfficientSolver extends SudokuSolver {
 												possibleValues[r][cs[i1 == 0 ? 1 : 0]].remove((Integer)v);
 												if (size1 != possibleValues[r][cs3[0]].size() || size2 != possibleValues[r][cs3[1]].size() || size3 != possibleValues[r][cs[i1 == 0 ? 1 : 0]].size()) {
 													updated = true;
+													updated2 = true;
 												}
 											}	
+										}
+										if (updated2) {
+											addHint("swordfish", new int[][] {{i, cs[0]}, {i, cs[1]}, {k, cs2[0]}, {k, cs2[1]}, {l, cs3[0]}, {l, cs3[1]}}, new int[] {i, k, l}, null, null);
 										}
 									}
 								}
@@ -672,6 +677,7 @@ public class EfficientSolver extends SudokuSolver {
 								for (int l = k+1; l < board.length; l++) {
 									int[] rs3 = exactlyTwo(possibleValues, l, v, false);
 									if (rs3[0] == rs[i1] && rs3[1] == rs2[i2]) {
+										boolean updated2 = false;
 										for (int c = 0; c < board.length; c++) {
 											if (c != i && c != k && c != l) {
 												int size1 = possibleValues[rs3[0]][c].size();
@@ -682,8 +688,12 @@ public class EfficientSolver extends SudokuSolver {
 												possibleValues[rs[i1 == 0 ? 1 : 0]][c].remove((Integer)v);
 												if (size1 != possibleValues[rs3[0]][c].size() || size2 != possibleValues[rs3[1]][c].size() || size3 != possibleValues[rs[i1 == 0 ? 1 : 0]][c].size()) {
 													updated = true;
+													updated2 = true;
 												}
 											}	
+										}
+										if (updated2) {
+											addHint("swordfish", new int[][] {{rs[0], i}, {rs[1], i}, {rs2[0], k}, {rs2[1], k}, {rs3[0], l}, {rs3[1], l}}, new int[] {i, k, l}, null, null);
 										}
 									}
 								}
@@ -733,6 +743,7 @@ public class EfficientSolver extends SudokuSolver {
 					for (int[] a : forces1) {
 						for (int[] a2 : forces2) {
 							if (a[0] == a2[0] && a[1] == a2[1] && a[2] == a2[2]) {
+								addHint("forcing chains", new int[][] {{a[0], a[1]}}, null, null, null);
 								return toMove(a[0], a[1], a[2]);
 							}
 						}

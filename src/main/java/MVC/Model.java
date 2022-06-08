@@ -344,12 +344,12 @@ public class Model {
 			view.unsolvablePopup();
 		}
 		else if (solver.positionHints.size() > 0) {
+			view.marked1 = new ArrayList<int[]>();
+			view.marked2 = new ArrayList<int[]>();
 			if (hintNumber >= solver.positionHints.size()) {
 				hintNumber = 0;
 			}
 			view.hintName = solver.hintNames.get(hintNumber);
-			view.marked1 = new ArrayList<int[]>();
-			view.marked2 = new ArrayList<int[]>();
 			for (int[] pos : solver.positionHints.get(hintNumber)) {
 				view.marked2.add(pos);
 			}
@@ -373,6 +373,12 @@ public class Model {
 				}
 			}
 			hintNumber++;
+		}
+		else {
+			view.marked1 = new ArrayList<int[]>();
+			view.marked2 = new ArrayList<int[]>();
+			view.hintName = "guessing";
+			view.marked2.add(new int[] {move[0], move[1]});
 		}
 		
 	}
