@@ -146,6 +146,8 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             Color white = Color.WHITE;
             Color yellow = Color.YELLOW;
             Color darkYellow = new Color(120, 120, 0);
+            Color green = Color.GREEN;
+            Color darkGreen = new Color(0, 120, 0);
             Color lightGray = new Color(200, 200, 200);
             Color gray = new Color(130, 130, 130);
             Color darkGray = new Color(85, 85, 85);
@@ -165,9 +167,13 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                             && model.getBoard()[i][j].getValue() != 0                               //as gray color
                             && !(clickedPosition[0] == i && clickedPosition[1] == j)) {
                         g2.setColor(gray);
-                    } else if (marked1 != null && model.board[i][j].value == 0 && containsPosition(marked1, i, j) && clickedPosition[0] == i && clickedPosition[1] == j) {
+                    } else if (marked2 != null && containsPosition(marked2, i, j) && clickedPosition[0] == i && clickedPosition[1] == j) {
+                        g2.setColor(darkGreen);
+                    } else if (marked2 != null && containsPosition(marked2, i, j)) {
+                        g2.setColor(green);
+                    } else if (marked1 != null && containsPosition(marked1, i, j) && clickedPosition[0] == i && clickedPosition[1] == j) {
                         g2.setColor(darkYellow);
-                    } else if (marked1 != null && model.board[i][j].value == 0 && containsPosition(marked1, i, j)) {
+                    } else if (marked1 != null && containsPosition(marked1, i, j)) {
                         g2.setColor(yellow);
                     }
                     g2.fillRect((int) (boardX + j * (int) fieldWidth), (int) (boardY + i * (int) fieldHeight), (int) fieldWidth, (int) fieldHeight);
