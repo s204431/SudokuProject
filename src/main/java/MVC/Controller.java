@@ -46,7 +46,7 @@ public class Controller {
 		else if (e.getKeyCode() == KeyEvent.VK_N && Main.DEBUG_MODE) {
 			int[] range = SudokuSolver.getDifficultyRange();
 			//model.generateSudoku(range[0], range[1], 0.62);
-			model.generateSudoku(5, 5, 0);
+			model.generateSudoku(4, 4, 0);
 			/*model.giveHint();
 			while (!view.hintName.equals("candidate lines")) {
 				model.generateSudoku(3, 8, 0);

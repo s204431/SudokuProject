@@ -338,7 +338,10 @@ public class EfficientSolver extends SudokuSolver {
 							}
 						}
 						if (foundInnerSquares.size() == foundRows.size()-1) {
+							List<int[]> boxes = new ArrayList<int[]>();
+							boolean updated2 = false;
 							for (int k = 0; k < getNumInnerSquares(); k++) {
+								boxes.add(new int[] {i, k});
 								if (k != j && !foundInnerSquares.contains(k)) {
 									for (int r = i*innerSquareSize; r < i*innerSquareSize+innerSquareSize; r++) {
 										for (int c = k*innerSquareSize; c < k*innerSquareSize+innerSquareSize; c++) {
@@ -347,11 +350,19 @@ public class EfficientSolver extends SudokuSolver {
 												possibleValues[r][c].remove((Integer) v);
 												if (size != possibleValues[r][c].size()) {
 													updated = true;
+													updated2 = true;
 												}
 											}
 										}
-									}	
+									}
 								}
+							}
+							if (updated2) {
+								int[][] boxesArray = new int[boxes.size()][2];
+								for (int p = 0; p < boxes.size(); p++) {
+									boxesArray[p] = boxes.get(p);
+								}
+								addHint("multiple lines", null, null, null, boxesArray);	
 							}
 						}
 					}
@@ -388,7 +399,10 @@ public class EfficientSolver extends SudokuSolver {
 							}
 						}
 						if (foundInnerSquares.size() == foundColumns.size()-1) {
+							List<int[]> boxes = new ArrayList<int[]>();
+							boolean updated2 = false;
 							for (int k = 0; k < getNumInnerSquares(); k++) {
+								boxes.add(new int[] {k, j});
 								if (k != i && !foundInnerSquares.contains(k)) {
 									for (int r = k*innerSquareSize; r < k*innerSquareSize+innerSquareSize; r++) {
 										for (int c = j*innerSquareSize; c < j*innerSquareSize+innerSquareSize; c++) {
@@ -397,11 +411,19 @@ public class EfficientSolver extends SudokuSolver {
 												possibleValues[r][c].remove((Integer) v);
 												if (size != possibleValues[r][c].size()) {
 													updated = true;
+													updated2 = true;
 												}
 											}
 										}
 									}	
 								}
+							}
+							if (updated2) {
+								int[][] boxesArray = new int[boxes.size()][2];
+								for (int p = 0; p < boxes.size(); p++) {
+									boxesArray[p] = boxes.get(p);
+								}
+								addHint("multiple lines", null, null, null, boxesArray);	
 							}
 						}
 					}
@@ -693,7 +715,7 @@ public class EfficientSolver extends SudokuSolver {
 											}	
 										}
 										if (updated2) {
-											addHint("swordfish", new int[][] {{rs[0], i}, {rs[1], i}, {rs2[0], k}, {rs2[1], k}, {rs3[0], l}, {rs3[1], l}}, new int[] {i, k, l}, null, null);
+											addHint("swordfish", new int[][] {{rs[0], i}, {rs[1], i}, {rs2[0], k}, {rs2[1], k}, {rs3[0], l}, {rs3[1], l}}, null, new int[] {i, k, l}, null);
 										}
 									}
 								}

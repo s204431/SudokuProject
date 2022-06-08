@@ -75,6 +75,7 @@ public class Model {
 		if (solved) {
 			return;
 		}
+		hintNumber = 0;
 		board[x][y] = field;
 		if (sudokuSolved(board, innerSquareSize)) {
 			view.winPopup(difficulty);
