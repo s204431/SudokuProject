@@ -30,6 +30,12 @@ import sudoku.Main;
 import sudoku.Screens.*;
 import MVC.*;
 
+/*
+	The UITester, as the name suggests, tests the UI.
+
+*/
+
+
 public class UITester extends ComponentTestFixture {
 	private boolean testMainMenu = true;
 	private boolean testPlayMode = true;
@@ -64,7 +70,8 @@ public class UITester extends ComponentTestFixture {
 			throw e;
 		}
 	}
-	
+
+	//Tests the UI properties of the play mode.
 	public void testPlayMode() {
 		if (!testPlayMode) {
 			return;
@@ -82,7 +89,8 @@ public class UITester extends ComponentTestFixture {
 			throw e;
 		}
 	}
-	
+
+	//Tests the UI properties of the create mode.
 	public void testCreateMode() {
 		if (!testCreateMode) {
 			return;
@@ -98,7 +106,8 @@ public class UITester extends ComponentTestFixture {
 			throw e;
 		}
 	}
-	
+
+	//Tests the UI properties of the solver mode.
 	public void testSolverMode() {
 		if (!testSolverMode) {
 			return;
@@ -115,6 +124,7 @@ public class UITester extends ComponentTestFixture {
 		}
 	}
 
+	//Tests the UI properties of the multiplayer mode.
 	public void testMultiplayerMode() {
 		if (!testMultiplayerMode) {
 			return;
@@ -155,6 +165,13 @@ public class UITester extends ComponentTestFixture {
 		}
 	}
 
+	//As the name suggests, testMonkey is a monkey that
+	//tests our program. It does so by clicking the UI.
+
+	//This monkey test clicks random places just like a user
+	//would, but at a must faster pace. This allows us to have
+	//a really fast way of detecting small errors that
+	//would take up a lot of time by doing manually.
 	public void testMonkey() {
 		if (!monkeyTest) {
 			return;
@@ -202,7 +219,7 @@ public class UITester extends ComponentTestFixture {
 						JButton button = buttons.get(r.nextInt(buttons.size()));
 						try {
 							buttonTester.click(button);
-						} catch (Exception e2) {}
+						} catch (Exception ignored) {}
 					}
 					robot.delay(20);
 				}
@@ -220,7 +237,9 @@ public class UITester extends ComponentTestFixture {
 			e.printStackTrace();
 		}
 	}
-	
+
+	//This method tests a difficulty and tests
+	//whether it holds or not.
 	private void checkDifficulty(String difficulty, String initialButtonName, boolean allowRemovingInitialValues, String... expectedChoices) {
 		clickButton(initialButtonName);
 		clickButton("Generate New Sudoku");
@@ -240,7 +259,10 @@ public class UITester extends ComponentTestFixture {
 		assertEquals("Sudoku has wrong difficulty.", difficulty, SudokuSolver.getDifficultyString(solver.difficulty));
 		checkSudokuActions(view, model, allowRemovingInitialValues);
 	}
-	
+	//checkSudokuActions checks whether the actions are
+	//usable when a sudoku has been generated.
+	//It finds out if the actions that should have been
+	//implemented have been implemented.
 	private void checkSudokuActions(View view, Model model, boolean allowRemovingInitialValues) {
 		double initialBoardX = view.boardX;
 		double initialBoardY = view.boardY;
@@ -307,7 +329,10 @@ public class UITester extends ComponentTestFixture {
 		tester.key(KeyEvent.VK_SPACE);
 		assertTrue("Wrong board position.", view.fieldWidth == initialFieldWidth && view.fieldHeight == initialFieldHeight && view.boardX == initialBoardX && view.boardY == initialBoardY);
 	}
-	
+
+	//Is used when a value from the difficulty
+	//dropdown menu is presented and needs
+	//to be accessed.
 	private void selectDropdownValue(JComboBox dropdown, String value) {
 		JComboBoxTester tester = new JComboBoxTester();
 		int index = -1;
@@ -318,7 +343,8 @@ public class UITester extends ComponentTestFixture {
 		}
 		tester.actionSelectIndex(dropdown, index);
 	}
-	
+
+	//Used when a Dialog is needed to be found.
 	private Dialog getDialog() {
 		try {
 			return (Dialog)getFinder().find(new ClassMatcher(Dialog.class));
@@ -327,7 +353,9 @@ public class UITester extends ComponentTestFixture {
 		}
 		return null;
 	}
-	
+
+	//Used to get the dropdown with the difficulty
+	//options in GenerateNewSudokuScreen.
 	private JComboBox getDropdown() {
 		try {
 			return (JComboBox)getFinder().find(new ClassMatcher(JComboBox.class));
@@ -336,7 +364,10 @@ public class UITester extends ComponentTestFixture {
 		}
 		return null;
 	}
-	
+
+	//Tests whether the difficulty of the
+	//dropdown menu gets the right difficulty
+	//when that dropdown menu is accessed.
 	private void checkDifficultyDropdown(String[] expectedChoices) {
 		JComboBox dropdown = getDropdown();
 		assertNotNull("Difficulty dropdown does not exist.", dropdown);
@@ -345,15 +376,16 @@ public class UITester extends ComponentTestFixture {
 			assertTrue("Wrong choices in difficulty dropdown.", expectedChoices[i].equals(dropdown.getItemAt(i)));
 		}
 	}
-	
+
+	//Clicks a button in a sequence.
 	private void performButtonClickSequence(String[] buttonTexts, Class<?>[] expectedPanelClasses) {
-		assertTrue("Buttons and expected panel classes must have same lengts.", buttonTexts.length == expectedPanelClasses.length);
+		assertTrue("Buttons and expected panel classes must have same lengths.", buttonTexts.length == expectedPanelClasses.length);
 		for (int i = 0; i < buttonTexts.length; i++) {
 			clickButton(buttonTexts[i]);
 			checkPanelActive(expectedPanelClasses[i]);
 		}
 	}
-	
+
 	private void checkPanelActive(Class<?> panelClass) {
 		assertNotNull("Wrong panel active. Expected "+panelClass+".", getPanel(panelClass));
 	}
@@ -369,15 +401,15 @@ public class UITester extends ComponentTestFixture {
 			JButtonTester tester = new JButtonTester();
 			tester.click(button);
 			return;
-		} catch (ComponentNotFoundException | MultipleComponentsFoundException e) {
+		} catch (ComponentNotFoundException | MultipleComponentsFoundException ignored) {
 		}
-		assertTrue("Button "+buttonText+" does not exist.", false);
+		assertTrue("Button " + buttonText + " does not exist.", false);
 	}
 	
 	private JPanel getPanel(Class<?> panelClass) {
 		try {
 			return (JPanel)getFinder().find(new ClassMatcher(panelClass));
-		} catch (ComponentNotFoundException | MultipleComponentsFoundException e) {
+		} catch (ComponentNotFoundException | MultipleComponentsFoundException ignored) {
 		}
 		return null;
 	}
@@ -390,7 +422,7 @@ public class UITester extends ComponentTestFixture {
 			    }
 			});
 			return tf;
-		} catch (ComponentNotFoundException | MultipleComponentsFoundException e) {
+		} catch (ComponentNotFoundException | MultipleComponentsFoundException ignored) {
 		}
 		return null;
 	}

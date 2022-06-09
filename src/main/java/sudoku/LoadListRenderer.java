@@ -19,11 +19,14 @@ import javax.swing.ListCellRenderer;
 
 import MVC.Model;
 import solvers.SudokuSolver;
+
 /*
-   This class renders elements
+   This class renders files from the 'savedsudokus' folder
+   and uses these files to upload viewable saved sudoku
+   files that can be selected and continued after selection.
 */
+
 public class LoadListRenderer extends JPanel implements ListCellRenderer<LoadListElement> {
- 
 	private JPanel panel = new JPanel(null);
     private JLabel nameLabel = new JLabel();
     private JLabel difficultyLabel = new JLabel();
@@ -31,6 +34,7 @@ public class LoadListRenderer extends JPanel implements ListCellRenderer<LoadLis
     private PreviewPanel previewPanel = new PreviewPanel();
  
     public LoadListRenderer(int width) {
+		//Initializes the size and layout of the list renderer.
     	setLayout(new BorderLayout(5, 5));
     	 
         panel.setPreferredSize(new Dimension(width - 20, 100));
@@ -48,24 +52,25 @@ public class LoadListRenderer extends JPanel implements ListCellRenderer<LoadLis
         panel.add(previewPanel);
         add(panel, BorderLayout.CENTER);
     }
- 
+ 	//Returns all the elements in an intuitive way.
     public Component getListCellRendererComponent(JList<? extends LoadListElement> list, LoadListElement element,
 												  int index, boolean isSelected, boolean cellHasFocus) {
     	nameLabel.setText(element.name);
     	if (element.difficulty >= 0) {
-        	difficultyLabel.setText("Difficulty: "+SudokuSolver.getDifficultyString(element.difficulty));
+        	difficultyLabel.setText("Difficulty: " + SudokuSolver.getDifficultyString(element.difficulty));
     	}
     	else {
         	difficultyLabel.setText("Difficulty: -");
     	}
-    	sizeLabel.setText("Size: "+element.size+"x"+element.size);
+    	sizeLabel.setText("Size: " + element.size + "x" + element.size);
     	previewPanel.setElement(element);
     	
     	nameLabel.setOpaque(true);
     	difficultyLabel.setOpaque(true);
     	sizeLabel.setOpaque(true);
     	previewPanel.setOpaque(true);
-    	
+
+		//Makes selected sudoku files more noticeable.
     	if (isSelected) {
     		nameLabel.setBackground(list.getSelectionBackground());
     		difficultyLabel.setBackground(list.getSelectionBackground());
@@ -82,18 +87,22 @@ public class LoadListRenderer extends JPanel implements ListCellRenderer<LoadLis
     		panel.setBackground(list.getBackground());
     		setBackground(list.getBackground());
     	}
- 
         return this;
     }
-    
+
+	/*
+		The PreviewPanel is a small ui of how the sudoku looks.
+		If the LoadGameScreen is active these small boxes of a sudoku
+		instance are presented in the right end of the list element.
+	*/
+
     private static class PreviewPanel extends JPanel {
-    	
     	private LoadListElement element;
     	
     	public void setElement(LoadListElement element) {
     		this.element = element;
     	}
-    	
+    	//Paints a small version of the actual UI.
 	    public void paint(Graphics g) {
 	        super.paint(g);
 	
@@ -116,7 +125,6 @@ public class LoadListRenderer extends JPanel implements ListCellRenderer<LoadLis
 	                if (value > 0 && value <= element.innerSquareSize*element.innerSquareSize) {
 	                	g2.drawString("" + value, j * fieldWidth + fieldWidth/2, i * fieldHeight + fieldHeight/2+3);
 	                }
-
 	            }
 	        }
 	        // Draw thick lines

@@ -57,7 +57,7 @@ public abstract class MenuScreen extends JPanel {
         this.mode = mode;
         initialize();
     }
-
+    //Sets standard values and preferred settings.
     private void initialize() {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         initBackground();

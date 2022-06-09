@@ -31,6 +31,9 @@ public class SolverTester {
 	public void test(Model model, SudokuSolver solver) {
 		long start = new Date().getTime();
 		System.out.println("Testing "+solver.getClass().getSimpleName()+".");
+
+		//These are the different sudokus with the given filename
+		//that the solver tester will find an average runtime of.
 		SolverTestCase[] testCases = new SolverTestCase[] {new SolverTestCase("given", true),
 											   new SolverTestCase("empty", true),
 											   new SolverTestCase("smallunique", true),
@@ -63,6 +66,10 @@ public class SolverTester {
 											   new SolverTestCase("Puzzle_6_01", true)};
 		if (doTestCases) {
 			boolean success = true;
+
+			//Tests all test cases by using the solving
+			//algorithms for every single sudoku being
+			//tested having them find their running time.
 			for (SolverTestCase testCase : testCases) {
 				model.loadAndUpdate(testCase.fileName);
 				solver.setBoard(model.board, model.innerSquareSize);
@@ -164,6 +171,12 @@ public class SolverTester {
 	        }
 		}
 	}
+
+	/*
+		SolverTestCase is a way of saving all the tested
+		sudokus having whether they are solvable
+		or not and what their file name is.
+	*/
 	
 	private static class SolverTestCase {
 		public String fileName;
@@ -174,5 +187,4 @@ public class SolverTester {
 			this.solvable = solvable;
 		}
 	}
-	
 }

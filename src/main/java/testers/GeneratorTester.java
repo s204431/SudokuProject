@@ -30,6 +30,11 @@ public class GeneratorTester {
 				new GeneratorTestCase(1, 3, 3, 3, 3)};
 		int totalGenerated = 0;
 		boolean passed = true;
+
+		//Runs through all the test cases and determines
+		//the average time it takes to generate a sudoku
+		//with the given difficulty, size and amount.
+
 		for (GeneratorTestCase testCase : testCases) {
 			long timeStart = new Date().getTime();
 			totalGenerated += testCase.amount;
@@ -77,14 +82,17 @@ public class GeneratorTester {
 			System.out.println("Generator failed tests.");
 		}
 	}
-	
+
+	/*
+		This class is a way of a test case to
+		have properties and manipulative values.
+	*/
+
 	private static class GeneratorTestCase {
 		public int amount = 0;
 		public String difficulty = "";
-		public int minDifficulty = 0; //Only used if difficulty is not specified.
-		public int maxDifficulty = 0; //Only used if difficulty is not specified.
-		public int innerSquareSize = 0;
-		public int numInnerSquares = 0;
+		public int minDifficulty, maxDifficulty = 0; //Only used if difficulty is not specified.
+		public int innerSquareSize, numInnerSquares = 0;
 		
 		public GeneratorTestCase(int amount, String difficulty, int innerSquareSize, int numInnerSquares) {
 			this.amount = amount;
@@ -101,7 +109,7 @@ public class GeneratorTester {
 			this.numInnerSquares = numInnerSquares;
 		}
 	}
-	public static float toSeconds(long nanoSecs){
-		return (float)nanoSecs/1000000000;
+	public static float nanoToSeconds(long nanoSecs){
+		return (float)nanoSecs / 1000000000;
 	}
 }

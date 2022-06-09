@@ -6,8 +6,15 @@ import java.util.List;
 import sudoku.Field;
 import MVC.Model;
 
+/*
+	All the solvers in the sudoku solver package extend
+	the SudokuSolver class. This class is the foundation
+	of the other solvers and has some methods that are
+	empty because they should have their own implementation
+	in the classes that extends SudokuSolver.
+*/
+
 public abstract class SudokuSolver {
-	
 	protected int[][] board;
 	protected int innerSquareSize;
 	protected int solutionsFound;
@@ -38,7 +45,8 @@ public abstract class SudokuSolver {
 	public int[] makeOneMove() {
 		return null;
 	}
-	
+
+	//Initializes the board the with respective value of n and k.
 	public void setBoard(Field[][] board, int innerSquareSize) {
 		this.innerSquareSize = innerSquareSize;
 		this.board = new int[board.length][board[0].length];
@@ -60,7 +68,8 @@ public abstract class SudokuSolver {
 	protected boolean canBePlaced(int x, int y, int value) {
 		return Model.canBePlaced(toFields(board), innerSquareSize, x, y, value);
 	}
-	
+
+	//Takes the sudoku board and makes field out of this.
 	protected Field[][] toFields(int[][] matrix) {
 		Field[][] fields = new Field[matrix.length][matrix[0].length];
 		for (int i = 0; i < fields.length; i++) {
@@ -70,7 +79,8 @@ public abstract class SudokuSolver {
 		}
 		return fields;
 	}
-	
+	//Checks validity by seeing if values can be
+	//inserted in non-empty fields.
 	protected boolean isValidSudoku() {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board.length; j++) {
@@ -85,7 +95,7 @@ public abstract class SudokuSolver {
 	protected boolean sudokuSolved() {
 		return Model.sudokuSolved(board, innerSquareSize);
 	}
-	
+
 	protected void print(int[][] board) {
 		for (int[] ints : board) {
 			for (int j = 0; j < board.length; j++) {
@@ -95,7 +105,8 @@ public abstract class SudokuSolver {
 		}
 		System.out.println();
 	}
-	
+
+	//Copies all elements in an array into another.
 	protected int[][] copyOf(int[][] array) {
 		int[][] result = new int[array.length][array[0].length];
 		for (int i = 0; i < array.length; i++) {
@@ -103,6 +114,7 @@ public abstract class SudokuSolver {
 		}
 		return result;
 	}
+
 	//This resets values for when starting over a recursively solving instance
 	protected void reset() {
 		solutions = new ArrayList<>();
@@ -113,7 +125,7 @@ public abstract class SudokuSolver {
 	}
 	
 	protected boolean kEqualsN() {
-		return innerSquareSize*innerSquareSize == board.length;
+		return innerSquareSize * innerSquareSize == board.length;
 	}
 	
 	protected int getNumInnerSquares() {
@@ -127,7 +139,7 @@ public abstract class SudokuSolver {
 	public static int[] getDifficultyRange() {
 		return new int[] {1, 8};
 	}
-	
+	//Returns the range that the given difficulty has.
 	public static int[] getDifficultyRange(String difficulty) {
 		switch(difficulty) {
 			case "Unsolvable":
@@ -148,9 +160,8 @@ public abstract class SudokuSolver {
 	public static String[] getDifficultyStrings() {
 		return new String[] {"Easy", "Medium", "Hard", "Extreme"};
 	}
-	
+	//Determines Difficulty string by checking value of difficulty
 	public static String getDifficultyString(int difficulty) {
-
 		if (difficulty <= 0) {
 			return "Unsolvable";
 		}

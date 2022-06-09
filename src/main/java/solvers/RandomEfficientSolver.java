@@ -7,7 +7,9 @@ import sudoku.Field;
 
 /*
 	Just like the RandomBacktrackingSolver that randomizes the
-
+	BacktrackingSolver this class also shuffles the order of
+	the values that are generated and therefore makes the order
+	of what solving method should be chosen random.
 */
 
 public class RandomEfficientSolver extends EfficientSolver {
