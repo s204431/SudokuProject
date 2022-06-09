@@ -25,6 +25,12 @@ public class EfficientSolver extends SudokuSolver {
 	private boolean useSwordfish = true;
 	private boolean useForcingChains = true;
 	public boolean cancel = false;
+	
+	public List<String> hintNames = new ArrayList<String>();
+	public List<int[][]> positionHints = new ArrayList<int[][]>();
+	public List<int[]> rowHints = new ArrayList<int[]>();
+	public List<int[]> columnHints = new ArrayList<int[]>();
+	public List<int[][]> subBoxHints = new ArrayList<int[][]>();
 
 	//Constructor used for MVC and solvers
 	public EfficientSolver(Field[][] board, int innerSquareSize) {
@@ -172,6 +178,7 @@ public class EfficientSolver extends SudokuSolver {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
 				if (possibleValues[i][j].size() == 1) {
+					addHint("single candidate", new int[][] {{i, j}}, null, null, null);
 					return toMove(i, j, possibleValues[i][j]);
 				}
 			}
@@ -203,6 +210,15 @@ public class EfficientSolver extends SudokuSolver {
 						}
 					}
 					if ((!found1 && kEqualsN()) || (!found2 && kEqualsN()) || !found3) {
+						if (!found1) {
+							addHint("single position", new int[][] {{i, j}}, new int[] {i}, null, null);
+						}
+						else if (!found2) {
+							addHint("single position", new int[][] {{i, j}}, null, new int[] {j}, null);
+						}
+						else {
+							addHint("single position", new int[][] {{i, j}}, null, null, new int[][] {{i/innerSquareSize, j/innerSquareSize}});
+						}
 						return toMove(i, j, v);
 					}
 				}
@@ -238,23 +254,49 @@ public class EfficientSolver extends SudokuSolver {
 						}
 					}
 					if (foundInRow >= 0 && foundInColumn < 0) {
+						boolean updated2 = false;
+						List<int[]> positions = new ArrayList<int[]>();
 						for (int l = 0; l < board.length; l++) {
 							if (l < j * innerSquareSize || l >= j * innerSquareSize + innerSquareSize) {
 								if (possibleValues[foundInRow][l].contains(v)) {
 									possibleValues[foundInRow][l].remove((Integer) v);
 									updated = true;
+									updated2 = true;
 								}
 							}
+							else if (possibleValues[foundInRow][l].contains(v)) {
+								positions.add(new int[] {foundInRow, l});
+							}
+						}
+						if (updated2) {
+							int[][] positionsArray = new int[positions.size()][2];
+							for (int p = 0; p < positions.size(); p++) {
+								positionsArray[p] = positions.get(p);
+							}
+							addHint("candidate lines", positionsArray, new int[] {foundInRow}, null, null);
 						}
 					}
 					else if (foundInRow < 0 && foundInColumn >= 0) {
+						boolean updated2 = false;
+						List<int[]> positions = new ArrayList<int[]>();
 						for (int k = 0; k < board.length; k++) {
 							if (k < i * innerSquareSize || k >= i * innerSquareSize + innerSquareSize) {
 								if (possibleValues[k][foundInColumn].contains(v)) {
 									possibleValues[k][foundInColumn].remove((Integer) v);
 									updated = true;
+									updated2 = true;
 								}
 							}
+							else if (possibleValues[k][foundInColumn].contains(v)) {
+								positions.add(new int[] {k, foundInColumn});
+							}
+						}
+						if (updated2) {
+							int[][] positionsArray = new int[positions.size()][2];
+							for (int p = 0; p < positions.size(); p++) {
+								positionsArray[p] = positions.get(p);
+							}
+							addHint("candidate lines", positionsArray, null, new int[] {foundInColumn}, null);
 						}
 					}
 				}
@@ -296,7 +338,10 @@ public class EfficientSolver extends SudokuSolver {
 							}
 						}
 						if (foundInnerSquares.size() == foundRows.size()-1) {
+							List<int[]> boxes = new ArrayList<int[]>();
+							boolean updated2 = false;
 							for (int k = 0; k < getNumInnerSquares(); k++) {
+								boxes.add(new int[] {i, k});
 								if (k != j && !foundInnerSquares.contains(k)) {
 									for (int r = i*innerSquareSize; r < i*innerSquareSize+innerSquareSize; r++) {
 										for (int c = k*innerSquareSize; c < k*innerSquareSize+innerSquareSize; c++) {
@@ -305,11 +350,19 @@ public class EfficientSolver extends SudokuSolver {
 												possibleValues[r][c].remove((Integer) v);
 												if (size != possibleValues[r][c].size()) {
 													updated = true;
+													updated2 = true;
 												}
 											}
 										}
-									}	
+									}
 								}
+							}
+							if (updated2) {
+								int[][] boxesArray = new int[boxes.size()][2];
+								for (int p = 0; p < boxes.size(); p++) {
+									boxesArray[p] = boxes.get(p);
+								}
+								addHint("multiple lines", null, null, null, boxesArray);	
 							}
 						}
 					}
@@ -346,7 +399,10 @@ public class EfficientSolver extends SudokuSolver {
 							}
 						}
 						if (foundInnerSquares.size() == foundColumns.size()-1) {
+							List<int[]> boxes = new ArrayList<int[]>();
+							boolean updated2 = false;
 							for (int k = 0; k < getNumInnerSquares(); k++) {
+								boxes.add(new int[] {k, j});
 								if (k != i && !foundInnerSquares.contains(k)) {
 									for (int r = k*innerSquareSize; r < k*innerSquareSize+innerSquareSize; r++) {
 										for (int c = j*innerSquareSize; c < j*innerSquareSize+innerSquareSize; c++) {
@@ -355,11 +411,19 @@ public class EfficientSolver extends SudokuSolver {
 												possibleValues[r][c].remove((Integer) v);
 												if (size != possibleValues[r][c].size()) {
 													updated = true;
+													updated2 = true;
 												}
 											}
 										}
 									}	
 								}
+							}
+							if (updated2) {
+								int[][] boxesArray = new int[boxes.size()][2];
+								for (int p = 0; p < boxes.size(); p++) {
+									boxesArray[p] = boxes.get(p);
+								}
+								addHint("multiple lines", null, null, null, boxesArray);	
 							}
 						}
 					}
@@ -504,6 +568,7 @@ public class EfficientSolver extends SudokuSolver {
 					for (int k = i+1; k < board.length; k++) {
 						int[] cs2 = exactlyTwo(possibleValues, k, v, true);
 						if (cs[0] == cs2[0] && cs[1] == cs2[1]) {
+							boolean updated2 = false;
 							for (int r = 0; r < board.length; r++) {
 								if (r != i && r != k) {
 									int size1 = possibleValues[r][cs[0]].size();
@@ -512,9 +577,13 @@ public class EfficientSolver extends SudokuSolver {
 									possibleValues[r][cs[1]].remove((Integer)v);
 									if (size1 != possibleValues[r][cs[0]].size() || size2 != possibleValues[r][cs[1]].size()) {
 										updated = true;
+										updated2 = true;
 									}
 								}	
-							}			
+							}
+							if (updated2) {
+								addHint("X-Wing", new int[][] {{i, cs[0]}, {i, cs[1]}, {k, cs[0]}, {k, cs[1]}}, new int[] {i, k}, null, null);
+							}
 						}
 					}
 				}
@@ -523,6 +592,7 @@ public class EfficientSolver extends SudokuSolver {
 					for (int k = i+1; k < board.length; k++) {
 						int[] rs2 = exactlyTwo(possibleValues, k, v, false);
 						if (rs[0] == rs2[0] && rs[1] == rs2[1]) {
+							boolean updated2 = false;
 							for (int c = 0; c < board.length; c++) {
 								if (c != i && c != k) {
 									int size1 = possibleValues[rs[0]][c].size();
@@ -531,9 +601,13 @@ public class EfficientSolver extends SudokuSolver {
 									possibleValues[rs[1]][c].remove((Integer)v);
 									if (size1 != possibleValues[rs[0]][c].size() || size2 != possibleValues[rs[1]][c].size()) {
 										updated = true;
+										updated2 = true;
 									}
-								}	
-							}			
+								}
+							}
+							if (updated2) {
+								addHint("X-Wing", new int[][] {{rs[0], i}, {rs[1], i}, {rs[0], k}, {rs[1], k}}, null, new int[] {i, k}, null);
+							}
 						}
 					}
 				}
@@ -574,6 +648,7 @@ public class EfficientSolver extends SudokuSolver {
 								for (int l = k+1; l < board.length; l++) {
 									int[] cs3 = exactlyTwo(possibleValues, l, v, true);
 									if (cs3[0] == cs[i1] && cs3[1] == cs2[i2]) {
+										boolean updated2 = false;
 										for (int r = 0; r < board.length; r++) {
 											if (r != i && r != k && r != l) {
 												int size1 = possibleValues[r][cs3[0]].size();
@@ -584,8 +659,12 @@ public class EfficientSolver extends SudokuSolver {
 												possibleValues[r][cs[i1 == 0 ? 1 : 0]].remove((Integer)v);
 												if (size1 != possibleValues[r][cs3[0]].size() || size2 != possibleValues[r][cs3[1]].size() || size3 != possibleValues[r][cs[i1 == 0 ? 1 : 0]].size()) {
 													updated = true;
+													updated2 = true;
 												}
 											}	
+										}
+										if (updated2) {
+											addHint("swordfish", new int[][] {{i, cs[0]}, {i, cs[1]}, {k, cs2[0]}, {k, cs2[1]}, {l, cs3[0]}, {l, cs3[1]}}, new int[] {i, k, l}, null, null);
 										}
 									}
 								}
@@ -620,6 +699,7 @@ public class EfficientSolver extends SudokuSolver {
 								for (int l = k+1; l < board.length; l++) {
 									int[] rs3 = exactlyTwo(possibleValues, l, v, false);
 									if (rs3[0] == rs[i1] && rs3[1] == rs2[i2]) {
+										boolean updated2 = false;
 										for (int c = 0; c < board.length; c++) {
 											if (c != i && c != k && c != l) {
 												int size1 = possibleValues[rs3[0]][c].size();
@@ -630,8 +710,12 @@ public class EfficientSolver extends SudokuSolver {
 												possibleValues[rs[i1 == 0 ? 1 : 0]][c].remove((Integer)v);
 												if (size1 != possibleValues[rs3[0]][c].size() || size2 != possibleValues[rs3[1]][c].size() || size3 != possibleValues[rs[i1 == 0 ? 1 : 0]][c].size()) {
 													updated = true;
+													updated2 = true;
 												}
 											}	
+										}
+										if (updated2) {
+											addHint("swordfish", new int[][] {{rs[0], i}, {rs[1], i}, {rs2[0], k}, {rs2[1], k}, {rs3[0], l}, {rs3[1], l}}, null, new int[] {i, k, l}, null);
 										}
 									}
 								}
@@ -681,6 +765,7 @@ public class EfficientSolver extends SudokuSolver {
 					for (int[] a : forces1) {
 						for (int[] a2 : forces2) {
 							if (a[0] == a2[0] && a[1] == a2[1] && a[2] == a2[2]) {
+								addHint("forcing chains", new int[][] {{a[0], a[1]}}, null, null, null);
 								return toMove(a[0], a[1], a[2]);
 							}
 						}
@@ -893,6 +978,7 @@ public class EfficientSolver extends SudokuSolver {
 	//Makes only one move if a solution exists.
 	public int[] makeOneMove() {
 		List<int[][]> solvedSudoku = solve(1);
+		resetHints();
 		if (solvedSudoku.size() > 0) {
 			reset();
 			List<Integer>[] move = makeMove(board, initializePossibleValues());
@@ -907,6 +993,22 @@ public class EfficientSolver extends SudokuSolver {
 			}
 		}
 		return null;
+	}
+	
+	private void addHint(String name, int[][] positions, int[] rows, int[] columns, int[][] subBoxes) {
+		hintNames.add(name);
+		positionHints.add(positions == null ? new int[0][0] : positions);
+		rowHints.add(rows == null ? new int[0] : rows);
+		columnHints.add(columns == null ? new int[0] : columns);
+		subBoxHints.add(subBoxes == null ? new int[0][0] : subBoxes);
+	}
+	
+	private void resetHints() {
+		hintNames = new ArrayList<String>();
+		positionHints = new ArrayList<int[][]>();
+		rowHints = new ArrayList<int[]>();
+		columnHints = new ArrayList<int[]>();
+		subBoxHints = new ArrayList<int[][]>();
 	}
 	
 }

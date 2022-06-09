@@ -27,17 +27,17 @@ all classes and minimizes errors.
 
 
 public abstract class MenuScreen extends JPanel {
-    protected Font titleFont = new Font(Font.SERIF, Font.BOLD,50);
-    protected int textSize = 50;
-    protected int spacing = 30;
-    protected int btnHeight = 50;
-    protected int btnWidth = 300;
+    protected Font titleFont = new Font(Font.SERIF, Font.BOLD,Main.SCREEN_HEIGHT/20);
+    protected int textSize = Main.SCREEN_HEIGHT/20;
+    protected int spacing = Main.SCREEN_HEIGHT/30;
+    protected int btnHeight = Main.SCREEN_HEIGHT/20;
+    protected int btnWidth = Main.SCREEN_WIDTH/3;
     protected int k;
     protected int n;
     protected JFrame frame;
-    protected Font buttonFont = new Font("Arial", Font.BOLD, 20);
-    protected Font textFont = new Font("Serif", Font.BOLD,20);
-    protected Font labelFont = new Font("Serif", Font.BOLD,30);
+    protected Font buttonFont = new Font("Arial", Font.BOLD, Main.SCREEN_HEIGHT/40);
+    protected Font textFont = new Font("Serif", Font.BOLD,Main.SCREEN_HEIGHT/40);
+    protected Font labelFont = new Font("Serif", Font.BOLD,Main.SCREEN_HEIGHT/50);
     protected Dimension panelDimension = new Dimension(400,60);
     protected Dimension buttonDimension = new Dimension(btnWidth, btnHeight);
     protected Dimension textDimension = new Dimension(textSize, textSize);
@@ -93,23 +93,16 @@ public abstract class MenuScreen extends JPanel {
             button.setMinimumSize(buttonDimension);
             button.setPreferredSize(buttonDimension);
             button.setFocusPainted(false);
-            button.setBorderPainted(false);
-            //button.setContentAreaFilled(false);
-            button.setFocusPainted(false);
-            //button.setOpaque(false);
-            button.setBorderPainted(true);
             button.setBackground(buttonColor);
             button.setForeground(Color.BLACK);
             button.setFont(buttonFont);
             button.addMouseListener(new java.awt.event.MouseAdapter() {
                 public void mouseEntered(java.awt.event.MouseEvent evt) {
                     button.setBackground(hoverButtonColor);
-                    button.setForeground(Color.BLACK);
                 }
 
                 public void mouseExited(java.awt.event.MouseEvent evt) {
                     button.setBackground(buttonColor);
-                    button.setForeground(Color.BLACK);
                 }
             });
             add(button);
@@ -119,6 +112,7 @@ public abstract class MenuScreen extends JPanel {
 
     protected void setSliders(JLabel[] labels, ChangeListener[] listener, JSlider[] sliders, String[] names){
         for (int i = 0; i < labels.length; i++) {
+            labels[i].setFont(labelFont);
             add(labels[i]);
             sliders[i].setPaintTicks(true);
             sliders[i].setMajorTickSpacing(2);
@@ -129,6 +123,7 @@ public abstract class MenuScreen extends JPanel {
             panel.setMaximumSize(new Dimension(200,60));
             panel.add(sliders[i]);
             JLabel name = new JLabel(names[i]);
+            name.setFont(labelFont);
             name.setForeground(Color.BLACK);
             panel.add(name);
             panel.setOpaque(false);

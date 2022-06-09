@@ -45,7 +45,14 @@ public class Controller {
 		}//Generates a new sudoku with the same difficulty when 'n' is pressed.
 		else if (e.getKeyCode() == KeyEvent.VK_N && Main.DEBUG_MODE) {
 			int[] range = SudokuSolver.getDifficultyRange();
-			model.generateSudoku(range[0], range[1], 0.62);
+			//model.generateSudoku(range[0], range[1], 0.62);
+			model.generateSudoku(4, 4, 0);
+			/*model.giveHint();
+			while (!view.hintName.equals("candidate lines")) {
+				model.generateSudoku(3, 8, 0);
+				model.giveHint();
+				System.out.println(view.hintName);
+			}*/
 		}//Pops up your score as if solved when 'm' is pressed.
 		else if (e.getKeyCode() == KeyEvent.VK_M && Main.DEBUG_MODE) {
 			view.winPopup(model.difficulty);
