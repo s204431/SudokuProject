@@ -80,6 +80,7 @@ public class Model {
 			solved = true;
 		}
 		view.repaint();
+		generateNotes();
 	}
 	
 	//Change the value of field at position (x,y).
@@ -309,6 +310,7 @@ public class Model {
 			}
 		}
 	}
+
 	//Helper function for the above function
 	public void add(int x, int y, int value) {
 		for (int i = 0; i < board.length; i++) {
