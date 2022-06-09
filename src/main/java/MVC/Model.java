@@ -90,7 +90,7 @@ public class Model {
 		field.notes = board[x][y].notes;
 		setField(x, y, field);
 	}
-
+	//Inserts note in a text field with a given value
 	public void setNote(int x, int y, int value) {
 		board[x][y].notes[value - 1] = (board[x][y].notes[value - 1] == value) ? 0 : value;
 		view.repaint();
@@ -170,9 +170,9 @@ public class Model {
 
 	public int computeFilledInFields(Field[][] board) {
 		int count = 0;
-		for (int i = 0; i < board.length; i++) {
+		for (Field[] fields : board) {
 			for (int j = 0; j < board[0].length; j++) {
-				if (board[i][j].value != 0) {
+				if (fields[j].value != 0) {
 					count++;
 				}
 			}
@@ -311,6 +311,7 @@ public class Model {
 			}
 		}
 	}
+
 	//Helper function for the above function
 	public void add(int x, int y, int value) {
 		for (int i = 0; i < board.length; i++) {

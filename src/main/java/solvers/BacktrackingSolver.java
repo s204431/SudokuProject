@@ -9,7 +9,8 @@ import MVC.Model;
 
 /*
 	This is the BackTracking Solver class that uses the SudokuSolver's
-	functionality
+	functionality. It solves the sudoku by using a backtracking technique
+	that is explained in the problem analysis section in the report.
 */
 
 public class BacktrackingSolver extends SudokuSolver {
@@ -32,6 +33,7 @@ public class BacktrackingSolver extends SudokuSolver {
 		}
 		return solutions;
 	}
+
 	//Recursively solves the sudoku
 	private void solveRecursive(int x, int y, int maxSolutions) {
 		if (solutionsFound >= maxSolutions) {
