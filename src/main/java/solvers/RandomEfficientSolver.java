@@ -5,6 +5,11 @@ import java.util.List;
 
 import sudoku.Field;
 
+/*
+	Just like the RandomBacktrackingSolver that randomizes the
+
+*/
+
 public class RandomEfficientSolver extends EfficientSolver {
 	
 	public RandomEfficientSolver(Field[][] board, int innerSquareSize) {

@@ -9,8 +9,8 @@ import sudoku.Field;
 
 /*
 	The EfficientSolver is an extension of the SudokuSolver
-	using the most optimized algorithm for solving a sudoku
-	this is used when solving a sudoku.
+	using most of the different solving techniques explained in
+	the problem analysis section in the report.
 */
 
 
