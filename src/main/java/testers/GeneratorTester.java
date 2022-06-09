@@ -15,9 +15,9 @@ public class GeneratorTester {
 		System.out.println("Testing generator...");
 		//These are the different sudokus that are generated, and will determine the time complexity.
 		GeneratorTestCase[] testCases = new GeneratorTestCase[] {new GeneratorTestCase(50, "Easy", 3, 3),
-				new GeneratorTestCase(5, "Medium", 3, 3),
-				new GeneratorTestCase(5, "Hard", 3, 3),
-				new GeneratorTestCase(5, "Extreme", 3, 3),
+				new GeneratorTestCase(50, "Medium", 3, 3),
+				new GeneratorTestCase(50, "Hard", 3, 3),
+				new GeneratorTestCase(50, "Extreme", 3, 3),
 				new GeneratorTestCase(50, "Easy", 3, 2),
 				new GeneratorTestCase(2, "Easy", 4, 4),
 				new GeneratorTestCase(2, "Medium", 4, 4),
@@ -31,17 +31,27 @@ public class GeneratorTester {
 		int totalGenerated = 0;
 		boolean passed = true;
 		for (GeneratorTestCase testCase : testCases) {
+			long minimum = Long.MAX_VALUE;
+			long maximum = 0;
 			long timeStart = new Date().getTime();
 			totalGenerated += testCase.amount;
 			SudokuGenerator generator = new SudokuGenerator();
 			boolean passedTestCase = true;
 			for (int j = 0; j < testCase.amount; j++) {
+				long betweenTime = new Date().getTime();
 				int[][] result;
 				if (testCase.difficulty.equals("")) {
 					result = generator.generateSudoku(testCase.innerSquareSize, testCase.numInnerSquares, testCase.minDifficulty, testCase.maxDifficulty, 0);
 				} else {
 					int[] range = SudokuSolver.getDifficultyRange(testCase.difficulty);
 					result = generator.generateSudoku(testCase.innerSquareSize, testCase.numInnerSquares, range[0], range[1], 0);
+				}
+				long betweenTime2 = new Date().getTime();
+				if (betweenTime2 - betweenTime < minimum) {
+					minimum = betweenTime2 - betweenTime;
+				}
+				if (betweenTime2 - betweenTime > maximum) {
+					maximum = betweenTime2 - betweenTime;
 				}
 				SudokuSolver solver = new EfficientSolver(result, testCase.innerSquareSize);
 				int[] range = testCase.difficulty.equals("") ? new int[]{testCase.minDifficulty, testCase.maxDifficulty} : SudokuSolver.getDifficultyRange(testCase.difficulty);
@@ -55,9 +65,9 @@ public class GeneratorTester {
 			if (passedTestCase) {
 				int averageTime = (int) (time / testCase.amount);
 				if (testCase.difficulty.equals("")) {
-					System.out.println("Generator passed " + testCase.amount + " " + size + "x" + size + " sudokus of difficulty " + testCase.minDifficulty + " to " + testCase.maxDifficulty + " in " + time + " ms. Average time: " + averageTime + " ms per sudoku.");
+					System.out.println("Generator passed " + testCase.amount + " " + size + "x" + size + " sudokus of difficulty " + testCase.minDifficulty + " to " + testCase.maxDifficulty + " in " + time + " ms. Average time: " + averageTime + " ms per sudoku. Min: " + minimum + " ms. Max: " + maximum + " ms.");
 				} else {
-					System.out.println("Generator passed " + testCase.amount + " " + size + "x" + size + " sudokus of difficulty " + testCase.difficulty + " in " + time + " ms. Average time: " + averageTime + " ms per sudoku.");
+					System.out.println("Generator passed " + testCase.amount + " " + size + "x" + size + " sudokus of difficulty " + testCase.difficulty + " in " + time + " ms. Average time: " + averageTime + " ms per sudoku. Min: " + minimum + " ms. Max: " + maximum + " ms.");
 				}
 			} else {
 				passed = false;

@@ -16,10 +16,10 @@ and how much time it takes to be solved.
  */
 public class SolverTester {
 	
-	private boolean includeRandom = true;
+	private boolean includeRandom = false;
 	private int numberOfRandomTests = 100;
-	private boolean doTestCases = false;
-	private boolean doTestSudokus = true;
+	private boolean doTestCases = true;
+	private boolean doTestSudokus = false;
 	
 	public void testAll(Model model) {
 		//test(model, new BacktrackingSolver(model.board, model.innerSquareSize));
@@ -95,6 +95,8 @@ public class SolverTester {
 					long time1 = new Date().getTime();
 					int[] range = SudokuSolver.getDifficultyRange();
 					model.generateSudoku(range[0], range[1], 0.62, 3, 3);
+					while (!model.generatingSudokuDone) {}
+					System.out.println("asd");
 					long time2 = new Date().getTime();
 					timeToGenerate += time2 - time1;
 					solver.setBoard(model.board, model.innerSquareSize);
