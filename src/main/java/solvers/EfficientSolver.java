@@ -835,6 +835,7 @@ public class EfficientSolver extends SudokuSolver {
 		if (lowestX < 0 || lowestY < 0) {
 			return null;
 		}
+		addHint("guessing", new int[][] {{lowestX, lowestY}}, null, null, null);
 		return toMove(lowestX, lowestY, possibleValues[lowestX][lowestY]);
 	}
 

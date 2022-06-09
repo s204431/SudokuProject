@@ -376,13 +376,6 @@ public class Model {
 			}
 			hintNumber++;
 		}
-		else {
-			view.marked1 = new ArrayList<int[]>();
-			view.marked2 = new ArrayList<int[]>();
-			view.hintName = "guessing";
-			view.marked2.add(new int[] {move[0], move[1]});
-		}
-		
 	}
 
 	//Makes a single move in progression of solving the sudoku
