@@ -15,7 +15,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 /*
 The abstract class MenuScreen is a screen that all the other Screens inherit from. It has built-in functions
@@ -67,8 +69,9 @@ public abstract class MenuScreen extends JPanel {
 
     private void initBackground() {
         try {
-            backgroundImage = ImageIO.read(getClass().getClassLoader().getResource("Background.png"));
-        } catch (IOException e) {
+            //backgroundImage = ImageIO.read(getClass().getClassLoader().getResource("Background.png"));
+            backgroundImage = ImageIO.read(new File("src/main/resources/Background.png"));
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
