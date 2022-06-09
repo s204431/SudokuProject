@@ -89,6 +89,8 @@ public class Model {
 		Field field = new Field(value, board[x][y].interactable);
 		field.notes = board[x][y].notes;
 		setField(x, y, field);
+		view.marked1 = new ArrayList<int[]>();
+		view.marked2 = new ArrayList<int[]>();
 	}
 	//Inserts note in a text field with a given value
 	public void setNote(int x, int y, int value) {
