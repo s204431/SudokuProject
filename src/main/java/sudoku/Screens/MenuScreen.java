@@ -93,23 +93,16 @@ public abstract class MenuScreen extends JPanel {
             button.setMinimumSize(buttonDimension);
             button.setPreferredSize(buttonDimension);
             button.setFocusPainted(false);
-            button.setBorderPainted(false);
-            //button.setContentAreaFilled(false);
-            button.setFocusPainted(false);
-            //button.setOpaque(false);
-            button.setBorderPainted(true);
             button.setBackground(buttonColor);
             button.setForeground(Color.BLACK);
             button.setFont(buttonFont);
             button.addMouseListener(new java.awt.event.MouseAdapter() {
                 public void mouseEntered(java.awt.event.MouseEvent evt) {
                     button.setBackground(hoverButtonColor);
-                    button.setForeground(Color.BLACK);
                 }
 
                 public void mouseExited(java.awt.event.MouseEvent evt) {
                     button.setBackground(buttonColor);
-                    button.setForeground(Color.BLACK);
                 }
             });
             add(button);
