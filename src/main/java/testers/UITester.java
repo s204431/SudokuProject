@@ -35,13 +35,13 @@ import MVC.*;
 */
 
 public class UITester extends ComponentTestFixture {
-	private boolean testMainMenu = true,
-					testPlayMode = true,
-					testCreateMode = true,
-					testSolverMode = true,
-					testMultiplayerMode = false,
-					monkeyTest = true;
-	private String otherTesterIP = "10.209.128.1";
+	private boolean testMainMenu = false,
+					testPlayMode = false,
+					testCreateMode = false,
+					testSolverMode = false,
+					testMultiplayerMode = true,
+					monkeyTest = false;
+	private String otherTesterIP = "10.209.182.103";
 
 	public void testMainMenu() {
 		if (!testMainMenu) {
@@ -242,7 +242,10 @@ public class UITester extends ComponentTestFixture {
 		clickButton(initialButtonName);
 		clickButton("Generate New Sudoku");
 		checkDifficultyDropdown(expectedChoices);
-		selectDropdownValue(getDropdown(), difficulty);
+		JComboBox dropdown = getDropdown();
+		if (!dropdown.getSelectedItem().equals(difficulty)) {
+			selectDropdownValue(dropdown, difficulty);	
+		}
 		clickButton("Generate Sudoku");
 		sleep(500);
 		checkPanelActive(View.class);
