@@ -78,8 +78,8 @@ public class Model {
 		hintNumber = 0;
 		board[x][y] = field;
 		if (sudokuSolved(board, innerSquareSize)) {
-			view.winPopup(difficulty);
 			solved = true;
+			view.winPopup(difficulty);
 		}
 		view.repaint();
 	}
