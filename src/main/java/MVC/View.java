@@ -47,7 +47,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     public boolean notesOn = false;
     private boolean infoButtonClicked = false;
     private int savedDifficulty;
-    private Font buttonFont = new Font("Arial", Font.BOLD, Main.SCREEN_HEIGHT / 80);
+    private Font buttonFont = new Font("Arial", Font.BOLD, Main.SCREEN_HEIGHT / 50);
     private Color buttonColor = new Color(180, 180, 180);
     private Color hoverButtonColor = new Color(120, 120, 120);
 
@@ -81,7 +81,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         // Create button panel
         buttonPanel = new JPanel(null);
         buttonPanel.setFocusable(true);
-        buttonPanel.setBounds(getPreferredSize().width - getPreferredSize().width/8, - 1, getPreferredSize().width/8, getPreferredSize().height);
+        buttonPanel.setBounds(getPreferredSize().width - getPreferredSize().width/5, - 1, getPreferredSize().width/5, getPreferredSize().height);
         buttonPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         addComponentsToButtonPanel(model.mode);
 
@@ -309,7 +309,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             			inFocus = false;
             		}});
             	loadButton = new JButton("Load");
-                loadButton.setBounds(buttonPanel.getWidth()/4, 580, buttonPanel.getWidth()/2,buttonPanel.getWidth()/9);
+                loadButton.setBounds(buttonPanel.getWidth()/4, 600, buttonPanel.getWidth()/2,buttonPanel.getWidth()/9);
                 styleButton(loadButton);
                 loadButton.addActionListener(new ActionListener() {
                     @Override
@@ -365,7 +365,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             hintText = new JLabel();
             hintText.setFont(new Font("Serif", Font.BOLD, buttonPanel.getWidth()/15));
             hintText.setFocusable(false);
-            hintText.setBounds(40, 250, buttonPanel.getWidth(),buttonPanel.getWidth()/9);
+            hintText.setBounds(buttonPanel.getWidth()/5, 250, buttonPanel.getWidth(),buttonPanel.getWidth()/9);
             buttonPanel.add(hintText);
 
             JButton hintButton = new JButton("Hint");
