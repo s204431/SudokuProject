@@ -47,6 +47,9 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     public boolean notesOn = false;
     private boolean infoButtonClicked = false;
     private int savedDifficulty;
+    private Font buttonFont = new Font("Arial", Font.BOLD, Main.SCREEN_HEIGHT / 80);
+    private Color buttonColor = new Color(180, 180, 180);
+    private Color hoverButtonColor = new Color(120, 120, 120);
 
     public int[] clickedPosition = new int[] {0, 0};
     public ArrayList<int[]> marked1;
@@ -247,6 +250,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     public void addCancelButtonToView() {
         cancelButton = new JButton("Cancel");
         cancelButton.setBounds(windowWidth / 2 - 150, windowHeight - 200,300,75);
+        styleButton(cancelButton);
         cancelButton.addActionListener(   new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -261,6 +265,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     public void addComponentsToButtonPanel(Mode mode) {
         JButton helpButton = new JButton("Help");
         helpButton.setBounds(50, 350,100,25);
+        styleButton(helpButton);
         helpButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -270,6 +275,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         buttonPanel.add(helpButton);
         notesButton = new JButton("Notes off");
         notesButton.setBounds(50, 400, 100, 25);
+        styleButton(notesButton);
         notesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -285,6 +291,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         buttonPanel.add(notesButton);
         exitButton = new JButton("Exit");
         exitButton.setBounds(50, 450, 100, 25);
+        styleButton(exitButton);
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -306,6 +313,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             		}});
             	loadButton = new JButton("Load");
                 loadButton.setBounds(50, 580, 100, 25);
+                styleButton(loadButton);
                 loadButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -324,6 +332,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         } else if (mode == Mode.create) {
             saveButton = new JButton("Save");
             saveButton.setBounds(50, 250, 100, 25);
+            styleButton(saveButton);
             saveButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -335,6 +344,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         } else if (mode == Mode.solver) {
             JButton solveButton = new JButton("Solve");
             solveButton.setBounds(50, 200, 100, 25);
+            styleButton(solveButton);
             solveButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -343,6 +353,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             });
             JButton stepSolveButton = new JButton("Step-solve");
             stepSolveButton.setBounds(50, 250, 100, 25);
+            styleButton(stepSolveButton);
             stepSolveButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -362,6 +373,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 
             JButton hintButton = new JButton("Hint");
             hintButton.setBounds(50, 200, 100, 25);
+            styleButton(hintButton);
             hintButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -371,6 +383,22 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             });
             buttonPanel.add(hintButton);
         }
+    }
+
+    private void styleButton(JButton button) {
+        button.setFocusPainted(false);
+        button.setBackground(buttonColor);
+        button.setForeground(Color.BLACK);
+        button.setFont(buttonFont);
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                button.setBackground(hoverButtonColor);
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                button.setBackground(buttonColor);
+            }
+        });
     }
 
     //Shows the popup menu for saving a sudoku.
