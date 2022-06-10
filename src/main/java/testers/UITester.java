@@ -35,12 +35,12 @@ import MVC.*;
 */
 
 public class UITester extends ComponentTestFixture {
-	private boolean testMainMenu = false,
-					testPlayMode = false,
-					testCreateMode = false,
-					testSolverMode = false,
-					testMultiplayerMode = true,
-					monkeyTest = false;
+	private boolean testMainMenu = true,
+					testPlayMode = true,
+					testCreateMode = true,
+					testSolverMode = true,
+					testMultiplayerMode = false,
+					monkeyTest = true;
 	private String otherTesterIP = "10.209.182.103";
 
 	public void testMainMenu() {
@@ -153,7 +153,7 @@ public class UITester extends ComponentTestFixture {
 			}
 			sleep(3500);
 			clickButton("Exit");
-			sleep(500);
+			sleep(1000);
 			checkPanelActive(MainScreen.class);
 		}
 		else {
