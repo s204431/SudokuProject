@@ -56,7 +56,7 @@ public class MultiplayerView extends View {
     	close = true;
     	((MultiplayerModel) model).disconnect();
         frame.dispose();
-        Main.main(null);
+        Main.restart();
     }
     
     public void paint(Graphics g) {
