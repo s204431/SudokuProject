@@ -252,7 +252,7 @@ public class MultiplayerView extends View {
 				textAboveBoard = "You lose!";
 			} else {
 				textColor = Color.BLACK;
-				textAboveBoard = "You: " + model.computeFilledInFields(model.board) + "/" + (model.board.length * model.board[0].length);
+				textAboveBoard = "Opponent: " + model.computeFilledInFields(((MultiplayerModel) model).opponentBoard) + "/" + (model.board.length * model.board[0].length);
 			}
 			int textWidth = (windowWidth-buttonPanel.getWidth()) / 4 - g2.getFontMetrics().stringWidth(textAboveBoard) / 2;
 			int textHeight = g2.getFontMetrics().getHeight();
