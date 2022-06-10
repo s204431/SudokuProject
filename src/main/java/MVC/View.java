@@ -81,7 +81,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         // Create button panel
         buttonPanel = new JPanel(null);
         buttonPanel.setFocusable(true);
-        buttonPanel.setBounds(getPreferredSize().width - 200, - 1, 200, getPreferredSize().height);
+        buttonPanel.setBounds(getPreferredSize().width - getPreferredSize().width/8, - 1, getPreferredSize().width/8, getPreferredSize().height);
         buttonPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         addComponentsToButtonPanel(model.mode);
 
@@ -261,7 +261,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     //Add all components to the button panel (buttons etc.).
     public void addComponentsToButtonPanel(Mode mode) {
         JButton helpButton = new JButton("Help");
-        helpButton.setBounds(50, 350,100,25);
+        helpButton.setBounds(buttonPanel.getWidth()/4, 350,buttonPanel.getWidth()/2,buttonPanel.getWidth()/9);
         styleButton(helpButton);
         helpButton.addActionListener(new ActionListener() {
             @Override
@@ -271,7 +271,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         });
         buttonPanel.add(helpButton);
         notesButton = new JButton("Notes off");
-        notesButton.setBounds(50, 400, 100, 25);
+        notesButton.setBounds(buttonPanel.getWidth()/4, 400, buttonPanel.getWidth()/2,buttonPanel.getWidth()/9);
         styleButton(notesButton);
         notesButton.addActionListener(new ActionListener() {
             @Override
@@ -287,7 +287,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         });
         buttonPanel.add(notesButton);
         exitButton = new JButton("Exit");
-        exitButton.setBounds(50, 450, 100, 25);
+        exitButton.setBounds(buttonPanel.getWidth()/4, 450, buttonPanel.getWidth()/2,buttonPanel.getWidth()/9);
         styleButton(exitButton);
         exitButton.addActionListener(new ActionListener() {
             @Override
@@ -299,7 +299,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         if (mode == Mode.play) {
             if (Main.DEBUG_MODE) {
                 textField = new JTextField();
-                textField.setBounds(50, 550, 100, 25);
+                textField.setBounds(buttonPanel.getWidth()/4, 550, buttonPanel.getWidth()/2,buttonPanel.getWidth()/9);
                 textField.addMouseListener(new MouseListener() {
             		public void mousePressed(MouseEvent e) {}
             		public void mouseReleased(MouseEvent e) {}
@@ -309,7 +309,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             			inFocus = false;
             		}});
             	loadButton = new JButton("Load");
-                loadButton.setBounds(50, 580, 100, 25);
+                loadButton.setBounds(buttonPanel.getWidth()/4, 580, buttonPanel.getWidth()/2,buttonPanel.getWidth()/9);
                 styleButton(loadButton);
                 loadButton.addActionListener(new ActionListener() {
                     @Override
@@ -319,8 +319,8 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                 });
             }
             timerLabel = new JLabel("0");
-            timerLabel.setFont(new Font("Serif", Font.BOLD, 20));
-            timerLabel.setBounds(70, 0, 200, 150);
+            timerLabel.setFont(new Font("Serif", Font.BOLD, buttonPanel.getWidth()/10));
+            timerLabel.setBounds((int)(buttonPanel.getWidth() * 0.35), 0, buttonPanel.getWidth(), buttonPanel.getHeight()/5);
             buttonPanel.add(timerLabel);
             if (Main.DEBUG_MODE) {
                 buttonPanel.add(textField);
@@ -328,7 +328,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             }
         } else if (mode == Mode.create) {
             saveButton = new JButton("Save");
-            saveButton.setBounds(50, 250, 100, 25);
+            saveButton.setBounds(buttonPanel.getWidth()/4, 250, buttonPanel.getWidth()/2,buttonPanel.getWidth()/9);
             styleButton(saveButton);
             saveButton.addActionListener(new ActionListener() {
                 @Override
@@ -340,7 +340,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 
         } else if (mode == Mode.solver) {
             JButton solveButton = new JButton("Solve");
-            solveButton.setBounds(50, 200, 100, 25);
+            solveButton.setBounds(buttonPanel.getWidth()/4, 200, buttonPanel.getWidth()/2,buttonPanel.getWidth()/9);
             styleButton(solveButton);
             solveButton.addActionListener(new ActionListener() {
                 @Override
@@ -349,7 +349,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                 }
             });
             JButton stepSolveButton = new JButton("Step-solve");
-            stepSolveButton.setBounds(50, 250, 100, 25);
+            stepSolveButton.setBounds(buttonPanel.getWidth()/4, 250, buttonPanel.getWidth()/2,buttonPanel.getWidth()/9);
             styleButton(stepSolveButton);
             stepSolveButton.addActionListener(new ActionListener() {
                 @Override
@@ -363,13 +363,13 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 
         if (model.assistMode) {
             hintText = new JLabel();
-            hintText.setFont(new Font("Serif", Font.BOLD, 15));
+            hintText.setFont(new Font("Serif", Font.BOLD, buttonPanel.getWidth()/15));
             hintText.setFocusable(false);
-            hintText.setBounds(25, 250, 150, 25);
+            hintText.setBounds(40, 250, buttonPanel.getWidth(),buttonPanel.getWidth()/9);
             buttonPanel.add(hintText);
 
             JButton hintButton = new JButton("Hint");
-            hintButton.setBounds(50, 200, 100, 25);
+            hintButton.setBounds(buttonPanel.getWidth()/4, 200, buttonPanel.getWidth()/2,buttonPanel.getWidth()/9);
             styleButton(hintButton);
             hintButton.addActionListener(new ActionListener() {
                 @Override
