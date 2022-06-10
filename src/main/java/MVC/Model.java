@@ -156,7 +156,7 @@ public class Model {
 				}
 			}
 		}
-		if (sudokuSolved(board, innerSquareSize)) {
+		if (sudokuSolved(board, innerSquareSize) && mode != Mode.create) {
 			System.out.println("Solved!");
 			solved = true;
 			view.winPopup(difficulty);
