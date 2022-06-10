@@ -64,7 +64,10 @@ public class MultiplayerView extends View {
         Graphics2D g2 = (Graphics2D) g;
     	if (!((MultiplayerModel) model).started) {
         	g2.setFont(new Font("TimesRoman", Font.BOLD, Main.SCREEN_HEIGHT/12));
-        	g2.drawString("Waiting for opponent...", getPreferredSize().width / 2 - getPreferredSize().width / 4, getPreferredSize().height / 2 - getPreferredSize().height / 10);
+			String text = "Waiting for opponent...";
+			int textWidth = g2.getFontMetrics().stringWidth(text);
+			int textHeight = g2.getFontMetrics().getHeight();
+        	g2.drawString(text, getPreferredSize().width / 2 - textWidth / 2, getPreferredSize().height / 2 - textHeight / 2);
         	return;
     	}
 		opponentPanel.repaint();
