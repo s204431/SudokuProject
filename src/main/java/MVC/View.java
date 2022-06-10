@@ -124,10 +124,6 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         Graphics2D g2 = (Graphics2D) g;
 
         if (!model.generatingSudokuDone) {
-            JLabel imageLabel = new JLabel(new ImageIcon("src/main/resources/snail.gif"));
-            imageLabel.setVisible(true);
-            this.add(imageLabel);
-
             g2.setColor(Color.BLACK);
             g2.setFont(new Font("Courier", Font.BOLD, 100));
             String text = "Generating Sudoku";
