@@ -9,9 +9,9 @@ public class StatsScreen extends MenuScreen {
 	
 	private int[] stats;
 	private JLabel titleString;
-	private JLabel[] attempts;
-	private JLabel[] time;
-	private JLabel[] name;
+	private JLabel[] attempts,
+					 time,
+					 name;
 	private JButton backBtn;
 	
 	public StatsScreen(JFrame frame) {

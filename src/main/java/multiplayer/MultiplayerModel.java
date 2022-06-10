@@ -25,10 +25,12 @@ import sudoku.Main;
 
 public class MultiplayerModel extends Model implements Runnable {
 	
-	public boolean isServer, started = false;
+	public boolean isServer = false,
+			       started  = false;
 	private boolean close = false;
 	private SpaceRepository repository;
-	public Space toOpponent, fromOpponent;
+	public Space toOpponent;
+	public Space fromOpponent;
 	public Field[][] opponentBoard;
 	
 	//Constructor for host of the game.

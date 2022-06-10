@@ -28,9 +28,9 @@ import solvers.SudokuSolver;
 
 public class LoadListRenderer extends JPanel implements ListCellRenderer<LoadListElement> {
 	private JPanel panel = new JPanel(null);
-    private JLabel nameLabel = new JLabel();
-    private JLabel difficultyLabel = new JLabel();
-    private JLabel sizeLabel = new JLabel();
+    private JLabel nameLabel 		= new JLabel(),
+				   difficultyLabel 	= new JLabel(),
+    			   sizeLabel 		= new JLabel();
     private PreviewPanel previewPanel = new PreviewPanel();
  
     public LoadListRenderer(int width) {

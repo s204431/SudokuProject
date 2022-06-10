@@ -16,12 +16,11 @@ import MVC.Model;
 
 public abstract class SudokuSolver {
 	protected int[][] board;
-	protected int innerSquareSize;
-	protected int solutionsFound;
-	public int recursiveCalls;
-	public int guesses;
-	protected List<int[][]> solutions = new ArrayList<>();
+	protected int innerSquareSize, solutionsFound;
+	public int recursiveCalls, guesses;
 	public int difficulty = 0;
+	protected List<int[][]> solutions = new ArrayList<>();
+
 	
 	public SudokuSolver(Field[][] board, int innerSquareSize) {
 		setBoard(board, innerSquareSize);

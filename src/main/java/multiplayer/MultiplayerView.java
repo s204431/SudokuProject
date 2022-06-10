@@ -27,8 +27,7 @@ import javax.swing.*;
 
 public class MultiplayerView extends View {
 	private JPanel opponentPanel;
-	protected int opponentWindowWidth;
-	protected int opponentWindowHeight;
+	protected int opponentWindowWidth, opponentWindowHeight;
 	private boolean updateAllowed = true;
 
 	public MultiplayerView(MultiplayerModel model) {

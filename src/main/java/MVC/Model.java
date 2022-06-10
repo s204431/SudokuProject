@@ -142,7 +142,8 @@ public class Model {
 		solve(Integer.MAX_VALUE);
 	}
 	
-	//Find max solutions for the current sudoku. Update current sudoku to first solution found.
+	//Find max solutions for the current sudoku.
+	//Update current sudoku to first solution found.
 	public void solve(int maxSolutions) {
 		if (solved) return;
 		SudokuSolver solver = new EfficientSolver(board, innerSquareSize);
@@ -474,11 +475,9 @@ public class Model {
 
 	// Used to generate a sudoku
 	public class GenerateSudokuThread implements Runnable {
-		private int minDifficulty;
-		private int maxDifficulty;
 		private double minMissingFieldsPercent;
-		private int innerSquareSize;
-		private int numInnerSquares;
+		private int innerSquareSize, numInnerSquares, minDifficulty, maxDifficulty;
+
 
 		public GenerateSudokuThread(int minDifficulty, int maxDifficulty, double minMissingFieldsPercent, int innerSquareSize, int numInnerSquares) {
 			this.minDifficulty = minDifficulty;

@@ -8,12 +8,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class NewGameScreen extends MenuScreen {
-    private JLabel titleString;
-    private JLabel assistModeString;
+    private JLabel titleString,
+                   assistModeString;
     private JCheckBox assistModeCheck;
-    private JButton generateBtn;
-    private JButton loadBtn;
-    private JButton backBtn;
+    private JButton generateBtn,
+                    loadBtn,
+                    backBtn;
 
     public NewGameScreen(JFrame frame) {
         super(frame);

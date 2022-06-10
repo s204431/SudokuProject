@@ -15,22 +15,20 @@ import sudoku.Field;
 
 
 public class EfficientSolver extends SudokuSolver {
-	
-	private boolean detectUnsolvable = true;
-	private boolean useSingleCandidate = true;
-	private boolean useSinglePosition = true;
-	private boolean useCandidateLines = true;
-	private boolean useMultipleLines = true;
-	private boolean useXWing = true;
-	private boolean useSwordfish = true;
-	private boolean useForcingChains = true;
+	private boolean detectUnsolvable 	= true,
+					useSingleCandidate  = true,
+					useSinglePosition 	= true,
+					useCandidateLines 	= true,
+					useMultipleLines 	= true,
+					useXWing 			= true,
+					useSwordfish 		= true,
+					useForcingChains 	= true;
 	public boolean cancel = false;
-	
 	public List<String> hintNames = new ArrayList<String>();
 	public List<int[][]> positionHints = new ArrayList<int[][]>();
+	public List<int[][]> subBoxHints = new ArrayList<int[][]>();
 	public List<int[]> rowHints = new ArrayList<int[]>();
 	public List<int[]> columnHints = new ArrayList<int[]>();
-	public List<int[][]> subBoxHints = new ArrayList<int[][]>();
 
 	//Constructor used for MVC and solvers
 	public EfficientSolver(Field[][] board, int innerSquareSize) {

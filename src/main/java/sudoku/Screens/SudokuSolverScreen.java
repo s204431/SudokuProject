@@ -9,9 +9,9 @@ import java.awt.event.ActionListener;
 
 public class SudokuSolverScreen extends MenuScreen {
     private JLabel titleString;
-    private JButton generateBtn;
-    private JButton loadBtn;
-    private JButton backBtn;
+    private JButton generateBtn,
+                    loadBtn,
+                    backBtn;
 
     public SudokuSolverScreen(JFrame frame) {
         super(frame);

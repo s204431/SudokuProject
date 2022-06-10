@@ -9,9 +9,7 @@ import java.awt.event.ActionListener;
 
 public class CreateSudokuScreen extends MenuScreen {
     private JLabel titleString;
-    private JButton generateBtn;
-    private JButton loadBtn;
-    private JButton backBtn;
+    private JButton generateBtn, loadBtn, backBtn;
 
     public CreateSudokuScreen(JFrame frame) {
         super(frame);

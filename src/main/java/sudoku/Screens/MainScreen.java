@@ -10,15 +10,13 @@ import java.io.IOException;
 
 public class MainScreen extends MenuScreen {
     private JLabel titleString;
-    private JTextField kText;
-    private JTextField nText;
-    private JButton playBtn;
-    private JButton newGameBtn;
-    private JButton MPBtn;
-    private JButton createBtn;
-    private JButton solverBtn;
-    private JButton highScoreBtn;
-
+    private JTextField kText, nText;
+    private JButton playBtn,
+                    newGameBtn,
+                    MPBtn,
+                    createBtn,
+                    solverBtn,
+                    highScoreBtn;
 
     public MainScreen (JFrame frame) {
         super(frame);

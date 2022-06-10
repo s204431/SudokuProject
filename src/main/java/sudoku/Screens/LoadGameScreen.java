@@ -17,12 +17,9 @@ import java.io.FilenameFilter;
 
 public class LoadGameScreen extends MenuScreen {
     private JLabel titleString;
-    private JButton loadGameBtn;
-    private JButton backBtn;
-    //private JList<String> loadList;
+    private JButton loadGameBtn, backBtn;
     private JList<LoadListElement> loadList;
-    private boolean isHost;
-    private boolean assistMode;
+    private boolean isHost, assistMode;
 
     public LoadGameScreen(JFrame frame, Mode mode) {
         super(frame, mode);
@@ -39,12 +36,12 @@ public class LoadGameScreen extends MenuScreen {
         this.assistMode = assistMode;
     }
 
-    public void addComponents() {//init title, all loadable sudokus and 2 buttons
+    public void addComponents() {
         // Title
         titleString = new JLabel("Load Game");
         setTitle(titleString);
 
-        // Box of loadable sudoku's.
+        // Box of loadable sudoku's
         addLists();
 
         // Buttons

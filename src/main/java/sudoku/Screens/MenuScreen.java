@@ -20,24 +20,23 @@ import java.io.IOException;
 import java.net.URL;
 
 /*
-The abstract class MenuScreen is a screen that all the other Screens inherit from. It has built-in functions
-that almost every other Screen calls, this is done to reduce redundancy. It sets the bounds and limits for
-all classes and minimizes errors.
+    The abstract class MenuScreen is a screen that all the other Screens inherit from.
+    It has built-in functions that almost every other Screen calls.
+    It sets the bounds and limits for all classes and minimizes errors.
 */
 
 
 public abstract class MenuScreen extends JPanel {
-    protected Font titleFont = new Font(Font.SERIF, Font.BOLD,Main.SCREEN_HEIGHT/20);
-    protected int textSize = Main.SCREEN_HEIGHT/20;
-    protected int spacing = Main.SCREEN_HEIGHT/30;
-    protected int btnHeight = Main.SCREEN_HEIGHT/20;
-    protected int btnWidth = Main.SCREEN_WIDTH/3;
-    protected int k;
-    protected int n;
+    protected Font titleFont = new Font(Font.SERIF, Font.BOLD,Main.SCREEN_HEIGHT / 20);
+    protected int textSize = Main.SCREEN_HEIGHT / 20;
+    protected int spacing = Main.SCREEN_HEIGHT / 30;
+    protected int btnHeight = Main.SCREEN_HEIGHT / 20;
+    protected int btnWidth = Main.SCREEN_WIDTH / 3;
+    protected int k, n;
     protected JFrame frame;
-    protected Font buttonFont = new Font("Arial", Font.BOLD, Main.SCREEN_HEIGHT/40);
-    protected Font textFont = new Font("Serif", Font.BOLD,Main.SCREEN_HEIGHT/40);
-    protected Font labelFont = new Font("Serif", Font.BOLD,Main.SCREEN_HEIGHT/50);
+    protected Font buttonFont = new Font("Arial", Font.BOLD, Main.SCREEN_HEIGHT / 40);
+    protected Font textFont = new Font("Serif", Font.BOLD,Main.SCREEN_HEIGHT / 40);
+    protected Font labelFont = new Font("Serif", Font.BOLD,Main.SCREEN_HEIGHT / 50);
     protected Dimension panelDimension = new Dimension(400,60);
     protected Dimension buttonDimension = new Dimension(btnWidth, btnHeight);
     protected Dimension textDimension = new Dimension(textSize, textSize);
@@ -57,6 +56,7 @@ public abstract class MenuScreen extends JPanel {
         this.mode = mode;
         initialize();
     }
+
     //Sets standard values and preferred settings.
     private void initialize() {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -66,10 +66,9 @@ public abstract class MenuScreen extends JPanel {
         frame.add(this);
         frame.setVisible(true);
     }
-
+    //Sets background image as the first "layer" of the UI.
     private void initBackground() {
         try {
-            //backgroundImage = ImageIO.read(getClass().getClassLoader().getResource("Background.png"));
             backgroundImage = ImageIO.read(new File("src/main/resources/Background.png"));
         } catch (Exception e) {
             e.printStackTrace();

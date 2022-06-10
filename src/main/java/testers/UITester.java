@@ -32,17 +32,15 @@ import MVC.*;
 
 /*
 	The UITester, as the name suggests, tests the UI.
-
 */
 
-
 public class UITester extends ComponentTestFixture {
-	private boolean testMainMenu = true;
-	private boolean testPlayMode = true;
-	private boolean testCreateMode = true;
-	private boolean testSolverMode = true;
-	private boolean testMultiplayerMode = false;
-	private boolean monkeyTest = true;
+	private boolean testMainMenu = true,
+					testPlayMode = true,
+					testCreateMode = true,
+					testSolverMode = true,
+					testMultiplayerMode = false,
+					monkeyTest = true;
 	private String otherTesterIP = "10.209.128.1";
 
 	public void testMainMenu() {

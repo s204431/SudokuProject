@@ -7,13 +7,12 @@ package sudoku;
 */
 
 public class Field {
-	public static final double DEFAULT_WIDTH = 70.0;
-	public static final double DEFAULT_HEIGHT = 70.0;
+	public static final double DEFAULT_WIDTH  = 70.0,
+							   DEFAULT_HEIGHT = 70.0;
 	public int value = 0;
 	public int[] notes;
 	public boolean interactable = true;
-	public boolean clicked;
-	public boolean highlighted;
+	public boolean clicked, highlighted;
 	
 	public Field() {
 		this.notes = new int[9];

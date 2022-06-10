@@ -12,8 +12,8 @@ import solvers.*;
 */
 
 public class SudokuGenerator {
-	private int currentMissingFields = 0;
-	private int recursiveCalls = 0;
+	private int currentMissingFields = 0,
+				recursiveCalls 		 = 0;
 	public int difficulty = 0;
 	public boolean cancelGenerator = false;
 	

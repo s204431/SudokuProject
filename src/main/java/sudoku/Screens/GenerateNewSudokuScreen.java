@@ -12,18 +12,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GenerateNewSudokuScreen extends MenuScreen {
-    private JLabel titleLabel;
-    private JLabel boardSizeLabel;
-    private JLabel difficultyLabel;
-    private JButton backBtn;
-    private JButton generateBtn;
+    private JLabel titleLabel,
+                   boardSizeLabel,
+                   difficultyLabel,
+                   nLabel,
+                   kLabel;
+    private JButton backBtn, generateBtn;
     private JComboBox difficultyBox;
-    private JSlider nSlider;
-    private JSlider kSlider;
-    private JLabel nLabel;
-    private JLabel kLabel;
-    private ChangeListener nListener;
-    private ChangeListener kListener;
+    private JSlider nSlider, kSlider;
+    private ChangeListener nListener, kListener;
     private boolean assistMode;
 
 

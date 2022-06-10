@@ -38,14 +38,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 	protected boolean close = false;
 	protected JFrame frame;
 	protected JPanel buttonPanel;
-	protected JButton saveButton;
-	protected JButton loadButton;
-    protected JButton notesButton;
-	protected JButton exitButton;
-    private JButton hintButton;
-    private JButton solveButton;
-    private JButton stepSolveButton;
-    private JButton helpButton;
+	protected JButton saveButton, loadButton, notesButton, exitButton;
     private JButton cancelButton;
     private JLabel hintText;
 	public JTextField textField;
@@ -59,7 +52,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     public ArrayList<int[]> marked1;
     public ArrayList<int[]> marked2;
     public String hintName;
-	
+
 	public int currentSecond;
 	public int currentMinute;
 	public int currentHour;
@@ -128,15 +121,16 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         Graphics2D g2 = (Graphics2D) g;
 
         if (!model.generatingSudokuDone) {
-
-            //this.add(new JLabel(new ImageIcon("src/main/resources/snail.gif")));
+            JLabel imageLabel = new JLabel(new ImageIcon("src/main/resources/snail.gif"));
+            imageLabel.setVisible(true);
+            this.add(imageLabel);
 
             g2.setColor(Color.BLACK);
             g2.setFont(new Font("Courier", Font.BOLD, 100));
             String text = "Generating Sudoku";
             int fontHeight = g2.getFontMetrics().getHeight();
             int fontWidth = g2.getFontMetrics().stringWidth(text);
-            g2.drawString(text, windowWidth/2 - fontWidth/2, windowHeight/2 - fontHeight/2);
+            g2.drawString(text, windowWidth / 2 - fontWidth / 2, windowHeight / 2 - fontHeight / 2);
             buttonPanel.setVisible(false);
             cancelButton.setVisible(true);
             setVisible(true);
@@ -265,9 +259,9 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     
     //Add all components to the button panel (buttons etc.).
     public void addComponentsToButtonPanel(Mode mode) {
-        helpButton = new JButton("Help");
+        JButton helpButton = new JButton("Help");
         helpButton.setBounds(50, 350,100,25);
-        helpButton.addActionListener(   new ActionListener() {
+        helpButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 HelpPopup();
@@ -339,7 +333,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             buttonPanel.add(saveButton);
 
         } else if (mode == Mode.solver) {
-            solveButton = new JButton("Solve");
+            JButton solveButton = new JButton("Solve");
             solveButton.setBounds(50, 200, 100, 25);
             solveButton.addActionListener(new ActionListener() {
                 @Override
@@ -347,7 +341,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                     model.solve();
                 }
             });
-            stepSolveButton = new JButton("Step-solve");
+            JButton stepSolveButton = new JButton("Step-solve");
             stepSolveButton.setBounds(50, 250, 100, 25);
             stepSolveButton.addActionListener(new ActionListener() {
                 @Override
@@ -366,7 +360,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             hintText.setBounds(25, 250, 150, 25);
             buttonPanel.add(hintText);
 
-            hintButton = new JButton("Hint");
+            JButton hintButton = new JButton("Hint");
             hintButton.setBounds(50, 200, 100, 25);
             hintButton.addActionListener(new ActionListener() {
                 @Override

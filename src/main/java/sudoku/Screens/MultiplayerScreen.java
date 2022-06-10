@@ -9,10 +9,10 @@ import java.awt.event.ActionListener;
 
 public class MultiplayerScreen extends MenuScreen{
     private JLabel titleLabel;
-    private JButton hostBtn;
-    private JButton loadBtn;
-    private JButton joinBtn;
-    private JButton backBtn;
+    private JButton hostBtn,
+                    loadBtn,
+                    joinBtn,
+                    backBtn;
     private JTextField ip_address;
 
 
