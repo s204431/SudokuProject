@@ -45,7 +45,7 @@ public class MultiplayerView extends View {
 
 	public void addOpponentBoard() {
 		opponentPanel = new OpponentBoard();
-		opponentPanel.setBounds((getPreferredSize().width - 200) / 2, 0, (getPreferredSize().width - 200) / 2, getPreferredSize().height);
+		opponentPanel.setBounds((getPreferredSize().width - buttonPanel.getWidth()) / 2, 0, (getPreferredSize().width - buttonPanel.getWidth()) / 2, getPreferredSize().height);
 		opponentPanel.setFocusable(false);
 		frame.remove(this);
 		frame.add(opponentPanel);
@@ -96,13 +96,13 @@ public class MultiplayerView extends View {
 
 		// Line seperating the two boards
 		g2.setColor(Color.BLACK);
-		g2.drawLine((getPreferredSize().width - 200) / 2 - 1, 0, (getPreferredSize().width - 200) / 2 - 1, getPreferredSize().height);
+		g2.drawLine((getPreferredSize().width - buttonPanel.getWidth()) / 2 - 1, 0, (getPreferredSize().width - buttonPanel.getWidth()) / 2 - 1, getPreferredSize().height);
 	}
 
 	public void resetBoardPosition() {
     	fieldWidth = (int)((Field.DEFAULT_WIDTH*windowWidth / 1170.0) / 1.5);
     	fieldHeight = fieldWidth;
-		boardX = (getPreferredSize().width - 200) / 4 - fieldWidth * model.board.length / 2;
+		boardX = (getPreferredSize().width - buttonPanel.getWidth()) / 4 - fieldWidth * model.board.length / 2;
 		boardY = getPreferredSize().height / 2 - fieldHeight * model.board.length / 2;
 		updateBoardPosition();
 	}
