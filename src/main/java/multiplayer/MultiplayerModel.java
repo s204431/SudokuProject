@@ -1,5 +1,6 @@
 package multiplayer;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.UnknownHostException;
@@ -32,6 +33,7 @@ public class MultiplayerModel extends Model implements Runnable {
 	public Space toOpponent;
 	public Space fromOpponent;
 	public Field[][] opponentBoard;
+	public int winner = 0; // 0 = no winner, 1 = you won, 2 = opponent won
 	
 	//Constructor for host of the game.
 	public MultiplayerModel(int numInnerSquares, int innerSquareSize) {
@@ -159,6 +161,9 @@ public class MultiplayerModel extends Model implements Runnable {
 	
 	public void setField(int x, int y, int value) {
 		super.setField(x, y, value);
+		if (Model.sudokuSolved(board, innerSquareSize) && winner != 2) {
+			winner = 1;
+		}
 		if (!view.notesOn) {
 			try {
 				toOpponent.put(x, y, value);
@@ -185,6 +190,9 @@ public class MultiplayerModel extends Model implements Runnable {
 				try {
 					Object[] tuple = fromOpponent.get(new FormalField(Integer.class), new FormalField(Integer.class), new FormalField(Integer.class)); //(x, y, value)
 					opponentBoard[(int)tuple[0]][(int)tuple[1]].value = (int)tuple[2];
+					if (Model.sudokuSolved(opponentBoard, innerSquareSize) && winner != 1) {
+						winner = 2;
+					}
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

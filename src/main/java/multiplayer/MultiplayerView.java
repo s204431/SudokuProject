@@ -29,6 +29,7 @@ public class MultiplayerView extends View {
 	private JPanel opponentPanel;
 	protected int opponentWindowWidth, opponentWindowHeight;
 	private boolean updateAllowed = true;
+	private String textAboveBoard;
 
 	public MultiplayerView(MultiplayerModel model) {
 		super(model);
@@ -70,18 +71,29 @@ public class MultiplayerView extends View {
 		opponentPanel.repaint();
         super.paint(g);
 
-		// Text clarifying which board is which
+		// Text clarifying which board is which and the respective progress
 		g2.setFont(new Font("Serif", Font.BOLD, windowWidth / 40));
-		String text = "You: " + model.computeFilledInFields(model.board) + "/" + (model.board.length * model.board[0].length);
-		int textWidth = (windowWidth-buttonPanel.getWidth()) / 4 - g2.getFontMetrics().stringWidth(text) / 2;
+		Color textColor;
+		if (((MultiplayerModel) model).winner == 1) {
+			textColor = new Color(0, 200, 0);
+			textAboveBoard = "You win!";
+		} else if (((MultiplayerModel) model).winner == 2) {
+			textColor = Color.RED;
+			textAboveBoard = "You lose!";
+		} else {
+			textColor = Color.BLACK;
+			textAboveBoard = "You: " + model.computeFilledInFields(model.board) + "/" + (model.board.length * model.board[0].length);
+		}
+		int textWidth = (windowWidth-buttonPanel.getWidth()) / 4 - g2.getFontMetrics().stringWidth(textAboveBoard) / 2;
 		int textHeight = g2.getFontMetrics().getHeight();
 		int offSet = 10;
 		g2.setColor(buttonPanel.getBackground());
 		g2.fillRect(0, 0, windowWidth, textHeight + offSet);
-		g2.setColor(Color.BLACK);
-		g2.drawString(text, textWidth, textHeight - offSet);
+		g2.setColor(textColor);
+		g2.drawString(textAboveBoard, textWidth, textHeight - offSet);
 
 		// Line seperating the two boards
+		g2.setColor(Color.BLACK);
 		g2.drawLine((getPreferredSize().width - 200) / 2 - 1, 0, (getPreferredSize().width - 200) / 2 - 1, getPreferredSize().height);
 	}
 
@@ -229,16 +241,26 @@ public class MultiplayerView extends View {
 			}
 			g2.setStroke(oldStroke);
 
-			// Text clarifying which board is which
-			g2.setFont(new Font("Serif", Font.BOLD, windowWidth/40));
-			String text = "Opponent: " + model.computeFilledInFields(((MultiplayerModel) model).opponentBoard) + "/" + (model.board.length * model.board[0].length);
-			int textWidth = (windowWidth-buttonPanel.getWidth()) / 4 - g2.getFontMetrics().stringWidth(text) / 2;
+			// Text clarifying which board is which and the respective progress
+			g2.setFont(new Font("Serif", Font.BOLD, windowWidth / 40));
+			Color textColor;
+			if (((MultiplayerModel) model).winner == 2) {
+				textColor = new Color(0, 200, 0);
+				textAboveBoard = "You win!";
+			} else if (((MultiplayerModel) model).winner == 1) {
+				textColor = Color.RED;
+				textAboveBoard = "You lose!";
+			} else {
+				textColor = Color.BLACK;
+				textAboveBoard = "You: " + model.computeFilledInFields(model.board) + "/" + (model.board.length * model.board[0].length);
+			}
+			int textWidth = (windowWidth-buttonPanel.getWidth()) / 4 - g2.getFontMetrics().stringWidth(textAboveBoard) / 2;
 			int textHeight = g2.getFontMetrics().getHeight();
 			int offSet = 10;
 			g2.setColor(buttonPanel.getBackground());
 			g2.fillRect(0, 0, windowWidth, textHeight + offSet);
-			g2.setColor(Color.BLACK);
-			g2.drawString(text, textWidth, textHeight - offSet);
+			g2.setColor(textColor);
+			g2.drawString(textAboveBoard, textWidth, textHeight - offSet);
 
 			// Draw components
 			//buttonPanel.repaint();
