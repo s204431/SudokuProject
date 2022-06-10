@@ -245,7 +245,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     //Add cancel button to view (visible when generating sudoku)
     public void addCancelButtonToView() {
         cancelButton = new JButton("Cancel");
-        cancelButton.setBounds(windowWidth / 2 - 150, windowHeight - 200,windowHeight / 3,windowHeight / 12);
+        cancelButton.setBounds(windowWidth / 2 - windowHeight / 6, windowHeight * 3 / 4,windowHeight / 3,windowHeight / 12);
         styleButton(cancelButton);
         cancelButton.setFont(new Font("Arial", Font.BOLD, windowHeight / 40));
         cancelButton.addActionListener(   new ActionListener() {
