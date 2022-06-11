@@ -453,7 +453,7 @@ public class Model {
     
     //Overrides stats file with a new time (if time beats best time) and number of solved sudoku for a difficulty.
     public void saveStat(int time, int difficulty) {
-		if (!usedSolver && !assistMode) {
+		if (!usedSolver && !assistMode && mode == Mode.play) {
 			int[] Stats = loadStat();
 			File file = new File("savedsudokus/Stats.st");
 			if(time < Stats[difficulty] || Stats[difficulty] == 0) {//change index for stats for correct difficulty (0-3) or (1-4)
