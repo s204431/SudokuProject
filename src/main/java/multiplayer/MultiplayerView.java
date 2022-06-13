@@ -20,9 +20,8 @@ import sudoku.Main;
 import javax.swing.*;
 
 /*
-	Just like the MultiplayerModel class this class inherits from
-	the standard MVC-classes and uses the same properties that
-	these have.
+	The MultiplayerView extends the View and contains mostly the same functionality,
+	but with added functionality for multiplayer.
 */
 
 public class MultiplayerView extends View {
@@ -43,6 +42,7 @@ public class MultiplayerView extends View {
 		new Thread(new UpdateTimer()).start();
 	}
 
+	//Creates the opponent's board as a panel and adds it to the frame.
 	public void addOpponentBoard() {
 		opponentPanel = new OpponentBoard();
 		opponentPanel.setBounds((getPreferredSize().width - buttonPanel.getWidth()) / 2, 0, (getPreferredSize().width - buttonPanel.getWidth()) / 2, getPreferredSize().height);
@@ -52,6 +52,7 @@ public class MultiplayerView extends View {
 		frame.add(this);
 	}
 	
+	//Quits the multiplayer game.
     public void quitToMenu() {
     	close = true;
     	((MultiplayerModel) model).disconnect();
@@ -59,6 +60,7 @@ public class MultiplayerView extends View {
         Main.restart();
     }
     
+    //Paint method, that paints most of the graphics.
     public void paint(Graphics g) {
 		clearPaint(g);
         Graphics2D g2 = (Graphics2D) g;
@@ -99,6 +101,7 @@ public class MultiplayerView extends View {
 		g2.drawLine((getPreferredSize().width - buttonPanel.getWidth()) / 2 - 1, 0, (getPreferredSize().width - buttonPanel.getWidth()) / 2 - 1, getPreferredSize().height);
 	}
 
+    //Overwritten method from View that resets the position of the board to the default position.
 	public void resetBoardPosition() {
     	fieldWidth = (int)((Field.DEFAULT_WIDTH*windowWidth / 1170.0) / 1.5);
     	fieldHeight = fieldWidth;
@@ -107,11 +110,13 @@ public class MultiplayerView extends View {
 		updateBoardPosition();
 	}
     
+	//Overwritten method, that additionally sends an update to the other player.
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		super.mouseWheelMoved(e);
 		updateBoardPosition();
 	}
 	
+	//Sends an update to the other player with the current position and size of the board.
 	private void updateBoardPosition() {
 		try {
 			if (updateAllowed) {
@@ -126,6 +131,7 @@ public class MultiplayerView extends View {
 		}
 	}
 	
+	//This thread insures that updates are not sent to the other player too often.
 	private class UpdateTimer implements Runnable {
 		public void run() {
 			while (!close) {
@@ -148,7 +154,7 @@ public class MultiplayerView extends View {
 		}
 	}
     
-  //Concurrent thread that moves the board when dragging.
+	//Overwritten parallel thread that moves the board when dragging.
     protected class BoardDragger implements Runnable {
   		public void run() {
   			while (!close) {
@@ -170,18 +176,14 @@ public class MultiplayerView extends View {
   		}
   	}
 	/*
-		OpponentBoard is a class that lets the opponent have their own
-		board by seeing the both boards just like the host, however this
-		class will not show any of the interactable fields to the player.
-		These inputs will be shown as ? for the other player so that none
-		of the players cheats.
+		OpponentBoard is a class that extends JPanel, which allows showing
+		the opponent's board in multiplayer.
 	*/
     private class OpponentBoard extends JPanel {
 		@Override
 		public void paint(Graphics g) {
 			Graphics2D g2 = (Graphics2D) g;
 			super.paint(g);
-			//setVisible(true);
 			Object[] tuple = null;
 			try {
 				((MultiplayerModel) model).fromOpponent.get(new ActualField("lock"), new ActualField("dragging"));
@@ -235,7 +237,6 @@ public class MultiplayerView extends View {
 			Stroke oldStroke = g2.getStroke();
 			for (int i = 0; i < model.numInnerSquares; i++) {
 				for (int j = 0; j < model.numInnerSquares; j++) {
-					//g2.setColor(model.sudokuSolved(model.board, model.innerSquareSize) ? new Color(0, 200, 0) : black);
 					g2.setColor(black);
 					g2.setStroke(new BasicStroke(3));
 					g2.drawRect(opponentBoardX + j * opponentFieldWidth * iss, opponentBoardY + i * opponentFieldWidth * iss, opponentFieldWidth * iss, opponentFieldWidth * iss);
@@ -263,10 +264,6 @@ public class MultiplayerView extends View {
 			g2.fillRect(0, 0, windowWidth, textHeight + offSet);
 			g2.setColor(textColor);
 			g2.drawString(textAboveBoard, textWidth, textHeight - offSet);
-
-			// Draw components
-			//buttonPanel.repaint();
-			//setVisible(true);
 		}
 		
 		//Converts from coordinate in opponent window to coordinate in this window.
@@ -274,9 +271,6 @@ public class MultiplayerView extends View {
 			double px = ((double)windowWidth)/opponentWindowWidth;
 			double py = ((double)windowHeight)/opponentWindowHeight;
 			return new int[] {(int)(px * x), (int)(py * y), (int)(px * fieldWidth)};
-			//double px = ((double)x)/opponentWindowWidth;
-			//double py = ((double)y)/opponentWindowHeight;
-			//return new int[] {(int)(px*windowWidth), (int)(py*windowHeight)};
 		}
 	}
 }
