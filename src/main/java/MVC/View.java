@@ -19,10 +19,9 @@ import java.net.URL;
 import java.util.ArrayList;
 
 /*
-    The View of our MVC-module defines the UI display.
-    This class gets data from the MVC.Controller and
-    uses this data change the UI for the user depending
-    on that data.
+    The View of our MVC-module.
+    This class sends user input to the controller and
+    changes the UI based on updates from the model.
 */
 
 public class View extends JPanel implements MouseListener, KeyListener, MouseWheelListener {
@@ -415,7 +414,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             }
         });
     }
-
+    
     //Shows the popup menu for saving a sudoku.
     public void showSavePopup() {
         JPanel panel = new JPanel(null);

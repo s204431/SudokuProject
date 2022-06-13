@@ -12,7 +12,7 @@ import testers.SolverTester;
 
 /*
 	The controller of our MVC-module.
-	This class receives user input from View and calls appropriate methods on the Model.
+	This class receives user input from the view and calls appropriate methods on the model.
 */
 
 public class Controller {

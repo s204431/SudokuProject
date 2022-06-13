@@ -523,7 +523,9 @@ public class Model {
 
 	//Used to cancel generation of a sudoku.
 	public void cancelGenerator() {
-		generator.cancelGenerator = true;
+		if (generator != null) {
+			generator.cancelGenerator = true;	
+		}
 	}
 }
 
