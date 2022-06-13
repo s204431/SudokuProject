@@ -337,11 +337,9 @@ public class Model {
 
 	//Removes every note from every field.
 	public void removeNotes() {
-		int maxNotes = getMaxNumber();
-		maxNotes = maxNotes > 9 ? 9 : maxNotes;
 		for (Field[] fields : board) {
 			for (Field field : fields) {
-				for (int k = 1; k <= maxNotes; k++) {
+				for (int k = 1; k <= 9; k++) {
 					field.notes[k - 1] = 0;
 				}
 			}
