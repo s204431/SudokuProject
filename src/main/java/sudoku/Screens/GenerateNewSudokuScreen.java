@@ -5,11 +5,13 @@ import MVC.Model.Mode;
 import MVC.View;
 import solvers.SudokuSolver;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 public class GenerateNewSudokuScreen extends MenuScreen {
     private JLabel titleLabel,
@@ -31,6 +33,15 @@ public class GenerateNewSudokuScreen extends MenuScreen {
     public GenerateNewSudokuScreen(JFrame frame, Mode mode, boolean assistMode) {
         this(frame, mode);
         this.assistMode = assistMode;
+    }
+
+    @Override
+    protected void initBackground() {
+        try {
+            backgroundImage = ImageIO.read(new File("src/main/resources/Background2.png"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void addComponents(){//init title, sliders, and buttons
