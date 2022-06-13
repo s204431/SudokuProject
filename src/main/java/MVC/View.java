@@ -38,7 +38,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 	protected boolean close = false;
 	protected JFrame frame;
 	protected JPanel buttonPanel;
-	protected JButton saveButton, loadButton, notesButton, exitButton;
+	protected JButton saveButton, loadButton, notesButton, removeNotesButton, exitButton;
     private JButton cancelButton;
     private JLabel hintText;
 	public JTextField textField;
@@ -287,8 +287,18 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             }
         });
         buttonPanel.add(notesButton);
+        removeNotesButton = new JButton("Remove notes");
+        removeNotesButton.setBounds(buttonPanel.getWidth()/4, buttonYReference + buttonPanel.getWidth()/5 * 2, buttonPanel.getWidth()/2,buttonPanel.getWidth()/9);
+        styleButton(removeNotesButton);
+        removeNotesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                model.removeNotes();
+            }
+        });
+        buttonPanel.add(removeNotesButton);
         exitButton = new JButton("Exit");
-        exitButton.setBounds(buttonPanel.getWidth()/4, buttonYReference + (buttonPanel.getWidth()/5) * 2, buttonPanel.getWidth()/2,buttonPanel.getWidth()/9);
+        exitButton.setBounds(buttonPanel.getWidth()/4, buttonYReference + (buttonPanel.getWidth()/5) * 3, buttonPanel.getWidth()/2,buttonPanel.getWidth()/9);
         styleButton(exitButton);
         exitButton.addActionListener(new ActionListener() {
             @Override
