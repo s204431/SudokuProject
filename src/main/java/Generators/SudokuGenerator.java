@@ -6,10 +6,9 @@ import java.util.Random;
 import testers.GeneratorTester.*;
 import solvers.*;
 
-/*
-	This is a sudoku generator. Using an algorithm described in the section 7.8 in the report (TODO: VALIDATE IF INCORRECT)
-	this class generates a sudoku board containing enough fields to be solved.
-*/
+
+	//This is a sudoku generator. Using an algorithm described in the section 6.3 in the report.
+
 
 public class SudokuGenerator {
 	private int currentMissingFields = 0,
@@ -17,6 +16,7 @@ public class SudokuGenerator {
 	public int difficulty = 0;
 	public boolean cancelGenerator = false;
 	
+	//Generates and returns a sudoku with given n, k, minimum and maximum difficulty, and minimum empty fields.
 	public int[][] generateSudoku(int innerSquareSize, int numInnerSquares, int minDifficulty, int maxDifficulty, int minMissingFields) {
 		int[][] matrix = new int[innerSquareSize * numInnerSquares][innerSquareSize * numInnerSquares];
 		RandomEfficientSolver randomEfficientSolver = new RandomEfficientSolver(matrix, innerSquareSize);
@@ -35,6 +35,7 @@ public class SudokuGenerator {
 		return result;
 	}
 	
+	//Recursively generates a sudoku from a given random solved sudoku.
 	private int[][] generateRecursive(int[][] board, int innerSquareSize, int minDifficulty, int maxDifficulty, int minMissingFields) {
 		recursiveCalls++;
 		if (recursiveCalls > 2 * (board.length * board.length) || cancelGenerator) {
@@ -74,11 +75,13 @@ public class SudokuGenerator {
 		return null;
 	}
 	
+	//Returns a random number between min and max.
 	public int randomNumber(int min, int max) {
 		Random r = new Random();
 		return r.nextInt((max - min) + 1) + min;
 	}
 
+	//This class runs in a parallel thread and checks if the random solver should stop running.
 	public class CancelSolverChecker implements Runnable {
 		RandomEfficientSolver randomEfficientSolver;
 

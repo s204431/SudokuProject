@@ -18,9 +18,8 @@ import sudoku.Field;
 import sudoku.Main;
 
 /*
-	The MultiplayerModel extends the Model as it inherits the same
-	attributes only to differ from the original by having another
-	user play against another.
+	The MultiplayerModel extends the Model and contains mostly the same functionality,
+	but with added functionality for multiplayer.
 */
 
 
@@ -49,6 +48,7 @@ public class MultiplayerModel extends Model implements Runnable {
 		connectToServer(address);
 	}
 	
+	//Starts the game. Used by both host and client. It runs in a parallel thread to allow blocking the thread.
 	public void start() {
 		new Thread(new DisconnectedReader()).start();
 
@@ -105,6 +105,7 @@ public class MultiplayerModel extends Model implements Runnable {
 		view.repaint();
 	}
 	
+	//Starts the server (host only).
 	private void startServer() {
 		repository = new SpaceRepository();
 		repository.addGate("tcp://"+getIP()+":9001/?keep");
@@ -114,11 +115,13 @@ public class MultiplayerModel extends Model implements Runnable {
 		repository.add("clienttohost", fromOpponent);
 	}
 	
+	//Connects to the server (not host).
 	private void connectToServer(String address) throws IOException {
 		toOpponent = new RemoteSpace("tcp://" + address + ":9001/clienttohost?keep");
 		fromOpponent = new RemoteSpace("tcp://" + address + ":9001/hosttoclient?keep");
 	}
 	
+	//Disconnects from the server.
 	public void disconnect() {
 		close = true;
 		try {
@@ -148,8 +151,12 @@ public class MultiplayerModel extends Model implements Runnable {
 		}
 	}
 	
+	//Modified method from Model. Additionally send an update to the other player.
 	public void setField(int x, int y, Field field) {
 		super.setField(x, y, field);
+		if (Model.sudokuSolved(board, innerSquareSize) && winner != 2) {
+			winner = 1;
+		}
 		if (!view.notesOn) {
 			try {
 				toOpponent.put(x, y, field.value);
@@ -159,6 +166,7 @@ public class MultiplayerModel extends Model implements Runnable {
 		}
 	}
 	
+	//Overloaded setField that takes a value instead of a Field.
 	public void setField(int x, int y, int value) {
 		super.setField(x, y, value);
 		if (Model.sudokuSolved(board, innerSquareSize) && winner != 2) {
@@ -172,7 +180,8 @@ public class MultiplayerModel extends Model implements Runnable {
 			}
 		}
 	}
-	//Sets the join IP-address option to the users own IP, otherwise localhost
+	
+	//Sets the join IP-address option to the users own IP, otherwise localhost.
 	public static String getIP(){
 		String address = "localhost";
 		try {

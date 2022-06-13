@@ -18,9 +18,8 @@ import Generators.*;
 import sudoku.Main;
 
 /*
-	The model of our MVC-module defines the data structure and
-	updates it. Requests from MVC.Controller makes the Model
-	manipulate data and sends it back to the Controller.
+	The model of our MVC-module. Controller sends requests to manipulate the data in the model.
+	The model sends updates to the view.
 */
 
 public class Model {
@@ -40,7 +39,7 @@ public class Model {
 	public boolean generatingSudokuDone = true;
 	private int hintNumber = 0;
 
-	//Constructor taking number of inner squares, inner square size and mode.
+	//Constructor taking number of k, n and mode.
 	public Model(int numInnerSquares, int innerSquareSize, Mode mode) {
 		this.mode = mode;
 		this.innerSquareSize = innerSquareSize;
@@ -92,7 +91,7 @@ public class Model {
 		view.marked1 = new ArrayList<int[]>();
 		view.marked2 = new ArrayList<int[]>();
 	}
-	//Inserts note in a text field with a given value
+	//Inserts note in a field with a given value.
 	public void setNote(int x, int y, int value) {
 		board[x][y].notes[value - 1] = (board[x][y].notes[value - 1] == value) ? 0 : value;
 		view.repaint();
@@ -142,7 +141,7 @@ public class Model {
 		solve(Integer.MAX_VALUE);
 	}
 	
-	//Find max solutions for the current sudoku.
+	//Find a maximum number of solutions for the current sudoku.
 	//Update current sudoku to first solution found.
 	public void solve(int maxSolutions) {
 		if (solved) return;
@@ -166,11 +165,12 @@ public class Model {
 		view.repaint();
 	}
 
-	// Returns the boolean which determines wether the sudoku is solved or not
+	//Returns the boolean which determines wether the sudoku is solved or not.
 	public boolean isSolved() {
 		return solved;
 	}
 
+	//Counts and returns the number of filled in fields in the given sudoku.
 	public int computeFilledInFields(Field[][] board) {
 		int count = 0;
 		for (Field[] fields : board) {
@@ -219,6 +219,7 @@ public class Model {
 		}
 	}
 	
+	//Loads without updating the current sudoku. Returns loaded sudoku as Field[][], innerSquareSize, numInnerSquares and difficulty (difficulty = -1 if it is not saved in the file).
 	public static Object[] load(File file, Mode mode) {
 		try {
 			Scanner scanner = new Scanner(file);
@@ -247,7 +248,7 @@ public class Model {
 		return null;
 	}
 	
-	//Loads without updating the current sudoku. Returns loaded sudoku as Field[][], innerSquareSize, numInnerSquares and difficulty (difficulty = -1 if it is not saved in the file).
+	//Overloaded load method that takes a file name instead of a file.
 	public static Object[] load(String fileName, Mode mode) {
 		return load(new File("savedsudokus/"+fileName+".su"), mode);
 	}
@@ -295,7 +296,7 @@ public class Model {
 		(new Thread(new GenerateSudokuThread(minDifficulty, maxDifficulty, minMissingFieldsPercent, innerSquareSize, numInnerSquares))).start();
 	}
 
-	// Adds notes of all number that are not on vertical, horizontal lines or in innersquares.
+	//Adds notes of all numbers that are not on vertical, horizontal lines or in inner squares.
 	public void generateNotes() {
 		int maxNotes = getMaxNumber();
 		maxNotes = maxNotes > 9 ? 9 : maxNotes;
@@ -315,7 +316,7 @@ public class Model {
 		}
 	}
 
-	//Helper function for the above function
+	//Helper method for the generateNotes method.
 	public void add(int x, int y, int value) {
 		for (int i = 0; i < board.length; i++) {
 			if (i != y && value <= 9 && value >= 1) {
@@ -334,15 +335,8 @@ public class Model {
 		}
 	}
 	
-	//Gives a hint by giving the correct value for one of the empty fields.
+	//Gives a hint by marking certain fields.
 	public void giveHint() {
-		/*int[] move = new EfficientSolver(board, innerSquareSize).makeOneMove();
-		if (move != null) {
-			view.marked = new int[] {move[0], move[1]};
-		} else {
-			view.unsolvablePopup();
-		}*/
-		
 		EfficientSolver solver = new EfficientSolver(board, innerSquareSize);
 		int[] move = solver.makeOneMove();
 		if (move == null) {
@@ -381,7 +375,7 @@ public class Model {
 		}
 	}
 
-	//Makes a single move in progression of solving the sudoku
+	//Makes a single move in progression of solving the sudoku.
 	public void stepSolve() {
 		int[] move = new EfficientSolver(board, innerSquareSize).makeOneMove();
 		if (move != null) {
@@ -418,7 +412,7 @@ public class Model {
     	return innerSquareSize * innerSquareSize;
     }
 	
-    //Loads the stats from and returns it as an array of 8 integers.
+    //Loads the stats and returns it as an array of 8 integers.
     public static int[] loadStat() {
     	File file = new File("savedsudokus/Stats.st");
     	if(!file.exists()) {
@@ -451,7 +445,7 @@ public class Model {
     	
     }
     
-    //Overrides stats file with a new time (if time beats best time) and number of solved sudoku for a difficulty.
+    //Overrides stats file with a new time (if time beats best time) and number of solved sudokus for a difficulty.
     public void saveStat(int time, int difficulty) {
 		if (!usedSolver && !assistMode && mode == Mode.play) {
 			int[] Stats = loadStat();
@@ -473,7 +467,7 @@ public class Model {
 		}
     }
 
-	// Used to generate a sudoku
+	//Parallel thread used to generate a sudoku.
 	public class GenerateSudokuThread implements Runnable {
 		private double minMissingFieldsPercent;
 		private int innerSquareSize, numInnerSquares, minDifficulty, maxDifficulty;
@@ -516,7 +510,7 @@ public class Model {
 		}
 	}
 
-	// Used to cancel GenerateSudokuThread
+	//Used to cancel generation of a sudoku.
 	public void cancelGenerator() {
 		generator.cancelGenerator = true;
 	}
