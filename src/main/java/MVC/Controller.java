@@ -39,6 +39,7 @@ public class Controller {
 		}//Saves the sudoku when 'enter' is pressed.
 		else if (e.getKeyCode() == KeyEvent.VK_ENTER && Main.DEBUG_MODE) {
 			model.save(view.textField.getText());
+			view.showSavePopup();
 		}//Loads sudoku file typed in the small text field when 'l' is pressed.
 		else if (e.getKeyCode() == KeyEvent.VK_L && Main.DEBUG_MODE) {
 			model.loadAndUpdate(view.textField.getText());

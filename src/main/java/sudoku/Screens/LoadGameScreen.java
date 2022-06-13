@@ -12,6 +12,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FilenameFilter;
 
@@ -76,6 +78,14 @@ public class LoadGameScreen extends MenuScreen {
         
         loadList = new JList<LoadListElement>(savedSudokus);
         loadList.setCellRenderer(new LoadListRenderer(btnWidth * 2));
+        loadList.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+                if(e.getClickCount() == 2){
+                    new loadAction().actionPerformed(new ActionEvent(this,0,""));
+                }
+            }
+        });
         
         // Add scroll function
         JScrollPane scrollPane = new JScrollPane();
@@ -86,7 +96,14 @@ public class LoadGameScreen extends MenuScreen {
         add(scrollPane);
         add(Box.createRigidArea(new Dimension(0, spacing)));
     }
-
+    /*
+    public void mouseClicked(MouseEvent event)
+    {
+        if (event.getClickCount() == 2 && event.getButton() == MouseEvent.BUTTON1) {
+            System.out.println("double clicked");
+        }
+    }
+    */
     private void setActionListeners(){//makes buttons pressable
         loadGameBtn.addActionListener(new loadAction());
         backBtn.addActionListener(new backAction());

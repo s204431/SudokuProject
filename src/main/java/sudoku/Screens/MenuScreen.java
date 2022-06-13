@@ -28,15 +28,15 @@ import java.net.URL;
 
 public abstract class MenuScreen extends JPanel {
     protected Font titleFont = new Font(Font.SERIF, Font.BOLD,Main.SCREEN_HEIGHT / 20);
+    protected Font buttonFont = new Font(Font.SERIF, Font.BOLD, Main.SCREEN_HEIGHT / 40);
+    protected Font textFont = new Font(Font.SERIF, Font.BOLD,Main.SCREEN_HEIGHT / 40);
+    protected Font labelFont = new Font(Font.SERIF, Font.BOLD,Main.SCREEN_HEIGHT / 50);
+    protected JFrame frame;
     protected int textSize = Main.SCREEN_HEIGHT / 20;
     protected int spacing = Main.SCREEN_HEIGHT / 30;
     protected int btnHeight = Main.SCREEN_HEIGHT / 20;
     protected int btnWidth = Main.SCREEN_WIDTH / 3;
     protected int k, n;
-    protected JFrame frame;
-    protected Font buttonFont = new Font("Arial", Font.BOLD, Main.SCREEN_HEIGHT / 40);
-    protected Font textFont = new Font("Serif", Font.BOLD,Main.SCREEN_HEIGHT / 40);
-    protected Font labelFont = new Font("Serif", Font.BOLD,Main.SCREEN_HEIGHT / 50);
     protected Dimension panelDimension = new Dimension(400,60);
     protected Dimension buttonDimension = new Dimension(btnWidth, btnHeight);
     protected Dimension textDimension = new Dimension(textSize, textSize);

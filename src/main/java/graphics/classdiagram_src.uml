@@ -5,44 +5,44 @@
   <nodes>
     <node x="146.25" y="0.0">solvers.SudokuSolver</node>
     <node x="0.0" y="311.0">sudoku.Screens.LoadGameScreen</node>
-    <node x="213.0" y="464.0">multiplayer.MultiplayerView</node>
     <node x="28.0" y="79.0">solvers.EfficientSolver</node>
+    <node x="213.0" y="464.0">multiplayer.MultiplayerView</node>
     <node x="247.0" y="79.0">solvers.BacktrackingSolver</node>
     <node x="0.0" y="538.0">MVC.Controller</node>
     <node x="0.0" y="464.0">multiplayer.MultiplayerModel</node>
-    <node x="1318.0" y="311.0">sudoku.Screens.SudokuSolverScreen</node>
-    <node x="439.0" y="538.0">sudoku.Field</node>
+    <node x="1023.0" y="311.0">sudoku.Screens.SudokuSolverScreen</node>
     <node x="1242.0" y="385.0">testers.SolverTester</node>
-    <node x="627.0" y="385.0">sudoku.LoadListRenderer</node>
+    <node x="439.0" y="538.0">sudoku.Field</node>
     <node x="1040.0" y="385.0">testers.GeneratorTester</node>
-    <node x="517.0" y="311.0">sudoku.Screens.MainScreen</node>
-    <node x="665.0" y="311.0">sudoku.Screens.MultiplayerScreen</node>
-    <node x="0.0" y="158.0">solvers.RandomEfficientSolver</node>
+    <node x="627.0" y="385.0">sudoku.LoadListRenderer</node>
+    <node x="1229.0" y="311.0">sudoku.Screens.MainScreen</node>
+    <node x="186.0" y="311.0">sudoku.Screens.MultiplayerScreen</node>
     <node x="415.0" y="385.0">Generators.SudokuGenerator</node>
-    <node x="186.0" y="311.0">sudoku.Screens.StatsScreen</node>
+    <node x="0.0" y="158.0">solvers.RandomEfficientSolver</node>
+    <node x="1377.0" y="311.0">sudoku.Screens.StatsScreen</node>
     <node x="250.5" y="385.0">MVC.View</node>
     <node x="837.0" y="385.0">sudoku.LoadListElement</node>
     <node x="161.0" y="538.0">testers.UITester</node>
     <node x="311.0" y="538.0">sudoku.Main</node>
     <node x="219.0" y="158.0">solvers.RandomBacktrackingSolver</node>
-    <node x="598.75" y="232.0">sudoku.Screens.MenuScreen</node>
-    <node x="333.00000000000006" y="311.0">sudoku.Screens.NewGameScreen</node>
-    <node x="854.0" y="311.0">sudoku.Screens.CreateSudokuScreen</node>
-    <node x="1062.0" y="311.0">sudoku.Screens.GenerateNewSudokuScreen</node>
+    <node x="708.5" y="232.0">sudoku.Screens.MenuScreen</node>
+    <node x="583.0" y="311.0">sudoku.Screens.NewGameScreen</node>
+    <node x="374.99999999999994" y="311.0">sudoku.Screens.CreateSudokuScreen</node>
+    <node x="767.0" y="311.0">sudoku.Screens.GenerateNewSudokuScreen</node>
     <node x="37.5" y="385.0">MVC.Model</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="sudoku.Screens.StatsScreen" target="sudoku.Screens.MenuScreen" relationship="GENERALIZATION">
-      <point x="0.0" y="-14.5" />
-      <point x="249.5" y="286.0" />
-      <point x="665.25" y="286.0" />
-      <point x="0.0" y="14.5" />
-    </edge>
     <edge source="sudoku.Screens.GenerateNewSudokuScreen" target="sudoku.Screens.MenuScreen" relationship="GENERALIZATION">
       <point x="0.0" y="-14.5" />
-      <point x="1180.0" y="286.0" />
-      <point x="665.25" y="286.0" />
+      <point x="885.0" y="286.0" />
+      <point x="775.0" y="286.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="sudoku.Screens.StatsScreen" target="sudoku.Screens.MenuScreen" relationship="GENERALIZATION">
+      <point x="0.0" y="-14.5" />
+      <point x="1440.5" y="286.0" />
+      <point x="775.0" y="286.0" />
       <point x="0.0" y="14.5" />
     </edge>
     <edge source="solvers.BacktrackingSolver" target="solvers.SudokuSolver" relationship="GENERALIZATION">
@@ -54,19 +54,19 @@
     <edge source="sudoku.Screens.LoadGameScreen" target="sudoku.Screens.MenuScreen" relationship="GENERALIZATION">
       <point x="0.0" y="-14.5" />
       <point x="83.0" y="286.0" />
-      <point x="665.25" y="286.0" />
+      <point x="775.0" y="286.0" />
       <point x="0.0" y="14.5" />
     </edge>
     <edge source="sudoku.Screens.CreateSudokuScreen" target="sudoku.Screens.MenuScreen" relationship="GENERALIZATION">
       <point x="0.0" y="-14.5" />
-      <point x="948.0" y="286.0" />
-      <point x="665.25" y="286.0" />
+      <point x="468.99999999999994" y="286.0" />
+      <point x="775.0" y="286.0" />
       <point x="0.0" y="14.5" />
     </edge>
     <edge source="sudoku.Screens.MultiplayerScreen" target="sudoku.Screens.MenuScreen" relationship="GENERALIZATION">
       <point x="0.0" y="-14.5" />
-      <point x="749.5" y="286.0" />
-      <point x="665.25" y="286.0" />
+      <point x="270.5" y="286.0" />
+      <point x="775.0" y="286.0" />
       <point x="0.0" y="14.5" />
     </edge>
     <edge source="multiplayer.MultiplayerView" target="MVC.View" relationship="GENERALIZATION">
@@ -75,18 +75,14 @@
     </edge>
     <edge source="sudoku.Screens.MainScreen" target="sudoku.Screens.MenuScreen" relationship="GENERALIZATION">
       <point x="0.0" y="-14.5" />
-      <point x="581.0" y="286.0" />
-      <point x="665.25" y="286.0" />
-      <point x="0.0" y="14.5" />
-    </edge>
-    <edge source="solvers.RandomEfficientSolver" target="solvers.EfficientSolver" relationship="GENERALIZATION">
-      <point x="0.0" y="-14.5" />
+      <point x="1293.0" y="286.0" />
+      <point x="775.0" y="286.0" />
       <point x="0.0" y="14.5" />
     </edge>
     <edge source="sudoku.Screens.SudokuSolverScreen" target="sudoku.Screens.MenuScreen" relationship="GENERALIZATION">
       <point x="0.0" y="-14.5" />
-      <point x="1411.0" y="286.0" />
-      <point x="665.25" y="286.0" />
+      <point x="1116.0" y="286.0" />
+      <point x="775.0" y="286.0" />
       <point x="0.0" y="14.5" />
     </edge>
     <edge source="solvers.EfficientSolver" target="solvers.SudokuSolver" relationship="GENERALIZATION">
@@ -95,14 +91,18 @@
       <point x="216.75" y="54.0" />
       <point x="0.0" y="14.5" />
     </edge>
+    <edge source="solvers.RandomEfficientSolver" target="solvers.EfficientSolver" relationship="GENERALIZATION">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
     <edge source="multiplayer.MultiplayerModel" target="MVC.Model" relationship="GENERALIZATION">
       <point x="0.0" y="-14.5" />
       <point x="0.0" y="14.5" />
     </edge>
     <edge source="sudoku.Screens.NewGameScreen" target="sudoku.Screens.MenuScreen" relationship="GENERALIZATION">
       <point x="0.0" y="-14.5" />
-      <point x="415.00000000000006" y="286.0" />
-      <point x="665.25" y="286.0" />
+      <point x="665.0" y="286.0" />
+      <point x="775.0" y="286.0" />
       <point x="0.0" y="14.5" />
     </edge>
     <edge source="solvers.RandomBacktrackingSolver" target="solvers.BacktrackingSolver" relationship="GENERALIZATION">
@@ -110,10 +110,10 @@
       <point x="0.0" y="14.5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic" zoom="0.8654173764906303" showDependencies="false" x="752.0000000000002" y="283.50000000000006" />
+  <settings layout="Hierarchic" zoom="0.75" showDependencies="true" x="752.0" y="283.5" />
   <SelectedNodes />
   <Categories />
   <SCOPE>All</SCOPE>
-  <VISIBILITY>packageLocal</VISIBILITY>
+  <VISIBILITY>private</VISIBILITY>
 </Diagram>
 
