@@ -48,7 +48,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     private boolean infoButtonClicked = false;
     private int savedDifficulty;
     private int buttonYReference = Main.SCREEN_HEIGHT/3;
-    private Font buttonFont = new Font("Arial", Font.BOLD, Main.SCREEN_HEIGHT / 50);
+    private Font buttonFont = new Font("Arial", Font.BOLD, Main.SCREEN_HEIGHT / 60);
     private Color buttonColor = new Color(180, 180, 180);
     private Color hoverButtonColor = new Color(120, 120, 120);
 
@@ -310,7 +310,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         if (mode == Mode.play) {
             if (Main.DEBUG_MODE) {
                 textField = new JTextField();
-                textField.setBounds(buttonPanel.getWidth()/4, buttonYReference + (buttonPanel.getWidth()/5) * 3, buttonPanel.getWidth()/2,buttonPanel.getWidth()/9);
+                textField.setBounds(buttonPanel.getWidth()/4, buttonYReference + (buttonPanel.getWidth()/5) * 4, buttonPanel.getWidth()/2,buttonPanel.getWidth()/9);
                 textField.addMouseListener(new MouseListener() {
             		public void mousePressed(MouseEvent e) {}
             		public void mouseReleased(MouseEvent e) {}
@@ -320,7 +320,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             			inFocus = false;
             		}});
             	loadButton = new JButton("Load");
-                loadButton.setBounds(buttonPanel.getWidth()/4, buttonYReference + (buttonPanel.getWidth()/5) * 4, buttonPanel.getWidth()/2,buttonPanel.getWidth()/9);
+                loadButton.setBounds(buttonPanel.getWidth()/4, buttonYReference + (buttonPanel.getWidth()/5) * 5, buttonPanel.getWidth()/2,buttonPanel.getWidth()/9);
                 styleButton(loadButton);
                 loadButton.addActionListener(new ActionListener() {
                     @Override
