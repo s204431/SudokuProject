@@ -339,7 +339,7 @@ public class Model {
 	public void giveHint() {
 		EfficientSolver solver = new EfficientSolver(board, innerSquareSize);
 		int[] move = solver.makeOneMove();
-		if (move == null) {
+		if (move == null && !solved) {
 			view.unsolvablePopup();
 		}
 		else if (solver.positionHints.size() > 0) {

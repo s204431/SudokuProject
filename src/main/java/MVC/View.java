@@ -376,7 +376,13 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     model.giveHint();
-                    hintText.setText("Use " + hintName);
+                    if (hintName == null) {
+                        hintText.setText("");	
+                    }
+                    else {
+                        hintText.setText("Use " + hintName);
+                    }
+                    hintName = null;
                 }
             });
             buttonPanel.add(hintButton);
