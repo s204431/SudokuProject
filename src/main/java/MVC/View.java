@@ -38,7 +38,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 	protected boolean close = false;
 	protected JFrame frame;
 	protected JPanel buttonPanel;
-	protected JButton saveButton, loadButton, notesButton, exitButton;
+	protected JButton saveButton, loadButton, notesButton, removeNotesButton, exitButton;
     private JButton cancelButton;
     private JLabel hintText;
 	public JTextField textField;
@@ -288,8 +288,18 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             }
         });
         buttonPanel.add(notesButton);
+        removeNotesButton = new JButton("Remove notes");
+        removeNotesButton.setBounds(buttonPanel.getWidth()/4, buttonYReference + buttonPanel.getWidth()/5 * 2, buttonPanel.getWidth()/2,buttonPanel.getWidth()/9);
+        styleButton(removeNotesButton);
+        removeNotesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                model.removeNotes();
+            }
+        });
+        buttonPanel.add(removeNotesButton);
         exitButton = new JButton("Exit");
-        exitButton.setBounds(buttonPanel.getWidth()/4, buttonYReference + (buttonPanel.getWidth()/5) * 2, buttonPanel.getWidth()/2,buttonPanel.getWidth()/9);
+        exitButton.setBounds(buttonPanel.getWidth()/4, buttonYReference + (buttonPanel.getWidth()/5) * 3, buttonPanel.getWidth()/2,buttonPanel.getWidth()/9);
         styleButton(exitButton);
         exitButton.addActionListener(new ActionListener() {
             @Override
@@ -377,7 +387,13 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     model.giveHint();
-                    hintText.setText("Use " + hintName);
+                    if (hintName == null) {
+                        hintText.setText("");	
+                    }
+                    else {
+                        hintText.setText("Use " + hintName);
+                    }
+                    hintName = null;
                 }
             });
             buttonPanel.add(hintButton);
@@ -403,23 +419,28 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     //Shows the popup menu for saving a sudoku.
     public void showSavePopup() {
         JPanel panel = new JPanel(null);
-        panel.setPreferredSize(new Dimension(350, 100));
+        panel.setPreferredSize(new Dimension(350, 110));
 
         savedDifficulty = -1;
 
+        JLabel sudokuNameText = new JLabel("Enter name of sudoku:");
         JLabel boardSizeLabel = new JLabel("Size: " + model.getBoardSize() + "x" + model.getBoardSize());
         JLabel solutionsLabel = new JLabel("Solutions: Unknown");
         JLabel difficultyLabel = new JLabel("Difficulty: Unknown");
         JButton infoButton = new JButton("Show additional information");
 
+        sudokuNameText.setFont(new Font("Serif", Font.BOLD, 15));
         boardSizeLabel.setFont(new Font("Serif", Font.BOLD, 15));
         solutionsLabel.setFont(new Font("Serif", Font.BOLD, 15));
         difficultyLabel.setFont(new Font("Serif", Font.BOLD, 15));
 
-        boardSizeLabel.setBounds(100, 10, 200, 20);
-        solutionsLabel.setBounds(100, 40, 200, 20);
-        difficultyLabel.setBounds(100, 70, 200, 20);
+        sudokuNameText.setBounds(0, 90, 200, 20);
+        boardSizeLabel.setBounds(100, 0, 200, 20);
+        solutionsLabel.setBounds(100, 30, 200, 20);
+        difficultyLabel.setBounds(100, 60, 200, 20);
         infoButton.setBounds(25, 40, 250, 30);
+
+        panel.add(sudokuNameText);
         infoButton.addActionListener(new ActionListener() {
         	//Handles clicking the "Show additional information" button.
             @Override

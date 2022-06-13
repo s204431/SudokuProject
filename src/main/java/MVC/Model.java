@@ -334,12 +334,23 @@ public class Model {
 			}
 		}
 	}
+
+	//Removes every note from every field.
+	public void removeNotes() {
+		for (Field[] fields : board) {
+			for (Field field : fields) {
+				for (int k = 1; k <= 9; k++) {
+					field.notes[k - 1] = 0;
+				}
+			}
+		}
+	}
 	
 	//Gives a hint by marking certain fields.
 	public void giveHint() {
 		EfficientSolver solver = new EfficientSolver(board, innerSquareSize);
 		int[] move = solver.makeOneMove();
-		if (move == null) {
+		if (move == null && !solved) {
 			view.unsolvablePopup();
 		}
 		else if (solver.positionHints.size() > 0) {

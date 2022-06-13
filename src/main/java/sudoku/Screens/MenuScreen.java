@@ -67,7 +67,7 @@ public abstract class MenuScreen extends JPanel {
         frame.setVisible(true);
     }
     //Sets background image as the first "layer" of the UI.
-    private void initBackground() {
+    protected void initBackground() {
         try {
             backgroundImage = ImageIO.read(new File("src/main/resources/Background.png"));
         } catch (Exception e) {
