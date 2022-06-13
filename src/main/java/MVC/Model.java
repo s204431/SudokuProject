@@ -316,19 +316,6 @@ public class Model {
 		}
 	}
 
-	//Removes every note from every field.
-	public void removeNotes() {
-		int maxNotes = getMaxNumber();
-		maxNotes = maxNotes > 9 ? 9 : maxNotes;
-		for (Field[] fields : board) {
-			for (Field field : fields) {
-				for (int k = 1; k <= maxNotes; k++) {
-					field.notes[k - 1] = 0;
-				}
-			}
-		}
-	}
-
 	//Helper method for the generateNotes method.
 	public void add(int x, int y, int value) {
 		for (int i = 0; i < board.length; i++) {
@@ -343,6 +330,19 @@ public class Model {
 			for (int j = y / innerSquareSize * innerSquareSize; j < y / innerSquareSize * innerSquareSize + innerSquareSize; j++) {
 				if ((i != x || j != y) & value <= 9 && value >= 1) {
 					board[i][j].notes[value - 1] = 0;
+				}
+			}
+		}
+	}
+
+	//Removes every note from every field.
+	public void removeNotes() {
+		int maxNotes = getMaxNumber();
+		maxNotes = maxNotes > 9 ? 9 : maxNotes;
+		for (Field[] fields : board) {
+			for (Field field : fields) {
+				for (int k = 1; k <= maxNotes; k++) {
+					field.notes[k - 1] = 0;
 				}
 			}
 		}
