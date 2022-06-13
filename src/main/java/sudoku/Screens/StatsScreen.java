@@ -32,10 +32,10 @@ public class StatsScreen extends MenuScreen {
 		middlePanel.setLayout(new BoxLayout(middlePanel, BoxLayout.PAGE_AXIS));
 		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.PAGE_AXIS));
 		
-		PANEL.setPreferredSize(new Dimension(300, 800));
+		PANEL.setPreferredSize(new Dimension(400, 800));
 		//sets size
 		leftPanel.setPreferredSize(new Dimension(110, 500));
-		middlePanel.setPreferredSize(new Dimension(110, 500));
+		middlePanel.setPreferredSize(new Dimension(130, 500));
 		rightPanel.setPreferredSize(new Dimension(110, 500));
 		
 		// Sets up elements in the different 3 panels.
@@ -55,7 +55,7 @@ public class StatsScreen extends MenuScreen {
 		name[3] = new JLabel ("Hard");
 		name[4] = new JLabel ("Extreme");
 		
-		time[0] = new JLabel("Records:");
+		time[0] = new JLabel("Fastest time:");
 		attempts[0] = new JLabel("Completed:");
 		for(int i = 1; i < 5; i++) {//convertes seconds to hour/minute/second
 			seconds = String.valueOf(stats[i - 1] % 60);

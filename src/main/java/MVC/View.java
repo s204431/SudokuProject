@@ -52,6 +52,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     private Color buttonColor = new Color(180, 180, 180);
     private Color hoverButtonColor = new Color(120, 120, 120);
 
+    private boolean helpInfoShown = false;
     public int[] clickedPosition = new int[] {0, 0};
     public ArrayList<int[]> marked1;
     public ArrayList<int[]> marked2;
@@ -65,8 +66,8 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     public View(Model model) {
     	this.model = model;
     	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    	windowWidth = screenSize.width-screenSize.width / 10;
-    	windowHeight = screenSize.height-screenSize.height / 10;
+    	windowWidth = screenSize.width - screenSize.width / 10;
+    	windowHeight = screenSize.height - screenSize.height / 10;
     	setPreferredSize(new Dimension(windowWidth, windowHeight));
         boardX = getPreferredSize().width / 2 - model.getBoardSize() * fieldWidth / 2;
         setBounds(0, 0, getPreferredSize().width, getPreferredSize().height);
@@ -214,7 +215,6 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                 }
             }
             g2.setStroke(oldStroke);
-
             // Draw components
             buttonPanel.repaint();
             buttonPanel.setVisible(true);
@@ -231,6 +231,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             } else {
                 textField.requestFocus();
             }
+
         }
     }
     
@@ -641,7 +642,6 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 		}
 	}
 
-
 	//Shows the win popup when sudoku is solved.
 	public void winPopup(int difficulty) {
 		String diff = SudokuSolver.getDifficultyString(difficulty);	
@@ -680,7 +680,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         if (Main.DEBUG_MODE){
             JOptionPane.showMessageDialog(frame,
                     "Enter a digit in the empty fields" +
-                            "\nHold 'shift' to set notes." +
+                            "\nHold 'shift' and press a number from 1-9 to set or remove notes." +
                             "\nUse arrow keys to navigate." +
                             "\n'backspace' deletes the chosen field if interactable." +
                             "\nUse your mouse to either scroll or drag the board." +
@@ -697,7 +697,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         } else {
             JOptionPane.showMessageDialog(frame,
                     "Enter a digit in the empty fields" +
-                            "\nHold 'shift' to set notes." +
+                            "\nHold 'shift' and press a number from 1-9 to set or remove notes." +
                             "\nUse arrow keys to navigate." +
                             "\n'backspace' deletes the chosen field if interactable." +
                             "\nUse your mouse to either scroll or drag the board.",
