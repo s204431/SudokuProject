@@ -5,7 +5,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-	//This class contains the menu screen when clicking stats.
+/*
+	This class contains the menu screen when clicking stats.
+
+	Responsible: Magnus
+ */
 
 public class StatsScreen extends MenuScreen {
 	

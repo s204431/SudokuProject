@@ -3,6 +3,8 @@ package sudoku;
 /*
     Objects of this class represents a field in a sudoku.
     It contains all information about a specific field.
+
+    Responsible: Michael
 */
 
 public class Field {

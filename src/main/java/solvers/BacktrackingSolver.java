@@ -10,6 +10,8 @@ import MVC.Model;
 /*
 	This is the BackTracking Solver class that uses the SudokuSolver's
 	functionality. It solves sudokus by using a backtracking technique.
+
+	Responsible: Jens
 */
 
 public class BacktrackingSolver extends SudokuSolver {

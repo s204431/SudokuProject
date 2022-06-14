@@ -7,7 +7,9 @@ import solvers.EfficientSolver;
 import solvers.SudokuSolver;
 
 /*
-This class is used to test the sudoku generator by testing generation of different sudokus.
+	This class is used to test the sudoku generator by testing generation of different sudokus.
+
+	Responsible: Jens
  */
 
 public class GeneratorTester {

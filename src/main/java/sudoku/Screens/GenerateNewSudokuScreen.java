@@ -13,7 +13,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-	//This class contains the menu screen when clicking generate new sudoku.
+/*
+	This class contains the menu screen when clicking generate new sudoku.
+
+	Responsible: Gideon
+ */
 
 public class GenerateNewSudokuScreen extends MenuScreen {
     private JLabel titleLabel,

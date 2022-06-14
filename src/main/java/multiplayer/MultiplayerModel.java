@@ -20,6 +20,8 @@ import sudoku.Main;
 /*
 	The MultiplayerModel extends the Model and contains mostly the same functionality,
 	but with added functionality for multiplayer.
+
+	Responsible: Jens
 */
 
 

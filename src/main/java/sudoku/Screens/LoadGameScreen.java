@@ -17,7 +17,11 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FilenameFilter;
 
-	//This class contains the menu screen when clicking load existing sudoku.
+/*
+	This class contains the menu screen when clicking load existing sudoku.
+
+	Responsible: Gideon
+ */
 
 public class LoadGameScreen extends MenuScreen {
     private JLabel titleString;

@@ -20,6 +20,8 @@ import sudoku.Main;
 /*
 	The model of our MVC-module. Controller sends requests to manipulate the data in the model.
 	The model sends updates to the view.
+
+	Responsible: Gideon, Jens, Magnus & Michael
 */
 
 public class Model {

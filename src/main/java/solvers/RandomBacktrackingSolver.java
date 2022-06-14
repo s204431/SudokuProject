@@ -10,6 +10,8 @@ import MVC.Model;
 /*
 	This RandomBacktrackingSolver is a random version
 	of the BacktrackingSolver.
+
+	Responsible: Jens
 */
 
 

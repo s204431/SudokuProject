@@ -10,6 +10,8 @@ import MVC.Model;
 	This is an abstract super class that all of
 	the solvers extend from. It contains functionalities
 	that solvers have in common.
+
+	Responsible: Jens
 */
 
 public abstract class SudokuSolver {

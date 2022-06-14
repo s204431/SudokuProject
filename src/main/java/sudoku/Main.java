@@ -5,6 +5,10 @@ import sudoku.Screens.MainScreen;
 import javax.swing.*;
 import java.awt.*;
 
+/*
+	Responsible: Gideon
+ */
+
 public class Main {
 	public static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	public static final int SCREEN_HEIGHT = screenSize.height - screenSize.height / 9;

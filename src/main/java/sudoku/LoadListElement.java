@@ -2,6 +2,8 @@ package sudoku;
 
 /*
  This class represents an element in the list in the load menu.
+
+ Responsible: Jens
 */
 
 public class LoadListElement {

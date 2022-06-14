@@ -13,6 +13,8 @@ import testers.SolverTester;
 /*
 	The controller of our MVC-module.
 	This class receives user input from the view and calls appropriate methods on the model.
+
+	Responsible: Magnus
 */
 
 public class Controller {

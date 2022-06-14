@@ -6,7 +6,11 @@ import java.util.Random;
 import testers.GeneratorTester.*;
 import solvers.*;
 
-	//This is a sudoku generator. Using an algorithm described in the section 6.3 in the report.
+/*
+	This is a sudoku generator. Using an algorithm described in the section 6.3 in the report.
+
+	Responsible: Jens & Magnus
+ */
 
 public class SudokuGenerator {
 	private int currentMissingFields = 0,

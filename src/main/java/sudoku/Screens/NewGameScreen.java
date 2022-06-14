@@ -7,7 +7,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-	//This class contains the menu screen when clicking new game.
+/*
+	This class contains the menu screen when clicking new game.
+
+	Responsible: Gideon
+ */
 
 public class NewGameScreen extends MenuScreen {
     private JLabel titleString,

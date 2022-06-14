@@ -22,6 +22,8 @@ import solvers.SudokuSolver;
 
 /*
    This class renders the list of sudokus in the load menu.
+
+   Responsible: Jens
 */
 
 public class LoadListRenderer extends JPanel implements ListCellRenderer<LoadListElement> {

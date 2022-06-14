@@ -8,6 +8,8 @@ import sudoku.Field;
 /*
 	This RandomEfficientSolver is a random version
 	of the EfficientSolver.
+
+	Responsible: Jens
 */
 
 public class RandomEfficientSolver extends EfficientSolver {

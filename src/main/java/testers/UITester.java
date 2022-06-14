@@ -30,7 +30,11 @@ import sudoku.Main;
 import sudoku.Screens.*;
 import MVC.*;
 
-	//This class is used to test the UI of the program.
+/*
+	This class is used to test the UI of the program.
+
+	Responsible: Jens
+ */
 
 public class UITester extends ComponentTestFixture {
 	private boolean testMainMenu = true,

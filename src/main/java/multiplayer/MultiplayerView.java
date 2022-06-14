@@ -22,6 +22,8 @@ import javax.swing.*;
 /*
 	The MultiplayerView extends the View and contains mostly the same functionality,
 	but with added functionality for multiplayer.
+
+	Responsible: Jens & Michael
 */
 
 public class MultiplayerView extends View {

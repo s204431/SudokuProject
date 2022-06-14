@@ -7,7 +7,11 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-	//This class contains the menu screen when clicking multiplayer.
+/*
+	This class contains the menu screen when clicking multiplayer.
+
+	Responsible: Gideon
+ */
 
 public class MultiplayerScreen extends MenuScreen{
     private JLabel titleLabel;

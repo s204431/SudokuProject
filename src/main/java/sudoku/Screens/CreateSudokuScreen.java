@@ -7,7 +7,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-	//This class contains the menu screen when clicking create sudoku.
+/*
+	This class contains the menu screen when clicking create sudoku.
+
+	Responsible: Gideon
+ */
 
 public class CreateSudokuScreen extends MenuScreen {
     private JLabel titleString;

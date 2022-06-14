@@ -22,6 +22,8 @@ import java.util.ArrayList;
     The View of our MVC-module.
     This class sends user input to the controller and
     changes the UI based on updates from the model.
+
+    Responsible: Michael
 */
 
 public class View extends JPanel implements MouseListener, KeyListener, MouseWheelListener {
@@ -226,7 +228,6 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             } else {
                 textField.requestFocus();
             }
-
         }
     }
     

@@ -9,7 +9,11 @@ import solvers.EfficientSolver;
 import solvers.SudokuSolver;
 import sudoku.Field;
 
-	//This class is used to test sudoku solvers.
+/*
+	This class is used to test sudoku solvers.
+
+	Responsible: Jens
+ */
 
 public class SolverTester {
 	

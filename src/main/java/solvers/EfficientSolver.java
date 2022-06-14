@@ -10,6 +10,8 @@ import sudoku.Field;
 /*
 	The EfficientSolver is an extension of the SudokuSolver.
 	It solves sudokus using different techniques.
+
+	Responsible: Jens
 */
 
 

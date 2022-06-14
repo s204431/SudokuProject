@@ -8,7 +8,11 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 
-	//This class contains the menu screen for the first screen of the menu.
+/*
+	This class contains the menu screen for the first screen of the menu.
+
+	Responsible: Gideon
+ */
 
 public class MainScreen extends MenuScreen {
     private JLabel titleString;

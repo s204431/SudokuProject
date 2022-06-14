@@ -22,6 +22,8 @@ import java.net.URL;
 /*
     This is an abstract class that all of the menu screens extend from.
     It contains functionalities that menu screens have in common.
+
+    Responsible: Gideon & Michael
 */
 
 public abstract class MenuScreen extends JPanel {
