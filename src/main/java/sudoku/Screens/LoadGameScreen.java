@@ -1,9 +1,7 @@
 package sudoku.Screens;
 
-import MVC.Controller;
 import MVC.Model;
 import MVC.Model.Mode;
-import MVC.View;
 import sudoku.Field;
 import sudoku.LoadListElement;
 import sudoku.LoadListRenderer;

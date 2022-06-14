@@ -2,10 +2,8 @@ package solvers;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import sudoku.Field;
-import MVC.Model;
 
 /*
 	This is the BackTracking Solver class that uses the SudokuSolver's

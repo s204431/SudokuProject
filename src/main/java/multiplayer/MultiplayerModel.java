@@ -1,6 +1,5 @@
 package multiplayer;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.UnknownHostException;
@@ -13,9 +12,7 @@ import org.jspace.Space;
 import org.jspace.SpaceRepository;
 
 import MVC.Model;
-import MVC.Model.Mode;
 import sudoku.Field;
-import sudoku.Main;
 
 /*
 	The MultiplayerModel extends the Model and contains mostly the same functionality,

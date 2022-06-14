@@ -1,11 +1,9 @@
 package solvers;
 
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Collections;
 
 import sudoku.Field;
-import MVC.Model;
 
 /*
 	This RandomBacktrackingSolver is a random version

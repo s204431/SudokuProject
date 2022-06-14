@@ -12,7 +12,6 @@ import java.awt.event.MouseWheelEvent;
 import org.jspace.ActualField;
 import org.jspace.FormalField;
 
-import MVC.Model;
 import MVC.View;
 import sudoku.Field;
 import sudoku.Main;

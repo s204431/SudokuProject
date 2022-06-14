@@ -1,6 +1,5 @@
 package MVC;
 
-import Generators.SudokuGenerator;
 import solvers.EfficientSolver;
 import solvers.SudokuSolver;
 import sudoku.Field;
@@ -8,14 +7,9 @@ import sudoku.Main;
 import MVC.Model.Mode;
 import multiplayer.MultiplayerView;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 
 /*
