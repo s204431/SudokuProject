@@ -5,15 +5,18 @@ import Generators.SudokuGenerator;
 import MVC.Model;
 import solvers.EfficientSolver;
 import solvers.SudokuSolver;
+
 /*
-This class tests different generated sudoku's
-and how much time it takes to be generated.
+This class is used to test the sudoku generator by testing generation of different sudokus.
  */
+
 public class GeneratorTester {
+	
+	//Performs the tests.
 	public void test(Model model) {
 		long start = new Date().getTime();
 		System.out.println("Testing generator...");
-		//These are the different sudokus that are generated, and will determine the time complexity.
+		//These are the different test cases.
 		GeneratorTestCase[] testCases = new GeneratorTestCase[] {new GeneratorTestCase(50, "Easy", 3, 3),
 				new GeneratorTestCase(50, "Medium", 3, 3),
 				new GeneratorTestCase(50, "Hard", 3, 3),
@@ -31,10 +34,7 @@ public class GeneratorTester {
 		int totalGenerated = 0;
 		boolean passed = true;
 
-		//Runs through all the test cases and determines
-		//the average time it takes to generate a sudoku
-		//with the given difficulty, size and amount.
-
+		//Runs through all the test cases.
 		for (GeneratorTestCase testCase : testCases) {
 			long minimum = Long.MAX_VALUE;
 			long maximum = 0;
@@ -93,17 +93,14 @@ public class GeneratorTester {
 		}
 	}
 
-	/*
-		This class is a way of a test case to
-		have properties and manipulative values.
-	*/
-
+	//This class represents a test case for the generator tester.
 	private static class GeneratorTestCase {
 		public int amount = 0;
 		public String difficulty = "";
 		public int minDifficulty, maxDifficulty = 0; //Only used if difficulty is not specified.
 		public int innerSquareSize, numInnerSquares = 0;
 		
+		//Constructor taking a string difficulty.
 		public GeneratorTestCase(int amount, String difficulty, int innerSquareSize, int numInnerSquares) {
 			this.amount = amount;
 			this.difficulty = difficulty;
@@ -111,6 +108,7 @@ public class GeneratorTester {
 			this.numInnerSquares = numInnerSquares;
 		}
 		
+		//Constructor taking a range of number difficulties.
 		public GeneratorTestCase(int amount, int minDifficulty, int maxDifficulty, int innerSquareSize, int numInnerSquares) {
 			this.amount = amount;
 			this.minDifficulty = minDifficulty;
@@ -118,8 +116,5 @@ public class GeneratorTester {
 			this.innerSquareSize = innerSquareSize;
 			this.numInnerSquares = numInnerSquares;
 		}
-	}
-	public static float nanoToSeconds(long nanoSecs){
-		return (float)nanoSecs / 1000000000;
 	}
 }

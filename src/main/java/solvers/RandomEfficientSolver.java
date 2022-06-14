@@ -6,23 +6,23 @@ import java.util.List;
 import sudoku.Field;
 
 /*
-	Just like the RandomBacktrackingSolver that randomizes the
-	BacktrackingSolver this class also shuffles the order of
-	the values that are generated and therefore makes the order
-	of what solving method should be chosen random.
+	This RandomEfficientSolver is a random version
+	of the EfficientSolver.
 */
 
 public class RandomEfficientSolver extends EfficientSolver {
 	
+	//Constructor taking a field 2D array.
 	public RandomEfficientSolver(Field[][] board, int innerSquareSize) {
 		super(board, innerSquareSize);
 	}
 	
+	//Constructor taking an int 2D array.
 	public RandomEfficientSolver(int[][] board, int innerSquareSize) {
 		super(board, innerSquareSize);
 	}
 	
-	//Shuffle the order of the values.
+	//Shuffles the order of values to make the solver random.
 	protected void generateOrder(List<Integer> values) {
 		Collections.shuffle(values);
 	}

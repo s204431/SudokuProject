@@ -8,6 +8,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 
+	//This class contains the menu screen for the first screen of the menu.
+
 public class MainScreen extends MenuScreen {
     private JLabel titleString;
     private JTextField kText, nText;
@@ -18,15 +20,18 @@ public class MainScreen extends MenuScreen {
                     solverBtn,
                     highScoreBtn;
 
+    //Constructor taking the frame.
     public MainScreen (JFrame frame) {
         super(frame);
     }
     
+    //Constructor that displays a message when starting.
     public MainScreen (JFrame frame, String message) {
         this(frame);
         JOptionPane.showMessageDialog(frame, message);
     }
 
+    //Adds the components to the screen.
     public void addComponents() {//inits title, 6 buttons and 2 textfields with labels
         // Title
         titleString = new JLabel("Main Menu");
@@ -55,6 +60,7 @@ public class MainScreen extends MenuScreen {
         setActionListeners();
     }
 
+    //Sets the action listeners of the buttons.
     private void setActionListeners(){//makes the buttons pressable
     	if (Main.DEBUG_MODE) {
             playBtn.addActionListener(new playAction());	
@@ -66,6 +72,7 @@ public class MainScreen extends MenuScreen {
         highScoreBtn.addActionListener(new statsAction());
     }
 
+    //Starts the game when clicking play game in debug mode.
     private void startGame() {
         // Game is initialized.
         // If k == 3 you are the host,
@@ -86,6 +93,7 @@ public class MainScreen extends MenuScreen {
         startThread(model);
     }
 
+    //Actions listener for the play game button in debug mode.
     class playAction implements ActionListener {//goes to play game based on the 2 text field
         public void actionPerformed (ActionEvent e){
             // Initializes the game with the values inserted.
@@ -101,11 +109,8 @@ public class MainScreen extends MenuScreen {
             }
         }
     }
-    // These private classes changes the frame
-    // depending on what button is pressed.
-    // They are found in every java class
-    // under the 'Screens' folder.
 
+    //Action listener for the new game button.
     private class newGameAction implements ActionListener {//sets "New Game" go to newgamescreen
         public void actionPerformed(ActionEvent e) {
             changePanel();
@@ -113,6 +118,7 @@ public class MainScreen extends MenuScreen {
         }
     }
 
+    //Action listener for the multiplayer button.
     private class MPAction implements ActionListener {//sets "multiplayer" go to multiplayerscreen
         public void actionPerformed(ActionEvent e) {
             changePanel();
@@ -120,6 +126,7 @@ public class MainScreen extends MenuScreen {
         }
     }
     
+    //Action listener for the create sudoku button.
     private class createSudokuAction implements ActionListener {//setes "create Sudoku" to go to createsudokuscreen
         public void actionPerformed(ActionEvent e) {
             changePanel();
@@ -127,6 +134,7 @@ public class MainScreen extends MenuScreen {
         }
     }
 
+    //Action listener for the sudoku solver button.
     private class sudokuSolverAction implements ActionListener {//sets "Sudoku solver" to sudokuSolverscreen
         public void actionPerformed(ActionEvent e) {
             changePanel();
@@ -134,6 +142,7 @@ public class MainScreen extends MenuScreen {
         }
     }
     
+    //Action listener for the stats button.
     private class statsAction implements ActionListener {//sets "Stats" to go to Statsscreen
     	public void actionPerformed(ActionEvent e) {
     		changePanel();

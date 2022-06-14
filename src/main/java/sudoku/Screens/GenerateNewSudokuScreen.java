@@ -13,6 +13,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+	//This class contains the menu screen when clicking generate new sudoku.
+
 public class GenerateNewSudokuScreen extends MenuScreen {
     private JLabel titleLabel,
                    boardSizeLabel,
@@ -25,16 +27,18 @@ public class GenerateNewSudokuScreen extends MenuScreen {
     private ChangeListener nListener, kListener;
     private boolean assistMode;
 
-
+    //Constructor taking the frame and the selected mode.
     public GenerateNewSudokuScreen(JFrame frame, Mode mode) {
         super(frame, mode);
     }
 
+    //Constructor allowing to set assist mode.
     public GenerateNewSudokuScreen(JFrame frame, Mode mode, boolean assistMode) {
         this(frame, mode);
         this.assistMode = assistMode;
     }
 
+    //Sets the background image.
     @Override
     protected void initBackground() {
         try {
@@ -44,6 +48,7 @@ public class GenerateNewSudokuScreen extends MenuScreen {
         }
     }
 
+    //Adds the components to the screen.
     public void addComponents(){//init title, sliders, and buttons
         // Title
         titleLabel = new JLabel("Choose size and Difficulty");
@@ -59,6 +64,7 @@ public class GenerateNewSudokuScreen extends MenuScreen {
         setActionListeners();
     }
 
+    //Adds the sliders.
     private void makeSliders() {//generates sliders n and k
         //Adding elements to sliders
         nLabel = new JLabel("3");
@@ -93,11 +99,13 @@ public class GenerateNewSudokuScreen extends MenuScreen {
         setPanel(new JPanel(), new JComponent[]{difficultyLabel, difficultyBox});
     }
 
+    //Sets the action listeners for the buttons.
     private void setActionListeners(){//makes the buttons pressable
         generateBtn.addActionListener(new startAction());
         backBtn.addActionListener(new backAction());
     }
 
+    //A listener for when a value for a slider has changed.
     public ChangeListener setListener(ChangeListener listener, JLabel label){
         listener = new ChangeListener() {
             public void stateChanged(ChangeEvent event) {
@@ -108,10 +116,12 @@ public class GenerateNewSudokuScreen extends MenuScreen {
         return listener;
     }
 
+    //Starts the game.
     private Model startGame(int k, int n, Mode mode) {
         return getModel(k, n, mode, assistMode);
     }
 
+    //Action listener for the generate sudoku button.
     class startAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             Model model;
@@ -134,6 +144,7 @@ public class GenerateNewSudokuScreen extends MenuScreen {
         }
     }
 
+    //Action listener for the back button.
     class backAction implements ActionListener {//goes back a menu
         public void actionPerformed(ActionEvent e) {
             changePanel();

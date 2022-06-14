@@ -1,19 +1,16 @@
 package testers;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.util.Date;
 import java.util.List;
 
-import Generators.SudokuGenerator;
 import MVC.Model;
 import solvers.EfficientSolver;
 import solvers.SudokuSolver;
 import sudoku.Field;
-/*
-This class tests different solved sudoku's
-and how much time it takes to be solved.
- */
+
+	//This class is used to test sudoku solvers.
+
 public class SolverTester {
 	
 	private boolean includeRandom = false;
@@ -21,6 +18,7 @@ public class SolverTester {
 	private boolean doTestCases = true;
 	private boolean doTestSudokus = false;
 	
+	//Performs all tests
 	public void testAll(Model model) {
 		//test(model, new BacktrackingSolver(model.board, model.innerSquareSize));
 		//test(model, new RandomBacktrackingSolver(model.board, model.innerSquareSize));
@@ -28,12 +26,12 @@ public class SolverTester {
 		test(model, new EfficientSolver(model.board, model.innerSquareSize));
 	}
 
+	//Performs all tests on a specific solver.
 	public void test(Model model, SudokuSolver solver) {
 		long start = new Date().getTime();
 		System.out.println("Testing "+solver.getClass().getSimpleName()+".");
 
-		//These are the different sudokus with the given filename
-		//that the solver tester will find an average runtime of.
+		//These are the different test cases.
 		SolverTestCase[] testCases = new SolverTestCase[] {new SolverTestCase("given", true),
 											   new SolverTestCase("empty", true),
 											   new SolverTestCase("smallunique", true),
@@ -67,9 +65,7 @@ public class SolverTester {
 		if (doTestCases) {
 			boolean success = true;
 
-			//Tests all test cases by using the solving
-			//algorithms for every single sudoku being
-			//tested having them find their running time.
+			//Tests all test cases.
 			for (SolverTestCase testCase : testCases) {
 				model.loadAndUpdate(testCase.fileName);
 				solver.setBoard(model.board, model.innerSquareSize);
@@ -174,16 +170,12 @@ public class SolverTester {
 		}
 	}
 
-	/*
-		SolverTestCase is a way of saving all the tested
-		sudokus having whether they are solvable
-		or not and what their file name is.
-	*/
-	
+	//This class represents a test case for the solver tester.
 	private static class SolverTestCase {
 		public String fileName;
 		public boolean solvable;
 		
+		//Constructor taking the file name for the test sudoku and whether the sudoku is solvable.
 		public SolverTestCase(String fileName, boolean solvable) {
 			this.fileName = fileName;
 			this.solvable = solvable;

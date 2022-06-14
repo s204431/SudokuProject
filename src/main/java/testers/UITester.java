@@ -30,9 +30,7 @@ import sudoku.Main;
 import sudoku.Screens.*;
 import MVC.*;
 
-/*
-	The UITester, as the name suggests, tests the UI.
-*/
+	//This class is used to test the UI of the program.
 
 public class UITester extends ComponentTestFixture {
 	private boolean testMainMenu = true,
@@ -43,6 +41,7 @@ public class UITester extends ComponentTestFixture {
 					monkeyTest = true;
 	private String otherTesterIP = "10.209.182.103";
 
+	//Performs tests on the main menu.
 	public void testMainMenu() {
 		if (!testMainMenu) {
 			return;
@@ -69,7 +68,7 @@ public class UITester extends ComponentTestFixture {
 		}
 	}
 
-	//Tests the UI properties of the play mode.
+	//Tests the UI of the play mode.
 	public void testPlayMode() {
 		if (!testPlayMode) {
 			return;
@@ -88,7 +87,7 @@ public class UITester extends ComponentTestFixture {
 		}
 	}
 
-	//Tests the UI properties of the create mode.
+	//Tests the UI of the create mode.
 	public void testCreateMode() {
 		if (!testCreateMode) {
 			return;
@@ -105,7 +104,7 @@ public class UITester extends ComponentTestFixture {
 		}
 	}
 
-	//Tests the UI properties of the solver mode.
+	//Tests the UI of the solver mode.
 	public void testSolverMode() {
 		if (!testSolverMode) {
 			return;
@@ -122,7 +121,7 @@ public class UITester extends ComponentTestFixture {
 		}
 	}
 
-	//Tests the UI properties of the multiplayer mode.
+	//Tests the UI of the multiplayer mode.
 	public void testMultiplayerMode() {
 		if (!testMultiplayerMode) {
 			return;
@@ -163,13 +162,9 @@ public class UITester extends ComponentTestFixture {
 		}
 	}
 
-	//As the name suggests, testMonkey is a monkey that
-	//tests our program. It does so by clicking the UI.
 
-	//This monkey test clicks random places just like a user
-	//would, but at a must faster pace. This allows us to have
-	//a really fast way of detecting small errors that
-	//would take up a lot of time by doing manually.
+	//Performs a test that presses random positions and buttons on the screen with the mouse
+	//and presses random keys on the keyboard.
 	public void testMonkey() {
 		if (!monkeyTest) {
 			return;
@@ -228,6 +223,7 @@ public class UITester extends ComponentTestFixture {
 		}
 	}
 	
+	//Makes the thread sleep for the given milliseconds.
 	private void sleep(long millis) {
 		try {
 			Thread.sleep(millis);
@@ -236,8 +232,7 @@ public class UITester extends ComponentTestFixture {
 		}
 	}
 
-	//This method tests a difficulty and tests
-	//whether it holds or not.
+	//This method tests the UI when generating a sudoku with a specific difficulty.
 	private void checkDifficulty(String difficulty, String initialButtonName, boolean allowRemovingInitialValues, String... expectedChoices) {
 		clickButton(initialButtonName);
 		clickButton("Generate New Sudoku");
@@ -260,10 +255,8 @@ public class UITester extends ComponentTestFixture {
 		assertEquals("Sudoku has wrong difficulty.", difficulty, SudokuSolver.getDifficultyString(solver.difficulty));
 		checkSudokuActions(view, model, allowRemovingInitialValues);
 	}
-	//checkSudokuActions checks whether the actions are
-	//usable when a sudoku has been generated.
-	//It finds out if the actions that should have been
-	//implemented have been implemented.
+	
+	//Checks if different actions work correctly when in-game.
 	private void checkSudokuActions(View view, Model model, boolean allowRemovingInitialValues) {
 		double initialBoardX = view.boardX;
 		double initialBoardY = view.boardY;
@@ -331,9 +324,7 @@ public class UITester extends ComponentTestFixture {
 		assertTrue("Wrong board position.", view.fieldWidth == initialFieldWidth && view.fieldHeight == initialFieldHeight && view.boardX == initialBoardX && view.boardY == initialBoardY);
 	}
 
-	//Is used when a value from the difficulty
-	//dropdown menu is presented and needs
-	//to be accessed.
+	//Selects a specific value in a dropdown.
 	private void selectDropdownValue(JComboBox dropdown, String value) {
 		JComboBoxTester tester = new JComboBoxTester();
 		int index = -1;
@@ -345,18 +336,7 @@ public class UITester extends ComponentTestFixture {
 		tester.actionSelectIndex(dropdown, index);
 	}
 
-	//Used when a Dialog is needed to be found.
-	private Dialog getDialog() {
-		try {
-			return (Dialog)getFinder().find(new ClassMatcher(Dialog.class));
-		} catch (ComponentNotFoundException | MultipleComponentsFoundException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	//Used to get the dropdown with the difficulty
-	//options in GenerateNewSudokuScreen.
+	//Finds and returns a dropdown on screen.
 	private JComboBox getDropdown() {
 		try {
 			return (JComboBox)getFinder().find(new ClassMatcher(JComboBox.class));
@@ -366,9 +346,7 @@ public class UITester extends ComponentTestFixture {
 		return null;
 	}
 
-	//Tests whether the difficulty of the
-	//dropdown menu gets the right difficulty
-	//when that dropdown menu is accessed.
+	//Checks if the difficulties in the difficulty dropdown match the expected choices.
 	private void checkDifficultyDropdown(String[] expectedChoices) {
 		JComboBox dropdown = getDropdown();
 		assertNotNull("Difficulty dropdown does not exist.", dropdown);
@@ -378,7 +356,7 @@ public class UITester extends ComponentTestFixture {
 		}
 	}
 
-	//Clicks a button in a sequence.
+	//Clicks a sequence of buttons and checks if the expected panel is active after clicking the button.
 	private void performButtonClickSequence(String[] buttonTexts, Class<?>[] expectedPanelClasses) {
 		assertTrue("Buttons and expected panel classes must have same lengths.", buttonTexts.length == expectedPanelClasses.length);
 		for (int i = 0; i < buttonTexts.length; i++) {
@@ -387,10 +365,12 @@ public class UITester extends ComponentTestFixture {
 		}
 	}
 
+	//Checks if a panel with the give class is active.
 	private void checkPanelActive(Class<?> panelClass) {
 		assertNotNull("Wrong panel active. Expected "+panelClass+".", getPanel(panelClass));
 	}
 	
+	//Clicks the button with the give text.
 	private void clickButton(String buttonText) {
 	    try {
 			JButton button = (JButton)getFinder().find(new Matcher() {
@@ -407,6 +387,7 @@ public class UITester extends ComponentTestFixture {
 		assertTrue("Button " + buttonText + " does not exist.", false);
 	}
 	
+	//Finds a returns an active panel with the given class.
 	private JPanel getPanel(Class<?> panelClass) {
 		try {
 			return (JPanel)getFinder().find(new ClassMatcher(panelClass));
@@ -415,6 +396,7 @@ public class UITester extends ComponentTestFixture {
 		return null;
 	}
 	
+	//Finds and returns a textfield with the given text.
 	private JTextField getTextField(String text) {
 	    try {
 			JTextField tf = (JTextField)getFinder().find(new Matcher() {

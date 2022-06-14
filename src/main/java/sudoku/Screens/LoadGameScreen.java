@@ -17,27 +17,33 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FilenameFilter;
 
+	//This class contains the menu screen when clicking load existing sudoku.
+
 public class LoadGameScreen extends MenuScreen {
     private JLabel titleString;
     private JButton loadGameBtn, backBtn;
     private JList<LoadListElement> loadList;
     private boolean isHost, assistMode;
 
+    //Constructor taking the frame and the selected mode.
     public LoadGameScreen(JFrame frame, Mode mode) {
         super(frame, mode);
     }
 
+    //Constructor used for multiplayer mode.
     public LoadGameScreen(JFrame frame, Mode mode, boolean isHost) {
         super(frame, mode);
         this.isHost = isHost;
     }
 
+    //Constructor allowing to set assist mode.
     public LoadGameScreen(JFrame frame, Mode mode, boolean isHost, boolean assistMode) {
         super(frame, mode);
         this.isHost = isHost;
         this.assistMode = assistMode;
     }
 
+    //Adds the components to the screen.
     public void addComponents() {
         // Title
         titleString = new JLabel("Load Game");
@@ -60,6 +66,8 @@ public class LoadGameScreen extends MenuScreen {
     inside a box of them. These sudoku files can then be accessed from this frame and are continuable
     if desired.
      */
+    
+    //Adds the list containing the loadable sudokus.
     private void addLists() {//reads the loadable sudokus
         File folder = new File("savedsudokus");
         File[] matchingFiles = folder.listFiles(new FilenameFilter() {
@@ -96,30 +104,25 @@ public class LoadGameScreen extends MenuScreen {
         add(scrollPane);
         add(Box.createRigidArea(new Dimension(0, spacing)));
     }
-    /*
-    public void mouseClicked(MouseEvent event)
-    {
-        if (event.getClickCount() == 2 && event.getButton() == MouseEvent.BUTTON1) {
-            System.out.println("double clicked");
-        }
-    }
-    */
+    
+    //Set the action listeners for the buttons.
     private void setActionListeners(){//makes buttons pressable
         loadGameBtn.addActionListener(new loadAction());
         backBtn.addActionListener(new backAction());
     }
 
+    //Starts the game.
     private Model startGame(int k, int n, Mode mode) {
         return getModel(k, n, mode, assistMode);
     }
 
+    //Action listener for the load button.
     class loadAction implements ActionListener {//goes to multiplayer load manu, depending on if you are host or not
         public void actionPerformed(ActionEvent e) {
         	if (loadList.getSelectedValue() == null) {
         		return;
         	}
             frame.dispose();
-            //startGame(1, 1, mode).load(loadList.getSelectedValue());
             if (isHost) {
                 setMultiplayerInstance(isHost,"").loadAndUpdate(loadList.getSelectedValue().name);
             } else {
@@ -128,6 +131,7 @@ public class LoadGameScreen extends MenuScreen {
         }
     }
 
+    //Action listener for the back button.
     private class backAction implements ActionListener {//goes back 1 menu
         public void actionPerformed(ActionEvent e) {
             backAction();

@@ -1,27 +1,25 @@
 package sudoku;
 
 /*
-    Field.java is a field in the sudoku board. Every field has a value that is decided when the sudoku board
-    is initialized. Fields that are placed by the game and not by a player is not interactable, since the
-    initial sudoku shouldn't be edited.
+    Objects of this class represents a field in a sudoku.
+    It contains all information about a specific field.
 */
 
 public class Field {
 	public static final double DEFAULT_WIDTH  = 70.0,
 							   DEFAULT_HEIGHT = 70.0;
 	public int value = 0;
-	public int[] notes;
+	public int[] notes = new int[9];
 	public boolean interactable = true;
 	public boolean clicked, highlighted;
 	
-	public Field() {
-		this.notes = new int[9];
-	}
+	//Empty default constructor.
+	public Field() {}
 	
+	//Constructor that takes the value of the field and if it is interactable.
 	public Field(int value, boolean interactable) {
 		this.value = value;
 		this.interactable = interactable;
-		this.notes = new int[9];
 	}
 
 	//Returns the value of this field.

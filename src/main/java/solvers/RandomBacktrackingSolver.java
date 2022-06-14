@@ -8,23 +8,24 @@ import sudoku.Field;
 import MVC.Model;
 
 /*
-	This RandomBacktrackingSolver uses the BacktrackingSolver
-	and differs with that it takes the order of the backtracking
-	from and shuffles it in a random order that makes the backtracking
-	not follow logic, but randomness.
+	This RandomBacktrackingSolver is a random version
+	of the BacktrackingSolver.
 */
 
 
 public class RandomBacktrackingSolver extends BacktrackingSolver {
 	
+	//Constructor taking a field 2D array.
 	public RandomBacktrackingSolver(Field[][] board, int innerSquareSize) {
 		super(board, innerSquareSize);
 	}
 	
+	//Constructor taking an int 2D array.
 	public RandomBacktrackingSolver(int[][] board, int innerSquareSize) {
 		super(board, innerSquareSize);
 	}
-	//Shuffles the order.
+	
+	//Shuffles the order of values to make the solver random.
 	protected List<Integer> generateOrder() {
 		List<Integer> randomOrder = super.generateOrder();
 		Collections.shuffle(randomOrder);

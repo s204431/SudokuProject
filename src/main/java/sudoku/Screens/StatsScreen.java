@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+	//This class contains the menu screen when clicking stats.
+
 public class StatsScreen extends MenuScreen {
 	
 	private int[] stats;
@@ -14,10 +16,12 @@ public class StatsScreen extends MenuScreen {
 					 name;
 	private JButton backBtn;
 	
+	//Constructor taking the frame.
 	public StatsScreen(JFrame frame) {
 		super(frame);
 	}
 	
+	//Adds the components to the screen.
 	public void addComponents() {
 		// Title
 		titleString = new JLabel ("Statistics");
@@ -81,14 +85,17 @@ public class StatsScreen extends MenuScreen {
 		setActionListeners();
 	}
 	
+	//Sets the font for the given label.
 	private void setLabelFont(JLabel label) {
 		label.setFont(new Font("Serif", Font.BOLD, 20));
 	}
 	
+	//Sets the action listeners for the buttons.
     private void setActionListeners(){//makes button pressable
         backBtn.addActionListener(new backAction());
     }
 	
+    //Action listener for the back button.
     class backAction implements ActionListener {//sets "Back" to go to Mainscreen
         public void actionPerformed(ActionEvent e) {
             changePanel();

@@ -8,9 +8,8 @@ import MVC.Model;
 import sudoku.Field;
 
 /*
-	The EfficientSolver is an extension of the SudokuSolver
-	using most of the different solving techniques explained in
-	the problem analysis section in the report.
+	The EfficientSolver is an extension of the SudokuSolver.
+	It solves sudokus using different techniques.
 */
 
 
@@ -30,24 +29,20 @@ public class EfficientSolver extends SudokuSolver {
 	public List<int[]> rowHints = new ArrayList<int[]>();
 	public List<int[]> columnHints = new ArrayList<int[]>();
 
-	//Constructor used for MVC and solvers
+	//Constructor taking a field 2D array.
 	public EfficientSolver(Field[][] board, int innerSquareSize) {
 		super(board, innerSquareSize);
 	}
 
-	//Constructor used for generator (backtracking)
+	//Constructor taking an int 2D array.
 	public EfficientSolver(int[][] board, int innerSquareSize) {
 		super(board, innerSquareSize);
 	}
 
-	//Solves the sudoku and returns the amount of solutions
-	//and decrements the amount of guesses.
+	//Find up to maxSolutions different solutions to a sudoku. Returns all of the solutions.
 	public List<int[][]> solve(int maxSolutions) {
 		reset();
 		solveRecursive(board, initializePossibleValues(), maxSolutions);
-		/*if (recursiveCalls > 500000) {
-			System.out.println("Solver took too long to find solutions.");
-		}*/
 		if (solutions.size() == 0) {
 			difficulty = 0;
 		}
@@ -58,7 +53,7 @@ public class EfficientSolver extends SudokuSolver {
 		return solutions;
 	}
 
-	//Recursively
+	//Recursively solves the given sudoku.
 	private void solveRecursive(int[][] board, List<Integer>[][] possibleValues, int maxSolutions) {
 		recursiveCalls++;
 		guesses++;
@@ -78,7 +73,7 @@ public class EfficientSolver extends SudokuSolver {
 		}
 		generateOrder(move[1]);
 		//Creates a copy of the original board and inserts new values
-		//depending on the moves obtained by the makeMove() method
+		//depending on the moves obtained by the makeMove method.
 		for (int i = 0; i < move[1].size(); i++) {
 			int[][] newBoard = copyOf(board);
 			newBoard[move[0].get(0)][move[0].get(1)] = move[1].get(i);
@@ -96,13 +91,12 @@ public class EfficientSolver extends SudokuSolver {
 		//Do nothing.
 	}
 	
-	//Find one move for solving the sudoku.
+	//Find one move towards solving the sudoku.
 	public List<Integer>[] makeMove(int[][] board, List<Integer>[][] possibleValues) {
 		if (detectUnsolvable && detectUnsolvable(board, possibleValues)) {
 			return null;
 		}
-		//Uses the different solving techniques explained in
-		//the Algorithm section in the report. It solves in
+		//Uses the different solving techniques. It solves in
 		//a difficulty order where first is the easiest and
 		//last is the most difficult, ordered by top to bottom.
 		if (useSingleCandidate) {
@@ -168,10 +162,11 @@ public class EfficientSolver extends SudokuSolver {
 				return result;
 			}
 		}
-		//Otherwise, make a guess (this is also a solving method).
+		//Make a guess if none of the techniques can be used.
 		return makeGuess(board, possibleValues);
 	}
-	//Algorithm for singleCandidate.
+	
+	//Algorithm for single candidate technique.
 	private List<Integer>[] singleCandidate(int[][] board, List<Integer>[][] possibleValues) {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
@@ -183,7 +178,7 @@ public class EfficientSolver extends SudokuSolver {
 		}
 		return null;
 	}
-	//Algorithm for singlePosition.
+	//Algorithm for single position technique.
 	private List<Integer>[] singlePosition(int[][] board, List<Integer>[][] possibleValues) {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board.length; j++) {
@@ -225,7 +220,7 @@ public class EfficientSolver extends SudokuSolver {
 		return null;
 	}
 
-	//Algorithm for candidateLines.
+	//Algorithm for candidate lines technique.
 	private boolean candidateLines(int[][] board, List<Integer>[][] possibleValues) {
 		boolean updated = false;
 		for (int i = 0; i < getNumInnerSquares(); i++) {
@@ -303,7 +298,7 @@ public class EfficientSolver extends SudokuSolver {
 		return updated;
 	}
 
-	//Algorithm for multipleLines.
+	//Algorithm for multiple lines technique.
 	private boolean multipleLines(int[][] board, List<Integer>[][] possibleValues) {
 		boolean updated = false;
 		for (int i = 0; i < getNumInnerSquares(); i++) {
@@ -431,7 +426,7 @@ public class EfficientSolver extends SudokuSolver {
 		return updated;
 	}
 
-	//Algorithm for nakedPairs.
+	//Algorithm for naked pairs technique.
 	//Not used due to running time being slow.
 	private boolean nakedPairs(int[][] board, List<Integer>[][] possibleValues) {
 		boolean updated = false;
@@ -556,7 +551,7 @@ public class EfficientSolver extends SudokuSolver {
 		return updated;
 	}
 
-	//Algorithm for xWing.
+	//Algorithm for X-Wing technique.
 	private boolean xWing(int[][] board, List<Integer>[][] possibleValues) {
 		boolean updated = false;
 		for (int v = 1; v <= getMaxValue(); v++) {
@@ -614,7 +609,7 @@ public class EfficientSolver extends SudokuSolver {
 		return updated;
 	}
 
-	//Algorithm for xWing.
+	//Algorithm for swordfish technique.
 	private boolean swordfish(int[][] board, List<Integer>[][] possibleValues) {
 		boolean updated = false;
 		for (int v = 1; v <= getMaxValue(); v++) {
@@ -725,7 +720,7 @@ public class EfficientSolver extends SudokuSolver {
 		}
 		return updated;
 	}
-	//Algorithm for exactlyTwo.
+	
 	//Used for X-Wing and Swordfish to check if a row or column contains a specific possible value in exactly two fields.
 	private int[] exactlyTwo(List<Integer>[][] possibleValues, int k, int v, boolean row) {
 		int cr1 = -1;
@@ -746,7 +741,7 @@ public class EfficientSolver extends SudokuSolver {
 		return new int[] {cr1, cr2};
 	}
 
-	//Algorithm for forcingChains.
+	//Algorithm for forcing chains technique.
 	private List<Integer>[] forcingChains(int[][] board, List<Integer>[][] possibleValues) {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board.length; j++) {
@@ -774,10 +769,10 @@ public class EfficientSolver extends SudokuSolver {
 		return null;
 	}
 
-	//Algorithm for forcingChainsRecursive.
+	//Performs the forcing chains technique recursively.
 	private void forcingChainsRecursive(int[][] board, List<Integer>[][] possibleValues, List<int[]> forces, int x, int y) {
 		for (int i = 0; i < board.length; i++) {
-			if (i != x) { //Look through column
+			if (i != x) { //Look through column.
 				if (board[i][y] <= 0 && possibleValues[i][y].size() == 2) {
 					int k = possibleValues[i][y].indexOf(board[x][y]);
 					if (k >= 0) {
@@ -787,7 +782,7 @@ public class EfficientSolver extends SudokuSolver {
 					}
 				}
 			}
-			if (i != y) { //Look through row
+			if (i != y) { //Look through row.
 				if (board[x][i] <= 0 && possibleValues[x][i].size() == 2) {
 					int k = possibleValues[x][i].indexOf(board[x][y]);
 					if (k >= 0) {
@@ -814,7 +809,7 @@ public class EfficientSolver extends SudokuSolver {
 		}
 	}
 
-	//Algorithm for makeGuess.
+	//Algorithm for making a guess.
 	private List<Integer>[] makeGuess(int[][] board, List<Integer>[][] possibleValues) {
 		//Choose field with the least possible values.
 		int lowestPossibleValues = Integer.MAX_VALUE;
@@ -837,7 +832,7 @@ public class EfficientSolver extends SudokuSolver {
 		return toMove(lowestX, lowestY, possibleValues[lowestX][lowestY]);
 	}
 
-	//Uses the two lowest possible values
+	//Takes x, y and list of values and wraps them in a list of integers.
 	private List<Integer>[] toMove(int x, int y, List<Integer> values) {
 		List<Integer> pos = new ArrayList<>();
 		pos.add(x);
@@ -845,25 +840,19 @@ public class EfficientSolver extends SudokuSolver {
 		return new List[] {pos, values};
 	}
 
-	//Converts the value to an arraylist and uses the
-	//same toMove() method seen above.
+	//Overloaded toMove method that takes only a single value instead of a list.
 	private List<Integer>[] toMove(int x, int y, int value) {
 		ArrayList<Integer> lv = new ArrayList<>();
 		lv.add(value);
 		return toMove(x, y, lv);
 	}
-	//This method whether the sudoku can be solved or not
-	//by
+	
+	//This method is used to detect if a sudoku is unsolvable.
 	private boolean detectUnsolvable(int[][] board, List<Integer>[][] possibleValues) {
-		//Initializes new 2d boolean arrays that will find hold the result
-		//of the board having a possibility of a value being contained
-		//in a specific coordinate.
 		boolean[][] foundColumn = new boolean[board.length][getMaxValue()];
 		boolean[][] foundRow = new boolean[board.length][getMaxValue()];
 		boolean[][] foundInnerSquare = new boolean[getNumInnerSquares() * getNumInnerSquares()][getMaxValue()];
 		boolean foundPossibleMove = false;
-		//Checks all fields and updates the arrays
-		//depending on the possible values
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board.length; j++) {
 				if (possibleValues[i][j].size() > 0) {
@@ -886,12 +875,6 @@ public class EfficientSolver extends SudokuSolver {
 		if (!foundPossibleMove) {
 			return true;
 		}
-		//TODO I don't know if this is true.
-		//Checks all indexes in the board to see if the amount
-		//of values in a row or col that can be placed is
-		//greater than the size of the board itself. Meaning
-		//that there are less values that can be inserted than what
-		//needs to be inserted and the sudoku is therefore incomplete.
 		for (int i = 0; i < board.length; i++) {
 			int rowCount = 0;
 			int colCount = 0;
@@ -907,8 +890,6 @@ public class EfficientSolver extends SudokuSolver {
 				return true;
 			}
 		}
-		//If there is a place in the foundInnerSquare that is false
-		//the sudoku must be incomplete and therefore unsolvable.
 		for (boolean[] ba : foundInnerSquare) {
 			for (boolean b : ba) {
 				if (!b) {
@@ -919,7 +900,7 @@ public class EfficientSolver extends SudokuSolver {
 		return false;
 	}
 
-	//Counts the possible values that can be placed in a field
+	//Initializes the data structure containing the possible values for each field.
 	private List<Integer>[][] initializePossibleValues() {
 		ArrayList[][] possibleValues = new ArrayList[board.length][board[0].length];
 		for (int i = 0; i < board.length; i++) {
@@ -940,7 +921,7 @@ public class EfficientSolver extends SudokuSolver {
 		return possibleValues;
 	}
 	
-	//Update possibleValues.
+	//Update possibleValues when adding a new value on the board.
 	private void add(int[][] board, List<Integer>[][] possibleValues, int x, int y, int value) {
 		possibleValues[x][y] = new ArrayList<Integer>();
 		for (int i = 0; i < board.length; i++) {
@@ -960,7 +941,7 @@ public class EfficientSolver extends SudokuSolver {
 		}
 	}
 
-	//Copies the all the possible values that a field has.
+	//Makes a copy of the possibleValues data structure.
 	private List<Integer>[][] copyOf(List<Integer>[][] possibleValues) {
 		ArrayList<Integer>[][] newPossibleValues = new ArrayList[possibleValues.length][possibleValues[0].length];
 		for (int i = 0; i < possibleValues.length; i++) {
@@ -974,7 +955,8 @@ public class EfficientSolver extends SudokuSolver {
 		return newPossibleValues;
 	}
 
-	//Makes only one move if a solution exists.
+	//Makes only one move towards solving the sudoku if a solution exists.
+	//Returns the move as int array containing x, y and the value.
 	public int[] makeOneMove() {
 		List<int[][]> solvedSudoku = solve(1);
 		resetHints();
@@ -994,6 +976,7 @@ public class EfficientSolver extends SudokuSolver {
 		return null;
 	}
 	
+	//Adds a hint with given name and positions, rows, columns and sub boxes to be marked.
 	private void addHint(String name, int[][] positions, int[] rows, int[] columns, int[][] subBoxes) {
 		hintNames.add(name);
 		positionHints.add(positions == null ? new int[0][0] : positions);
@@ -1002,6 +985,7 @@ public class EfficientSolver extends SudokuSolver {
 		subBoxHints.add(subBoxes == null ? new int[0][0] : subBoxes);
 	}
 	
+	//Resets the hints.
 	private void resetHints() {
 		hintNames = new ArrayList<String>();
 		positionHints = new ArrayList<int[][]>();

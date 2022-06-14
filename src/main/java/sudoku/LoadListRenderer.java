@@ -21,9 +21,7 @@ import MVC.Model;
 import solvers.SudokuSolver;
 
 /*
-   This class renders files from the 'savedsudokus' folder
-   and uses these files to upload viewable saved sudoku
-   files that can be selected and continued after selection.
+   This class renders the list of sudokus in the load menu.
 */
 
 public class LoadListRenderer extends JPanel implements ListCellRenderer<LoadListElement> {
@@ -33,6 +31,7 @@ public class LoadListRenderer extends JPanel implements ListCellRenderer<LoadLis
     			   sizeLabel 		= new JLabel();
     private PreviewPanel previewPanel = new PreviewPanel();
  
+    //Constructor taking the width of the load list.
     public LoadListRenderer(int width) {
 		//Initializes the size and layout of the list renderer.
     	setLayout(new BorderLayout(5, 5));
@@ -52,7 +51,8 @@ public class LoadListRenderer extends JPanel implements ListCellRenderer<LoadLis
         panel.add(previewPanel);
         add(panel, BorderLayout.CENTER);
     }
- 	//Returns all the elements in an intuitive way.
+    
+ 	//Returns a component corresponding to a LoadListElement.
     public Component getListCellRendererComponent(JList<? extends LoadListElement> list, LoadListElement element,
 												  int index, boolean isSelected, boolean cellHasFocus) {
     	nameLabel.setText(element.name);
@@ -91,18 +91,18 @@ public class LoadListRenderer extends JPanel implements ListCellRenderer<LoadLis
     }
 
 	/*
-		The PreviewPanel is a small ui of how the sudoku looks.
-		If the LoadGameScreen is active these small boxes of a sudoku
-		instance are presented in the right end of the list element.
+		The PreviewPanel is a small panel that shows a preview of how a saved sudoku looks.
 	*/
 
     private static class PreviewPanel extends JPanel {
     	private LoadListElement element;
     	
+    	//Sets the LoadListElement to show a preview of.
     	public void setElement(LoadListElement element) {
     		this.element = element;
     	}
-    	//Paints a small version of the actual UI.
+    	
+    	//Paints the preview.
 	    public void paint(Graphics g) {
 	        super.paint(g);
 	
@@ -131,8 +131,7 @@ public class LoadListRenderer extends JPanel implements ListCellRenderer<LoadLis
 	        Stroke oldStroke = g2.getStroke();
 	        for (int i = 0; i < element.numInnerSquares; i++) {
 	            for (int j = 0; j < element.numInnerSquares; j++) {
-	                //g2.setColor(model.sudokuSolved(model.board, model.innerSquareSize) ? new Color(0, 200, 0) : black);
-	            	g2.setColor(black);
+	                g2.setColor(black);
 	                g2.setStroke(new BasicStroke(2));
 	                g2.drawRect(j * fieldWidth * iss, i * fieldHeight * iss, fieldWidth*iss, fieldHeight*iss);
 	            }

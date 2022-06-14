@@ -13,21 +13,20 @@ public class Main {
 	private static String title = "Sudoku";
 
 	/*
-	 * When the main method calls restart()
-	 * this instance initializes a JFrame by creating
-	 * an instance of the Object MainScreen.
-	 * This MainScreen object is the base of
-	 * our programs input logic and visualization
+	 This class contains the start of the program.
 	 */
 
+	//This method is the first method called when the program starts.
 	public static void main(String[] args) {
 		restart();
 	}
 	
+	//Restarts the game without displaying a message.
 	public static void restart() {
 		restart("");
 	}
 
+	//Restarts the program and displays a message.
 	public static void restart(String message) {
 		JFrame frame = new JFrame(title);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

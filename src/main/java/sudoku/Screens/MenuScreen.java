@@ -20,11 +20,9 @@ import java.io.IOException;
 import java.net.URL;
 
 /*
-    The abstract class MenuScreen is a screen that all the other Screens inherit from.
-    It has built-in functions that almost every other Screen calls.
-    It sets the bounds and limits for all classes and minimizes errors.
+    This is an abstract class that all of the menu screens extend from.
+    It contains functionalities that menu screens have in common.
 */
-
 
 public abstract class MenuScreen extends JPanel {
     protected Font titleFont = new Font(Font.SERIF, Font.BOLD,Main.SCREEN_HEIGHT / 20);
@@ -46,18 +44,20 @@ public abstract class MenuScreen extends JPanel {
     protected BufferedImage backgroundImage;
 
 
+    //Constructor taking the frame.
     public MenuScreen(JFrame frame) {
         this.frame = frame;
         initialize();
     }
 
+    //Constructor allowing to set the mode.
     public MenuScreen(JFrame frame, Mode mode) {
         this.frame = frame;
         this.mode = mode;
         initialize();
     }
 
-    //Sets standard values and preferred settings.
+    //Initializes values and settings.
     private void initialize() {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         initBackground();
@@ -66,7 +66,8 @@ public abstract class MenuScreen extends JPanel {
         frame.add(this);
         frame.setVisible(true);
     }
-    //Sets background image as the first "layer" of the UI.
+    
+    //Sets background image.
     protected void initBackground() {
         try {
             backgroundImage = ImageIO.read(new File("src/main/resources/Background.png"));
@@ -75,17 +76,17 @@ public abstract class MenuScreen extends JPanel {
         }
     }
 
+    //Draws the background image.
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
     }
 
+    //Adds the components to the screen. Should be extended by subclasses.
     public abstract void addComponents();
 
-    // All 'set...' JComponent methods creates a generic:
-    // set element -> add space -> repeat...
-
+    //Sets the correct size, font, etc. of the buttons on the screen.
     protected void setButtons(JButton[] buttons){
         for (JButton button : buttons) {
             button.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -110,6 +111,7 @@ public abstract class MenuScreen extends JPanel {
         }
     }
 
+    //Sets the correct design of the sliders.
     protected void setSliders(JLabel[] labels, ChangeListener[] listener, JSlider[] sliders, String[] names){
         for (int i = 0; i < labels.length; i++) {
             labels[i].setFont(labelFont);
@@ -132,6 +134,7 @@ public abstract class MenuScreen extends JPanel {
         }
     }
 
+    //Sets the main panel of the screen and adds components to the panel.
     protected void setPanel(JPanel panel, JComponent[] components){
         panel.setMaximumSize(panelDimension);
         panel.setOpaque(false);
@@ -151,6 +154,7 @@ public abstract class MenuScreen extends JPanel {
         add(Box.createRigidArea(new Dimension(0, spacing)));
     }
 
+    //Sets the correct design of the text fields.
     protected void setTextFields(JTextField[] fields){
         for (JTextField field : fields) {
             field.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -159,6 +163,8 @@ public abstract class MenuScreen extends JPanel {
             add(Box.createRigidArea(new Dimension(0, spacing)));
         }
     }
+    
+    //Sets the correct design of the labels.
     protected void setLabels(JLabel[] labels){
         for (JLabel label : labels) {
             label.setFont(labelFont);
@@ -168,6 +174,7 @@ public abstract class MenuScreen extends JPanel {
         }
     }
 
+    //Sets the title of the screen.
     protected void setTitle(JLabel title){
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         title.setFont(titleFont);
@@ -175,21 +182,12 @@ public abstract class MenuScreen extends JPanel {
         add(Box.createRigidArea(new Dimension(0, spacing)));
     }
 
-    private void startGame() {
-        Model model = new Model(k, n, Model.Mode.play);
-        View view = new View(model);
-        Controller controller = new Controller();
-        model.setView(view);
-        controller.setModel(model);
-        controller.setView(view);
-        view.setController(controller);
-    }
-
+    //Removes the main panel.
     protected void changePanel() {
         frame.remove(this);
     }
 
-
+    //Creates the MultiplayerModel correctly in multiplayer.
     protected Model setMultiplayerInstance(boolean isHost, String address){     // This method checks if the player
         MultiplayerModel model;                                                 // is the host or not and decides how
         if (isHost) {                                                           // to start the game depending on that.
@@ -207,6 +205,8 @@ public abstract class MenuScreen extends JPanel {
         startThread(model);
         return model;
     }
+    
+    //Starts the game in multiplayer (in a parallel thread).
     protected void startThread(MultiplayerModel model){
         MultiplayerView view = new MultiplayerView(model);
         Controller controller = new Controller();
@@ -218,6 +218,7 @@ public abstract class MenuScreen extends JPanel {
         new Thread(model).start(); //Creates thread to wait for opponent
     }
 
+    //Creates a model with given k, n, mode and value of assist mode.
     protected Model getModel(int k, int n, Mode mode, boolean assistMode) {
         Model model = new Model(k, n, mode, assistMode);
         View view = new View(model);
@@ -228,29 +229,8 @@ public abstract class MenuScreen extends JPanel {
         view.setController(controller);
         return model;
     }
-
-    protected void setUpMenuBar(JFrame frame){
-        JMenuBar menuBar = new JMenuBar();
-        frame.setJMenuBar(menuBar);
-
-        JMenu file = new JMenu("File");
-        menuBar.add(file);
-        JMenuItem exit = new JMenuItem("Exit");
-        file.add(exit);
-        exit.addActionListener(new exitAction());
-
-        JMenu difficulty = new JMenu("Difficulty");
-        menuBar.add(difficulty);
-        difficulty.add(new JMenuItem("Easy"));
-        difficulty.add(new JMenuItem("Medium"));
-        difficulty.add(new JMenuItem("Hard"));
-
-        JMenu restart = new JMenu("Restart");
-        menuBar.add(restart);
-        restart.add(new JMenuItem("Same Sudoku"));
-        restart.add(new JMenuItem("New Sudoku"));
-    }
-
+    
+    //Decides which screen to go to when pressing a back button.
     protected void backAction(){
         changePanel();
         switch (mode){
@@ -265,12 +245,6 @@ public abstract class MenuScreen extends JPanel {
                 break;
             default:
                 new SudokuSolverScreen(frame);
-        }
-    }
-
-    protected static class exitAction implements ActionListener {
-        public void actionPerformed (ActionEvent e){
-            System.exit(0);
         }
     }
 

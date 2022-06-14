@@ -1,8 +1,7 @@
 package sudoku;
 
 /*
- This class is used to make an object of loaded '.su' files. When for example in LoadGameScreen.java
- we want to show all loadable elements in a box we use this class to generate those files and save them.
+ This class represents an element in the list in the load menu.
 */
 
 public class LoadListElement {
@@ -10,6 +9,7 @@ public class LoadListElement {
 	public int difficulty, size, innerSquareSize, numInnerSquares;
 	public Field[][] board;
 	
+	//Constructor taking the necessary information.
 	public LoadListElement(String name, int difficulty, int size, Field[][] board, int innerSquareSize, int numInnerSquares) {
 		this.name = name;
 		this.difficulty = difficulty;

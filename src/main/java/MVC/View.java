@@ -28,7 +28,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 	private static final long serialVersionUID = 1L;
 	public Model model;
 	protected Controller controller;
-	public double boardX, boardY = 0.0; //x- and y coordinate for top left corner.
+	public double boardX = 0.0, boardY = 0.0; //x- and y coordinate for top left corner.
 	protected boolean dragging = false;
 	protected int[] mouseBoardVector = new int[] {0, 0};
 	public int windowWidth, windowHeight;
@@ -51,7 +51,6 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     private Color buttonColor = new Color(180, 180, 180);
     private Color hoverButtonColor = new Color(120, 120, 120);
 
-    private boolean helpInfoShown = false;
     public int[] clickedPosition = new int[] {0, 0};
     public ArrayList<int[]> marked1;
     public ArrayList<int[]> marked2;
@@ -76,8 +75,6 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setPreferredSize(getPreferredSize());
         frame.setLayout(null);
-
-        //frame.add(label, BorderLayout.CENTER);
 
         // Create button panel
         buttonPanel = new JPanel(null);
@@ -207,7 +204,6 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             Stroke oldStroke = g2.getStroke();
             for (int i = 0; i < model.numInnerSquares; i++) {
                 for (int j = 0; j < model.numInnerSquares; j++) {
-                    //g2.setColor(model.sudokuSolved(model.board, model.innerSquareSize) ? new Color(0, 200, 0) : black);
                     g2.setColor(black);
                     g2.setStroke(new BasicStroke((int) (2 + fieldWidth / 30)));
                     g2.drawRect((int) (boardX + j * (int) fieldWidth * iss), (int) (boardY + i * (int) fieldHeight * iss), (int) fieldWidth * iss, (int) fieldHeight * iss);
@@ -234,6 +230,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         }
     }
     
+    //Checks if a list of coordinates contains coordinate (x, y).
     private boolean containsPosition(ArrayList<int[]> list, int x, int y) {
     	for (int[] array : list) {
     		if (array[0] == x && array[1] == y) {
@@ -243,7 +240,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     	return false;
     }
 
-    //Add cancel button to view (visible when generating sudoku)
+    //Add cancel button to view (visible when generating sudoku).
     public void addCancelButtonToView() {
         cancelButton = new JButton("Cancel");
         cancelButton.setBounds(windowWidth / 2 - windowHeight / 6, windowHeight * 3 / 4,windowHeight / 3,windowHeight / 12);
@@ -399,6 +396,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         }
     }
 
+    //Sets the style of a button.
     private void styleButton(JButton button) {
         button.setFocusPainted(false);
         button.setBackground(buttonColor);
@@ -528,12 +526,12 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     	dragging = false;
     }
 
-    //Handles a key typed by the user.
 	@Override
 	public void keyTyped(KeyEvent e) {
+        //Does nothing, but required by implemented interface.
 	}
 
-	//Turns notes on when pressing shift.
+	//Handles a key pressed by the user.
 	@Override
 	public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
@@ -666,15 +664,14 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 		int minute = time / 60 % 60;
 		int second = time % 60;
 		JOptionPane.showMessageDialog(frame, "Sudoku solved! your time was: " + hour + ":" + minute + ":" + second);
-		//return to menu, save time
 	}
 
+	//Shows a popup saying that the sudoku is unsolvable.
     public void unsolvablePopup() {
         JOptionPane.showMessageDialog(frame, "The current sudoku is unsolvable.");
     }
 
-    //Inserts a button that has an
-    //explanation of every command.
+    //Shows a popup with an explanation of different commands.
     public void HelpPopup(){
         if (Main.DEBUG_MODE){
             JOptionPane.showMessageDialog(frame,
