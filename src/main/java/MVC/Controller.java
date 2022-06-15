@@ -2,9 +2,6 @@ package MVC;
 
 import java.awt.event.KeyEvent;
 
-import Generators.SudokuGenerator;
-import MVC.Model.Mode;
-import solvers.EfficientSolver;
 import solvers.SudokuSolver;
 import sudoku.Main;
 import testers.GeneratorTester;

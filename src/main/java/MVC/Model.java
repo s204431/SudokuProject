@@ -10,12 +10,9 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-import javax.swing.JOptionPane;
-
 import solvers.*;
 import sudoku.Field;
 import Generators.*;
-import sudoku.Main;
 
 /*
 	The model of our MVC-module. Controller sends requests to manipulate the data in the model.

@@ -3,7 +3,6 @@ package sudoku.Screens;
 import MVC.Model.Mode;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
