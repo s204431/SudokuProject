@@ -95,8 +95,10 @@ public class Model {
 	}
 	//Inserts note in a field with a given value.
 	public void setNote(int x, int y, int value) {
-		board[x][y].notes[value - 1] = (board[x][y].notes[value - 1] == value) ? 0 : value;
-		view.repaint();
+		if (value <= getMaxNumber()) {
+			board[x][y].notes[value - 1] = (board[x][y].notes[value - 1] == value) ? 0 : value;
+			view.repaint();
+		}
 	}
 	
 	//Checks if the current sudoku is solved. Takes a 2D integer array.
