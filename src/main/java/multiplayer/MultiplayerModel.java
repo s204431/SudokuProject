@@ -24,7 +24,7 @@ import sudoku.Field;
 
 public class MultiplayerModel extends Model implements Runnable {
 	
-	public boolean isServer = false,
+	public boolean isServer,
 			       started  = false;
 	private boolean close = false;
 	private SpaceRepository repository;

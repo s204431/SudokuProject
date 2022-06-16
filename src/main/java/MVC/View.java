@@ -33,7 +33,11 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 	protected boolean close = false;
 	protected JFrame frame;
 	protected JPanel buttonPanel;
-	protected JButton saveButton, loadButton, notesButton, removeNotesButton, exitButton;
+	protected JButton saveButton,
+                      loadButton,
+                      notesButton,
+                      removeNotesButton,
+                      exitButton;
     private JButton cancelButton;
     private JLabel hintText;
 	public JTextField textField;
@@ -41,20 +45,20 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 	protected boolean inFocus = true;
     public boolean notesOn = false;
     private boolean infoButtonClicked = false;
-    private int savedDifficulty;
-    private int buttonYReference = Main.SCREEN_HEIGHT/3;
+    private int savedDifficulty,
+                buttonYReference = Main.SCREEN_HEIGHT / 3;
     private Font buttonFont = new Font("Arial", Font.BOLD, Main.SCREEN_HEIGHT / 60);
-    private Color buttonColor = new Color(180, 180, 180);
-    private Color hoverButtonColor = new Color(120, 120, 120);
+    private Color buttonColor      = new Color(180, 180, 180),
+                  hoverButtonColor = new Color(120, 120, 120);
 
     public int[] clickedPosition = new int[] {0, 0};
     public ArrayList<int[]> marked1;
     public ArrayList<int[]> marked2;
     public String hintName;
 
-	public int currentSecond;
-	public int currentMinute;
-	public int currentHour;
+	public int currentSecond,
+	           currentMinute,
+               currentHour;
 
     //Constructor taking a references to the model.
     public View(Model model) {
@@ -254,7 +258,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
     //Add all components to the button panel (buttons etc.).
     public void addComponentsToButtonPanel(Mode mode) {
         JButton helpButton = new JButton("Help");
-        helpButton.setBounds(buttonPanel.getWidth()/4, buttonYReference,buttonPanel.getWidth()/2,buttonPanel.getWidth()/9);
+        helpButton.setBounds(buttonPanel.getWidth() / 4, buttonYReference,buttonPanel.getWidth() / 2,buttonPanel.getWidth() / 9);
         styleButton(helpButton);
         helpButton.addActionListener(new ActionListener() {
             @Override
@@ -264,7 +268,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         });
         buttonPanel.add(helpButton);
         notesButton = new JButton("Notes off");
-        notesButton.setBounds(buttonPanel.getWidth()/4, buttonYReference + buttonPanel.getWidth()/5, buttonPanel.getWidth()/2,buttonPanel.getWidth()/9);
+        notesButton.setBounds(buttonPanel.getWidth() / 4, buttonYReference + buttonPanel.getWidth() / 5, buttonPanel.getWidth() / 2,buttonPanel.getWidth() / 9);
         styleButton(notesButton);
         notesButton.addActionListener(new ActionListener() {
             @Override
@@ -280,7 +284,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         });
         buttonPanel.add(notesButton);
         removeNotesButton = new JButton("Remove notes");
-        removeNotesButton.setBounds(buttonPanel.getWidth()/4, buttonYReference + buttonPanel.getWidth()/5 * 2, buttonPanel.getWidth()/2,buttonPanel.getWidth()/9);
+        removeNotesButton.setBounds(buttonPanel.getWidth() / 4, buttonYReference + buttonPanel.getWidth() / 5 * 2, buttonPanel.getWidth() / 2,buttonPanel.getWidth() / 9);
         styleButton(removeNotesButton);
         removeNotesButton.addActionListener(new ActionListener() {
             @Override
@@ -290,7 +294,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         });
         buttonPanel.add(removeNotesButton);
         exitButton = new JButton("Exit");
-        exitButton.setBounds(buttonPanel.getWidth()/4, buttonYReference + (buttonPanel.getWidth()/5) * 3, buttonPanel.getWidth()/2,buttonPanel.getWidth()/9);
+        exitButton.setBounds(buttonPanel.getWidth() / 4, buttonYReference + (buttonPanel.getWidth() / 5) * 3, buttonPanel.getWidth() / 2,buttonPanel.getWidth() / 9);
         styleButton(exitButton);
         exitButton.addActionListener(new ActionListener() {
             @Override
@@ -302,7 +306,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
         if (mode == Mode.play) {
             if (Main.DEBUG_MODE) {
                 textField = new JTextField();
-                textField.setBounds(buttonPanel.getWidth()/4, buttonYReference + (buttonPanel.getWidth()/5) * 4, buttonPanel.getWidth()/2,buttonPanel.getWidth()/9);
+                textField.setBounds(buttonPanel.getWidth() / 4, buttonYReference + (buttonPanel.getWidth() / 5) * 4, buttonPanel.getWidth() / 2,buttonPanel.getWidth() / 9);
                 textField.addMouseListener(new MouseListener() {
             		public void mousePressed(MouseEvent e) {}
             		public void mouseReleased(MouseEvent e) {}
@@ -312,7 +316,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             			inFocus = false;
             		}});
             	loadButton = new JButton("Load");
-                loadButton.setBounds(buttonPanel.getWidth()/4, buttonYReference + (buttonPanel.getWidth()/5) * 5, buttonPanel.getWidth()/2,buttonPanel.getWidth()/9);
+                loadButton.setBounds(buttonPanel.getWidth() / 4, buttonYReference + (buttonPanel.getWidth() / 5) * 5, buttonPanel.getWidth() / 2,buttonPanel.getWidth() / 9);
                 styleButton(loadButton);
                 loadButton.addActionListener(new ActionListener() {
                     @Override
@@ -322,8 +326,8 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                 });
             }
             timerLabel = new JLabel("0");
-            timerLabel.setFont(new Font("Serif", Font.BOLD, buttonPanel.getWidth()/10));
-            timerLabel.setBounds((int)(buttonPanel.getWidth() * 0.35), 0, buttonPanel.getWidth(), buttonPanel.getHeight()/5);
+            timerLabel.setFont(new Font("Serif", Font.BOLD, buttonPanel.getWidth() / 10));
+            timerLabel.setBounds((int)(buttonPanel.getWidth() * 0.35), 0, buttonPanel.getWidth(), buttonPanel.getHeight() / 5);
             buttonPanel.add(timerLabel);
             if (Main.DEBUG_MODE) {
                 buttonPanel.add(textField);
@@ -331,7 +335,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             }
         } else if (mode == Mode.create) {
             saveButton = new JButton("Save");
-            saveButton.setBounds(buttonPanel.getWidth()/4, buttonYReference - (buttonPanel.getWidth()/5), buttonPanel.getWidth()/2,buttonPanel.getWidth()/9);
+            saveButton.setBounds(buttonPanel.getWidth() / 4, buttonYReference - (buttonPanel.getWidth() / 5), buttonPanel.getWidth() / 2,buttonPanel.getWidth() / 9);
             styleButton(saveButton);
             saveButton.addActionListener(new ActionListener() {
                 @Override
@@ -343,7 +347,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 
         } else if (mode == Mode.solver) {
             JButton solveButton = new JButton("Solve");
-            solveButton.setBounds(buttonPanel.getWidth()/4, buttonYReference - (buttonPanel.getWidth()/5) * 2 , buttonPanel.getWidth()/2,buttonPanel.getWidth()/9);
+            solveButton.setBounds(buttonPanel.getWidth() / 4, buttonYReference - (buttonPanel.getWidth() / 5) * 2 , buttonPanel.getWidth() / 2,buttonPanel.getWidth() / 9);
             styleButton(solveButton);
             solveButton.addActionListener(new ActionListener() {
                 @Override
@@ -352,7 +356,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                 }
             });
             JButton stepSolveButton = new JButton("Step-solve");
-            stepSolveButton.setBounds(buttonPanel.getWidth()/4, buttonYReference - (buttonPanel.getWidth()/5), buttonPanel.getWidth()/2,buttonPanel.getWidth()/9);
+            stepSolveButton.setBounds(buttonPanel.getWidth() / 4, buttonYReference - (buttonPanel.getWidth() / 5), buttonPanel.getWidth() / 2,buttonPanel.getWidth() / 9);
             styleButton(stepSolveButton);
             stepSolveButton.addActionListener(new ActionListener() {
                 @Override
@@ -368,11 +372,11 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             hintText = new JLabel();
             hintText.setFont(new Font("Serif", Font.BOLD, buttonPanel.getWidth()/15));
             hintText.setFocusable(false);
-            hintText.setBounds(buttonPanel.getWidth()/5, buttonYReference - (buttonPanel.getWidth()/4), buttonPanel.getWidth(),buttonPanel.getWidth()/9);
+            hintText.setBounds(buttonPanel.getWidth() / 5, buttonYReference - (buttonPanel.getWidth() / 4), buttonPanel.getWidth(),buttonPanel.getWidth() / 9);
             buttonPanel.add(hintText);
 
             JButton hintButton = new JButton("Hint");
-            hintButton.setBounds(buttonPanel.getWidth()/4, buttonYReference - (buttonPanel.getWidth()/5) * 2, buttonPanel.getWidth()/2,buttonPanel.getWidth()/9);
+            hintButton.setBounds(buttonPanel.getWidth() / 4, buttonYReference - (buttonPanel.getWidth() / 5) * 2, buttonPanel.getWidth() / 2,buttonPanel.getWidth() / 9);
             styleButton(hintButton);
             hintButton.addActionListener(new ActionListener() {
                 @Override
@@ -578,14 +582,14 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		if (e.getPreciseWheelRotation() < 0.0 || (fieldWidth > 20.0 && fieldHeight > 20.0)) {
-			double fieldWidthDist = (e.getX()-boardX)/fieldWidth;
-			double fieldHeightDist = (e.getY()-boardY)/fieldHeight;
-			double w = e.getPreciseWheelRotation()*fieldWidth/25.0;
-			double h = e.getPreciseWheelRotation()*fieldHeight/25.0;
+			double fieldWidthDist = (e.getX() - boardX)/fieldWidth;
+			double fieldHeightDist = (e.getY() - boardY)/fieldHeight;
+			double w = e.getPreciseWheelRotation() * fieldWidth / 25.0;
+			double h = e.getPreciseWheelRotation() * fieldHeight / 25.0;
 			fieldWidth -= w == 0.0 ? e.getPreciseWheelRotation() : w;
 			fieldHeight -= h == 0.0 ? e.getPreciseWheelRotation() : h;
-			boardX -= (fieldWidthDist-(e.getX()-boardX)/fieldWidth)*fieldWidth;
-			boardY -= (fieldHeightDist-(e.getY()-boardY)/fieldHeight)*fieldHeight;
+			boardX -= (fieldWidthDist - (e.getX() - boardX) / fieldWidth) * fieldWidth;
+			boardY -= (fieldHeightDist - (e.getY()-boardY) / fieldHeight) * fieldHeight;
 			repaint();
 		}
 	}

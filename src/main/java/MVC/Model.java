@@ -26,8 +26,8 @@ public class Model {
 	private long start;
 	protected View view;
 	public Field[][] board;
-	public int innerSquareSize; //Width/height an inner square (n).
-	public int numInnerSquares; //Number of inner squares in one side of the sudoku (k).
+	public int innerSquareSize, //Width/height an inner square (n).
+			   numInnerSquares; //Number of inner squares in one side of the sudoku (k).
 	public enum Mode {play, create, solver, multiplayer};
 	public Mode mode = Mode.play;
 	public String fileName = "";
