@@ -662,7 +662,7 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 		int hour = time / 3600;
 		int minute = time / 60 % 60;
 		int second = time % 60;
-		JOptionPane.showMessageDialog(frame, "Sudoku solved! your time was: " + hour + ":" + (minute < 10 ? "0" : "") + minute + ":" + (second < 10 ? "0" : "") + second);
+		JOptionPane.showMessageDialog(frame, "Sudoku solved! Your time was: " + hour + ":" + (minute < 10 ? "0" : "") + minute + ":" + (second < 10 ? "0" : "") + second);
 	}
 
 	//Shows a popup saying that the sudoku is unsolvable.
