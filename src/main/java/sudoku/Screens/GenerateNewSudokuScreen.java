@@ -114,8 +114,8 @@ public class GenerateNewSudokuScreen extends MenuScreen {
             public void stateChanged(ChangeEvent event) {
                 JSlider source = (JSlider) event.getSource();
                 label.setText("" + source.getValue());
-                if (kSlider.getValue() > nSlider.getValue()) {
-                    nSlider.setValue(kSlider.getValue());
+                if (kSlider.getValue() > nSlider.getValue()){
+                    kSlider.setValue(nSlider.getValue());
                 }
             }
         };
