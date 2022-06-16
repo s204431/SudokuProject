@@ -457,14 +457,19 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
             }
         });
         panel.add(infoButton);
-        String a = (String)JOptionPane.showInputDialog(frame, panel, "Save", JOptionPane.QUESTION_MESSAGE, null, null, model.fileName);
-        if (a != null) {
-            if (infoButtonClicked) {
-                model.save(a, savedDifficulty);
-            } else {
-                model.save(a);
-            }
-        }
+    	SwingUtilities.invokeLater(new Runnable(){
+    	    @Override
+    	    public void run() {
+    	    	String a = (String)JOptionPane.showInputDialog(frame, panel, "Save", JOptionPane.QUESTION_MESSAGE, null, null, model.fileName);
+    	        if (a != null) {
+    	            if (infoButtonClicked) {
+    	                model.save(a, savedDifficulty);
+    	            } else {
+    	                model.save(a);
+    	            }
+    	        }
+    	    }
+    	});
     }
     
     //Quits to the menu without showing any message.
@@ -662,42 +667,60 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 		int hour = time / 3600;
 		int minute = time / 60 % 60;
 		int second = time % 60;
-		JOptionPane.showMessageDialog(frame, "Sudoku solved! Your time was: " + hour + ":" + (minute < 10 ? "0" : "") + minute + ":" + (second < 10 ? "0" : "") + second);
+    	SwingUtilities.invokeLater(new Runnable(){
+    	    @Override
+    	    public void run() {
+    	    	JOptionPane.showMessageDialog(frame, "Sudoku solved! Your time was: " + hour + ":" + (minute < 10 ? "0" : "") + minute + ":" + (second < 10 ? "0" : "") + second);
+    	    }
+    	});
 	}
 
 	//Shows a popup saying that the sudoku is unsolvable.
     public void unsolvablePopup() {
-        JOptionPane.showMessageDialog(frame, "The current sudoku is unsolvable.");
+    	SwingUtilities.invokeLater(new Runnable(){
+    	    @Override
+    	    public void run() {
+    	    	JOptionPane.showMessageDialog(frame, "The current sudoku is unsolvable.");
+    	    }
+    	});
     }
 
     //Shows a popup with an explanation of different commands.
     public void HelpPopup(){
         if (Main.DEBUG_MODE){
-            JOptionPane.showMessageDialog(frame,
-                    "Enter a digit in the empty fields" +
-                            "\nHold 'shift' and press a number from 1-9 to set or remove notes." +
-                            "\nUse arrow keys to navigate." +
-                            "\n'backspace' deletes the chosen field if interactable." +
-                            "\nUse your mouse to either scroll or drag the board." +
-                            "\n's' solves the sudoku." +
-                            "\n'enter' saves sudoku to a specific file." +
-                            "\n'l' loads that specific file." +
-                            "\n'n' generates a new sudoku with the same difficulty." +
-                            "\n'm' pops up your score as if solved." +
-                            "\n't' solves different sudokus and prints the time." +
-                            "\n'y' generates different sudokus and prints the time." +
-                            "\n'h' gives a hint if assist mode is active.",
-                    "Help",
-                    JOptionPane.INFORMATION_MESSAGE);
+        	SwingUtilities.invokeLater(new Runnable(){
+        	    public void run() {
+        	    	JOptionPane.showMessageDialog(frame,
+                            "Enter a digit in the empty fields" +
+                                    "\nHold 'shift' and press a number from 1-9 to set or remove notes." +
+                                    "\nUse arrow keys to navigate." +
+                                    "\n'backspace' deletes the chosen field if interactable." +
+                                    "\nUse your mouse to either scroll or drag the board." +
+                                    "\n's' solves the sudoku." +
+                                    "\n'enter' saves sudoku to a specific file." +
+                                    "\n'l' loads that specific file." +
+                                    "\n'n' generates a new sudoku with the same difficulty." +
+                                    "\n'm' pops up your score as if solved." +
+                                    "\n't' solves different sudokus and prints the time." +
+                                    "\n'y' generates different sudokus and prints the time." +
+                                    "\n'h' gives a hint if assist mode is active.",
+                            "Help",
+                            JOptionPane.INFORMATION_MESSAGE);
+        	    }
+        	});
         } else {
-            JOptionPane.showMessageDialog(frame,
-                    "Enter a digit in the empty fields" +
-                            "\nHold 'shift' and press a number from 1-9 to set or remove notes." +
-                            "\nUse arrow keys to navigate." +
-                            "\n'backspace' deletes the chosen field if interactable." +
-                            "\nUse your mouse to either scroll or drag the board.",
-                    "Help",
-                    JOptionPane.INFORMATION_MESSAGE);
+        	SwingUtilities.invokeLater(new Runnable(){
+        	    public void run() {
+                    JOptionPane.showMessageDialog(frame,
+                            "Enter a digit in the empty fields" +
+                                    "\nHold 'shift' and press a number from 1-9 to set or remove notes." +
+                                    "\nUse arrow keys to navigate." +
+                                    "\n'backspace' deletes the chosen field if interactable." +
+                                    "\nUse your mouse to either scroll or drag the board.",
+                            "Help",
+                            JOptionPane.INFORMATION_MESSAGE);
+        	    }
+        	});
         }
     }
 }
