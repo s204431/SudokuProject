@@ -3,7 +3,7 @@
 
 
 
-####Check the version of your JDK
+####Check the version of your JDK.
 Depending on your JDK version, the Java Swing library might
 be different in terms of size in the GUI.
 
