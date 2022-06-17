@@ -9,4 +9,4 @@ be different in terms of size in the GUI.
 
 > The program should work with Java version 8 or higher. 
 
-We recommend using java version 17.
+We recommend using Java version 17.
