@@ -221,6 +221,7 @@ public class UITester extends ComponentTestFixture {
 					robot.delay(20);
 				}
 			}
+			robot.delay(2000);
 		} catch(Exception e3) {
 			sleep(5000);
 			e3.printStackTrace();
