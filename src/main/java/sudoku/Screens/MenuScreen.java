@@ -17,7 +17,7 @@ import java.io.File;
 import java.io.IOException;
 
 /*
-    This is an abstract class that all of the menu screens extend from.
+    This is an abstract class that all the menu screens extend from.
     It contains functionalities that menu screens have in common.
 
     Responsible: Gideon & Michael
