@@ -191,6 +191,10 @@ public class Model {
 	
 	//Save current sudoku to file with specific file name and save the give difficulty.
 	public void save(String fileName, int difficulty) {
+		if (fileName.length() > 50) {
+			fileName = fileName.substring(0, 49);
+		}
+		fileName = replaceAll(fileName, "/", "\\", "*", ":", ";", "\"", "'", ">", "<", "{", "}", "?", "%", ",", "|", ".");
 		File file = new File("savedsudokus/"+fileName+".su");
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
@@ -218,6 +222,14 @@ public class Model {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	//Removes all occurrences of unwanted strings from the file name.
+	private String replaceAll(String s, String ... unwantedStrings) {
+		for (String r : unwantedStrings) {
+			s = s.replace(r, "");
+		}
+		return s;
 	}
 	
 	//Loads without updating the current sudoku. Returns loaded sudoku as Field[][], innerSquareSize, numInnerSquares and difficulty (difficulty = -1 if it is not saved in the file).
