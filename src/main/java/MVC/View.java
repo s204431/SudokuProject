@@ -25,12 +25,12 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
 	public Model model;
 	protected Controller controller;
 	public double boardX = 0.0, boardY = 0.0; //x- and y coordinate for top left corner.
-	protected boolean dragging = false;
+	protected boolean dragging = false,
+                      close    = false;
 	protected int[] mouseBoardVector = new int[] {0, 0};
 	public int windowWidth, windowHeight;
-	public double fieldWidth = Field.DEFAULT_WIDTH;
-	public double fieldHeight = Field.DEFAULT_HEIGHT;
-	protected boolean close = false;
+	public double fieldWidth  = Field.DEFAULT_WIDTH,
+	              fieldHeight = Field.DEFAULT_HEIGHT;
 	protected JFrame frame;
 	protected JPanel buttonPanel;
 	protected JButton saveButton,
@@ -52,10 +52,9 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                   hoverButtonColor = new Color(120, 120, 120);
 
     public int[] clickedPosition = new int[] {0, 0};
-    public ArrayList<int[]> marked1;
-    public ArrayList<int[]> marked2;
+    public ArrayList<int[]> marked1,
+                            marked2;
     public String hintName;
-
 	public int currentSecond,
 	           currentMinute,
                currentHour;

@@ -24,21 +24,21 @@ import java.io.IOException;
 */
 
 public abstract class MenuScreen extends JPanel {
-    protected Font titleFont = new Font(Font.SERIF, Font.BOLD,Main.SCREEN_HEIGHT / 20);
-    protected Font buttonFont = new Font(Font.SERIF, Font.BOLD, Main.SCREEN_HEIGHT / 40);
-    protected Font textFont = new Font(Font.SERIF, Font.BOLD,Main.SCREEN_HEIGHT / 40);
-    protected Font labelFont = new Font(Font.SERIF, Font.BOLD,Main.SCREEN_HEIGHT / 50);
+    protected Font titleFont  = new Font(Font.SERIF, Font.BOLD,Main.SCREEN_HEIGHT / 20),
+                   buttonFont = new Font(Font.SERIF, Font.BOLD, Main.SCREEN_HEIGHT / 40),
+                   textFont   = new Font(Font.SERIF, Font.BOLD,Main.SCREEN_HEIGHT / 40),
+                   labelFont  = new Font(Font.SERIF, Font.BOLD,Main.SCREEN_HEIGHT / 50);
     protected JFrame frame;
-    protected int textSize = Main.SCREEN_HEIGHT / 20;
-    protected int spacing = Main.SCREEN_HEIGHT / 30;
-    protected int btnHeight = Main.SCREEN_HEIGHT / 20;
-    protected int btnWidth = Main.SCREEN_WIDTH / 3;
+    protected int textSize  = Main.SCREEN_HEIGHT / 20,
+                  spacing   = Main.SCREEN_HEIGHT / 30,
+                  btnHeight = Main.SCREEN_HEIGHT / 20,
+                  btnWidth  = Main.SCREEN_WIDTH / 3;
     protected int k, n;
-    protected Dimension panelDimension = new Dimension(400,60);
-    protected Dimension buttonDimension = new Dimension(btnWidth, btnHeight);
-    protected Dimension textDimension = new Dimension(textSize, textSize);
-    protected Color buttonColor = new Color(180, 180, 180);
-    protected Color hoverButtonColor = new Color(120, 120, 120);
+    protected Dimension panelDimension  = new Dimension(400,60),
+                        buttonDimension = new Dimension(btnWidth, btnHeight),
+                        textDimension   = new Dimension(textSize, textSize);
+    protected Color buttonColor      = new Color(180, 180, 180),
+                    hoverButtonColor = new Color(120, 120, 120);
     protected Mode mode;
     protected BufferedImage backgroundImage;
 

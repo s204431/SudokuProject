@@ -27,7 +27,7 @@ public class NewGameScreen extends MenuScreen {
     }
 
     //Adds the components to the screen.
-    public void addComponents() {//init title, checkBoxx with label, and buttons
+    public void addComponents() {//init title, checkBox with label, and buttons
         // Title
         titleString = new JLabel("New Game");
         setTitle(titleString);
@@ -52,7 +52,7 @@ public class NewGameScreen extends MenuScreen {
         backBtn.addActionListener(new backAction());
     }
 
-    //Action listener for the generate new sudoku button.
+    //Action listener for the 'generate new sudoku button'.
     class generateNewAction implements ActionListener {//sets "Generate New Sudoku" to GenerateNewSudokuScreen
         public void actionPerformed(ActionEvent e) {
             changePanel();

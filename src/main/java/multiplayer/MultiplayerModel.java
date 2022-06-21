@@ -28,8 +28,8 @@ public class MultiplayerModel extends Model implements Runnable {
 			       started  = false;
 	private boolean close = false;
 	private SpaceRepository repository;
-	public Space toOpponent;
-	public Space fromOpponent;
+	public Space toOpponent,
+				 fromOpponent;
 	public Field[][] opponentBoard;
 	public int winner = 0; // 0 = no winner, 1 = you won, 2 = opponent won
 	

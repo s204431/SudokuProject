@@ -25,10 +25,10 @@ public class EfficientSolver extends SudokuSolver {
 					useForcingChains 	= true;
 	public boolean cancel = false;
 	public List<String> hintNames = new ArrayList<String>();
-	public List<int[][]> positionHints = new ArrayList<int[][]>();
-	public List<int[][]> subBoxHints = new ArrayList<int[][]>();
-	public List<int[]> rowHints = new ArrayList<int[]>();
-	public List<int[]> columnHints = new ArrayList<int[]>();
+	public List<int[][]> positionHints = new ArrayList<int[][]>(),
+						 subBoxHints   = new ArrayList<int[][]>();
+	public List<int[]> rowHints    = new ArrayList<int[]>(),
+					   columnHints = new ArrayList<int[]>();
 
 	//Constructor taking a field 2D array.
 	public EfficientSolver(Field[][] board, int innerSquareSize) {
