@@ -702,7 +702,8 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                                     "\n'm' pops up your score as if solved." +
                                     "\n't' solves different sudokus and prints the time." +
                                     "\n'y' generates different sudokus and prints the time." +
-                                    "\n'h' gives a hint if assist mode is active.",
+                                    "\n'h' gives a hint if assist mode is active." +
+                                    "\nPress 'space' to center the sudoku board.",
                             "Help",
                             JOptionPane.INFORMATION_MESSAGE);
         	    }
@@ -715,7 +716,8 @@ public class View extends JPanel implements MouseListener, KeyListener, MouseWhe
                                     "\nHold 'shift' and press a number from 1-9 to set or remove notes." +
                                     "\nUse arrow keys to navigate." +
                                     "\n'backspace' deletes the chosen field if interactable." +
-                                    "\nUse your mouse to either scroll or drag the board.",
+                                    "\nUse your mouse to either scroll or drag the board." +
+                                    "\nPress 'space' to center the sudoku board.",
                             "Help",
                             JOptionPane.INFORMATION_MESSAGE);
         	    }
