@@ -224,7 +224,7 @@ public class Model {
 		}
 	}
 
-	// Removes all occurrences of unwanted strings from the file name.
+	//Removes all occurrences of unwanted strings from the file name.
 	private String replaceAll(String s, String ... unwantedStrings) {
 		for (String r : unwantedStrings) {
 			s = s.replace(r, "");
