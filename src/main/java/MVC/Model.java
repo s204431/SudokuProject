@@ -75,7 +75,7 @@ public class Model {
 		}
 		hintNumber = 0;
 		board[x][y] = field;
-		if (sudokuSolved(board, innerSquareSize)) {
+		if (mode != Mode.create && sudokuSolved(board, innerSquareSize)) {
 			solved = true;
 			view.winPopup(difficulty);
 		}
