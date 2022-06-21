@@ -2,6 +2,7 @@ package sudoku.Screens;
 
 import MVC.Model;
 import multiplayer.MultiplayerModel;
+import sudoku.Main;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -75,6 +76,13 @@ public class MultiplayerScreen extends MenuScreen{
     class joinAction implements ActionListener  {//sets "Join" connect to the written Ip in textfield
         public void actionPerformed(ActionEvent e) {
             String address = ip_address.getText();
+            for (char c : address.toCharArray()) {
+                if (!Character.isDigit(c) && c != '.') {
+                    frame.dispose();
+                    Main.restart("Could not connect to server");
+                    return;
+                }
+            }
             frame.dispose();
             setMultiplayerInstance(false, address);
         }
