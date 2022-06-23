@@ -42,7 +42,7 @@ public class UITester extends ComponentTestFixture {
 					testCreateMode = true,
 					testSolverMode = true,
 					testMultiplayerMode = false,
-					monkeyTest = true;
+					monkeyTest = false;
 	private String otherTesterIP = "10.209.182.103";
 
 	//Performs tests on the main menu.
