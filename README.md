@@ -41,3 +41,4 @@ Follow this guide and set up your project.
 
 ##Starting the program
 The program can be started in your IDE by running the Main.java file.
+The UI tester can be started in your IDE by running the UITester.java file.
